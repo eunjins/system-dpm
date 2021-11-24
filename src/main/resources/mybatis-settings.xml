@@ -6,4 +6,12 @@
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
+
+	<typeAliases>
+		<typeAlias alias="device" type="kr.co.dpm.system.model.Device" />
+		<typeAlias alias="attach" type="kr.co.dpm.system.model.Attach" />
+		<typeAlias alias="script" type="kr.co.dpm.system.model.Script" />
+		<typeAlias alias="measure" type="kr.co.dpm.system.model.Measure" />
+	</typeAliases>
+
 </configuration>

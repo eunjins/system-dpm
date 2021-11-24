@@ -18,4 +18,9 @@
     <mvc:view-resolvers>
         <mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp" />
     </mvc:view-resolvers>
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="102400010" />
+    </bean>
 </beans>
