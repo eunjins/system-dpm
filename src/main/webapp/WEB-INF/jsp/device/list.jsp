@@ -62,31 +62,31 @@
 <table border="1">
     <tr>
         <td>
-            <a href="${contextPath}/devices/${device.id}"><<</a>
+            <a href="${contextPath}/devices/${device.id}"> << </a>
         </td>
         <td>
-            <a href="${contextPath}/devices/${device.id}"><</a>
+            <a href="${contextPath}/devices/${device.id}"> < </a>
         </td>
         <td>
-            <a href="${contextPath}/devices/${device.id}">1</a>
+            <a href="${contextPath}/devices/${device.id}"> 1 </a>
         </td>
         <td>
-            <a href="${contextPath}/devices/${device.id}">2</a>
+            <a href="${contextPath}/devices/${device.id}"> 2 </a>
         </td>
         <td>
-            <a href="${contextPath}/devices/${device.id}">3</a>
+            <a href="${contextPath}/devices/${device.id}"> 3 </a>
         </td>
         <td>
-            <a href="${contextPath}/devices/${device.id}">4</a>
+            <a href="${contextPath}/devices/${device.id}"> 4 </a>
         </td>
         <td>
-            <a href="${contextPath}/devices/${device.id}">5</a>
+            <a href="${contextPath}/devices/${device.id}"> 5 </a>
         </td>
         <td>
-            <a href="${contextPath}/devices/${device.id}">></a>
+            <a href="${contextPath}/devices/${device.id}"> > </a>
         </td>
         <td>
-            <a href="${contextPath}/devices/${device.id}">>></a>
+            <a href="${contextPath}/devices/${device.id}"> >> </a>
         </td>
     </tr>
 </table>

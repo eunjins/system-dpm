@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="kr.co.dpm.system.device.repository.DeviceRepository">
+<mapper namespace="kr.co.dpm.system.device.DeviceRepository">
     <select id="selectAll"
             parameterType="device"
             resultType="device">
@@ -59,18 +59,6 @@
         <set>
             <if test="name != null and name != ''">
                 NAME = ${name}
-            </if>
-            <if test="hostName != null and hostName != ''">
-                HOST_NAME = ${hostName}
-            </if>
-            <if test="ipAddress != null and ipAddress != ''">
-                IP_ADDRESS = ${ipAddress}
-            </if>
-            <if test="insertDate != null and insertDate != ''">
-                INSERT_DATE = ${insertDate}
-            </if>
-            <if test="jdkVersion != null and jdkVersion != ''">
-                JDK_VERSION = ${jdkVersion}
             </if>
             <if test="status != null and status != ''">
                 STATUS = ${status}

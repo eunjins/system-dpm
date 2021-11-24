@@ -8,10 +8,10 @@
 	</settings>
 
 	<typeAliases>
-		<typeAlias alias="device" type="kr.co.dpm.system.model.Device" />
-		<typeAlias alias="attach" type="kr.co.dpm.system.model.Attach" />
-		<typeAlias alias="script" type="kr.co.dpm.system.model.Script" />
-		<typeAlias alias="measure" type="kr.co.dpm.system.model.Measure" />
+		<typeAlias alias="device" type="kr.co.dpm.system.device.Device" />
+		<typeAlias alias="attach" type="kr.co.dpm.system.script.Attach" />
+		<typeAlias alias="script" type="kr.co.dpm.system.script.Script" />
+		<typeAlias alias="measure" type="kr.co.dpm.system.measure.Measure" />
 	</typeAliases>
 
 </configuration>

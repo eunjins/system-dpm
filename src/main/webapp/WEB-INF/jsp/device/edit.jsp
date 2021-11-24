@@ -11,8 +11,9 @@
 
 <h2>디바이스 정보 수정</h2>
 <hr>
-<form action="/devices" method="POST">
+<form action="/devices/${device.id}" method="POST">
     <input type="hidden" name="_method" value="put" />
+
     <table>
         <tr>
             <td>디바이스 ID:</td>

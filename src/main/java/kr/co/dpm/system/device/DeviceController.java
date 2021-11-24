@@ -1,12 +1,8 @@
-package kr.co.dpm.system.device.controller;
+package kr.co.dpm.system.device;
 
-import kr.co.dpm.system.device.service.DeviceServiceImpl;
-import kr.co.dpm.system.model.Device;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -14,6 +10,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class DeviceController {
     @Autowired
     private DeviceServiceImpl deviceServiceImpl;
+
+    // 수신
+    @PostMapping("/data")
+    public ModelAndView receiveDevice(Device device) {
+
+        return null;
+    }
+
 
     // 목록 조회
     @GetMapping
@@ -35,15 +39,24 @@ public class DeviceController {
         return mav;
     }
     
-    // 수정
-    @GetMapping("/{id}")
-    public ModelAndView editDevice(@RequestParam String id) {
+    // 수정 폼
+    @GetMapping("/{id}/form")
+    public ModelAndView editDevice(Device device) {
+        ModelAndView mav = new ModelAndView("device/edit");
 
-        return null;
+        mav.addObject("device", deviceServiceImpl.getDevice(device));
+
+        return mav;
     }
 
-    // 삭제
-    public ModelAndView editDevice(Device device) {
-        return null;
+    // 수정
+    @PutMapping("/{id}")
+    public ModelAndView editDevice(@PathVariable("id") String id) {
+        Device device = new Device();
+        device.setId(id);
+
+        deviceServiceImpl.editDevice(device);
+
+        return new ModelAndView("/devices/" + id);
     }
 }

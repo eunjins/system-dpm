@@ -1,7 +1,5 @@
-package kr.co.dpm.system.device.service;
+package kr.co.dpm.system.device;
 
-import kr.co.dpm.system.device.repository.DeviceRepository;
-import kr.co.dpm.system.model.Device;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

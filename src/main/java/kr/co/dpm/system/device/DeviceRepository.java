@@ -1,6 +1,6 @@
-package kr.co.dpm.system.device.repository;
+package kr.co.dpm.system.device;
 
-import kr.co.dpm.system.model.Device;
+import kr.co.dpm.system.device.Device;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

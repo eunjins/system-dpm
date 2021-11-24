@@ -1,4 +1,4 @@
-package kr.co.dpm.system.model;
+package kr.co.dpm.system.device;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

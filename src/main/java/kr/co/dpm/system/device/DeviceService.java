@@ -1,7 +1,6 @@
-package kr.co.dpm.system.device.service;
+package kr.co.dpm.system.device;
 
-import kr.co.dpm.system.model.Device;
-import org.springframework.stereotype.Service;
+import kr.co.dpm.system.device.Device;
 
 import java.util.List;
 
