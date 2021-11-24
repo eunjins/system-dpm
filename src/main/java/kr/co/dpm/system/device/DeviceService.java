@@ -12,4 +12,6 @@ public interface DeviceService {
     public void registerDevice(Device device);
 
     public void editDevice(Device device);
+
+    public String createPassword(String deviceId);
 }

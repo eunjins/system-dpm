@@ -29,4 +29,18 @@ public class DeviceServiceImpl implements DeviceService {
     public void editDevice(Device device) {
         deviceRepository.update(device);
     }
+
+    // 비밀번호 생성
+    @Override
+    public String createPassword(String id) {
+        StringBuffer password = new StringBuffer();
+
+        for (int i = 0; i < id.length(); i++) {
+            int oneLetter = id.charAt(i) + i;
+
+            password.append((char) oneLetter);
+        }
+
+        return password.toString();
+    }
 }

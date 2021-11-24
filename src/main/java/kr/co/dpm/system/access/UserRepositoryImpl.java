@@ -1,9 +1,8 @@
-package kr.co.dpm.system.access.repository;
+package kr.co.dpm.system.access;
 
-import kr.co.dpm.system.model.User;
 import org.apache.ibatis.io.Resources;
 import org.springframework.stereotype.Repository;
-import java.io.FileInputStream;
+
 import java.io.InputStream;
 import java.util.Properties;
 

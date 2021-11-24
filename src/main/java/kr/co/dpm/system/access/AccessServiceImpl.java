@@ -1,8 +1,5 @@
-package kr.co.dpm.system.access.service;
+package kr.co.dpm.system.access;
 
-import kr.co.dpm.system.access.repository.UserRepository;
-import kr.co.dpm.system.access.repository.UserRepositoryImpl;
-import kr.co.dpm.system.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

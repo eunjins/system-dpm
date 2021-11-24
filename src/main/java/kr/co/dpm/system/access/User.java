@@ -1,4 +1,4 @@
-package kr.co.dpm.system.model;
+package kr.co.dpm.system.access;
 
 import org.springframework.beans.factory.annotation.Value;
 
