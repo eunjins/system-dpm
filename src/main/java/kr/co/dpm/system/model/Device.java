@@ -1,5 +1,7 @@
 package kr.co.dpm.system.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -8,8 +10,9 @@ public class Device implements Serializable {
     private String name;
     private String hostName;
     private String ipAddress;
-    private LocalDate insertDate;
+    private String insertDate;
     private String jdkVersion;
+    private String status;
 
     public Device() {
     }
@@ -46,11 +49,11 @@ public class Device implements Serializable {
         this.ipAddress = ipAddress;
     }
 
-    public LocalDate getInsertDate() {
+    public String getInsertDate() {
         return insertDate;
     }
 
-    public void setInsertDate(LocalDate insertDate) {
+    public void setInsertDate(String insertDate) {
         this.insertDate = insertDate;
     }
 
@@ -60,5 +63,13 @@ public class Device implements Serializable {
 
     public void setJdkVersion(String jdkVersion) {
         this.jdkVersion = jdkVersion;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
