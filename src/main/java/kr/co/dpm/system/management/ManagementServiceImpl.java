@@ -41,8 +41,16 @@ public class ManagementServiceImpl implements ManagementService {
         return false;
     }
 
+    /* 측정 결과 수신 */
     @Override
     public boolean receiveMeasure(Measure measure) {
-        return false;
+        if (measure.getDeviceId() == null
+                || measure.getExecTime() == null
+                || measure.getStatus() == null) {
+
+            return false;
+        }
+
+        return true;
     }
 }

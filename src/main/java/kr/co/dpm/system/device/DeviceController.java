@@ -47,7 +47,7 @@ public class DeviceController {
         return deviceService.getDevices(device);
     }
 
-    // 조회
+    /* 상세 조회 */
     @GetMapping({"/{id}"})
     public ModelAndView getDevice(Device device) {
         ModelAndView mav = new ModelAndView("device/view");
