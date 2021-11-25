@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -28,14 +29,22 @@ public class DeviceController {
     @Autowired
     private StatusCode statusCode;
 
-    // 목록 조회
+    /* 목록 폼 */
     @GetMapping
-    public ModelAndView getDevices(Device device) {
+    public ModelAndView getDevices() {
         ModelAndView mav = new ModelAndView("device/list");
 
+        Device device = new Device();
         mav.addObject("devices", deviceService.getDevices(device));
 
         return mav;
+    }
+
+    /* 목록 조회 */
+    @PostMapping
+    @ResponseBody
+    public List<Device> getDevices(@RequestBody Device device) {
+        return deviceService.getDevices(device);
     }
 
     // 조회
