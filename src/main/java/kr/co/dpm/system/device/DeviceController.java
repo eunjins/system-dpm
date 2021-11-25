@@ -91,7 +91,7 @@ public class DeviceController {
             responseData.put("message", message);
         } else {
             responseData.put("code", String.valueOf(code));
-            responseData.put("message", message);
+            responseData.put("message", null);
         }
 
         if (device.getDeviceId() != null && device.getHostName() != null
