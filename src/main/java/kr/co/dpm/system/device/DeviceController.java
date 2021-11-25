@@ -77,7 +77,6 @@ public class DeviceController {
         Map<String, String> responseData = new HashMap<>();
 
         Map<Integer, String> statusRepository = new HashMap<>();
-        statusRepository.put(statusCode.OK, responseMessage.OK_MSG);
         statusRepository.put(statusCode.NOT_MODIFIED, responseMessage.NOT_MODIFIED_MSG);
         statusRepository.put(statusCode.BAD_REQUEST, responseMessage.BAD_REQUEST_MSG);
         statusRepository.put(statusCode.NOT_FOUND, responseMessage.NOT_FOUND_MSG);
@@ -94,7 +93,7 @@ public class DeviceController {
             responseData.put("message", null);
         }
 
-        if (device.getDeviceId() != null && device.getHostName() != null
+        if (device.getId() != null && device.getHostName() != null
                 && device.getIpAddress() != null && device.getJdkVersion() != null) {
             managementService.receiveDevice(device);
         } else {
