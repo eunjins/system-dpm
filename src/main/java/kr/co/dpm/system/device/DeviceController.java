@@ -86,7 +86,6 @@ public class DeviceController {
         Map<String, String> responseData = new HashMap<>();
 
         Map<Integer, String> statusRepository = new HashMap<>();
-        statusRepository.put(statusCode.OK, responseMessage.OK_MSG);
         statusRepository.put(statusCode.NOT_MODIFIED, responseMessage.NOT_MODIFIED_MSG);
         statusRepository.put(statusCode.BAD_REQUEST, responseMessage.BAD_REQUEST_MSG);
         statusRepository.put(statusCode.NOT_FOUND, responseMessage.NOT_FOUND_MSG);

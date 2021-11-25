@@ -16,7 +16,7 @@ public class DeviceServiceImpl implements DeviceService {
         return deviceRepository.selectAll(device);
     }
 
-    // 한건 조회
+    // 한 건 조회
     @Override
     public Device getDevice(Device device) {
         return deviceRepository.select(device);
