@@ -51,8 +51,8 @@
     <insert id="insert"
             parameterType="device">
         INSERT INTO DEVICE
-            (ID, NAME, HOST_NAME, IP_ADDRESS, INSERT_DATE, JDK_VERSION, STATUS)
-        VALUES (#{id}, #{name}, #{hostName}, #{ipAddress}, #{insertDate}, #{jdkVersion}, #{status})
+            (ID, NAME, HOST_NAME, IP_ADDRESS, INSERT_DATE, JDK_VERSION)
+        VALUES (#{id}, #{name}, #{hostName}, #{ipAddress}, #{insertDate}, #{jdkVersion})
     </insert>
 
     <update id="update"
@@ -60,21 +60,24 @@
         UPDATE DEVICE
         <set>
             <if test="name != null and name != ''">
-                NAME = ${name}
+                NAME = #{name},
             </if>
             <if test="status != null and status != ''">
-                STATUS = ${status}
+                STATUS = #{status},
             </if>
             <if test="ipAddress != null and ipAddress != ''">
-                IP_ADDRESS = ${ipAddress}
+                IP_ADDRESS = #{ipAddress},
             </if>
             <if test="hostName != null and hostName != ''">
-                HOST_NAME = ${hostName}
+                HOST_NAME = #{hostName},
+            </if>
+            <if test="jdkVersion != null and jdkVersion != ''">
+                JDK_VERSION = #{jdkVersion},
             </if>
         </set>
         <where>
             <if test="id != null and id != ''">
-                AND ID = ${id}
+                AND ID = #{id}
             </if>
         </where>
     </update>

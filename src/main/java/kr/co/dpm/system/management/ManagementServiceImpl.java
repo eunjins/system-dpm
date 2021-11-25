@@ -16,19 +16,15 @@ public class ManagementServiceImpl implements ManagementService {
 
     @Override
     public void receiveDevice(Device device) {
-        System.out.println(device.getDeviceId());
-        System.out.println(device.getHostName());
-        System.out.println(device.getIpAddress());
-        System.out.println(device.getJdkVersion());
-//        device.setId(device.getDeviceId());
-//        if (deviceService.getDevice(device) != null) {
-//            deviceService.editDevice(device);
-//        } else {
-//            String nowDate = String.valueOf(LocalDate.now());
-//            device.setName(device.getHostName());
-//            device.setInsertDate(nowDate);
-//            deviceService.registerDevice(device);
-//        }
+        device.setId(device.getDeviceId());
+        if (deviceService.getDevice(device) != null) {
+            deviceService.editDevice(device);
+        } else {
+            String nowDate = String.valueOf(LocalDate.now());
+            device.setName(device.getHostName());
+            device.setInsertDate(nowDate);
+            deviceService.registerDevice(device);
+        }
     }
 
     @Override
