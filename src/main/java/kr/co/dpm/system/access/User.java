@@ -1,7 +1,5 @@
 package kr.co.dpm.system.access;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import java.io.Serializable;
 
 public class User implements Serializable {

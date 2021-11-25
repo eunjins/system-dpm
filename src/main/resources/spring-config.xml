@@ -10,17 +10,17 @@
                            http://www.springframework.org/schema/mvc
                            http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <context:annotation-config />
-    <context:component-scan base-package="kr.co.dpm.system" />
+    <context:annotation-config/>
+    <context:component-scan base-package="kr.co.dpm.system"/>
 
-    <mvc:annotation-driven />
-    <mvc:default-servlet-handler />
+    <mvc:annotation-driven/>
+    <mvc:default-servlet-handler/>
     <mvc:view-resolvers>
-        <mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp" />
+        <mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp"/>
     </mvc:view-resolvers>
 
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="102400010" />
+        <property name="maxUploadSize" value="102400010"/>
     </bean>
 </beans>

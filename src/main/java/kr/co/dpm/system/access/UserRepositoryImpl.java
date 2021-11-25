@@ -20,7 +20,7 @@ public class UserRepositoryImpl implements UserRepository {
 
             user.setId(properties.getProperty("id"));
             user.setPassword(properties.getProperty("password"));
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

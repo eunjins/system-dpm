@@ -23,8 +23,8 @@
     <option value="name" selected="selected">디바이스 명</option>
     <option value="insertDate">등록 일자</option>
 </select>
-<input type="text" name="message" />
-<input type="button" value="검색" />
+<input type="text" name="message"/>
+<input type="button" value="검색"/>
 
 <table border="1">
     <tr>

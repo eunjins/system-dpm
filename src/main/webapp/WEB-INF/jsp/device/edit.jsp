@@ -12,7 +12,7 @@
 <h2>디바이스 정보 수정</h2>
 <hr>
 <form action="/devices/${device.id}" method="POST">
-    <input type="hidden" name="_method" value="put" />
+    <input type="hidden" name="_method" value="put"/>
 
     <table>
         <tr>
@@ -24,7 +24,7 @@
         <tr>
             <td>디바이스 명:</td>
             <td>
-                <input type="text" name="name" value="${device.name}" />
+                <input type="text" name="name" value="${device.name}"/>
             </td>
         </tr>
         <tr>
@@ -66,9 +66,9 @@
         </tr>
     </table>
 
-    <input type="submit" value="수정" />
+    <input type="submit" value="수정"/>
     <a href="${contextPath}/devices/${device.id}">
-        <input type="button" value="취소" />
+        <input type="button" value="취소"/>
     </a>
 </form>
 </body>
