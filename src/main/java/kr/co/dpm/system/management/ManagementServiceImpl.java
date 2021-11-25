@@ -36,17 +36,4 @@ public class ManagementServiceImpl implements ManagementService {
     public boolean distributeScript(Script script) {
         return false;
     }
-
-    /* 측정 결과 수신 */
-    @Override
-    public boolean receiveMeasure(Measure measure) {
-        if (measure.getDeviceId() == null
-                || measure.getExecTime() == null
-                || measure.getStatus() == null) {
-
-            return false;
-        }
-
-        return true;
-    }
 }

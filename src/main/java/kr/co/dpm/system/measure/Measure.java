@@ -7,14 +7,13 @@ public class Measure implements Serializable {
     private String name;
     private String deviceId;
     private int scriptNo;
-    private String execTime;
+    private int execTime;
     private String status;
 
     public Measure() {
     }
 
-    public Measure(int no, String name, String deviceId, int scriptNo, String execTime, String status) {
-        this.no = no;
+    public Measure(String name, String deviceId, int scriptNo, int execTime, String status) {
         this.name = name;
         this.deviceId = deviceId;
         this.scriptNo = scriptNo;
@@ -54,11 +53,11 @@ public class Measure implements Serializable {
         this.scriptNo = scriptNo;
     }
 
-    public String getExecTime() {
+    public int getExecTime() {
         return execTime;
     }
 
-    public void setExecTime(String execTime) {
+    public void setExecTime(int execTime) {
         this.execTime = execTime;
     }
 

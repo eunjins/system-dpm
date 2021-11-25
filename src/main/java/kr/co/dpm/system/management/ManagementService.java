@@ -13,5 +13,5 @@ public interface ManagementService {
 
     public boolean distributeScript(Script script);
 
-    public boolean receiveMeasure(Measure measure);
+//    public boolean receiveMeasure(Measure measure);
 }
