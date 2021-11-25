@@ -33,13 +33,13 @@
             parameterType="device"
             resultType="device">
         SELECT
-        ID
-        , NAME
-        , HOST_NAME
-        , IP_ADDRESS
-        , INSERT_DATE
-        , JDK_VERSION
-        , STATUS
+            ID
+          , NAME
+          , HOST_NAME
+          , IP_ADDRESS
+          , INSERT_DATE
+          , JDK_VERSION
+          , STATUS
         FROM DEVICE
         <where>
             <if test="id != null and id != ''">
@@ -52,7 +52,8 @@
             parameterType="device">
         INSERT INTO DEVICE
             (ID, NAME, HOST_NAME, IP_ADDRESS, INSERT_DATE, JDK_VERSION)
-        VALUES (#{id}, #{name}, #{hostName}, #{ipAddress}, #{insertDate}, #{jdkVersion})
+        VALUES
+            (#{id}, #{name}, #{hostName}, #{ipAddress}, #{insertDate}, #{jdkVersion})
     </insert>
 
     <update id="update"

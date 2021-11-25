@@ -1,7 +1,5 @@
 package kr.co.dpm.system.device;
 
-import kr.co.dpm.system.device.Device;
-
 import java.util.List;
 
 public interface DeviceService {
@@ -12,6 +10,4 @@ public interface DeviceService {
     public void registerDevice(Device device);
 
     public void editDevice(Device device);
-
-    public String createPassword(String deviceId);
 }

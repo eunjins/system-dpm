@@ -8,12 +8,12 @@
     <title>Title</title>
 </head>
 <body>
-
+<jsp:include page="/WEB-INF/jsp/common/menu.jsp" />
 <h2>디바이스 정보 수정</h2>
 <hr>
 <form action="/devices/${device.id}" method="POST">
     <input type="hidden" name="_method" value="put"/>
-
+    <input type="hidden" name="id" value="${device.id}" />
     <table>
         <tr>
             <td>디바이스 ID:</td>
