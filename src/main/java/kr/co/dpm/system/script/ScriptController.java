@@ -5,15 +5,10 @@ import kr.co.dpm.system.measure.Measure;
 import org.springframework.beans.factory.annotation.Autowired;
 import kr.co.dpm.system.common.ResponseMessage;
 import kr.co.dpm.system.common.StatusCode;
-import kr.co.dpm.system.management.ManagementServiceImpl;
-import kr.co.dpm.system.measure.Measure;
 import kr.co.dpm.system.measure.MeasureServiceImpl;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 

@@ -1,7 +1,10 @@
 package kr.co.dpm.system.script;
 
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service
 public class ScriptServiceImpl implements ScriptService {
     // 스크립트 정보 목록 조회
     @Override

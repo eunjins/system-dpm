@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Measure implements Serializable {
     private int no;
     private String name;
-    private String deviceId;
+    private String id;
     private int scriptNo;
     private int execTime;
     private String status;
@@ -13,9 +13,9 @@ public class Measure implements Serializable {
     public Measure() {
     }
 
-    public Measure(String name, String deviceId, int scriptNo, int execTime, String status) {
+    public Measure(String name, String id, int scriptNo, int execTime, String status) {
         this.name = name;
-        this.deviceId = deviceId;
+        this.id = id;
         this.scriptNo = scriptNo;
         this.execTime = execTime;
         this.status = status;
@@ -37,12 +37,12 @@ public class Measure implements Serializable {
         this.name = name;
     }
 
-    public String getDeviceId() {
-        return deviceId;
+    public String getId() {
+        return id;
     }
 
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public int getScriptNo() {
