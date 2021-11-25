@@ -1,5 +1,8 @@
 package kr.co.dpm.system.measure;
 
-public interface MeasureService {
+import org.springframework.stereotype.Service;
 
+@Service
+public interface MeasureService {
+    public void registerMeasure(Measure measure);
 }
