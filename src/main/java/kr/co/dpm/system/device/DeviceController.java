@@ -1,7 +1,8 @@
 package kr.co.dpm.system.device;
 
-import kr.co.dpm.system.status.ResponseMessage;
-import kr.co.dpm.system.status.StatusCode;
+import kr.co.dpm.system.common.ResponseMessage;
+import kr.co.dpm.system.common.StatusCode;
+import kr.co.dpm.system.management.ManagementServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+
 @Controller
 @RequestMapping("/devices")
 public class DeviceController {
@@ -18,18 +20,13 @@ public class DeviceController {
     private DeviceServiceImpl deviceService;
 
     @Autowired
+    private ManagementServiceImpl managementService;
+
+    @Autowired
     private ResponseMessage responseMessage;
 
     @Autowired
     private StatusCode statusCode;
-
-    // 수신
-    @PostMapping("/data")
-    public ModelAndView receiveDevice(Device device) {
-
-        return null;
-    }
-
 
     // 목록 조회
     @GetMapping
@@ -40,7 +37,7 @@ public class DeviceController {
 
         return mav;
     }
-    
+
     // 조회
     @GetMapping({"/{id}"})
     public ModelAndView getDevice(Device device) {
@@ -50,7 +47,7 @@ public class DeviceController {
 
         return mav;
     }
-    
+
     // 수정 폼
     @GetMapping("/{id}/form")
     public ModelAndView editDevice(Device device) {
@@ -72,10 +69,11 @@ public class DeviceController {
         return new ModelAndView("/devices/" + id);
     }
 
-    @PostMapping("/id/check")
-    public Map<String, String> receiveDeviceId(
-            @RequestBody Map<String, String> deviceId,
-            HttpServletResponse httpServletResponse) {
+    // 디바이스 정보 수신
+    @PostMapping("/data")
+    @ResponseBody
+    public Map<String, String> receiveDevice(
+            @RequestBody Device device, HttpServletResponse httpServletResponse) {
         Map<String, String> responseData = new HashMap<>();
 
         Map<Integer, String> statusRepository = new HashMap<>();
@@ -96,9 +94,11 @@ public class DeviceController {
             responseData.put("message", message);
         }
 
-        if (deviceId != null) {
-            String password = deviceService.createPassword("deviceId");
-            responseData.put("password", password);
+        if (device.getDeviceId() != null && device.getHostName() != null
+                && device.getIpAddress() != null && device.getJdkVersion() != null) {
+            managementService.receiveDevice(device);
+        } else {
+            responseData.put("message", "수신 데이터가 존재하지 않습니다.");
         }
 
         return responseData;

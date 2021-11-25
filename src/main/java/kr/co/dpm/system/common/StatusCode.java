@@ -1,4 +1,4 @@
-package kr.co.dpm.system.status;
+package kr.co.dpm.system.common;
 
 import org.springframework.stereotype.Component;
 

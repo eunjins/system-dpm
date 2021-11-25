@@ -52,8 +52,7 @@
             parameterType="device">
         INSERT INTO DEVICE
             (ID, NAME, HOST_NAME, IP_ADDRESS, INSERT_DATE, JDK_VERSION, STATUS)
-        VALUES
-            (#{id}, #{name}, #{hostName}, #{ipAddress}, #{insertDate}, #{jdkVersion}, #{status})
+        VALUES (#{id}, #{name}, #{hostName}, #{ipAddress}, #{insertDate}, #{jdkVersion}, #{status})
     </insert>
 
     <update id="update"
