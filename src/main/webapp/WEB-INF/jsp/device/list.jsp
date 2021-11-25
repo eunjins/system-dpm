@@ -11,6 +11,7 @@
     </script>
 </head>
 <body>
+<jsp:include page="/WEB-INF/jsp/common/menu.jsp" />
 <h2>디바이스 정보 목록</h2>
 <hr>
 <div style="float: left">
@@ -30,7 +31,7 @@
 <div id = "search_bar" style="float: left">
     <input type="text" name="message" id="search_message"/>
 </div>
-<button id = "button_search" >검색</button>
+<button id = "button_search">검색</button>
 <p>
 <table border="1" id="table">
     <tr>

@@ -2,7 +2,6 @@ package kr.co.dpm.system.script;
 
 import kr.co.dpm.system.common.ResponseMessage;
 import kr.co.dpm.system.common.StatusCode;
-import kr.co.dpm.system.management.ManagementServiceImpl;
 import kr.co.dpm.system.measure.Measure;
 import kr.co.dpm.system.measure.MeasureServiceImpl;
 import org.apache.log4j.LogManager;
@@ -31,9 +30,10 @@ public class ScriptController {
     @Autowired
     private ResponseMessage responseMessage;
 
-    //  스크립트 측정 결과 폼
+    //  스크립트 측정 결과 목록 조회 폼
+    @GetMapping("/scripts")
     public ModelAndView getScripts() {
-        return null;
+        return new ModelAndView("script/list");
     }
 
     // 스크립트 측정 결과 목록 조회
@@ -64,26 +64,6 @@ public class ScriptController {
     /* 스크립트 측정 결과 다운로드 */
     public void downloadScript(Script script) {
 
-    }
-
-    /* 측정 결과 등록 테스트 */
-    @GetMapping("/test")
-    public ModelAndView measureInsertTest() {
-        ModelAndView mav = new ModelAndView("test");
-
-        setting();
-        Measure measure = new Measure("등록 테스트"
-                                    , "00325-96018-79885-AAOEM"
-                                    , 1
-                                    , 123123
-                                    , "Y");
-
-//        logger.debug("------------->" + measure);
-        System.out.println("------------->" + measure);
-
-        measureService.registerMeasure(measure);
-
-        return mav;
     }
 
     /* 측정 결과 수신 */
