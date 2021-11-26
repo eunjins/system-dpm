@@ -22,6 +22,12 @@ public class ScriptController {
     private Measure measureInfo = new Measure();
 
     @Autowired
+    private ScriptServiceImpl scriptService;
+
+    @Autowired
+    private AttachServiceImpl attachService;
+
+    @Autowired
     private MeasureServiceImpl measureService;
 
     @Autowired
@@ -30,14 +36,29 @@ public class ScriptController {
     @Autowired
     private ResponseMessage responseMessage;
 
-    //  스크립트 측정 결과 목록 조회 폼
+    //  스크립트 측정 결과 목록 폼
     @GetMapping("/scripts")
     public ModelAndView getScripts() {
-        return new ModelAndView("script/list");
+        ModelAndView mav = new ModelAndView("script/list");
+
+        List<Script> scripts = scriptService.getScripts(null);
+        mav.addObject("scripts", scripts);
+
+        for (Script object : scripts) {
+            Measure measure = new Measure();
+
+            List<Measure> measures = measureService.getMeasures(measure);
+            
+            // TODO: 스크립트 측정 결과 목록
+        }
+
+        return mav;
     }
 
     // 스크립트 측정 결과 목록 조회
-    public List<Script> getScript() {
+    @PostMapping("/scripts")
+    @ResponseBody
+    public Map<Script, List<Measure>> getScripts(@RequestBody Script script) {
         return null;
     }
 
