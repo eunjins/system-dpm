@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.dpm.system.script.ScriptRepository">
+    <select id="selectAll"
+            parameterType="script"
+            resultType="script">
+        SELECT
+            NO
+          , NAME
+          , UPLOAD_POINT
+            FROM SCRIPT
+        <where>
+            <if test="name != null and name != ''">
+                AND NAME LIKE '%${name}%'
+            </if>
+            <if test="uploadPoint != null and uploadPoint != ''">
+                OR UPLOAD_POINT = DATE_FORMAT(#{uploadPoint}, '%Y-%m-%d')
+            </if>
+        </where>
+        ORDER BY UPLOAD_POINT DESC
+    </select>
+
+    <select id="select"
+            parameterType="script"
+            resultType="script">
+        SELECT
+            NO
+          , NAME
+          , UPLOAD_POINT
+        FROM SCRIPT
+        <where>
+            <if test="no > 0">
+                AND NO = #{no}
+            </if>
+        </where>
+
+    </select>
+
+    <insert id="insert"
+            parameterType="script">
+        INSERT INTO SCRIPT
+            (NAME, UPLOAD_POINT)
+        VALUES
+            (#{name}, #{uploadPoint})
+    </insert>
+</mapper>
