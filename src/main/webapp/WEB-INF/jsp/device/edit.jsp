@@ -56,10 +56,14 @@
             <td>
                 <c:choose>
                     <c:when test="${device.status eq 'Y'}">
-                        활성화
+                        <label>
+                            <input type="radio" name="status" value="Y" checked="checked"> 활성화
+                            <input type="radio" name="status" value="N"> 비활성화
+                        </label>
                     </c:when>
                     <c:when test="${device.status eq 'N'}">
-                        비활성화
+                        <input type="radio" name="status" value="Y"> 활성화
+                        <input type="radio" name="status" value="N" checked="checked"> 비활성화
                     </c:when>
                 </c:choose>
             </td>
