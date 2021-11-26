@@ -16,7 +16,7 @@ public class ManagementServiceImpl implements ManagementService {
 
     @Override
     public void receiveDevice(Device device) {
-        device.setId(device.getDeviceId());
+        device.setId(device.getId());
         if (deviceService.getDevice(device) != null) {
             deviceService.editDevice(device);
         } else {

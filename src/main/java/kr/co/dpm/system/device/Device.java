@@ -10,7 +10,6 @@ public class Device implements Serializable {
     private String insertDate;
     private String jdkVersion;
     private String status;
-    private String deviceId;
 
     public Device() {
     }
@@ -70,8 +69,4 @@ public class Device implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    public String getDeviceId() { return deviceId; }
-
-    public void setDeviceId(String deviceId) { this.deviceId = deviceId; }
 }
