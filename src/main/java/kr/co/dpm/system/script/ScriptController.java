@@ -38,9 +38,6 @@ public class ScriptController {
     private ScriptServiceImpl scriptService;
 
     @Autowired
-    private AttachServiceImpl attachService;
-
-    @Autowired
     private ManagementServiceImpl managementService;
 
     @Autowired
@@ -48,8 +45,6 @@ public class ScriptController {
 
     @Autowired
     private ResponseMessage responseMessage;
-
-    
 
     //  스크립트 측정 결과 목록 폼
     @GetMapping("/scripts")
