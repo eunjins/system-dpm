@@ -59,7 +59,7 @@ public class ScriptController {
 
             List<Measure> measures = measureService.getMeasures(measure);
 
-            // TODO: 스크립트 측정 결과 목록
+            // TODO: 측정 결과 목록
         }
 
         return mav;
