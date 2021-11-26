@@ -2,12 +2,14 @@ package kr.co.dpm.system.script;
 
 import kr.co.dpm.system.management.ManagementServiceImpl;
 import kr.co.dpm.system.measure.Measure;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import kr.co.dpm.system.common.ResponseMessage;
 import kr.co.dpm.system.common.StatusCode;
 import kr.co.dpm.system.measure.MeasureServiceImpl;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,6 +22,10 @@ import java.util.Map;
 @RestController
 public class ScriptController {
     private static final Logger logger = LogManager.getLogger(ScriptController.class);
+
+    @Value("{$path}")
+    private String path;
+
     private Measure measureInfo = new Measure();
 
     @Autowired
@@ -36,6 +42,7 @@ public class ScriptController {
 
     @Autowired
     private ManagementServiceImpl managementService;
+
     //  스크립트 측정 결과 폼
     public ModelAndView getScripts() {
         return null;
@@ -47,25 +54,28 @@ public class ScriptController {
     }
 
     // 스크립트 등록 폼
-    public ModelAndView registerScript(Script script) {
-        return null;
+    @GetMapping("/script/form")
+    public ModelAndView registerScript() {
+        ModelAndView modelAndView = new ModelAndView("script/upload");
+        return modelAndView;
     }
 
     // 스크립트 배포
-    public Map<String, String> distributeScript(Script script, MultipartFile file) {
+    @PostMapping("/script")
+    public Map<String, String> distributeScript(
+                @RequestParam("sourceFile") MultipartFile sourceFile,
+                    @RequestParam("classFile") MultipartFile classFile,
+                        Script script) {
         // 입력 값이 존재 하는가?
-        if (script != null) {
-            managementService.distributeScript(script);
+        if (!sourceFile.isEmpty() && !classFile.isEmpty()) {
+            managementService.distributeScript(classFile);
         } else {
             return null;
         }
-        // 디바이스 정보 목록을 조회한다.
-        // 스크립트를 배포한다.
-        // 배포 성공 여부를 반환한다.
         return null;
     }
 
-    //스크립트 배포 확인
+    //스크립트 배포 확인 (배포 확인되면 등록하라)
     public Map<String, String> checkScript(Script script) {
         return null;
     }
@@ -125,7 +135,7 @@ public class ScriptController {
         }
 
         // 입력 값을 검증한다.
-        if (measure.getId() != null) {
+        if (measure.getDeviceId() != null) {
             // 측정 결과 명, 스크립트 일련번호를 메모리에서 가져와 지정한다.
             setting();
             measure.setName(measureInfo.getName());

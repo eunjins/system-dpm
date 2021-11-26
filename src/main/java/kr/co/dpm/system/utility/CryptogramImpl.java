@@ -2,6 +2,7 @@ package kr.co.dpm.system.utility;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -9,6 +10,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.security.Key;
 
+//@Component
 public class CryptogramImpl implements Cryptogram {
     private String iv;
     private Key secretKeySpec;
@@ -41,15 +43,20 @@ public class CryptogramImpl implements Cryptogram {
 
     // 암호화
     @Override
-    public String encrypt(Object word) throws Exception {
+    public String encryption(Object word) throws Exception {
         if (word == null) {
             return null;
         }
 
-        return encrypt(String.valueOf(word));
+        return encryption(String.valueOf(word));
     }
 
-    private String encrypt(String word) throws Exception {
+    @Override
+    public String decryption(Object word) throws Exception {
+        return null;
+    }
+
+    private String encryption(String word) throws Exception {
         if (StringUtils.isEmpty(word)) {
             return "";
         }
