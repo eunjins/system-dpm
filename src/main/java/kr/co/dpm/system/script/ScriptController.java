@@ -2,6 +2,7 @@ package kr.co.dpm.system.script;
 
 import kr.co.dpm.system.common.ResponseMessage;
 import kr.co.dpm.system.common.StatusCode;
+import kr.co.dpm.system.management.ManagementServiceImpl;
 import kr.co.dpm.system.measure.Measure;
 import kr.co.dpm.system.measure.MeasureServiceImpl;
 import org.apache.log4j.LogManager;
@@ -22,13 +23,16 @@ public class ScriptController {
     private Measure measureInfo = new Measure();
 
     @Autowired
+    private MeasureServiceImpl measureService;
+
+    @Autowired
     private ScriptServiceImpl scriptService;
 
     @Autowired
     private AttachServiceImpl attachService;
 
     @Autowired
-    private MeasureServiceImpl measureService;
+    private ManagementServiceImpl managementService;
 
     @Autowired
     private StatusCode statusCode;
@@ -48,7 +52,7 @@ public class ScriptController {
             Measure measure = new Measure();
 
             List<Measure> measures = measureService.getMeasures(measure);
-            
+
             // TODO: 스크립트 측정 결과 목록
         }
 
@@ -69,6 +73,15 @@ public class ScriptController {
 
     // 스크립트 배포
     public Map<String, String> distributeScript(Script script, MultipartFile file) {
+        // 입력 값이 존재 하는가?
+        if (script != null) {
+            managementService.distributeScript(script);
+        } else {
+            return null;
+        }
+        // 디바이스 정보 목록을 조회한다.
+        // 스크립트를 배포한다.
+        // 배포 성공 여부를 반환한다.
         return null;
     }
 
