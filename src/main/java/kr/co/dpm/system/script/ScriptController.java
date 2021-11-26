@@ -1,5 +1,7 @@
 package kr.co.dpm.system.script;
 
+import kr.co.dpm.system.common.ResponseMessage;
+import kr.co.dpm.system.common.StatusCode;
 import kr.co.dpm.system.management.ManagementServiceImpl;
 import kr.co.dpm.system.measure.Measure;
 import org.apache.logging.log4j.LogManager;
@@ -10,6 +12,7 @@ import kr.co.dpm.system.common.StatusCode;
 import kr.co.dpm.system.measure.MeasureServiceImpl;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,24 +35,45 @@ public class ScriptController {
     private MeasureServiceImpl measureService;
 
     @Autowired
+    private ScriptServiceImpl scriptService;
+
+    @Autowired
+    private AttachServiceImpl attachService;
+
+    @Autowired
+    private ManagementServiceImpl managementService;
+
+    @Autowired
     private StatusCode statusCode;
 
     @Autowired
     private ResponseMessage responseMessage;
 
-    @Autowired
-    private ScriptServiceImpl scriptService;
+    
 
-    @Autowired
-    private ManagementServiceImpl managementService;
-
-    //  스크립트 측정 결과 폼
+    //  스크립트 측정 결과 목록 폼
+    @GetMapping("/scripts")
     public ModelAndView getScripts() {
-        return null;
+        ModelAndView mav = new ModelAndView("script/list");
+
+        List<Script> scripts = scriptService.getScripts(null);
+        mav.addObject("scripts", scripts);
+
+        for (Script object : scripts) {
+            Measure measure = new Measure();
+
+            List<Measure> measures = measureService.getMeasures(measure);
+
+            // TODO: 스크립트 측정 결과 목록
+        }
+
+        return mav;
     }
 
     // 스크립트 측정 결과 목록 조회
-    public List<Script> getScript() {
+    @PostMapping("/scripts")
+    @ResponseBody
+    public Map<Script, List<Measure>> getScripts(@RequestBody Script script) {
         return null;
     }
 
@@ -72,11 +96,6 @@ public class ScriptController {
         } else {
             return null;
         }
-        return null;
-    }
-
-    //스크립트 배포 확인 (배포 확인되면 등록하라)
-    public Map<String, String> checkScript(Script script) {
         return null;
     }
 

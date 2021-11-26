@@ -9,6 +9,7 @@ public class Measure implements Serializable {
     private int scriptNo;
     private int execTime;
     private String status;
+    private String deviceId;
 
     public Measure() {
     }
@@ -67,5 +68,13 @@ public class Measure implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 }

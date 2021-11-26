@@ -8,7 +8,7 @@
     <title>Title</title>
 </head>
 <body>
-
+<jsp:include page="/WEB-INF/jsp/common/menu.jsp" />
 <h2>디바이스 정보 조회</h2>
 <hr>
 <table>

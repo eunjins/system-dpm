@@ -4,11 +4,14 @@ import kr.co.dpm.system.common.ResponseMessage;
 import kr.co.dpm.system.common.StatusCode;
 import kr.co.dpm.system.management.ManagementServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,9 +60,9 @@ public class DeviceController {
         return mav;
     }
 
-    // 수정 폼
+    /* 수정 폼 */
     @GetMapping("/{id}/form")
-    public ModelAndView editDevice(Device device) {
+    public ModelAndView editDeviceForm(Device device) {
         ModelAndView mav = new ModelAndView("device/edit");
 
         mav.addObject("device", deviceService.getDevice(device));
@@ -67,18 +70,15 @@ public class DeviceController {
         return mav;
     }
 
-    // 수정
+    /* 수정 */
     @PutMapping("/{id}")
-    public ModelAndView editDevice(@PathVariable("id") String id) {
-        Device device = new Device();
-        device.setId(id);
-
+    public ModelAndView editDevice(Device device) {
         deviceService.editDevice(device);
 
-        return new ModelAndView("/devices/" + id);
+        return new ModelAndView(new RedirectView("/devices/" + device.getId()));
     }
 
-    // 디바이스 정보 수신
+    /* 디바이스 정보 수신 */
     @PostMapping("/data")
     @ResponseBody
     public Map<String, String> receiveDevice(

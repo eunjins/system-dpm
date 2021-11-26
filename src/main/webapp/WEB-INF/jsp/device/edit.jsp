@@ -8,12 +8,12 @@
     <title>Title</title>
 </head>
 <body>
-
+<jsp:include page="/WEB-INF/jsp/common/menu.jsp" />
 <h2>디바이스 정보 수정</h2>
 <hr>
 <form action="/devices/${device.id}" method="POST">
     <input type="hidden" name="_method" value="put"/>
-
+    <input type="hidden" name="id" value="${device.id}" />
     <table>
         <tr>
             <td>디바이스 ID:</td>
@@ -56,10 +56,14 @@
             <td>
                 <c:choose>
                     <c:when test="${device.status eq 'Y'}">
-                        활성화
+                        <label>
+                            <input type="radio" name="status" value="Y" checked="checked"> 활성화
+                            <input type="radio" name="status" value="N"> 비활성화
+                        </label>
                     </c:when>
                     <c:when test="${device.status eq 'N'}">
-                        비활성화
+                        <input type="radio" name="status" value="Y"> 활성화
+                        <input type="radio" name="status" value="N" checked="checked"> 비활성화
                     </c:when>
                 </c:choose>
             </td>
