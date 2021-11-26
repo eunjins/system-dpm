@@ -49,6 +49,11 @@ public class CryptogramImpl implements Cryptogram {
         return encrypt(String.valueOf(word));
     }
 
+    @Override
+    public String decrypt(Object word) throws Exception {
+        return null;
+    }
+
     private String encrypt(String word) throws Exception {
         if (StringUtils.isEmpty(word)) {
             return "";
