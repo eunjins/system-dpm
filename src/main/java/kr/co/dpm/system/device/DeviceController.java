@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,9 +47,7 @@ public class DeviceController {
     @PostMapping
     @ResponseBody
     public List<Device> getDevices(@RequestBody Device device) {
-        List<Device> devices = deviceService.getDevices(device);
-
-        return devices;
+        return deviceService.getDevices(device);
     }
 
     /* 상세 조회 */
@@ -103,7 +102,7 @@ public class DeviceController {
             responseData.put("message", null);
         }
 
-        if (device.getDeviceId() != null && device.getHostName() != null
+        if (device.getId() != null && device.getHostName() != null
                 && device.getIpAddress() != null && device.getJdkVersion() != null) {
             managementService.receiveDevice(device);
         } else {

@@ -27,6 +27,7 @@
                 AND STATUS = #{status}
             </if>
         </where>
+        ORDER BY NAME
     </select>
 
     <select id="select"
