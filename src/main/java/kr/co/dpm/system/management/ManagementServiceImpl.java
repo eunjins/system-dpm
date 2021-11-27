@@ -49,16 +49,13 @@ public class ManagementServiceImpl implements ManagementService {
         List<Boolean> flags = new ArrayList<Boolean>();
 
         List<Device> devices = deviceService.getDevices(new Device());
-        logger.debug("### 디바이스 목록 조회");
 
         try {
             for (Device device : devices) {
                 CryptogramImpl cryptogram = new CryptogramImpl(device.getId());
                 String encryptResult = cryptogram.encryption(device.getId());
-                logger.debug("### sciprt 암호화 완료");
 
-                flags.add(scriptFileRepository.distribute(classFile, encryptResult));
-                logger.debug("### sciprt 배포 완료");
+                flags.add(scriptFileRepository.distribute(classFile, encryptResult, device.getIpAddress()));
             }
 
             for (boolean flag : flags) {
@@ -71,5 +68,20 @@ public class ManagementServiceImpl implements ManagementService {
         }
 
         return false;
+//
+//        boolean flag = false;
+//        try{
+//            CryptogramImpl cryptogram = new CryptogramImpl("00325-96018-59835-AAOEM");
+//            String encryptResult = cryptogram.encryption("00325-96018-59835-AAOEM");
+//
+//            String url = "";
+//            flag = scriptFileRepository.distribute(classFile,encryptResult, url);
+//        } catch(Exception e){
+//            e.printStackTrace();
+//        }
+//
+//        return true;
+
+
     }
 }

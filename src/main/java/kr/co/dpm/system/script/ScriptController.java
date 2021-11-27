@@ -107,36 +107,26 @@ public class ScriptController {
     // 스크립트 배포
     @PostMapping("/script")
     public ModelAndView distributeScript(
-                @RequestParam("sourceFile") MultipartFile sourceFile,
-                    @RequestParam("classFile") MultipartFile classFile,
+                        @RequestParam("sourceFile") MultipartFile sourceFile,
+                        @RequestParam("classFile") MultipartFile classFile,
                         @RequestParam("name") String measureName,
-                            Attach attach, Script script) {
+                        Attach attach, Script script) {
         ModelAndView modelAndView = null;
-        logger.debug("### sciprt 배포 진입");
 
         if (!sourceFile.isEmpty() && !classFile.isEmpty()) {
-            logger.debug("### 소스파일 클래스파일 존재");
-
             String sourceFileName = FilenameUtils.getBaseName((sourceFile.getOriginalFilename()));
             String classFileName = FilenameUtils.getBaseName((classFile.getOriginalFilename()));
             if (sourceFileName.equals(classFileName)) {
-                logger.debug("### 소스파일 클래스파일 동일, 스크립트 배포 시작");
-
                 if (managementService.distributeScript(classFile)) {
                     String scriptName = FilenameUtils.getBaseName(
-                            sourceFile.getOriginalFilename());
+                                        sourceFile.getOriginalFilename());
 
                     script.setName(scriptName);
-                    logger.debug("### sciprt 등록 합니다");
 
                     int scriptNo = scriptService.registerScript(script);
-                    logger.debug("### sciprt 등록 완료");
 
                     attach.setScriptNo(scriptNo);
-                    logger.debug("### sciprt 첨부파일 등록합니다");
-
                     attachService.registerAttach(sourceFile, classFile, attach);
-                    logger.debug("### sciprt 첨부파일 등록 완료");
 
                     measureInfo.setName(measureName);
                     measureInfo.setScriptNo(scriptNo);

@@ -10,6 +10,7 @@
         SELECT
             NO
           , DIVISION
+          , NAME
           , PHYSIC_NAME
           , SCRIPT_NO
         FROM ATTACH
@@ -18,8 +19,25 @@
                 AND NO = #{no}
             </if>
         </where>
-
     </select>
+
+    <select id="selectAll"
+            parameterType="attach"
+            resultType="attach">
+        SELECT
+            NO
+          , DIVISION
+          , NAME
+          , PHYSIC_NAME
+          , SCRIPT_NO
+        FROM ATTACH
+        <where>
+            <if test="scriptNo > 0">
+                AND SCRIPT_NO = #{scriptNo}
+            </if>
+        </where>
+    </select>
+
 
     <insert id="insert"
             parameterType="attach">
