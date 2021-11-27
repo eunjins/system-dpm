@@ -105,7 +105,7 @@ public class ScriptController {
     }
     // TODO : 프로그램 목록 수정
     // 스크립트 배포
-    @PostMapping("/scripts")
+    @PostMapping("/scripts/distribute")
     public ModelAndView distributeScript(
                         @RequestParam("sourceFile") MultipartFile sourceFile,
                         @RequestParam("classFile") MultipartFile classFile,
