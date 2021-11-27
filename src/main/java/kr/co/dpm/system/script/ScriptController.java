@@ -103,7 +103,7 @@ public class ScriptController {
         ModelAndView modelAndView = new ModelAndView("script/upload");
         return modelAndView;
     }
-    // TODO : 프로그램 목록 수정
+    // TODO: 프로그램 목록 수정
     // 스크립트 배포
     @PostMapping("/scripts/distribute")
     public ModelAndView distributeScript(
@@ -133,7 +133,7 @@ public class ScriptController {
                 }
             }
         } else {
-            modelAndView = new ModelAndView(new RedirectView("/script/form"));
+            modelAndView = new ModelAndView(new RedirectView("/scripts/form"));
         }
 
         return modelAndView;
@@ -199,7 +199,6 @@ public class ScriptController {
         // 입력 값을 검증한다.
         if (measure.getDeviceId() != null) {
             // 측정 결과 명, 스크립트 일련번호를 메모리에서 가져와 지정한다.
-            setting();
             measure.setName(measureInfo.getName());
             measure.setScriptNo(measureInfo.getScriptNo());
 
@@ -211,11 +210,5 @@ public class ScriptController {
         }
 
         return responseData;
-    }
-
-    // TODO: 스크립트 배포 시 메모리에 저장
-    public void setting() {
-        measureInfo.setScriptNo(1);
-        measureInfo.setName("테스트");
     }
 }
