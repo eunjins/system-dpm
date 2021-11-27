@@ -26,7 +26,6 @@ public class AttachServiceImpl implements AttachService {
         return attachRepository.selectAll(attach);
     }
 
-
     @Value("${path}")
     private String path;
 

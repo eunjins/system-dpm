@@ -58,9 +58,6 @@ public class ScriptController {
     @Autowired
     private ResponseMessage responseMessage;
 
-    @Autowired
-    private AttachServiceImpl attachService;
-
     //  스크립트 측정 결과 목록 폼
     @GetMapping("/scripts")
     public ModelAndView getScripts() {
