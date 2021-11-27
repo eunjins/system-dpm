@@ -52,10 +52,14 @@ public class ManagementServiceImpl implements ManagementService {
 
         try {
             for (Device device : devices) {
-                CryptogramImpl cryptogram = new CryptogramImpl(device.getId());
-                String encryptResult = cryptogram.encryption(device.getId());
+                if (device.getStatus().equals("N")) {
+                    continue;
+                } else {
+                    CryptogramImpl cryptogram = new CryptogramImpl(device.getId());
+                    String encryptResult = cryptogram.encryption(device.getId());
 
-                flags.add(scriptFileRepository.distribute(classFile, encryptResult, device.getIpAddress()));
+                    flags.add(scriptFileRepository.distribute(classFile, encryptResult, device.getIpAddress()));
+                }
             }
 
             for (boolean flag : flags) {
