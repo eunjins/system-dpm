@@ -6,7 +6,6 @@ public class Script implements Serializable {
     private int no;
     private String name;
     private String uploadPoint;
-    private String status;
 
     public Script() {
     }
@@ -33,13 +32,5 @@ public class Script implements Serializable {
 
     public void setUploadPoint(String uploadPoint) {
         this.uploadPoint = uploadPoint;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 }
