@@ -9,18 +9,19 @@
             resultType="measure">
         SELECT
             NO
-            , NAME
+            , MEASURE.NAME
             , DEVICE_ID
             , SCRIPT_NO
             , EXEC_TIME
-            , STATUS
-            FROM MEASURE
+            , MEASURE.STATUS
+            FROM MEASURE INNER JOIN DEVICE
+            ON MEASURE.DEVICE_ID = DEVICE.ID
         <where>
             <if test="scriptNo > 0">
                 AND SCRIPT_NO = #{scriptNo}
             </if>
         </where>
-        ORDER BY EXEC_TIME DESC
+        ORDER BY DEVICE.NAME
     </select>
 
     <select id="select"

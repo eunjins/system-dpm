@@ -6,6 +6,7 @@ public class Measure implements Serializable {
     private int no;
     private String name;
     private String deviceId;
+    private String deviceName;
     private int scriptNo;
     private int execTime;
     private String status;
@@ -41,8 +42,16 @@ public class Measure implements Serializable {
         return deviceId;
     }
 
-    public void setId(String deviceId) {
+    public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
+    }
+
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
     }
 
     public int getScriptNo() {
