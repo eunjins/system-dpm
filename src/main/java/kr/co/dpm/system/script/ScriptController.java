@@ -199,7 +199,6 @@ public class ScriptController {
         // 입력 값을 검증한다.
         if (measure.getDeviceId() != null) {
             // 측정 결과 명, 스크립트 일련번호를 메모리에서 가져와 지정한다.
-            setting();
             measure.setName(measureInfo.getName());
             measure.setScriptNo(measureInfo.getScriptNo());
 
@@ -211,11 +210,5 @@ public class ScriptController {
         }
 
         return responseData;
-    }
-
-    // TODO: 스크립트 배포 시 메모리에 저장
-    public void setting() {
-        measureInfo.setScriptNo(1);
-        measureInfo.setName("테스트");
     }
 }
