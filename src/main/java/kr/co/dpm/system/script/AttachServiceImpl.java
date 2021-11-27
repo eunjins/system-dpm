@@ -12,11 +12,20 @@ import java.io.File;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import java.util.List;
+
 @Service
 public class AttachServiceImpl implements AttachService {
     private static final Logger logger = LogManager.getLogger(AttachServiceImpl.class);
     @Autowired
     private AttachRepository attachRepository;
+
+    /* 스크립트별 첨부 파일 조회 */
+    @Override
+    public List<Attach> getAttaches(Attach attach) {
+        return attachRepository.selectAll(attach);
+    }
+
 
     @Value("${path}")
     private String path;

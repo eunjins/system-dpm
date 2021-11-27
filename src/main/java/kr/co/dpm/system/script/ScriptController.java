@@ -2,15 +2,20 @@ package kr.co.dpm.system.script;
 
 import kr.co.dpm.system.common.ResponseMessage;
 import kr.co.dpm.system.common.StatusCode;
+import kr.co.dpm.system.device.Device;
+import kr.co.dpm.system.device.DeviceServiceImpl;
 import kr.co.dpm.system.management.ManagementServiceImpl;
 import kr.co.dpm.system.measure.Measure;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import kr.co.dpm.system.common.ResponseMessage;
+import kr.co.dpm.system.common.StatusCode;
 import kr.co.dpm.system.measure.MeasureServiceImpl;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.*;
 
 @RestController
 public class ScriptController {
@@ -35,7 +41,13 @@ public class ScriptController {
     private MeasureServiceImpl measureService;
 
     @Autowired
+    private DeviceServiceImpl deviceService;
+
+    @Autowired
     private ScriptServiceImpl scriptService;
+
+    @Autowired
+    private AttachServiceImpl attachService;
 
     @Autowired
     private ManagementServiceImpl managementService;
@@ -53,17 +65,30 @@ public class ScriptController {
     @GetMapping("/scripts")
     public ModelAndView getScripts() {
         ModelAndView mav = new ModelAndView("script/list");
+        List<Measure> scriptMeasure = new ArrayList<>();
 
         List<Script> scripts = scriptService.getScripts(null);
         mav.addObject("scripts", scripts);
 
         for (Script object : scripts) {
             Measure measure = new Measure();
+            measure.setScriptNo(object.getNo());
 
             List<Measure> measures = measureService.getMeasures(measure);
 
-            // TODO: 측정 결과 목록
+            measure.setName(measures.get(0).getName());
+
+            if (measure.getName() == null) {
+                measure.setStatus("N");
+                measure.setName("...");
+            } else {
+                measure.setStatus("Y");
+            }
+
+            scriptMeasure.add(measure);
         }
+
+        mav.addObject("scriptMeasure", scriptMeasure);
 
         return mav;
     }
@@ -128,33 +153,36 @@ public class ScriptController {
     }
 
     // 스크립트 측정 결과 조회
+    @GetMapping("/scripts/{no}")
     public ModelAndView getScript(Script script) {
-        return null;
+        ModelAndView mav = new ModelAndView("script/view");
+
+        mav.addObject("script", scriptService.getScript(script));
+
+        Attach attach = new Attach();
+        attach.setScriptNo(script.getNo());
+        mav.addObject("attaches", attachService.getAttaches(attach));
+
+        Measure measure = new Measure();
+        measure.setScriptNo(script.getNo());
+        List<Measure> measures = measureService.getMeasures(measure);
+        for (int i = 0; i < measures.size(); i++) {
+            Device device = new Device();
+            device.setId(measures.get(i).getDeviceId());
+
+            measures.get(i).setDeviceName(deviceService.getDevice(device).getName());
+
+            logger.debug("-------> 측정 결과: " + i + measures.get(i).getName());
+        }
+
+        mav.addObject("measures", measures);
+
+        return mav;
     }
 
     //스크립트 측정 결과 다운로드
     public void downloadScript(Script script) {
 
-    }
-
-    /* 측정 결과 등록 테스트 */
-    @GetMapping("/test")
-    public ModelAndView measureInsertTest() {
-        ModelAndView mav = new ModelAndView("test");
-
-        setting();
-        Measure measure = new Measure("등록 테스트"
-                                    , "00325-96018-79885-AAOEM"
-                                    , 1
-                                    , 123123
-                                    , "Y");
-
-//        logger.debug("------------->" + measure);
-        System.out.println("------------->" + measure);
-
-        measureService.registerMeasure(measure);
-
-        return mav;
     }
 
     /* 측정 결과 수신 */
@@ -201,6 +229,6 @@ public class ScriptController {
     // TODO: 스크립트 배포 시 메모리에 저장
     public void setting() {
         measureInfo.setScriptNo(1);
-        measureInfo.setName("반복문 측정");
+        measureInfo.setName("테스트");
     }
 }
