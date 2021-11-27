@@ -39,16 +39,18 @@
     <c:forEach items="${scripts}" var="script" varStatus="object">
         <tr>
             <td width="50">${object.count}</td>
-            <td width="200">${measure.name}</td>
+            <td width="200">
+                ${scriptMeasure[object.count - 1].name}
+            </td>
             <td>${script.name}</td>
             <td>${script.uploadPoint}</td>
             <td>
                 <c:choose>
-                    <c:when test="${measure.status eq 'Y'}">
+                    <c:when test="${scriptMeasure[object.count - 1].status eq 'N'}">
                         측정 중
                     </c:when>
-                    <c:when test="${measure.status eq 'N'}">
-                        <a href="${contextPath}/scripts/${script.id}">결과 보기</a>
+                    <c:when test="${scriptMeasure[object.count - 1].status eq 'Y'}">
+                        <a href="${contextPath}/scripts/${script.no}">결과 보기</a>
                     </c:when>
                 </c:choose>
             </td>
