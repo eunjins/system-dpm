@@ -23,13 +23,13 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
     @Value("${tempPath}")
     private String tempPath;
 
-    @Value("http")
+    @Value("${protocol}")
     private String http;
 
-    @Value("port")
+    @Value("${port}")
     private String port;
 
-    @Value("url")
+    @Value("${url}")
     private String url;
 
     @Override
