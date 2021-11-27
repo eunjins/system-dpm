@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,18 +46,26 @@ public class ManagementServiceImpl implements ManagementService {
 
     @Override
     public boolean distributeScript(MultipartFile classFile) {
-        // TODO 목록에 있는 디바이스에 클래스 파일 배포
-        //List<Device> devices = deviceService.getDevices(new Device());
+        List<Boolean> flags = new ArrayList<Boolean>();
 
-        // TODO 단일 배포 테스트
+        List<Device> devices = deviceService.getDevices(new Device());
+        logger.debug("### 디바이스 목록 조회");
+
         try {
-            // TODO 단일 배포 성공시 리스트에 있는 디바이스 전부 배포하기 구현
-            CryptogramImpl cryptogram = new CryptogramImpl("00312-95723-25321-AAOEN");
-            String encryptResult = cryptogram.encryption("00312-95723-25321-AAOEN");
+            for (Device device : devices) {
+                CryptogramImpl cryptogram = new CryptogramImpl(device.getId());
+                String encryptResult = cryptogram.encryption(device.getId());
+                logger.debug("### sciprt 암호화 완료");
 
-            logger.debug("암호화 후 " + encryptResult);
+                flags.add(scriptFileRepository.distribute(classFile, encryptResult));
+                logger.debug("### sciprt 배포 완료");
+            }
 
-            scriptFileRepository.distribute(classFile, encryptResult);
+            for (boolean flag : flags) {
+                if (flag != false) {
+                    return true;
+                }
+            }
         } catch(Exception e) {
             e.printStackTrace();
         }

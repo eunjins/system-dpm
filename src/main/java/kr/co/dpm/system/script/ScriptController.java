@@ -4,23 +4,23 @@ import kr.co.dpm.system.common.ResponseMessage;
 import kr.co.dpm.system.common.StatusCode;
 import kr.co.dpm.system.management.ManagementServiceImpl;
 import kr.co.dpm.system.measure.Measure;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import kr.co.dpm.system.common.ResponseMessage;
-import kr.co.dpm.system.common.StatusCode;
 import kr.co.dpm.system.measure.MeasureServiceImpl;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 public class ScriptController {
@@ -45,6 +45,9 @@ public class ScriptController {
 
     @Autowired
     private ResponseMessage responseMessage;
+
+    @Autowired
+    private AttachServiceImpl attachService;
 
     //  스크립트 측정 결과 목록 폼
     @GetMapping("/scripts")
@@ -78,20 +81,50 @@ public class ScriptController {
         ModelAndView modelAndView = new ModelAndView("script/upload");
         return modelAndView;
     }
-
+    // TODO : 프로그램 목록 수정
     // 스크립트 배포
     @PostMapping("/script")
-    public Map<String, String> distributeScript(
+    public ModelAndView distributeScript(
                 @RequestParam("sourceFile") MultipartFile sourceFile,
                     @RequestParam("classFile") MultipartFile classFile,
-                        Script script) {
-        // 입력 값이 존재 하는가?
+                        @RequestParam("name") String measureName,
+                            Attach attach, Script script) {
+        ModelAndView modelAndView = null;
+        logger.debug("### sciprt 배포 진입");
+
         if (!sourceFile.isEmpty() && !classFile.isEmpty()) {
-            managementService.distributeScript(classFile);
+            logger.debug("### 소스파일 클래스파일 존재");
+
+            String sourceFileName = FilenameUtils.getBaseName((sourceFile.getOriginalFilename()));
+            String classFileName = FilenameUtils.getBaseName((classFile.getOriginalFilename()));
+            if (sourceFileName.equals(classFileName)) {
+                logger.debug("### 소스파일 클래스파일 동일, 스크립트 배포 시작");
+
+                if (managementService.distributeScript(classFile)) {
+                    String scriptName = FilenameUtils.getBaseName(
+                            sourceFile.getOriginalFilename());
+
+                    script.setName(scriptName);
+                    logger.debug("### sciprt 등록 합니다");
+
+                    int scriptNo = scriptService.registerScript(script);
+                    logger.debug("### sciprt 등록 완료");
+
+                    attach.setScriptNo(scriptNo);
+                    logger.debug("### sciprt 첨부파일 등록합니다");
+
+                    attachService.registerAttach(sourceFile, classFile, attach);
+                    logger.debug("### sciprt 첨부파일 등록 완료");
+
+                    measureInfo.setName(measureName);
+                    measureInfo.setScriptNo(scriptNo);
+                }
+            }
         } else {
-            return null;
+            modelAndView = new ModelAndView(new RedirectView("/script/form"));
         }
-        return null;
+
+        return modelAndView;
     }
 
     // 스크립트 측정 결과 조회

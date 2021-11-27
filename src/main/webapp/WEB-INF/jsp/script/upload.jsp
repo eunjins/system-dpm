@@ -9,6 +9,7 @@
 <body>
 	<h1>업로드 폼</h1>
 	<form action="/script" method="POST" enctype="multipart/form-data">
+        <input type="text" name="name" />
         <input type="file" name="sourceFile" />
         <input type="file" name="classFile" />
         <input type="submit" value="SEND" />

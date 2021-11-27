@@ -45,5 +45,8 @@
             (NAME, UPLOAD_POINT)
         VALUES
             (#{name}, #{uploadPoint})
+        <selectKey keyProperty="no" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
 </mapper>

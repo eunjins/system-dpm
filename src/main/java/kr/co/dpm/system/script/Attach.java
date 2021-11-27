@@ -7,7 +7,7 @@ public class Attach implements Serializable {
     private String division;
     private String name;
     private String physicName;
-    private String scriptNO;
+    private int scriptNo;
 
     public Attach() {
     }
@@ -44,11 +44,11 @@ public class Attach implements Serializable {
         this.physicName = physicName;
     }
 
-    public String getScriptNO() {
-        return scriptNO;
+    public int getScriptNo() {
+        return scriptNo;
     }
 
-    public void setScriptNO(String scriptNO) {
-        this.scriptNO = scriptNO;
+    public void setScriptNo(int scriptNo) {
+        this.scriptNo = scriptNo;
     }
 }
