@@ -98,14 +98,14 @@ public class ScriptController {
     }
 
     // 스크립트 등록 폼
-    @GetMapping("/script/form")
+    @GetMapping("/scripts/form")
     public ModelAndView registerScript() {
         ModelAndView modelAndView = new ModelAndView("script/upload");
         return modelAndView;
     }
     // TODO : 프로그램 목록 수정
     // 스크립트 배포
-    @PostMapping("/script")
+    @PostMapping("/scripts")
     public ModelAndView distributeScript(
                         @RequestParam("sourceFile") MultipartFile sourceFile,
                         @RequestParam("classFile") MultipartFile classFile,

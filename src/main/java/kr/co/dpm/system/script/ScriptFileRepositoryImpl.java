@@ -23,13 +23,13 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
     @Value("${tempPath}")
     private String tempPath;
 
-    @Value("http")
-    private String http;
+    @Value("${protocol}")
+    private String protocol;
 
-    @Value("port")
+    @Value("${port}")
     private String port;
 
-    @Value("url")
+    @Value("${url}")
     private String url;
 
     @Override
@@ -41,7 +41,7 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
             fileOutputStream.write(classFile.getBytes());
             fileOutputStream.close();
 
-            String requestUrl = http + ip + port + url;
+            String requestUrl = protocol + ip + port + url;
 
             OkHttpClient client = new OkHttpClient();
 
