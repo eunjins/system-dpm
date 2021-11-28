@@ -14,12 +14,8 @@ public class Measure implements Serializable {
     public Measure() {
     }
 
-    public Measure(String name, String deviceId, int scriptNo, int execTime, String status) {
-        this.name = name;
-        this.deviceId = deviceId;
+    public Measure(int scriptNo) {
         this.scriptNo = scriptNo;
-        this.execTime = execTime;
-        this.status = status;
     }
 
     public int getNo() {

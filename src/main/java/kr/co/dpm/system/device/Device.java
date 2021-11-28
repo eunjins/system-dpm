@@ -14,6 +14,10 @@ public class Device implements Serializable {
     public Device() {
     }
 
+    public Device(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }

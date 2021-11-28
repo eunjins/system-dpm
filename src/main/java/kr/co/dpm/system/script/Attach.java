@@ -12,6 +12,10 @@ public class Attach implements Serializable {
     public Attach() {
     }
 
+    public Attach(int scriptNo) {
+        this.scriptNo = scriptNo;
+    }
+
     public int getNo() {
         return no;
     }
