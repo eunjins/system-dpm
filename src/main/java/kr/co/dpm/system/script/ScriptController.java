@@ -31,6 +31,7 @@ import java.util.Map;
 import java.util.*;
 
 @RestController
+@RequestMapping("/scripts")
 public class ScriptController {
     private static final Logger logger = LogManager.getLogger(ScriptController.class);
 
@@ -61,16 +62,19 @@ public class ScriptController {
     private ResponseMessage responseMessage;
 
     //  스크립트 측정 결과 목록 폼
-    @GetMapping("/scripts")
+    @GetMapping()
     public ModelAndView getScripts() {
         ModelAndView mav = new ModelAndView("script/list");
+
         List<Measure> scriptMeasure = new ArrayList<>();
 
         List<Script> scripts = scriptService.getScripts(null);
+
         mav.addObject("scripts", scripts);
 
         for (Script object : scripts) {
             Measure measure = new Measure();
+
             measure.setScriptNo(object.getNo());
 
             List<Measure> measures = measureService.getMeasures(measure);
@@ -93,7 +97,7 @@ public class ScriptController {
     }
 
     // 스크립트 측정 결과 목록 조회
-    @PostMapping("/scripts")
+    @PostMapping()
     @ResponseBody
     public Map<Script, List<Measure>> getScripts(@RequestBody Script script) {
 
@@ -101,62 +105,52 @@ public class ScriptController {
     }
 
     // 스크립트 등록 폼
-    @GetMapping("/scripts/form")
+    @GetMapping("/form")
     public ModelAndView registerScript() {
-        ModelAndView modelAndView = new ModelAndView("script/register");
-        return modelAndView;
+        ModelAndView mav = new ModelAndView("script/register");
+
+        return mav;
     }
 
     // TODO: 프로그램 목록 수정
     // 스크립트 배포
-    @PostMapping("/scripts/distribute")
+    @PostMapping("/distribute")
     public ModelAndView distributeScript(
                         @RequestParam("sourceFile") MultipartFile sourceFile,
                         @RequestParam("classFile") MultipartFile classFile,
                         @RequestParam("name") String measureName,
                                               Attach attach,
                                               Script script) {
-        ModelAndView modelAndView = new ModelAndView(new RedirectView("/scripts/form"));
+        ModelAndView mav = new ModelAndView(new RedirectView("/scripts/form"));
 
         if (!sourceFile.isEmpty() && !classFile.isEmpty()) {
-            logger.debug("-------> 소스파일 클래스파일 존재");
-
             String sourceFileName = FilenameUtils.getBaseName((sourceFile.getOriginalFilename()));
             String classFileName = FilenameUtils.getBaseName((classFile.getOriginalFilename()));
             if (sourceFileName.equals(classFileName)) {
-                logger.debug("-------> 소스파일 클래스파일 이름 일치");
-
                 if (managementService.distributeScript(classFile)) {
-                    logger.debug("-------> 스크립트 배포 성공");
-
-                    String scriptName = FilenameUtils.getBaseName(
-                                        sourceFile.getOriginalFilename());
-
+                    String scriptName = FilenameUtils.getBaseName(sourceFile.getOriginalFilename());
                     script.setName(scriptName);
 
-                    int scriptNo = scriptService.registerScript(script);
-                    logger.debug("-------> 스크립트 등록 완료");
+                    scriptService.registerScript(script);
 
+                    int scriptNo = script.getNo();
                     attach.setScriptNo(scriptNo);
-                    attachService.registerAttach(sourceFile, classFile, attach);
-                    logger.debug("-------> 첨부파일 등록 완료");
 
-                    logger.debug("##### " + measureName);
-                    logger.debug("##### " + scriptNo);
+                    attachService.registerAttach(sourceFile, classFile, attach);
 
                     measureInfo.setName(measureName);
                     measureInfo.setScriptNo(scriptNo);
 
-                    modelAndView = new ModelAndView(new RedirectView("/scripts"));
+                    mav = new ModelAndView(new RedirectView("/scripts"));
                 }
             }
         }
 
-        return modelAndView;
+        return mav;
     }
 
     // 스크립트 측정 결과 조회
-    @GetMapping("/scripts/{no}")
+    @GetMapping("/{no}")
     public ModelAndView getScript(Script script) {
         ModelAndView mav = new ModelAndView("script/view");
 
@@ -187,7 +181,7 @@ public class ScriptController {
     }
 
     /* 측정 결과 수신 */
-    @PostMapping(value = "/scripts/result")
+    @PostMapping(value = "/result")
     @ResponseBody
     public Map<String, String> receiveScript(
             @RequestBody Measure measure, HttpServletResponse httpServletResponse) {
@@ -212,23 +206,23 @@ public class ScriptController {
 
         // 입력 값을 검증한다.
         if (measure.getDeviceId() != null) {
-            setting();
+//            setting(); -> 배포 후 자동 세팅
             // 측정 결과 명, 스크립트 일련번호를 메모리에서 가져와 지정한다.
             measure.setName(measureInfo.getName());
             measure.setScriptNo(measureInfo.getScriptNo());
 
             // 측정 결과를 등록한다.
             measureService.registerMeasure(measure);
-            logger.debug("-------------> " + measure.getName());
+            logger.debug("-------> " + measure.getName() + "측정 결과 등록 완료");
         } else {
             responseData.put("message", "수신 데이터가 존재하지 않습니다.");
         }
 
         return responseData;
     }
-
-    public void setting() {
-        measureInfo.setScriptNo(1);
-        measureInfo.setName("Test");
-    }
+//
+//    public void setting() {
+//        measureInfo.setScriptNo(1);
+//        measureInfo.setName("Test");
+//    }
 }

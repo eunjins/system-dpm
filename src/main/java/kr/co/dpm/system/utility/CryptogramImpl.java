@@ -30,7 +30,6 @@ public class CryptogramImpl implements Cryptogram {
         int len = utf8KeyBytes.length;
 
         if (len > keyBytes.length) {
-            // 16바이트로 맞춰준다.
             len = keyBytes.length;
         }
 
@@ -51,11 +50,6 @@ public class CryptogramImpl implements Cryptogram {
         return encryption(String.valueOf(word));
     }
 
-    @Override
-    public String decryption(Object word) throws Exception {
-        return null;
-    }
-
     private String encryption(String word) throws Exception {
         if (StringUtils.isEmpty(word)) {
             return "";
@@ -65,7 +59,6 @@ public class CryptogramImpl implements Cryptogram {
 
         cipher.init(Cipher.ENCRYPT_MODE, this.secretKeySpec, new IvParameterSpec(this.iv.getBytes()));
 
-        //암호화 완료
         byte[] encrypted = cipher.doFinal(word.getBytes("UTF-8"));
         String encrypWord = new String(Base64.encodeBase64(encrypted));
 

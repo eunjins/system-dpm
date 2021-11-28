@@ -17,34 +17,27 @@ public class AccessController {
 
     // 로그인 폼
     @GetMapping("/login")
-    public ModelAndView login(HttpSession httpSession) {
-        ModelAndView modelAndView = null;
-        if (httpSession.getAttribute("log") != null) {
-            modelAndView = new ModelAndView(new RedirectView("/logout"));
-        } else {
-            modelAndView = new ModelAndView("access/login");
-        }
-
-        return modelAndView;
+    public ModelAndView login() {
+        return new ModelAndView("access/login");
     }
 
     // 로그인
     @PostMapping("/login")
     public ModelAndView login(User user, HttpSession httpSession) {
-        ModelAndView modelAndView = null;
+        ModelAndView mav = null;
 
         User userInfo = userRepositoryImpl.select();
         if (user.getId().equals(userInfo.getId())
                 && user.getPassword().equals(userInfo.getPassword())){
             httpSession.setAttribute("log", user.getId());
-            modelAndView = new ModelAndView(new RedirectView("/devices"));
+            mav = new ModelAndView(new RedirectView("/devices"));
         } else {
-            modelAndView = new ModelAndView("access/login");
-            modelAndView.addObject("missMatch",
+            mav = new ModelAndView("access/login");
+            mav.addObject("missMatch",
                     "아이디 비밀번호가 일치하지 않습니다");
         }
 
-        return modelAndView;
+        return mav;
     }
 
     // 로그아웃
