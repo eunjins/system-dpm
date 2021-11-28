@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.*;
 
 @RestController
+@RequestMapping("/scripts")
 public class ScriptController {
     private static final Logger logger = LogManager.getLogger(ScriptController.class);
 
@@ -64,13 +65,14 @@ public class ScriptController {
     @Autowired
     private Excel excel;
 
-    //  스크립트 측정 결과 목록 폼
-    @GetMapping("/scripts")
+    /*  스크립트 측정 결과 목록 폼 */
+    @GetMapping
     public ModelAndView getScripts() {
         ModelAndView mav = new ModelAndView("script/list");
+
         List<Measure> scriptMeasure = new ArrayList<>();
 
-        List<Script> scripts = scriptService.getScripts(null);
+        List<Script> scripts = scriptService.getScripts(new Script());
         mav.addObject("scripts", scripts);
 
         for (Script object : scripts) {
@@ -96,24 +98,15 @@ public class ScriptController {
         return mav;
     }
 
-    // 스크립트 측정 결과 목록 조회
-    @PostMapping("/scripts")
-    @ResponseBody
-    public Map<Script, List<Measure>> getScripts(@RequestBody Script script) {
-
-        return null;
-    }
-
-    // 스크립트 등록 폼
-    @GetMapping("/scripts/form")
+    /* 스크립트 등록 폼 */
+    @GetMapping("/form")
     public ModelAndView registerScript() {
         ModelAndView modelAndView = new ModelAndView("script/register");
         return modelAndView;
     }
 
-    // TODO: 프로그램 목록 수정
-    // 스크립트 배포
-    @PostMapping("/scripts/distribute")
+    /* 스크립트 배포 */
+    @PostMapping("/distribute")
     public ModelAndView distributeScript(
                         @RequestParam("sourceFile") MultipartFile sourceFile,
                         @RequestParam("classFile") MultipartFile classFile,
@@ -155,8 +148,9 @@ public class ScriptController {
         return modelAndView;
     }
 
-    // 스크립트 측정 결과 조회
-    @GetMapping("/scripts/{no}")
+
+    /* 스크립트 측정 결과 조회 */
+    @GetMapping("/{no}")
     public ModelAndView getScript(Script script) {
         ModelAndView mav = new ModelAndView("script/view");
 
@@ -182,7 +176,7 @@ public class ScriptController {
     }
 
     /* 스크립트 다운로드 */
-    @GetMapping("/scripts/file/{no}")
+    @GetMapping("/file/{no}")
     public void downloadScript(Attach attach, HttpServletResponse response) {
         OutputStream outputStream = null;
 
@@ -221,7 +215,7 @@ public class ScriptController {
     }
 
     /* 스크립트 측정 결과 다운로드 */
-    @GetMapping("/scripts/excel/{no}")
+    @GetMapping("/excel/{no}")
     public void downloadExcel(Script script, HttpServletResponse response) {
         OutputStream outputStream = null;
         String fileName = excel.create(script);
@@ -255,7 +249,7 @@ public class ScriptController {
     }
 
     /* 측정 결과 수신 */
-    @PostMapping(value = "/scripts/result")
+    @PostMapping(value = "/result")
     @ResponseBody
     public Map<String, String> receiveScript(
             @RequestBody Measure measure, HttpServletResponse httpServletResponse) {
