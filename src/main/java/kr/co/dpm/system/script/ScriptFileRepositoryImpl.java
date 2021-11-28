@@ -5,6 +5,7 @@ import okhttp3.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.plugins.convert.TypeConverters;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -19,9 +20,6 @@ import java.io.InputStream;
 public class ScriptFileRepositoryImpl implements ScriptFileRepository {
     private static final Logger logger = LogManager.getLogger(ScriptController.class);
     private static final MediaType MULTIPART = MediaType.parse("multipart/form-data");
-
-    @Value("${tempPath}")
-    private String tempPath;
 
     @Value("${protocol}")
     private String http;
@@ -59,12 +57,19 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
                                           build();
 
             Response response = client.newCall(request).execute();
+            logger.debug("-------> 스크립트 배포");
 
-            if (response.isSuccessful()) {
-                ResponseBody responseBody = response.body();
-                String responseString = responseBody.string();
+            ResponseBody responseBody = response.body();
+            JSONObject jsonResponse = new JSONObject(responseBody.string());
+
+            if ("200".equals(jsonResponse.getString("code"))) {
+                logger.debug("-------> 배포 정상 응답");
 
                 return true;
+            } else {
+                logger.debug("-------> 배포 오류 : " + jsonResponse.getString("message"));
+
+                return false;
             }
         } catch(Exception e) {
             e.printStackTrace();

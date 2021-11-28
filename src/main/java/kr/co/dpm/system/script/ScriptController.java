@@ -10,12 +10,9 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import kr.co.dpm.system.common.ResponseMessage;
-import kr.co.dpm.system.common.StatusCode;
 import kr.co.dpm.system.measure.MeasureServiceImpl;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,7 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.*;
 
 @RestController
@@ -94,13 +90,14 @@ public class ScriptController {
     @PostMapping("/scripts")
     @ResponseBody
     public Map<Script, List<Measure>> getScripts(@RequestBody Script script) {
+
         return null;
     }
 
     // 스크립트 등록 폼
     @GetMapping("/scripts/form")
     public ModelAndView registerScript() {
-        ModelAndView modelAndView = new ModelAndView("script/upload");
+        ModelAndView modelAndView = new ModelAndView("script/register");
         return modelAndView;
     }
     // TODO: 프로그램 목록 수정
@@ -111,29 +108,37 @@ public class ScriptController {
                         @RequestParam("classFile") MultipartFile classFile,
                         @RequestParam("name") String measureName,
                         Attach attach, Script script) {
-        ModelAndView modelAndView = null;
+        ModelAndView modelAndView = new ModelAndView(new RedirectView("/scripts/form"));
 
         if (!sourceFile.isEmpty() && !classFile.isEmpty()) {
+            logger.debug("-------> 소스파일 클래스파일 존재");
+
             String sourceFileName = FilenameUtils.getBaseName((sourceFile.getOriginalFilename()));
             String classFileName = FilenameUtils.getBaseName((classFile.getOriginalFilename()));
             if (sourceFileName.equals(classFileName)) {
+                logger.debug("-------> 소스파일 클래스파일 이름 일치");
+
                 if (managementService.distributeScript(classFile)) {
+                    logger.debug("-------> 스크립트 배포 성공");
+
                     String scriptName = FilenameUtils.getBaseName(
                                         sourceFile.getOriginalFilename());
 
                     script.setName(scriptName);
 
                     int scriptNo = scriptService.registerScript(script);
+                    logger.debug("-------> 스크립트 등록 완료");
 
                     attach.setScriptNo(scriptNo);
                     attachService.registerAttach(sourceFile, classFile, attach);
+                    logger.debug("-------> 첨부파일 등록 완료");
 
                     measureInfo.setName(measureName);
                     measureInfo.setScriptNo(scriptNo);
+
+                    modelAndView = new ModelAndView(new RedirectView("/scripts"));
                 }
             }
-        } else {
-            modelAndView = new ModelAndView(new RedirectView("/scripts/form"));
         }
 
         return modelAndView;
@@ -198,6 +203,7 @@ public class ScriptController {
 
         // 입력 값을 검증한다.
         if (measure.getDeviceId() != null) {
+            setting();
             // 측정 결과 명, 스크립트 일련번호를 메모리에서 가져와 지정한다.
             measure.setName(measureInfo.getName());
             measure.setScriptNo(measureInfo.getScriptNo());
@@ -210,5 +216,10 @@ public class ScriptController {
         }
 
         return responseData;
+    }
+
+    public void setting() {
+        measureInfo.setScriptNo(1);
+        measureInfo.setName("Test");
     }
 }
