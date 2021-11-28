@@ -6,6 +6,7 @@ import kr.co.dpm.system.device.Device;
 import kr.co.dpm.system.device.DeviceServiceImpl;
 import kr.co.dpm.system.management.ManagementServiceImpl;
 import kr.co.dpm.system.measure.Measure;
+import kr.co.dpm.system.utility.Excel;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +39,9 @@ public class ScriptController {
 
     @Value("${path}")
     private String path;
+
+    @Value("${excelPath}")
+    private String excelPath;
 
     private Measure measureInfo = new Measure();
 
@@ -61,20 +66,20 @@ public class ScriptController {
     @Autowired
     private ResponseMessage responseMessage;
 
+    @Autowired
+    private Excel excel;
+
     //  스크립트 측정 결과 목록 폼
     @GetMapping()
     public ModelAndView getScripts() {
         ModelAndView mav = new ModelAndView("script/list");
-
         List<Measure> scriptMeasure = new ArrayList<>();
 
         List<Script> scripts = scriptService.getScripts(null);
-
         mav.addObject("scripts", scripts);
 
         for (Script object : scripts) {
             Measure measure = new Measure();
-
             measure.setScriptNo(object.getNo());
 
             List<Measure> measures = measureService.getMeasures(measure);
@@ -112,7 +117,6 @@ public class ScriptController {
         return mav;
     }
 
-    // TODO: 프로그램 목록 수정
     // 스크립트 배포
     @PostMapping("/distribute")
     public ModelAndView distributeScript(
@@ -175,9 +179,77 @@ public class ScriptController {
         return mav;
     }
 
+    /* 스크립트 다운로드 */
+    @GetMapping("/scripts/file/{no}")
+    public void downloadScript(Attach attach, HttpServletResponse response) {
+        OutputStream outputStream = null;
+
+        attach = attachService.getAttach(attach);
+
+        try {
+            if ("S".equals(attach.getDivision())) {
+                attach.setName(attach.getName() + ".java");
+            } else {
+                attach.setName(attach.getName() + ".class");
+            }
+
+            byte[] file = FileUtils.readFileToByteArray(new File(path + File.separator + attach.getName()));
+
+            String encodingName = new String(attach.getName().getBytes("UTF-8"), "ISO-8859-1");
+
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingName + "\"");
+            response.setHeader("Content-Transfer-Encoding", "binary");
+            response.setContentType("application/octet-stream");
+            response.setContentLength(file.length);
+
+            outputStream = response.getOutputStream();
+            outputStream.write(file);
+            outputStream.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     /* 스크립트 측정 결과 다운로드 */
-//    @GetMapping("/scripts/download/{no}")
-    public void downloadScript(Script script) {
+    @GetMapping("/scripts/excel/{no}")
+    public void downloadExcel(Script script, HttpServletResponse response) {
+        OutputStream outputStream = null;
+        String fileName = excel.create(script);
+
+        try {
+            byte[] file = FileUtils.readFileToByteArray(new File(excelPath + File.separator + fileName));
+
+            String encodingName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingName + "\"");
+            response.setHeader("Content-Transfer-Encoding", "binary");
+            response.setContentType("application/octet-stream");
+            response.setContentLength(file.length);
+
+            outputStream = response.getOutputStream();
+            outputStream.write(file);
+            outputStream.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (outputStream != null) {
+                    outputStream.close();
+
+                    excel.delete(fileName);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /* 측정 결과 수신 */
@@ -206,23 +278,16 @@ public class ScriptController {
 
         // 입력 값을 검증한다.
         if (measure.getDeviceId() != null) {
-//            setting(); -> 배포 후 자동 세팅
             // 측정 결과 명, 스크립트 일련번호를 메모리에서 가져와 지정한다.
             measure.setName(measureInfo.getName());
             measure.setScriptNo(measureInfo.getScriptNo());
 
             // 측정 결과를 등록한다.
             measureService.registerMeasure(measure);
-            logger.debug("-------> " + measure.getName() + "측정 결과 등록 완료");
         } else {
             responseData.put("message", "수신 데이터가 존재하지 않습니다.");
         }
 
         return responseData;
     }
-//
-//    public void setting() {
-//        measureInfo.setScriptNo(1);
-//        measureInfo.setName("Test");
-//    }
 }

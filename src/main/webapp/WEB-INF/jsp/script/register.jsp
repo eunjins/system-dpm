@@ -21,19 +21,19 @@
         <tr>
             <td>소스 파일:</td>
             <td>
-                <input type="file" name="sourceFile" accept=".java" />JDK 버전 확인
+                <input type="file" name="sourceFile" />
             </td>
         </tr>
         <tr>
             <td>클래스 파일:</td>
             <td>
-                <input type="file" name="classFile" accept=".class"/>JDK 버전 확인
+                <input type="file" name="classFile" />
             </td>
         </tr>
     </table>
 
     <input type="submit" value="배포"/>
-    <a href="/devices"><input type="button" value="목록"/></a>
+    <a href="${contextPath}/scripts"><input type="button" value="목록"/></a>
 </form>
 </body>
 </html>

@@ -28,12 +28,10 @@
             height: '400',
             dataFormat: 'json',
             dataSource: {
-                // Chart Configuration
                 "chart": {
                     "yAxisName": "실행 시간 (ms)",
                     "theme": "fusion",
                 },
-                // Chart Data
                 "data": chartData
             }
         };
@@ -56,10 +54,12 @@
     <c:forEach items="${attaches}" var="attach">
         <c:choose>
             <c:when test="${attach.division eq 'S'}">
-                소스 파일: ${attach.name}.java <br>
+                소스 파일:
+                <a href="/scripts/file/${attach.no}" >${attach.name}.java</a><br>
             </c:when>
             <c:when test="${attach.division eq 'C'}">
-                클래스 파일: ${attach.name}.class <br>
+                클래스 파일:
+                <a href="/scripts/file/${attach.no}" >${attach.name}.class</a><br>
             </c:when>
         </c:choose>
     </c:forEach>
