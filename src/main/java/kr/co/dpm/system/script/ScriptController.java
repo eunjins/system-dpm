@@ -6,9 +6,14 @@ import kr.co.dpm.system.device.Device;
 import kr.co.dpm.system.device.DeviceServiceImpl;
 import kr.co.dpm.system.management.ManagementServiceImpl;
 import kr.co.dpm.system.measure.Measure;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import kr.co.dpm.system.common.ResponseMessage;
 import kr.co.dpm.system.common.StatusCode;
@@ -22,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +38,7 @@ import java.util.*;
 public class ScriptController {
     private static final Logger logger = LogManager.getLogger(ScriptController.class);
 
-    @Value("{$path}")
+    @Value("${path}")
     private String path;
 
     private Measure measureInfo = new Measure();
@@ -103,6 +109,7 @@ public class ScriptController {
         ModelAndView modelAndView = new ModelAndView("script/upload");
         return modelAndView;
     }
+
     // TODO: 프로그램 목록 수정
     // 스크립트 배포
     @PostMapping("/scripts/distribute")
@@ -158,8 +165,6 @@ public class ScriptController {
             device.setId(measures.get(i).getDeviceId());
 
             measures.get(i).setDeviceName(deviceService.getDevice(device).getName());
-
-            logger.debug("-------> 측정 결과: " + i + measures.get(i).getName());
         }
 
         mav.addObject("measures", measures);
@@ -167,9 +172,9 @@ public class ScriptController {
         return mav;
     }
 
-    //스크립트 측정 결과 다운로드
+    /* 스크립트 측정 결과 다운로드 */
+//    @GetMapping("/scripts/download/{no}")
     public void downloadScript(Script script) {
-
     }
 
     /* 측정 결과 수신 */
