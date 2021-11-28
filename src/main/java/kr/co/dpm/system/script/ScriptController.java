@@ -181,9 +181,48 @@ public class ScriptController {
         return mav;
     }
 
+    /* 스크립트 다운로드 */
+    @GetMapping("/scripts/file/{no}")
+    public void downloadScript(Attach attach, HttpServletResponse response) {
+        OutputStream outputStream = null;
+
+        attach = attachService.getAttach(attach);
+
+        try {
+            if ("S".equals(attach.getDivision())) {
+                attach.setName(attach.getName() + ".java");
+            } else {
+                attach.setName(attach.getName() + ".class");
+            }
+
+            byte[] file = FileUtils.readFileToByteArray(new File(path + File.separator + attach.getName()));
+
+            String encodingName = new String(attach.getName().getBytes("UTF-8"), "ISO-8859-1");
+
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingName + "\"");
+            response.setHeader("Content-Transfer-Encoding", "binary");
+            response.setContentType("application/octet-stream");
+            response.setContentLength(file.length);
+
+            outputStream = response.getOutputStream();
+            outputStream.write(file);
+            outputStream.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     /* 스크립트 측정 결과 다운로드 */
-    @GetMapping("/scripts/download/{no}")
-    public void downloadScript(Script script, HttpServletResponse response) {
+    @GetMapping("/scripts/excel/{no}")
+    public void downloadExcel(Script script, HttpServletResponse response) {
         OutputStream outputStream = null;
         String fileName = excel.create(script);
 
