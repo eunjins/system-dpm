@@ -9,7 +9,7 @@ import java.util.Properties;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
-    @Value("{$accessPath}")
+    @Value("${accessPath}")
     private String filePath;
 
     @Override

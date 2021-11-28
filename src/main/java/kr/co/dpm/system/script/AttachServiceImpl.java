@@ -39,7 +39,7 @@ public class AttachServiceImpl implements AttachService {
     @Override
     public void registerAttach(MultipartFile sourceFile,
                                MultipartFile classFile, Attach attach) {
-        logger.debug("##### 첨부파일 등록 진입");
+        logger.debug("-------> 첨부파일 등록 진입");
         LocalDate date = LocalDate.now();
 
         String sourceFileExtension = FilenameUtils.getExtension(sourceFile.getOriginalFilename());
@@ -52,25 +52,20 @@ public class AttachServiceImpl implements AttachService {
             attach.setDivision("S");
             attach.setName(FilenameUtils.getBaseName(sourceFile.getOriginalFilename()));
 
-            logger.debug(attach.getDivision() + attach.getName() + attach.getPhysicName() + attach.getScriptNo());
             attachRepository.insert(attach);
-            logger.debug("##### 첨부파일 자바 등록 완료");
+            logger.debug("-------> 첨부파일 자바 등록 완료");
+
             try {
                 File directory = new File(path);
                 if (!directory.isDirectory()) {
-                    logger.debug("##### 디렉터리 생성 중");
                     directory.mkdir();
-                    logger.debug("##### 디렉터리 생성 중 완료");
+                    logger.debug("-------> 디렉터리 생성 완료");
                 }
-                boolean check = directory.mkdir();
-                sourceFile.transferTo(new File(
-                        path + File.separator + physicalName));
-
-                logger.debug("##### 디렉터리 생성 완료");
+                sourceFile.transferTo(new File(path + File.separator + physicalName));
+                logger.debug("-------> 파일 업로드 완료");
             } catch (Exception e) {
                 e.printStackTrace();
-
-                logger.debug("##### 디렉터리 생성 실패");
+                logger.debug("-------> 디렉터리 생성 및 파일 업로드 실패");
 
             }
         }
@@ -82,18 +77,19 @@ public class AttachServiceImpl implements AttachService {
             attach.setDivision("C");
             attach.setName(FilenameUtils.getBaseName(classFile.getOriginalFilename()));
 
-            logger.debug(attach.getDivision() + attach.getName() + attach.getPhysicName() + attach.getScriptNo());
             attachRepository.insert(attach);
-            logger.debug("##### 첨부파일 클래스 등록 완료");
+            logger.debug("-------> 첨부파일 클래스 등록 완료");
             try {
                 File directory = new File(path);
                 if (!directory.isDirectory()) {
                     directory.mkdir();
+                    logger.debug("-------> 디렉터리 생성 완료");
                 }
-                sourceFile.transferTo(new File(
-                        path + File.separator + physicalName));
+                sourceFile.transferTo(new File(path + File.separator + physicalName));
+                logger.debug("-------> 파일 업로드 완료");
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.debug("-------> 디렉터리 생성 및 파일 업로드 실패");
             }
         }
     }
