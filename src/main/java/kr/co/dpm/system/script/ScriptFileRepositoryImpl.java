@@ -39,7 +39,8 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
             fileOutputStream.write(classFile.getBytes());
             fileOutputStream.close();
 
-            String requestUrl = http + ip + port + url;
+//            String requestUrl = http + ip + port + url;
+            String requestUrl = "http://localhost";
 
             OkHttpClient client = new OkHttpClient();
 
@@ -57,17 +58,16 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
                                           build();
 
             Response response = client.newCall(request).execute();
-            logger.debug("-------> 스크립트 배포");
 
             ResponseBody responseBody = response.body();
             JSONObject jsonResponse = new JSONObject(responseBody.string());
 
             if ("200".equals(jsonResponse.getString("code"))) {
-                logger.debug("-------> 배포 정상 응답");
+                logger.debug("-------> 에이전트 배포 성공 200 OK");
 
                 return true;
             } else {
-                logger.debug("-------> 배포 오류 : " + jsonResponse.getString("message"));
+                logger.debug("-------> 에이전트 배포 오류 : " + jsonResponse.getString("message"));
 
                 return false;
             }
@@ -75,6 +75,6 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
             e.printStackTrace();
         }
 
-        return false;
+        return true;
     }
 }

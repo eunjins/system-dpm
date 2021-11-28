@@ -10,5 +10,5 @@ public interface ScriptService {
 
     public Script getScript(Script script);
 
-    public int registerScript(Script script);
+    public void registerScript(Script script);
 }

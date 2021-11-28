@@ -10,7 +10,7 @@
 <jsp:include page="/WEB-INF/jsp/common/menu.jsp" />
 <h2>스크립트 등록</h2>
 <hr>
-<form action="/scripts/distribute" method="POST">
+<form action="/scripts/distribute" method="POST" enctype="multipart/form-data">
     <table>
         <tr>
             <td>측정 결과 명:</td>

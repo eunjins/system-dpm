@@ -49,26 +49,20 @@ public class ManagementServiceImpl implements ManagementService {
         List<Boolean> flags = new ArrayList<Boolean>();
 
         List<Device> devices = deviceService.getDevices(new Device());
-
         try {
             for (Device device : devices) {
                 if (device.getStatus().equals("N")) {
-                    logger.debug("-------> 디바이스 상태가 N");
-
                     continue;
                 } else {
                     CryptogramImpl cryptogram = new CryptogramImpl(device.getId());
                     String encryptResult = cryptogram.encryption(device.getId());
 
-                    logger.debug("-------> 디바이스 상태가 Y 배포");
                     flags.add(scriptFileRepository.distribute(classFile, encryptResult, device.getIpAddress()));
-                    logger.debug("-------> 배포 응답 상태 체크");
                 }
             }
 
             for (boolean flag : flags) {
                 if (flag != false) {
-                    logger.debug("-------> 스크립트 배포 성공 응답");
 
                     return true;
                 }

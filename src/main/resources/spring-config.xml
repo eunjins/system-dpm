@@ -19,18 +19,20 @@
         <mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp"/>
     </mvc:view-resolvers>
 
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/login"/>
-            <bean class="kr.co.dpm.system.access.AccessInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
-
     <context:property-placeholder location="classpath:path/path.properties"/>
 
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="102400010"/>
     </bean>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/login"/>
+            <mvc:exclude-mapping path="/devices/data"/>
+            <mvc:exclude-mapping path="/scripts/result"/>
+            <bean class="kr.co.dpm.system.access.AccessInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

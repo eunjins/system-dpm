@@ -69,7 +69,6 @@ public class ScriptController {
     @GetMapping
     public ModelAndView getScripts() {
         ModelAndView mav = new ModelAndView("script/list");
-
         List<Measure> scriptMeasure = new ArrayList<>();
 
         List<Script> scripts = scriptService.getScripts(new Script());
@@ -101,8 +100,7 @@ public class ScriptController {
     /* 스크립트 등록 폼 */
     @GetMapping("/form")
     public ModelAndView registerScript() {
-        ModelAndView modelAndView = new ModelAndView("script/register");
-        return modelAndView;
+        return new ModelAndView("script/register");
     }
 
     /* 스크립트 배포 */
@@ -111,43 +109,35 @@ public class ScriptController {
                         @RequestParam("sourceFile") MultipartFile sourceFile,
                         @RequestParam("classFile") MultipartFile classFile,
                         @RequestParam("name") String measureName,
-                        Attach attach, Script script) {
-        ModelAndView modelAndView = new ModelAndView(new RedirectView("/scripts/form"));
+                                              Attach attach,
+                                              Script script) {
+        ModelAndView mav = new ModelAndView(new RedirectView("/scripts/form"));
 
         if (!sourceFile.isEmpty() && !classFile.isEmpty()) {
-            logger.debug("-------> 소스파일 클래스파일 존재");
-
             String sourceFileName = FilenameUtils.getBaseName((sourceFile.getOriginalFilename()));
             String classFileName = FilenameUtils.getBaseName((classFile.getOriginalFilename()));
             if (sourceFileName.equals(classFileName)) {
-                logger.debug("-------> 소스파일 클래스파일 이름 일치");
-
                 if (managementService.distributeScript(classFile)) {
-                    logger.debug("-------> 스크립트 배포 성공");
-
-                    String scriptName = FilenameUtils.getBaseName(
-                                        sourceFile.getOriginalFilename());
-
+                    String scriptName = FilenameUtils.getBaseName(sourceFile.getOriginalFilename());
                     script.setName(scriptName);
 
-                    int scriptNo = scriptService.registerScript(script);
-                    logger.debug("-------> 스크립트 등록 완료");
+                    scriptService.registerScript(script);
 
+                    int scriptNo = script.getNo();
                     attach.setScriptNo(scriptNo);
+
                     attachService.registerAttach(sourceFile, classFile, attach);
-                    logger.debug("-------> 첨부파일 등록 완료");
 
                     measureInfo.setName(measureName);
                     measureInfo.setScriptNo(scriptNo);
 
-                    modelAndView = new ModelAndView(new RedirectView("/scripts"));
+                    mav = new ModelAndView(new RedirectView("/scripts"));
                 }
             }
         }
 
-        return modelAndView;
+        return mav;
     }
-
 
     /* 스크립트 측정 결과 조회 */
     @GetMapping("/{no}")
@@ -280,7 +270,6 @@ public class ScriptController {
 
             // 측정 결과를 등록한다.
             measureService.registerMeasure(measure);
-            logger.debug("-------------> " + measure.getName());
         } else {
             responseData.put("message", "수신 데이터가 존재하지 않습니다.");
         }

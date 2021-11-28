@@ -30,7 +30,7 @@ public class ScriptServiceImpl implements ScriptService {
 
     /* 등록 */
     @Override
-    public int registerScript(Script script) {
+    public void registerScript(Script script) {
         // 등록 일시 추가
         SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 
@@ -38,6 +38,6 @@ public class ScriptServiceImpl implements ScriptService {
 
         script.setUploadPoint(dateTime);
 
-        return scriptRepository.insert(script);
+        scriptRepository.insert(script);
     }
 }

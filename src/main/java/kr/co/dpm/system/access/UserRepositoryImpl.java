@@ -16,7 +16,6 @@ public class UserRepositoryImpl implements UserRepository {
     public User select() {
         User user = new User();
 
-
         Properties properties = new Properties();
         try {
             InputStream inputStream = Resources.getResourceAsStream(filePath);

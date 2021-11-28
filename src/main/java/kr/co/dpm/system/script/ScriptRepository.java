@@ -10,5 +10,5 @@ public interface ScriptRepository {
 
     public Script select(Script script);
 
-    public int insert(Script script);
+    public void insert(Script script);
 }
