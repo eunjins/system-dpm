@@ -32,25 +32,23 @@ public class DeviceController {
     @Autowired
     private StatusCode statusCode;
 
-    /* 목록 폼 */
+    /* 디바이스 목록 폼 */
     @GetMapping
     public ModelAndView getDevices() {
         ModelAndView mav = new ModelAndView("device/list");
-
-        Device device = new Device();
-        mav.addObject("devices", deviceService.getDevices(device));
+        mav.addObject("devices", deviceService.getDevices(new Device()));
 
         return mav;
     }
 
-    /* 목록 조회 */
+    /* 디바이스 목록 조회 */
     @PostMapping
     @ResponseBody
     public List<Device> getDevices(@RequestBody Device device) {
         return deviceService.getDevices(device);
     }
 
-    /* 상세 조회 */
+    /* 디바이스 상세 조회 */
     @GetMapping({"/{id}"})
     public ModelAndView getDevice(Device device) {
         ModelAndView mav = new ModelAndView("device/view");
@@ -60,7 +58,7 @@ public class DeviceController {
         return mav;
     }
 
-    /* 수정 폼 */
+    /* 디바이스 수정 폼 */
     @GetMapping("/{id}/form")
     public ModelAndView editDeviceForm(Device device) {
         ModelAndView mav = new ModelAndView("device/edit");
@@ -70,7 +68,7 @@ public class DeviceController {
         return mav;
     }
 
-    /* 수정 */
+    /* 디바이스 수정 */
     @PutMapping("/{id}")
     public ModelAndView editDevice(Device device) {
         deviceService.editDevice(device);
