@@ -107,7 +107,8 @@ public class ScriptController {
                         @RequestParam("sourceFile") MultipartFile sourceFile,
                         @RequestParam("classFile") MultipartFile classFile,
                         @RequestParam("name") String measureName,
-                        Attach attach, Script script) {
+                                              Attach attach,
+                                              Script script) {
         ModelAndView modelAndView = new ModelAndView(new RedirectView("/scripts/form"));
 
         if (!sourceFile.isEmpty() && !classFile.isEmpty()) {
@@ -132,6 +133,9 @@ public class ScriptController {
                     attach.setScriptNo(scriptNo);
                     attachService.registerAttach(sourceFile, classFile, attach);
                     logger.debug("-------> 첨부파일 등록 완료");
+
+                    logger.debug("##### " + measureName);
+                    logger.debug("##### " + scriptNo);
 
                     measureInfo.setName(measureName);
                     measureInfo.setScriptNo(scriptNo);
