@@ -6,14 +6,11 @@ import kr.co.dpm.system.device.Device;
 import kr.co.dpm.system.device.DeviceServiceImpl;
 import kr.co.dpm.system.management.ManagementServiceImpl;
 import kr.co.dpm.system.measure.Measure;
+import kr.co.dpm.system.utility.Excel;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import kr.co.dpm.system.measure.MeasureServiceImpl;
 
@@ -25,6 +22,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +34,9 @@ public class ScriptController {
 
     @Value("${path}")
     private String path;
+
+    @Value("${excelPath}")
+    private String excelPath;
 
     private Measure measureInfo = new Measure();
 
@@ -59,6 +60,9 @@ public class ScriptController {
 
     @Autowired
     private ResponseMessage responseMessage;
+
+    @Autowired
+    private Excel excel;
 
     //  스크립트 측정 결과 목록 폼
     @GetMapping("/scripts")
@@ -178,8 +182,37 @@ public class ScriptController {
     }
 
     /* 스크립트 측정 결과 다운로드 */
-//    @GetMapping("/scripts/download/{no}")
-    public void downloadScript(Script script) {
+    @GetMapping("/scripts/download/{no}")
+    public void downloadScript(Script script, HttpServletResponse response) {
+        OutputStream outputStream = null;
+        String fileName = excel.create(script);
+
+        try {
+            byte[] file = FileUtils.readFileToByteArray(new File(excelPath + File.separator + fileName));
+
+            String encodingName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingName + "\"");
+            response.setHeader("Content-Transfer-Encoding", "binary");
+            response.setContentType("application/octet-stream");
+            response.setContentLength(file.length);
+
+            outputStream = response.getOutputStream();
+            outputStream.write(file);
+            outputStream.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (outputStream != null) {
+                    outputStream.close();
+
+                    excel.delete(fileName);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /* 측정 결과 수신 */
@@ -208,7 +241,6 @@ public class ScriptController {
 
         // 입력 값을 검증한다.
         if (measure.getDeviceId() != null) {
-            setting();
             // 측정 결과 명, 스크립트 일련번호를 메모리에서 가져와 지정한다.
             measure.setName(measureInfo.getName());
             measure.setScriptNo(measureInfo.getScriptNo());
@@ -221,10 +253,5 @@ public class ScriptController {
         }
 
         return responseData;
-    }
-
-    public void setting() {
-        measureInfo.setScriptNo(1);
-        measureInfo.setName("Test");
     }
 }
