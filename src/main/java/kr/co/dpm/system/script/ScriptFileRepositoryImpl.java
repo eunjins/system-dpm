@@ -20,9 +20,6 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
     private static final Logger logger = LogManager.getLogger(ScriptController.class);
     private static final MediaType MULTIPART = MediaType.parse("multipart/form-data");
 
-    @Value("${tempPath}")
-    private String tempPath;
-
     @Value("${protocol}")
     private String http;
 
