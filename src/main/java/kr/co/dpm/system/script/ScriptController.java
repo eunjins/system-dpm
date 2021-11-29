@@ -11,10 +11,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import kr.co.dpm.system.measure.MeasureServiceImpl;
 
@@ -69,14 +65,14 @@ public class ScriptController {
     @Autowired
     private Excel excel;
 
-    //  스크립트 측정 결과 목록 폼
-    @GetMapping()
+    /*  스크립트 측정 결과 목록 폼 */
+    @GetMapping
     public ModelAndView getScripts() {
         ModelAndView mav = new ModelAndView("script/list");
 
         List<Measure> scriptMeasure = new ArrayList<>();
 
-        List<Script> scripts = scriptService.getScripts(null);
+        List<Script> scripts = scriptService.getScripts(new Script());
         mav.addObject("scripts", scripts);
 
         for (Script object : scripts) {
@@ -107,23 +103,13 @@ public class ScriptController {
         return mav;
     }
 
-    // 스크립트 측정 결과 목록 조회
-    @PostMapping()
-    @ResponseBody
-    public Map<Script, List<Measure>> getScripts(@RequestBody Script script) {
-
-        return null;
-    }
-
-    // 스크립트 등록 폼
+    /* 스크립트 등록 폼 */
     @GetMapping("/form")
     public ModelAndView registerScript() {
-        ModelAndView mav = new ModelAndView("script/register");
-
-        return mav;
+        return new ModelAndView("script/register");
     }
 
-    // 스크립트 배포
+    /* 스크립트 배포 */
     @PostMapping("/distribute")
     public ModelAndView distributeScript(
                         @RequestParam("sourceFile") MultipartFile sourceFile,
@@ -159,11 +145,10 @@ public class ScriptController {
         return mav;
     }
 
-    // 스크립트 측정 결과 조회
+    /* 스크립트 측정 결과 조회 */
     @GetMapping("/{no}")
     public ModelAndView getScript(Script script) {
         ModelAndView mav = new ModelAndView("script/view");
-
         mav.addObject("script", scriptService.getScript(script));
 
         Attach attach = new Attach();
@@ -176,7 +161,6 @@ public class ScriptController {
         for (int i = 0; i < measures.size(); i++) {
             Device device = new Device();
             device.setId(measures.get(i).getDeviceId());
-
             measures.get(i).setDeviceName(deviceService.getDevice(device).getName());
         }
 
@@ -186,7 +170,7 @@ public class ScriptController {
     }
 
     /* 스크립트 다운로드 */
-    @GetMapping("/scripts/file/{no}")
+    @GetMapping("/file/{no}")
     public void downloadScript(Attach attach, HttpServletResponse response) {
         OutputStream outputStream = null;
 
@@ -200,7 +184,6 @@ public class ScriptController {
             }
 
             byte[] file = FileUtils.readFileToByteArray(new File(path + File.separator + attach.getName()));
-
             String encodingName = new String(attach.getName().getBytes("UTF-8"), "ISO-8859-1");
 
             response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingName + "\"");
@@ -225,14 +208,13 @@ public class ScriptController {
     }
 
     /* 스크립트 측정 결과 다운로드 */
-    @GetMapping("/scripts/excel/{no}")
+    @GetMapping("/excel/{no}")
     public void downloadExcel(Script script, HttpServletResponse response) {
         OutputStream outputStream = null;
         String fileName = excel.create(script);
 
         try {
             byte[] file = FileUtils.readFileToByteArray(new File(excelPath + File.separator + fileName));
-
             String encodingName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
 
             response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingName + "\"");
@@ -282,13 +264,9 @@ public class ScriptController {
             responseData.put("message", null);
         }
 
-        // 입력 값을 검증한다.
         if (measure.getDeviceId() != null) {
-            // 측정 결과 명, 스크립트 일련번호를 메모리에서 가져와 지정한다.
             measure.setName(measureInfo.getName());
             measure.setScriptNo(measureInfo.getScriptNo());
-
-            // 측정 결과를 등록한다.
             measureService.registerMeasure(measure);
         } else {
             responseData.put("message", "수신 데이터가 존재하지 않습니다.");

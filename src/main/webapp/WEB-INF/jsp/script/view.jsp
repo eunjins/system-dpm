@@ -64,7 +64,7 @@
         </c:choose>
     </c:forEach>
 
-    <a href="${contextPath}/scripts/download/${script.no}"><input type="button" value="엑셀 다운로드" /></a>
+    <a href="${contextPath}/scripts/excel/${script.no}"><input type="button" value="엑셀 다운로드" /></a>
 
     <table border="1" style="width:80vw">
         <tr>

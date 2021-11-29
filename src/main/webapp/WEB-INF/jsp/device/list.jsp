@@ -6,7 +6,7 @@
 <html>
 <head>
     <title>Title</title>
-    <script type="text/javascript" charset="utf-8">
+    <script type="text/javascript" charset="utf-8" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
         sessionStorage.setItem("contextpath", "${pageContext.request.contextPath}");
     </script>
 </head>
@@ -31,78 +31,67 @@
 <div id = "search_bar" style="float: left">
     <input type="text" name="message" id="search_message"/>
 </div>
-<button id = "button_search">검색</button>
+<button id = "button_search" >검색</button>
 <p>
 <table border="1" id="table">
-    <tr>
-        <td>번호</td>
-        <td>디바이스 명</td>
-        <td>호스트 명</td>
-        <td>등록 일자</td>
-        <td>JDK 버전</td>
-        <td>상태</td>
-    </tr>
-
-    <c:forEach items="${devices}" var="device" varStatus="object">
-        <tr>
-            <td width="50">${object.count}</td>
-            <td width="200">
-                <a href="${contextPath}/devices/${device.id}">${device.name}</a>
-            </td>
-            <td>${device.hostName}</td>
-            <td>${device.insertDate}</td>
-            <td>${device.jdkVersion}</td>
-            <td>
-                <c:choose>
-                    <c:when test="${device.status eq 'Y'}">
-                        활성화
-                    </c:when>
-                    <c:when test="${device.status eq 'N'}">
-                        비활성화
-                    </c:when>
-                </c:choose>
-            </td>
-        </tr>
-    </c:forEach>
 </table>
 </p>
 <p>
 <table border="1">
-    <tr>
+    <tr id="pageNo">
         <td>
-            <a href="${contextPath}/devices"><<</a>
+            <a id="firstPage" href="javascript:void(0);" onclick="changPage(this.id);"><<</a>
         </td>
         <td>
-            <a href="${contextPath}/devices"><</a>
+            <a id="backPage" href="javascript:void(0);" onclick="changPage(this.id)"><</a>
+        </td>
+
+        <td>
+            <a id="nextPage" href="javascript:void(0);" onclick="changPage(this.id)">></a>
         </td>
         <td>
-            <a href="${contextPath}/devices">1</a>
-        </td>
-        <td>
-            <a href="${contextPath}/devices">2</a>
-        </td>
-        <td>
-            <a href="${contextPath}/devices">3</a>
-        </td>
-        <td>
-            <a href="${contextPath}/devices">4</a>
-        </td>
-        <td>
-            <a href="${contextPath}/devices">5</a>
-        </td>
-        <td>
-            <a href="${contextPath}/devices">></a>
-        </td>
-        <td>
-            <a href="${contextPath}/devices">>></a>
+            <a id="lastPage" href="javascript:void(0);" onclick="changPage(this.id)">>></a>
         </td>
     </tr>
 </table>
 </p>
 <script>
+    var allDeviceNo;
+    var pageNo = 0;
+
+    search();
+
     document.getElementById("button_search").addEventListener("click", search, false);
     document.getElementById("select_status").addEventListener("change", search, false);
     document.getElementById("select_condition").addEventListener("change", condition, false);
+
+    function changPage(pageButtonId) {
+        if (pageButtonId == "firstPage") {
+            pageNo = 0;
+
+        } else if (pageButtonId == "backPage") {
+            if (pageNo != 0) {
+                pageNo -= 1;
+            }
+
+        } else if (pageButtonId == "nextPage") {
+            if (pageNo != 0) {
+                pageNo -= 1;
+            }
+
+        } else if (pageButtonId == "backPage") {
+            if (pageNo !== (parseInt(allDeviceNo / 10))) {
+                pageNo += 1;
+            }
+
+        } else if (pageButtonId == "lastPage") {
+            pageNo = (parseInt(allDeviceNo / 10));
+
+        } else {
+            pageNo = pageButtonId;
+        }
+    }
+
     function condition() {
         const selectCondition = document.getElementById("select_condition").value;
         if (selectCondition == "name") {
@@ -111,6 +100,7 @@
             document.getElementById("search_bar").innerHTML = '<input type="date" name="message" id="search_message"/>';
         }
     }
+
     function search() {
         const selectStatus = document.getElementById("select_status").value;
         let status = "";
@@ -128,18 +118,23 @@
         } else {
             searchKeyword = {"insertDate" : document.getElementById("search_message").value,  "status" : status};
         }
-        const xmlHttpRequest = new XMLHttpRequest();
-        xmlHttpRequest.onreadystatechange = function () {
-            console.log(xmlHttpRequest.status);
-            if (xmlHttpRequest.status == 200) {
-                drawTable(JSON.parse(xmlHttpRequest.responseText));
+
+        $.ajax({
+            url: "${pageContext.request.contextPath}/devices",
+            type: "POST",
+            data: JSON.stringify(searchKeyword),
+            headers: { "Content-Type" : "application/json;charset=UTF-8" },
+            success: function(rows) {
+                drawTable(rows);
             }
-        };
-        xmlHttpRequest.open("POST", "${pageContext.request.contextPath}/devices", true);
-        xmlHttpRequest.setRequestHeader("Content-Type", "application/json");
-        xmlHttpRequest.send(JSON.stringify(searchKeyword));
+        })
     }
+
     function drawTable(responseJSON) {
+        allDeviceNo = responseJSON.length;
+
+        console.log((parseInt(allDeviceNo / 10)));
+
         let text = "";
         text +=
             "<tr>" +
@@ -151,7 +146,15 @@
             "        <td>상태</td>" +
             "</tr>";
 
-        for (let i = 0; i < responseJSON.length; i++) {
+        let endDeviceNo;
+
+        if (allDeviceNo - (pageNo * 10) < 10) {
+            endDeviceNo = allDeviceNo;
+        } else {
+            endDeviceNo = ((pageNo + 1) * 10);
+        }
+
+        for (let i = pageNo * 10; i < endDeviceNo; i++) {
             text +=
                 "<tr>" +
                 "<td width='50'>" + (i + 1).toString() + "</td>" +
@@ -172,6 +175,21 @@
         }
         const table = document.getElementById("table");
         table.innerHTML = text;
+
+        let endPageNo;
+        if ((parseInt(allDeviceNo / 10)) < ((pageNo / 5) * 5) + 5) {
+            endPageNo = ((parseInt(allDeviceNo / 10))) + 1;
+        } else {
+            endPageNo = ((pageNo / 5) * 5) + 5;
+        }
+
+        let pageTable = document.getElementById("pageNo");
+        for (let i = ((pageNo / 5) * 5); i < endPageNo; i++) {
+            let cell = pageTable.insertCell(i + 2);
+
+            cell.innerHTML = " <a id=" + (i) + " href='javascript:void(0);' onclick='changPage(this.id)'>" + (i + 1) + "</a>";
+        }
+
     }
 </script>
 </body>
