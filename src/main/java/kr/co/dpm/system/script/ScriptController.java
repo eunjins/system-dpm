@@ -143,7 +143,6 @@ public class ScriptController {
     @GetMapping("/{no}")
     public ModelAndView getScript(Script script) {
         ModelAndView mav = new ModelAndView("script/view");
-
         mav.addObject("script", scriptService.getScript(script));
 
         Attach attach = new Attach();
@@ -156,7 +155,6 @@ public class ScriptController {
         for (int i = 0; i < measures.size(); i++) {
             Device device = new Device();
             device.setId(measures.get(i).getDeviceId());
-
             measures.get(i).setDeviceName(deviceService.getDevice(device).getName());
         }
 
@@ -180,7 +178,6 @@ public class ScriptController {
             }
 
             byte[] file = FileUtils.readFileToByteArray(new File(path + File.separator + attach.getName()));
-
             String encodingName = new String(attach.getName().getBytes("UTF-8"), "ISO-8859-1");
 
             response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingName + "\"");
@@ -212,7 +209,6 @@ public class ScriptController {
 
         try {
             byte[] file = FileUtils.readFileToByteArray(new File(excelPath + File.separator + fileName));
-
             String encodingName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
 
             response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingName + "\"");
@@ -262,13 +258,9 @@ public class ScriptController {
             responseData.put("message", null);
         }
 
-        // 입력 값을 검증한다.
         if (measure.getDeviceId() != null) {
-            // 측정 결과 명, 스크립트 일련번호를 메모리에서 가져와 지정한다.
             measure.setName(measureInfo.getName());
             measure.setScriptNo(measureInfo.getScriptNo());
-
-            // 측정 결과를 등록한다.
             measureService.registerMeasure(measure);
         } else {
             responseData.put("message", "수신 데이터가 존재하지 않습니다.");

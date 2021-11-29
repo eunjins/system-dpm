@@ -18,12 +18,9 @@ public class AccessInterceptor extends HandlerInterceptorAdapter {
         if (session != null) {
             Object authInfo = session.getAttribute("log");
             if (authInfo != null) {
-                logger.debug("-------> 세션 존재");
-
                 return true;
             }
         }
-        logger.debug("-------> 세션 미존재");
         response.sendRedirect(request.getContextPath() + "/login");
 
         return false;
