@@ -7,6 +7,8 @@ import kr.co.dpm.system.measure.MeasureServiceImpl;
 import kr.co.dpm.system.script.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -37,24 +39,47 @@ public class Excel {
         List<Measure> measures =
                 measureService.getMeasures(new Measure(script.getNo()));
 
-        // Workbook (엑셀 파일) 생성
         XSSFWorkbook workbook = new XSSFWorkbook();
 
-        // Sheet 생성
         XSSFSheet sheet = workbook.createSheet(measures.get(0).getName());
 
+        CellStyle center = workbook.createCellStyle() ;
+        center.setAlignment(HorizontalAlignment.CENTER);
+
+        XSSFCellStyle color = workbook.createCellStyle();
+        color.setFillForegroundColor(IndexedColors.YELLOW.getIndex());
+        color.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
         XSSFRow row = sheet.createRow(1);
-        row.createCell(1).setCellValue("측정 결과 명");
-        row.createCell(2).setCellValue("스크립트 명");
+        Cell cell = row.createCell(1);
+        cell.setCellValue("측정 결과 명");
+        cell.setCellStyle(center);
+        cell.setCellStyle(color);
+
+        cell = row.createCell(2);
+        cell.setCellValue("스크립트 명");
+        cell.setCellStyle(center);
+        cell.setCellStyle(color);
 
         row = sheet.createRow(2);
         row.createCell(1).setCellValue(measures.get(0).getName());
         row.createCell(2).setCellValue(script.getNo());
 
         row = sheet.createRow(4);
-        row.createCell(0).setCellValue("번호");
-        row.createCell(1).setCellValue("디바이스 명");
-        row.createCell(2).setCellValue("실행 시간 (ms)");
+        cell = row.createCell(0);
+        cell.setCellValue("번호");
+        cell.setCellStyle(center);
+        cell.setCellStyle(color);
+
+        cell = row.createCell(1);
+        cell.setCellValue("디바이스 명");
+        cell.setCellStyle(center);
+        cell.setCellStyle(color);
+
+        cell = row.createCell(2);
+        cell.setCellValue("실행 시간 (ms)");
+        cell.setCellStyle(center);
+        cell.setCellStyle(color);
 
         for (int i = 0; i < measures.size(); i++) {
             row = sheet.createRow(i + 5);

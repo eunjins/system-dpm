@@ -40,7 +40,7 @@
         <tr>
             <td width="50">${object.count}</td>
             <td width="200">
-                ${scriptMeasure[object.count - 1].name}
+                    ${scriptMeasure[object.count - 1].name}
             </td>
             <td>${script.name}</td>
             <td>${script.uploadPoint}</td>
@@ -69,18 +69,6 @@
         </td>
         <td>
             <a href="${contextPath}/scripts">1</a>
-        </td>
-        <td>
-            <a href="${contextPath}/scripts">2</a>
-        </td>
-        <td>
-            <a href="${contextPath}/scripts">3</a>
-        </td>
-        <td>
-            <a href="${contextPath}/scripts">4</a>
-        </td>
-        <td>
-            <a href="${contextPath}/scripts">5</a>
         </td>
         <td>
             <a href="${contextPath}/scripts">></a>
