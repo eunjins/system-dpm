@@ -73,6 +73,7 @@ public class ScriptController {
     @GetMapping()
     public ModelAndView getScripts() {
         ModelAndView mav = new ModelAndView("script/list");
+
         List<Measure> scriptMeasure = new ArrayList<>();
 
         List<Script> scripts = scriptService.getScripts(null);
@@ -83,19 +84,24 @@ public class ScriptController {
             measure.setScriptNo(object.getNo());
 
             List<Measure> measures = measureService.getMeasures(measure);
+            if (measures.isEmpty()) {
+                measure.setStatus("N");
+                measure.setName(measureInfo.getName());
+
+                scriptMeasure.add(measure);
+
+                continue;
+            }
 
             measure.setName(measures.get(0).getName());
-
             if (measure.getName() == null) {
                 measure.setStatus("N");
-                measure.setName("...");
+                measure.setName(measureInfo.getName());
             } else {
                 measure.setStatus("Y");
             }
-
             scriptMeasure.add(measure);
         }
-
         mav.addObject("scriptMeasure", scriptMeasure);
 
         return mav;
@@ -122,9 +128,7 @@ public class ScriptController {
     public ModelAndView distributeScript(
                         @RequestParam("sourceFile") MultipartFile sourceFile,
                         @RequestParam("classFile") MultipartFile classFile,
-                        @RequestParam("name") String measureName,
-                                              Attach attach,
-                                              Script script) {
+                        @RequestParam("name") String measureName) {
         ModelAndView mav = new ModelAndView(new RedirectView("/scripts/form"));
 
         if (!sourceFile.isEmpty() && !classFile.isEmpty()) {
@@ -132,11 +136,13 @@ public class ScriptController {
             String classFileName = FilenameUtils.getBaseName((classFile.getOriginalFilename()));
             if (sourceFileName.equals(classFileName)) {
                 if (managementService.distributeScript(classFile)) {
+                    Script script = new Script();
                     String scriptName = FilenameUtils.getBaseName(sourceFile.getOriginalFilename());
                     script.setName(scriptName);
 
                     scriptService.registerScript(script);
 
+                    Attach attach = new Attach();
                     int scriptNo = script.getNo();
                     attach.setScriptNo(scriptNo);
 

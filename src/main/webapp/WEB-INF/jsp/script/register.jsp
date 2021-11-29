@@ -21,13 +21,13 @@
         <tr>
             <td>소스 파일:</td>
             <td>
-                <input type="file" name="sourceFile" />
+                <input type="file" name="sourceFile" accept=".java" />
             </td>
         </tr>
         <tr>
             <td>클래스 파일:</td>
             <td>
-                <input type="file" name="classFile" />
+                <input type="file" name="classFile" accept=".class" />
             </td>
         </tr>
     </table>
