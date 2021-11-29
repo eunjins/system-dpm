@@ -26,9 +26,7 @@ public class Device implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
     public void setName(String name) {
         this.name = name;
@@ -72,5 +70,18 @@ public class Device implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Device{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", hostName='" + hostName + '\'' +
+                ", ipAddress='" + ipAddress + '\'' +
+                ", insertDate='" + insertDate + '\'' +
+                ", jdkVersion='" + jdkVersion + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }

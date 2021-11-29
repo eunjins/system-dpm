@@ -15,6 +15,8 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.net.NoRouteToHostException;
+import java.net.SocketTimeoutException;
 
 @Component
 public class ScriptFileRepositoryImpl implements ScriptFileRepository {
@@ -39,8 +41,7 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
             fileOutputStream.write(classFile.getBytes());
             fileOutputStream.close();
 
-//            String requestUrl = http + ip + port + url;
-            String requestUrl = "http://localhost";
+            String requestUrl = http + ip + port + url;
 
             OkHttpClient client = new OkHttpClient();
 
@@ -66,15 +67,19 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
                 logger.debug("-------> 에이전트 배포 성공 200 OK");
 
                 return true;
-            } else {
-                logger.debug("-------> 에이전트 배포 오류 : " + jsonResponse.getString("message"));
-
-                return false;
             }
+            logger.debug("-------> 에이전트 배포 오류 : " + jsonResponse.getString("message"));
+
+        } catch(NoRouteToHostException e) {
+            logger.debug("-------> 호스트로 갈 루트 없음");
+            e.printStackTrace();
+        } catch(SocketTimeoutException e) {
+            logger.debug("-------> 에이전트 연결 시간 초과");
+            e.printStackTrace();
         } catch(Exception e) {
             e.printStackTrace();
         }
-
-        return true;
+        logger.debug("------> 배포 실패 ");
+        return false;
     }
 }
