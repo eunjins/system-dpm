@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import kr.co.dpm.system.measure.MeasureServiceImpl;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;

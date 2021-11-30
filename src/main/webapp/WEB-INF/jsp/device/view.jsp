@@ -8,25 +8,25 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>디바이스 성능 측정 통합 시스템</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesbrand" name="author" />
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description"/>
+    <meta content="Themesbrand" name="author"/>
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
 
     <!-- jquery.vectormap css -->
     <link href="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
-          type="text/css" />
+          type="text/css"/>
 
 
     <!-- Bootstrap Css -->
-    <link href="/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css"/>
     <!-- Icons Css -->
-    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <!-- App Css-->
-    <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css"/>
 
 </head>
 
@@ -41,7 +41,8 @@
                 <div class="d-flex">
 
 
-                    <button type="button" class="btn btn-sm px-3 font-size-16 d-lg-none header-item waves-effect waves-light"
+                    <button type="button"
+                            class="btn btn-sm px-3 font-size-16 d-lg-none header-item waves-effect waves-light"
                             data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
                         <i class="fa fa-fw fa-bars"></i>
                     </button>
@@ -197,12 +198,14 @@
                                     <div class="button-items">
                                         <a href="${contextPath}/devices">
                                             <button type="button"
-                                                    class="btn btn-outline-primary waves-effect waves-light" style="float: right">목록
+                                                    class="btn btn-outline-primary waves-effect waves-light"
+                                                    style="float: right">목록
                                             </button>
                                         </a>
                                         <a href="${contextPath}/devices/${device.id}/form">
                                             <button type="button"
-                                                    class="btn btn-outline-primary waves-effect waves-light" style="float: right">수정
+                                                    class="btn btn-outline-primary waves-effect waves-light"
+                                                    style="float: right">수정
                                             </button>
                                         </a>
                                     </div>
@@ -245,6 +248,7 @@
 <script src="/assets/js/pages/dashboard.init.js"></script>
 
 <script src="/assets/js/app.js"></script>
+
 
 </body>
 

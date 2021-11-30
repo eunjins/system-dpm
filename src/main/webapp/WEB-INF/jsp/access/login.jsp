@@ -72,6 +72,7 @@
 <!-- JAVASCRIPT -->
 <script>
     var missMatch = document.getElementById("checkLogIn").innerHTML = "${missMatch}";
+
     function login() {
         var loginInfo = {
             loginForm:document.loginForm,
