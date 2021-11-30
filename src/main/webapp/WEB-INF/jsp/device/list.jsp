@@ -51,19 +51,22 @@
                         </div>
 
                         <div class="row">
-                            <div class=" col-sm-12 col-md-6"/>
-                                <div id="datatable_filter" class="dataTables_filter" >
-                                    <form action="/devices">
-                                        <input type="search" class="form-control form-control-sm" name="q"
-                                                  placeholder="검색어를 입력하세요" aria-controls="datatable">
-                                    </form>
+                            <div class="col-sm-12 col-md-7"/>
+                            <div class="col-sm-12 col-md-5">
+                                <div id="datatable_filter" class="dataTables_filter"><label>
+                                    <input type="search" class="form-control form-control-sm"
+                                           placeholder="검색어를 입력하세요" aria-controls="datatable">
+                                    <input type="button"
+                                           class="btn btn-default btn-sm btn-outline-primary waves-effect waves-light"
+                                           value="검색"/>
+                                </label>
                                 </div>
+                            </div>
                         </div>
+
                     </div>
 
                 </div>
-
-            </div>
 
                 <div class="row">
                     <div class="col-12">
@@ -100,7 +103,8 @@
                                                     </th>
                                                     <th class="sorting" tabindex="0" aria-controls="datatable"
                                                         rowspan="1" colspan="1" style="width: 50px;"
-                                                        aria-label="Start date: activate to sort column ascending">JDK 버전
+                                                        aria-label="Start date: activate to sort column ascending">JDK
+                                                        버전
                                                     </th>
                                                     <th class="sorting" tabindex="0" aria-controls="datatable"
                                                         rowspan="1" colspan="1" style="width: 0px;"
@@ -110,25 +114,27 @@
                                                 </thead>
 
                                                 <tbody>
-                                                <c:forEach items="${devices}" var="device" varStatus="object" >
-                                                <tr class="odd">
-<%--                                                    <td class="dtr-control sorting_1" tabindex="0">${object.count}</td>--%>
-                                                    <td style="">${object.count}</td>
-                                                    <td style=""><a href="${contextPath}/devices/${device.id}">${device.name}</a></td>
-                                                    <td style="">${device.hostName}</td>
-                                                    <td style="">${device.insertDate}</td>
-                                                    <td style="">${device.jdkVersion}</td>
-                                                    <td style="">
-                                                        <c:choose>
-                                                            <c:when test="${device.status eq 'Y'}">
-                                                            활성화
-                                                            </c:when>
-                                                            <c:when test="${device.status eq 'N'}">
-                                                            비활성화
-                                                            </c:when>
-                                                        </c:choose>
-                                                    </td>
-                                                </tr>
+                                                <c:forEach items="${devices}" var="device" varStatus="object">
+                                                    <tr class="odd">
+                                                            <%--                                                    <td class="dtr-control sorting_1" tabindex="0">${object.count}</td>--%>
+                                                        <td style="">${object.count}</td>
+                                                        <td style=""><a
+                                                                href="${contextPath}/devices/${device.id}">${device.name}</a>
+                                                        </td>
+                                                        <td style="">${device.hostName}</td>
+                                                        <td style="">${device.insertDate}</td>
+                                                        <td style="">${device.jdkVersion}</td>
+                                                        <td style="">
+                                                            <c:choose>
+                                                                <c:when test="${device.status eq 'Y'}">
+                                                                    활성화
+                                                                </c:when>
+                                                                <c:when test="${device.status eq 'N'}">
+                                                                    비활성화
+                                                                </c:when>
+                                                            </c:choose>
+                                                        </td>
+                                                    </tr>
                                                 </c:forEach>
                                                 </tbody>
                                             </table>
