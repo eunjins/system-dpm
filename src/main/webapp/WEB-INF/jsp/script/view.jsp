@@ -99,10 +99,10 @@
                                                 </div>
                                                 <div class="col-md-2">
                                                     <a href="${contextPath}/scripts/excel/${script.no}">
-                                                    <button class="btn btn-outline-primary waves-effect waves-light"
-                                                            tabindex="0" aria-controls="datatable"
-                                                            type="button" style="float: right"><span>엑셀 다운로드</span>
-                                                    </button>
+                                                        <button class="btn btn-outline-primary waves-effect waves-light"
+                                                                tabindex="0" aria-controls="datatable"
+                                                                type="button" style="float: right"><span>엑셀 다운로드</span>
+                                                        </button>
                                                     </a>
                                                 </div>
                                             </div>
@@ -136,13 +136,7 @@
                                         </thead>
 
                                         <tbody id="measureList">
-                                        <c:forEach items="${measures}" var="measure" varStatus="object">
-                                            <tr class="odd">
-                                                <td class="dtr-control sorting_1" tabindex="0" align="right">${object.count}</td>
-                                                <td>${measure.deviceName}</td>
-                                                <td id=execTime align="right">${measure.execTime}</td>
-                                            </tr>
-                                        </c:forEach>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -243,13 +237,12 @@
 <script type="text/javascript">
     let measureList = document.getElementById("measureList");
     measureList.innerHTML = '<c:forEach items="${measures}" var="measure" varStatus="object">' +
-                                            '<tr class="odd">' +
-                                                '<td class="dtr-control sorting_1" tabindex="0" align="right">${object.count}</td>' +
-                                                '<td>${measure.deviceName}</td>' +
-                                                '<td id=execTime align="right">' + Number(${measure.execTime}).toLocaleString('en') + '</td>' +
-                                            ' </tr>' +
-                                        '</c:forEach>'
-
+        '<tr class="odd">' +
+        '<td class="dtr-control sorting_1" tabindex="0" align="right">${object.count}</td>' +
+        '<td>${measure.deviceName}</td>' +
+        '<td id=execTime align="right">' + Number(${measure.execTime}).toLocaleString('en') + '</td>' +
+        ' </tr>' +
+        '</c:forEach>'
 </script>
 
 </body>

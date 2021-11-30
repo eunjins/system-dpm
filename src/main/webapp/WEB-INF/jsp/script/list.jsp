@@ -35,7 +35,7 @@
 <div class="container-fluid">
     <!-- Begin page -->
     <div id="layout-wrapper">
-        <jsp:include page="/WEB-INF/jsp/common/menu.jsp" />
+        <jsp:include page="/WEB-INF/jsp/common/menu.jsp"/>
         <!-- ============================================================== -->
         <!-- Start right Content here -->
         <!-- ============================================================== -->
@@ -57,6 +57,33 @@
                 <!-- start row -->
                 <div class="row">
                     <div class="col-xl-12">
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-7"></div>
+                            <div class="col-sm-12 col-md-5">
+                                <div id="datatable_filter" class="dataTables_filter">
+                                    검색 조건
+                                    <select name="datatable_type" aria-controls="datatable"
+                                            class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm"
+                                            style="width: 7vw">
+                                        <option value="measureName">측정 결과 명</option>
+                                        <option value="scriptName">스크립트 명</option>
+                                        <option value="uploadPoint">업로드 일자</option>
+                                    </select>
+
+                                    <label>
+                                        <input type="search"
+                                               class="form-control form-control-sm"
+                                               placeholder=""
+                                               aria-controls="datatable">
+                                    </label>
+                                    <button type="button"
+                                            class="btn btn-default btn-sm btn-outline-primary waves-effect waves-light">검색
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="card">
                             <div class="card-body">
 
