@@ -3,82 +3,177 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<html>
-<head>
-    <title>Title</title>
-    <script type="text/javascript" charset="utf-8">
-        sessionStorage.setItem("contextpath", "${pageContext.request.contextPath}");
-    </script>
-</head>
-<body>
-<jsp:include page="/WEB-INF/jsp/common/menu.jsp" />
-<h2>스크립트 측정 결과 목록</h2>
-<hr>
-<div style="float: left">
-    검색 조건
-    <select name="condition" id="select_condition">
-        <option value="measureName" selected="selected">측정 결과 명</option>
-        <option value="scriptName">스크립트 명</option>
-        <option value="uploadPoint">업로드 일자</option>
-    </select>
-</div>
-<div id = "search_bar" style="float: left">
-    <input type="text" name="message" id="search_message"/>
-</div>
-<button id = "button_search">검색</button>
-<p>
-<table border="1" id="table">
-    <tr>
-        <td>번호</td>
-        <td>측정 결과 명</td>
-        <td>스크립트 명</td>
-        <td>업로드 일시</td>
-        <td>상태</td>
-    </tr>
 
-    <c:forEach items="${scripts}" var="script" varStatus="object">
-        <tr>
-            <td width="50">${object.count}</td>
-            <td width="200">
-                    ${scriptMeasure[object.count - 1].name}
-            </td>
-            <td>${script.name}</td>
-            <td>${script.uploadPoint}</td>
-            <td>
-                <c:choose>
-                    <c:when test="${scriptMeasure[object.count - 1].status eq 'N'}">
-                        측정 중
-                    </c:when>
-                    <c:when test="${scriptMeasure[object.count - 1].status eq 'Y'}">
-                        <a href="${contextPath}/scripts/${script.no}">결과 보기</a>
-                    </c:when>
-                </c:choose>
-            </td>
-        </tr>
-    </c:forEach>
-</table>
-</p>
-<p>
-<table border="1">
-    <tr>
-        <td>
-            <a href="${contextPath}/scripts"><<</a>
-        </td>
-        <td>
-            <a href="${contextPath}/scripts"><</a>
-        </td>
-        <td>
-            <a href="${contextPath}/scripts">1</a>
-        </td>
-        <td>
-            <a href="${contextPath}/scripts">></a>
-        </td>
-        <td>
-            <a href="${contextPath}/scripts">>></a>
-        </td>
-    </tr>
-</table>
-</p>
-<a href="${contextPath}/scripts/form"><input type="button" value="등록" /></a>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>디바이스 성능 측정 통합 시스템</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description"/>
+    <meta content="Themesbrand" name="author"/>
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.ico">
+
+    <!-- jquery.vectormap css -->
+    <link href="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+          type="text/css"/>
+
+
+    <!-- Bootstrap Css -->
+    <link href="/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css"/>
+    <!-- Icons Css -->
+    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css"/>
+    <!-- App Css-->
+    <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css"/>
+
+</head>
+
+<body data-layout="horizontal" data-layout-size="boxed">
+
+<div class="container-fluid">
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        <jsp:include page="/WEB-INF/jsp/common/menu.jsp" />
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+
+            <div class="page-content">
+
+                <!-- start page title -->
+                <div class="row">
+                    <p></p>
+                    <div class="col-12">
+                        <div class="page-title-box d-flex align-items-center justify-content-between">
+                            <h2 class="page-title mb-0 font-size-40">스크립트 측정 결과 목록</h2>
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+
+                <!-- start row -->
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="col-sm-12">
+                                    <table id="datatable"
+                                           class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                                           style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+                                           role="grid" aria-describedby="datatable_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                colspan="1" style="width: 80px;" aria-sort="ascending"
+                                                aria-label="Name: activate to sort column descending">번호
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                colspan="1" style="width: 220px;"
+                                                aria-label="Position: activate to sort column ascending">측정 결과 명
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                colspan="1" style="width: 180px;"
+                                                aria-label="Office: activate to sort column ascending">스크립트 명
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                colspan="1" style="width: 100px;"
+                                                aria-label="Office: activate to sort column ascending">업로드 일시
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                colspan="1" style="width: 100px;"
+                                                aria-label="Office: activate to sort column ascending">상태
+                                            </th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <c:forEach items="${scripts}" var="script" varStatus="object">
+                                            <tr class="odd">
+                                                <td class="dtr-control sorting_1" tabindex="0">${object.count}</td>
+                                                <td>${scriptMeasure[object.count - 1].name}</td>
+                                                <td>${script.name}</td>
+                                                <td>${script.uploadPoint}</td>
+                                                <td>
+                                                    <c:choose>
+                                                        <c:when test="${scriptMeasure[object.count - 1].status eq 'N'}">
+                                                            측정 중
+                                                        </c:when>
+                                                        <c:when test="${scriptMeasure[object.count - 1].status eq 'Y'}">
+                                                            <a href="${contextPath}/scripts/${script.no}">결과 보기</a>
+                                                        </c:when>
+                                                    </c:choose>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <table id="chartable"
+                                       class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                                       style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+                                       role="grid" aria-describedby="datatable_info">
+                                    <div class="col-sm-12" id="chart-container"></div>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- End Page-content -->
+
+        </div>
+        <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+
+</div>
+<!-- end container-fluid -->
+
+<!-- JAVASCRIPT -->
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/libs/metismenu/metisMenu.min.js"></script>
+<script src="/assets/libs/simplebar/simplebar.min.js"></script>
+<script src="/assets/libs/node-waves/waves.min.js"></script>
+<script src="/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+
+<!-- Required datatable js -->
+<script src="/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<!-- Buttons examples -->
+<script src="/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="/assets/libs/jszip/jszip.min.js"></script>
+<script src="/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+<script src="/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+
+<!-- apexcharts -->
+<script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
+
+<!-- jquery.vectormap map -->
+<script src="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js"></script>
+
+<script src="/assets/js/pages/dashboard.init.js"></script>
+
+<script src="/assets/js/app.js"></script>
+
+<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+<script type="text/javascript"
+        src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+
+
 </body>
+
 </html>
