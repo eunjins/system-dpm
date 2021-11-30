@@ -3,85 +3,241 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<html>
+
+<!doctype html>
+<html lang="en">
+
 <head>
-    <title>Title</title>
-    <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
-    <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
-    <script type="text/javascript">
-        var deviceNames = [];
-        var execTimes = [];
+    <meta charset="utf-8"/>
+    <title>디바이스 성능 측정 통합 시스템</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description"/>
+    <meta content="Themesbrand" name="author"/>
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.ico">
 
-        const chartData = [
-            <c:forEach items="${measures}" var="measure" varStatus="object">
-                {
-                    "label": "${measure.deviceName}",
-                    "value": "${measure.execTime}"
-                },
-            </c:forEach>
-        ];
+    <!-- jquery.vectormap css -->
+    <link href="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+          type="text/css"/>
 
-        const chartConfig = {
-            type: 'column2d',
-            renderAt: 'chart-container',
-            width: '80%',
-            height: '400',
-            dataFormat: 'json',
-            dataSource: {
-                "chart": {
-                    "yAxisName": "실행 시간 (ms)",
-                    "theme": "fusion",
-                },
-                "data": chartData
-            }
-        };
-        FusionCharts.ready(function(){
-            var fusioncharts = new FusionCharts(chartConfig);
-            fusioncharts.render();
-        });
 
-    </script>
+    <!-- Bootstrap Css -->
+    <link href="/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css"/>
+    <!-- Icons Css -->
+    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css"/>
+    <!-- App Css-->
+    <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css"/>
+
 </head>
-<body>
-    <jsp:include page="/WEB-INF/jsp/common/menu.jsp" />
-    <h2>스크립트 측정 결과 조회 </h2>
-    <hr>
 
-    측정 결과 명: ${measures[0].name} <br>
-    스크립트 명: ${script.name} <br>
-    업로드 일시: ${script.uploadPoint} <br>
+<body data-layout="horizontal" data-layout-size="boxed">
 
-    <c:forEach items="${attaches}" var="attach">
-        <c:choose>
-            <c:when test="${attach.division eq 'S'}">
-                소스 파일:
-                <a href="/scripts/file/${attach.no}" >${attach.name}.java</a><br>
-            </c:when>
-            <c:when test="${attach.division eq 'C'}">
-                클래스 파일:
-                <a href="/scripts/file/${attach.no}" >${attach.name}.class</a><br>
-            </c:when>
-        </c:choose>
-    </c:forEach>
+<div class="container-fluid">
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        <jsp:include page="/WEB-INF/jsp/common/menu.jsp" />
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
 
-    <a href="${contextPath}/scripts/excel/${script.no}"><input type="button" value="엑셀 다운로드" /></a>
+            <div class="page-content">
 
-    <table border="1" style="width:80vw">
-        <tr>
-            <td>번호</td>
-            <td>디바이스 명</td>
-            <td>실행 시간 (ms)</td>
-        </tr>
+                <!-- start page title -->
+                <div class="row">
+                    <p></p>
+                    <div class="col-12">
+                        <div class="page-title-box d-flex align-items-center justify-content-between">
+                            <h2 class="page-title mb-0 font-size-40">스크립트 측정 결과</h2>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- end page title -->
+
+                <!-- start row -->
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mb-3 row">
+                                    <label class="col-md-2 col-form-label">측정 결과 명 :</label>
+                                    <div class="col-md-7">
+                                        <label class="col-md-12 col-form-label">${measures[0].name}</label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-md-2 col-form-label">스크립트 명 :</label>
+                                    <div class="col-md-7">
+                                        <label class="col-md-12 col-form-label">${script.name}</label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-md-2 col-form-label">업로드 일시 :</label>
+                                    <div class="col-md-7">
+                                        <label class="col-md-12 col-form-label">${script.uploadPoint}</label>
+                                    </div>
+                                </div>
+                                <c:forEach items="${attaches}" var="attach">
+                                    <c:choose>
+                                        <c:when test="${attach.division eq 'S'}">
+                                            <div class="mb-3 row">
+                                                <label class="col-md-2 col-form-label">소스 파일 :</label>
+                                                <div class="col-md-7">
+                                                    <label class="col-md-12 col-form-label">
+                                                        <a href="/scripts/file/${attach.no}">${attach.name}.java</a>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </c:when>
+                                        <c:when test="${attach.division eq 'C'}">
+                                            <div class="mb-3 row">
+                                                <label class="col-md-2 col-form-label">클래스 파일 :</label>
+                                                <div class="col-md-8">
+                                                    <label class="col-md-10 col-form-label">
+                                                        <a href="/scripts/file/${attach.no}">${attach.name}.class</a>
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button class="btn btn-outline-primary waves-effect waves-light"
+                                                            tabindex="0" aria-controls="datatable"
+                                                            type="button" style="float: right"><span>엑셀 다운로드</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </c:when>
+                                    </c:choose>
+                                </c:forEach>
+
+                                <div class="col-sm-12">
+                                    <table id="datatable"
+                                           class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                                           style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+                                           role="grid" aria-describedby="datatable_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                colspan="1" style="width: 80px;" aria-sort="ascending"
+                                                aria-label="Name: activate to sort column descending">번호
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                colspan="1" style="width: 250px;"
+                                                aria-label="Position: activate to sort column ascending">디바이스 명
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                colspan="1" style="width: 100px;"
+                                                aria-label="Office: activate to sort column ascending">실행 시간 (ms)
+                                            </th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <c:forEach items="${measures}" var="measure" varStatus="object">
+                                            <tr class="odd">
+                                                <td class="dtr-control sorting_1" tabindex="0">${object.count}</td>
+                                                <td>${measure.deviceName}</td>
+                                                <td>${measure.execTime}</td>
+                                            </tr>
+                                        </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <table id="chartable"
+                                       class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                                       style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+                                       role="grid" aria-describedby="datatable_info">
+                                <div class="col-sm-12" id="chart-container"></div>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- End Page-content -->
+
+        </div>
+        <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+
+</div>
+<!-- end container-fluid -->
+
+<!-- JAVASCRIPT -->
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/libs/metismenu/metisMenu.min.js"></script>
+<script src="/assets/libs/simplebar/simplebar.min.js"></script>
+<script src="/assets/libs/node-waves/waves.min.js"></script>
+<script src="/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+
+<!-- Required datatable js -->
+<script src="/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<!-- Buttons examples -->
+<script src="/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="/assets/libs/jszip/jszip.min.js"></script>
+<script src="/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+<script src="/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+
+<!-- apexcharts -->
+<script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
+
+<!-- jquery.vectormap map -->
+<script src="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js"></script>
+
+<script src="/assets/js/pages/dashboard.init.js"></script>
+
+<script src="/assets/js/app.js"></script>
+
+<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+<script type="text/javascript"
+        src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+<script type="text/javascript">
+    var deviceNames = [];
+    var execTimes = [];
+
+    const chartData = [
         <c:forEach items="${measures}" var="measure" varStatus="object">
-            <tr>
-                <td>${object.count}</td>
-                <td>${measure.deviceName}</td>
-                <td>${measure.execTime}</td>
-            </tr>
+        {
+            "label": "${measure.deviceName}",
+            "value": "${measure.execTime}"
+        },
         </c:forEach>
-    </table>
-    <br>
-    <div id="chart-container"></div>
-    <a href="${contextPath}/scripts"><input type="button" value="목록" /></a>
+    ];
+
+    const chartConfig = {
+        type: 'column2d',
+        renderAt: 'chart-container',
+        width: '100%',
+        height: '400',
+        dataFormat: 'json',
+        dataSource: {
+            "chart": {
+                "yAxisName": "실행 시간 (ms)",
+                "theme": "fusion",
+                "showBorder": 1
+            },
+            "data": chartData
+        }
+    };
+    FusionCharts.ready(function () {
+        var fusioncharts = new FusionCharts(chartConfig);
+        fusioncharts.render();
+    });
+
+</script>
+
 </body>
+
 </html>
