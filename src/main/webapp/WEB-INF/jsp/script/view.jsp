@@ -35,7 +35,7 @@
 <div class="container-fluid">
     <!-- Begin page -->
     <div id="layout-wrapper">
-        <jsp:include page="/WEB-INF/jsp/common/menu.jsp" />
+        <jsp:include page="/WEB-INF/jsp/common/menu.jsp"/>
         <!-- ============================================================== -->
         <!-- Start right Content here -->
         <!-- ============================================================== -->
@@ -51,8 +51,6 @@
                             <h2 class="page-title mb-0 font-size-40">스크립트 측정 결과</h2>
                         </div>
                     </div>
-
-
                 </div>
                 <!-- end page title -->
 
@@ -100,10 +98,12 @@
                                                     </label>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <button class="btn btn-outline-primary waves-effect waves-light"
-                                                            tabindex="0" aria-controls="datatable"
-                                                            type="button" style="float: right"><span>엑셀 다운로드</span>
-                                                    </button>
+                                                    <a href="${contextPath}/scripts/excel/${script.no}">
+                                                        <button class="btn btn-outline-primary waves-effect waves-light"
+                                                                tabindex="0" aria-controls="datatable"
+                                                                type="button" style="float: right"><span>엑셀 다운로드</span>
+                                                        </button>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </c:when>
@@ -119,27 +119,24 @@
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1"
                                                 colspan="1" style="width: 80px;" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending">번호
+                                                aria-label="Name: activate to sort column descending">
+                                                <label class="col-md-5 col-form-label"></label>번호
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
                                                 colspan="1" style="width: 250px;"
-                                                aria-label="Position: activate to sort column ascending">디바이스 명
+                                                aria-label="Position: activate to sort column ascending">
+                                                <label class="col-md-5 col-form-label"></label>디바이스 명
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
                                                 colspan="1" style="width: 100px;"
-                                                aria-label="Office: activate to sort column ascending">실행 시간 (ms)
+                                                aria-label="Office: activate to sort column ascending">
+                                                <label class="col-md-4 col-form-label"></label>실행 시간 (ms)
                                             </th>
                                         </tr>
                                         </thead>
 
-                                        <tbody>
-                                        <c:forEach items="${measures}" var="measure" varStatus="object">
-                                            <tr class="odd">
-                                                <td class="dtr-control sorting_1" tabindex="0">${object.count}</td>
-                                                <td>${measure.deviceName}</td>
-                                                <td>${measure.execTime}</td>
-                                            </tr>
-                                        </c:forEach>
+                                        <tbody id="measureList">
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -147,7 +144,7 @@
                                        class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
                                        style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
                                        role="grid" aria-describedby="datatable_info">
-                                <div class="col-sm-12" id="chart-container"></div>
+                                    <div class="col-sm-12" id="chart-container"></div>
                                 </table>
                             </div>
                         </div>
@@ -236,6 +233,16 @@
         fusioncharts.render();
     });
 
+</script>
+<script type="text/javascript">
+    let measureList = document.getElementById("measureList");
+    measureList.innerHTML = '<c:forEach items="${measures}" var="measure" varStatus="object">' +
+        '<tr class="odd">' +
+        '<td class="dtr-control sorting_1" tabindex="0" align="right">${object.count}</td>' +
+        '<td>${measure.deviceName}</td>' +
+        '<td id=execTime align="right">' + Number(${measure.execTime}).toLocaleString('en') + '</td>' +
+        ' </tr>' +
+        '</c:forEach>'
 </script>
 
 </body>
