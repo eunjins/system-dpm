@@ -59,6 +59,9 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
+
+                                <%--                                <h1 class="card-title">디바이스 정보 수정</h1><br/><br/>--%>
+
                                 <div class="mb-3 row">
                                     <label class="col-md-2 col-form-label">디바이스 ID:</label>
                                     <label class="col-md-6 col-form-label">${device.id}</label>
@@ -149,12 +152,14 @@
                                     <div class="button-items">
                                         <a href="${contextPath}/devices">
                                             <button type="button"
-                                                    class="btn btn-outline-primary waves-effect waves-light" style="float: right">목록
+                                                    class="btn btn-outline-primary waves-effect waves-light"
+                                                    style="float: right">목록
                                             </button>
                                         </a>
                                         <a href="${contextPath}/devices/${device.id}/form">
                                             <button type="button"
-                                                    class="btn btn-outline-primary waves-effect waves-light" style="float: right">수정
+                                                    class="btn btn-outline-primary waves-effect waves-light"
+                                                    style="float: right">수정
                                             </button>
                                         </a>
                                     </div>
