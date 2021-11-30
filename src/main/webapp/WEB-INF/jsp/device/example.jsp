@@ -35,52 +35,7 @@
 <div class="container-fluid">
     <!-- Begin page -->
     <div id="layout-wrapper">
-
-        <header id="page-topbar">
-            <div class="navbar-header">
-                <div class="d-flex">
-
-
-                    <button type="button" class="btn btn-sm px-3 font-size-16 d-lg-none header-item waves-effect waves-light"
-                            data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
-                        <i class="fa fa-fw fa-bars"></i>
-                    </button>
-
-                    <div class="topnav">
-                        <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
-                            <div class="dropdown d-inline-block">
-                                <button type="button" class="btn header-item waves-effect"
-                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="d-none d-xl-inline-block ms-1" style="font-size:large">디바이스</span>
-                                </button>
-                            </div>
-
-                            <div class="dropdown d-inline-block">
-                                <button type="button" class="btn header-item waves-effect"
-                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="d-none d-xl-inline-block ms-1" style="font-size:large">스크립트 측정</span>
-                                </button>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-
-                <div class="d-flex">
-                    <div class="dropdown d-inline-block">
-                        <button type="button" class="btn header-item waves-effect"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="d-none d-xl-inline-block ms-1" style="font-size:large">로그아웃</span>
-                            <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item text-danger" href="#"><i
-                                    class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> Logout</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-
+        <jsp:include page="/WEB-INF/jsp/common/menu.jsp" />
         <!-- ============================================================== -->
         <!-- Start right Content here -->
         <!-- ============================================================== -->
