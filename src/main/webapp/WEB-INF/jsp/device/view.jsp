@@ -93,7 +93,7 @@
                     <p></p>
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h2 class="page-title mb-0 font-size-40">디바이스 정보 조회</h2>
+                            <h2 class="page-title mb-0 font-size-40">디바이스 정보</h2>
                         </div>
                     </div>
 
