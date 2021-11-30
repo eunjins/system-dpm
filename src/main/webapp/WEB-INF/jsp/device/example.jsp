@@ -1,30 +1,36 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
+<%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <!doctype html>
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8" />
-    <title>Profile | Qovex - Admin & Dashboard Template</title>
+    <title>디바이스 성능 측정 통합 시스템</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico">
+
+    <!-- jquery.vectormap css -->
+    <link href="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+          type="text/css" />
+
 
     <!-- Bootstrap Css -->
-    <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
-    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <!-- App Css-->
-    <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
 
 </head>
 
-<body data-layout="detached" data-topbar="colored">
-
-
-
-    <!-- <body data-layout="horizontal" data-topbar="dark"> -->
+<body data-layout="horizontal" data-layout-size="boxed">
 
 <div class="container-fluid">
     <!-- Begin page -->
@@ -32,74 +38,48 @@
 
         <header id="page-topbar">
             <div class="navbar-header">
-                <div class="container-fluid">
-                    <div class="float-end">
+                <div class="d-flex">
 
-                        <div class="dropdown d-inline-block d-lg-none ms-2">
-                            <button type="button" class="btn header-item noti-icon waves-effect"
-                                id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="mdi mdi-magnify"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-                                aria-labelledby="page-header-search-dropdown">
 
-                                <form class="p-3">
-                                    <div class="m-0">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search ..."
-                                                aria-label="Recipient's username">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary" type="submit"><i
-                                                        class="mdi mdi-magnify"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                    <button type="button" class="btn btn-sm px-3 font-size-16 d-lg-none header-item waves-effect waves-light"
+                            data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                        <i class="fa fa-fw fa-bars"></i>
+                    </button>
+
+                    <div class="topnav">
+                        <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
+                            <div class="dropdown d-inline-block">
+                                <button type="button" class="btn header-item waves-effect"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="d-none d-xl-inline-block ms-1" style="font-size:large">디바이스</span>
+                                </button>
                             </div>
-                        </div>
 
-                        <div class="dropdown d-inline-block">
-                            <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                            <div class="dropdown d-inline-block">
+                                <button type="button" class="btn header-item waves-effect"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="d-none d-xl-inline-block ms-1" style="font-size:large">스크립트 측정</span>
+                                </button>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <div class="dropdown d-inline-block">
+                        <button type="button" class="btn header-item waves-effect"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="d-none d-xl-inline-block ms-1">로그아웃</span>
-                                <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item text-danger" href="#"><i
-                                        class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> Logout</a>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div>
-                        
-
-                        <button type="button" class="btn btn-sm px-3 font-size-16 header-item toggle-btn waves-effect"
-                            id="vertical-menu-btn">
-                            <i class="fa fa-fw fa-bars"></i>
+                            <span class="d-none d-xl-inline-block ms-1" style="font-size:large">로그아웃</span>
+                            <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                         </button>
-
-                        <div class="dropdown dropdown-mega d-none d-lg-inline-block ms-2">
-                            <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown"
-                                aria-haspopup="false" aria-expanded="false">
-                                디바이스
-                                <i class="mdi mdi-chevron-down"></i>
-                            </button>
-                        </div>
-						<div class="dropdown dropdown-mega d-none d-lg-inline-block ms-2">
-                            <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown"
-                                aria-haspopup="false" aria-expanded="false">
-                                스크립트 측정
-                                <i class="mdi mdi-chevron-down"></i>
-                            </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item text-danger" href="#"><i
+                                    class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> Logout</a>
                         </div>
                     </div>
-
                 </div>
             </div>
-        </header> <!-- ========== Left Sidebar Start ========== -->
-
+        </header>
 
         <!-- ============================================================== -->
         <!-- Start right Content here -->
@@ -110,38 +90,30 @@
 
                 <!-- start page title -->
                 <div class="row">
+                    <p></p>
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h4 class="page-title mb-0 font-size-18">페이지 타이틀</h4>
+                            <h2 class="page-title mb-0 font-size-40">스크립트 등록</h2>
                         </div>
                     </div>
+
                 </div>
                 <!-- end page title -->
 
-                <!-- start row -->
                 <div class="row">
-					<!-- 페이지에 표시할 내용은 여기에 넣어주세요! -->
-                </div>
-                <!-- end row -->
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <!--내용은 여기에 작성해주세요!-->
 
-            </div>
-
-            <!-- End Page-content -->
-
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <script>document.write(new Date().getFullYear())</script> © Qovex.
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="text-sm-end d-none d-sm-block">
-                                Design & Develop by Themesbrand
                             </div>
                         </div>
                     </div>
                 </div>
-            </footer>
+                <!-- end row -->
+            </div>
+            <!-- End Page-content -->
+
         </div>
         <!-- end main content-->
 
@@ -153,20 +125,23 @@
 
 <!-- JAVASCRIPT -->
 <!-- JAVASCRIPT -->
-<script src="assets/libs/jquery/jquery.min.js"></script>
-<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/libs/metismenu/metisMenu.min.js"></script>
-<script src="assets/libs/simplebar/simplebar.min.js"></script>
-<script src="assets/libs/node-waves/waves.min.js"></script>
-<script src="assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/libs/metismenu/metisMenu.min.js"></script>
+<script src="/assets/libs/simplebar/simplebar.min.js"></script>
+<script src="/assets/libs/node-waves/waves.min.js"></script>
+<script src="/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
 
 <!-- apexcharts -->
-<script src="assets/libs/apexcharts/apexcharts.min.js"></script>
+<script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
 
-<script src="assets/js/pages/profile.init.js"></script>
+<!-- jquery.vectormap map -->
+<script src="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js"></script>
 
-<!-- App js -->
-<script src="assets/js/app.js"></script>
+<script src="/assets/js/pages/dashboard.init.js"></script>
+
+<script src="/assets/js/app.js"></script>
 
 </body>
 
