@@ -135,12 +135,12 @@
                                         </tr>
                                         </thead>
 
-                                        <tbody>
+                                        <tbody id="measureList">
                                         <c:forEach items="${measures}" var="measure" varStatus="object">
                                             <tr class="odd">
                                                 <td class="dtr-control sorting_1" tabindex="0" align="right">${object.count}</td>
                                                 <td>${measure.deviceName}</td>
-                                                <td align="right">${measure.execTime}</td>
+                                                <td id=execTime align="right">${measure.execTime}</td>
                                             </tr>
                                         </c:forEach>
                                         </tbody>
@@ -238,6 +238,17 @@
         var fusioncharts = new FusionCharts(chartConfig);
         fusioncharts.render();
     });
+
+</script>
+<script type="text/javascript">
+    let measureList = document.getElementById("measureList");
+    measureList.innerHTML = '<c:forEach items="${measures}" var="measure" varStatus="object">' +
+                                            '<tr class="odd">' +
+                                                '<td class="dtr-control sorting_1" tabindex="0" align="right">${object.count}</td>' +
+                                                '<td>${measure.deviceName}</td>' +
+                                                '<td id=execTime align="right">' + Number(${measure.execTime}).toLocaleString('en') + '</td>' +
+                                            ' </tr>' +
+                                        '</c:forEach>'
 
 </script>
 
