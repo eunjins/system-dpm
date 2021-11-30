@@ -139,7 +139,7 @@
                                         <c:forEach items="${measures}" var="measure" varStatus="object">
                                             <tr class="odd">
                                                 <td class="dtr-control sorting_1" tabindex="0" align="right">${object.count}</td>
-                                                <td align="right">${measure.deviceName}</td>
+                                                <td>${measure.deviceName}</td>
                                                 <td align="right">${measure.execTime}</td>
                                             </tr>
                                         </c:forEach>
