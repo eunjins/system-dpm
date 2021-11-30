@@ -8,25 +8,54 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8"/>
-    <title>디바이스 성능 측정 통합 시스템</title>
+    <meta charset="utf-8">
+    <title>Data Table | Qovex - Admin &amp; Dashboard Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description"/>
-    <meta content="Themesbrand" name="author"/>
+    <meta content="Premium Multipurpose Admin &amp; Dashboard Template" name="description">
+    <meta content="Themesbrand" name="author">
     <!-- App favicon -->
     <link rel="shortcut icon" href="/assets/images/favicon.ico">
 
-    <!-- jquery.vectormap css -->
-    <link href="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
-          type="text/css"/>
+    <!-- DataTables -->
+    <link href="/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
+          type="text/css">
 
+    <!-- Responsive datatable examples -->
+    <link href="/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet"
+          type="text/css">
 
     <!-- Bootstrap Css -->
-    <link href="/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css"/>
+    <link href="/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css">
     <!-- Icons Css -->
-    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css">
     <!-- App Css-->
-    <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css"/>
+    <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css">
+
+    <style type="text/css">.jqstooltip {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        visibility: hidden;
+        background: rgb(0, 0, 0) transparent;
+        background-color: rgba(0, 0, 0, 0.6);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+        color: white;
+        font: 10px arial, san serif;
+        text-align: left;
+        white-space: nowrap;
+        padding: 5px;
+        border: 1px solid white;
+        box-sizing: content-box;
+        z-index: 10000;
+    }
+
+    .jqsfield {
+        color: white;
+        font: 10px arial, san serif;
+        text-align: left;
+    }</style>
 
 </head>
 
@@ -99,9 +128,9 @@
                                                 </div>
                                                 <div class="col-md-2">
                                                     <a href="${contextPath}/scripts/excel/${script.no}">
-                                                        <button class="btn btn-outline-primary waves-effect waves-light"
-                                                                tabindex="0" aria-controls="datatable"
-                                                                type="button" style="float: right"><span>엑셀 다운로드</span>
+                                                        <button type="button"
+                                                                class="btn btn-secondary waves-effect waves-light"
+                                                                style="float: right"><span>엑셀 다운로드</span>
                                                         </button>
                                                     </a>
                                                 </div>
@@ -109,62 +138,91 @@
                                         </c:when>
                                     </c:choose>
                                 </c:forEach>
+                                <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="dt-buttons btn-group flex-wrap">
 
-                                <div class="col-sm-12">
-                                    <table id="datatable"
-                                           class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
-                                           style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
-                                           role="grid" aria-describedby="datatable_info">
-                                        <thead>
-                                        <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                colspan="1" style="width: 80px;" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending">
-                                                <label class="col-md-5 col-form-label"></label>번호
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                colspan="1" style="width: 250px;"
-                                                aria-label="Position: activate to sort column ascending">
-                                                <label class="col-md-5 col-form-label"></label>디바이스 명
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                colspan="1" style="width: 100px;"
-                                                aria-label="Office: activate to sort column ascending">
-                                                <label class="col-md-4 col-form-label"></label>실행 시간 (ms)
-                                            </th>
-                                        </tr>
-                                        </thead>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table id="datatable-buttons"
+                                                   class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed"
+                                                   style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+                                                   role="grid" aria-describedby="datatable-buttons_info">
+                                                <thead>
+                                                <tr role="row">
+                                                    <th class="sorting_asc" tabindex="0" aria-controls="datatable"
+                                                        rowspan="1"
+                                                        colspan="1" style="width: 50px;" aria-sort="ascending"
+                                                        aria-label="번호: activate to sort column descending">
+                                                        <label class="col-md-4 col-form-label"></label>번호
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="datatable"
+                                                        rowspan="1"
+                                                        colspan="1" style="width: 270px;"
+                                                        aria-label="디바이스 명: activate to sort column ascending">
+                                                        <label class="col-md-5 col-form-label"></label>디바이스 명
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="datatable"
+                                                        rowspan="1"
+                                                        colspan="1" style="width: 270px;"
+                                                        aria-label="실행 시간 (ms): activate to sort column ascending">
+                                                        <label class="col-md-5 col-form-label"></label>실행 시간 (ms)
+                                                    </th>
+                                                </tr>
+                                                </thead>
 
-                                        <tbody id="measureList">
+                                                <tbody id="measureList">
 
-                                        </tbody>
-                                    </table>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
-                                <table id="chartable"
-                                       class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
-                                       style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
-                                       role="grid" aria-describedby="datatable_info">
-                                    <div class="col-sm-12" id="chart-container"></div>
-                                </table>
+
+                                <div id="row">
+                                    <div class="col-md-10">
+                                        <table id="chartable"
+                                               class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                                               style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+                                               role="grid" aria-describedby="datatable_info">
+                                            <div class="col-sm-12" id="chart-container"></div>
+                                        </table>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <div class="col-md-10">
+                                        </div>
+                                        <div class="button-items">
+                                            <a href="${contextPath}/scripts">
+                                                <button type="button"
+                                                        class="btn btn-secondary waves-effect waves-light"
+                                                        style="float: right">목록
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-
+                    <!-- end row -->
                 </div>
-                <!-- end row -->
+                <!-- End Page-content -->
+
             </div>
-            <!-- End Page-content -->
-
+            <!-- end main content-->
         </div>
-        <!-- end main content-->
-
     </div>
     <!-- END layout-wrapper -->
 
 </div>
 <!-- end container-fluid -->
 
+<!-- JAVASCRIPT -->
 <!-- JAVASCRIPT -->
 <script src="/assets/libs/jquery/jquery.min.js"></script>
 <script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -185,21 +243,18 @@
 <script src="/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
 <script src="/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
 <script src="/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+<!-- Responsive examples -->
+<script src="/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
-<!-- apexcharts -->
-<script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
+<!-- Datatable init js -->
+<script src="/assets/js/pages/datatables.init.js"></script>
 
-<!-- jquery.vectormap map -->
-<script src="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js"></script>
-
-<script src="/assets/js/pages/dashboard.init.js"></script>
-
+<!-- App js -->
 <script src="/assets/js/app.js"></script>
 
 <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
-<script type="text/javascript"
-        src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
 <script type="text/javascript">
     var deviceNames = [];
     var execTimes = [];

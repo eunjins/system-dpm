@@ -7,27 +7,55 @@
 <!doctype html>
 <html lang="en">
 
+
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>디바이스 성능 측정 통합 시스템</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesbrand" name="author" />
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description"/>
+    <meta content="Themesbrand" name="author"/>
     <!-- App favicon -->
     <link rel="shortcut icon" href="/assets/images/favicon.ico">
 
     <!-- jquery.vectormap css -->
     <link href="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
-          type="text/css" />
+          type="text/css"/>
 
 
     <!-- Bootstrap Css -->
-    <link href="/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css"/>
     <!-- Icons Css -->
-    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <!-- App Css-->
-    <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css"/>
 
+
+
+
+    <style type="text/css">.jqstooltip {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        visibility: hidden;
+        background: rgb(0, 0, 0) transparent;
+        background-color: rgba(0, 0, 0, 0.6);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+        color: white;
+        font: 10px arial, san serif;
+        text-align: left;
+        white-space: nowrap;
+        padding: 5px;
+        border: 1px solid white;
+        box-sizing: content-box;
+        z-index: 10000;
+    }
+
+    .jqsfield {
+        color: white;
+        font: 10px arial, san serif;
+        text-align: left;
+    }</style>
 </head>
 
 <body data-layout="horizontal" data-layout-size="boxed">
@@ -35,57 +63,11 @@
 <div class="container-fluid">
     <!-- Begin page -->
     <div id="layout-wrapper">
-
-        <header id="page-topbar">
-            <div class="navbar-header">
-                <div class="d-flex">
-
-
-                    <button type="button" class="btn btn-sm px-3 font-size-16 d-lg-none header-item waves-effect waves-light"
-                            data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
-                        <i class="fa fa-fw fa-bars"></i>
-                    </button>
-
-                    <div class="topnav">
-                        <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
-                            <div class="dropdown d-inline-block">
-                                <button type="button" class="btn header-item waves-effect"
-                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="d-none d-xl-inline-block ms-1" style="font-size:large">디바이스</span>
-                                </button>
-                            </div>
-
-                            <div class="dropdown d-inline-block">
-                                <button type="button" class="btn header-item waves-effect"
-                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="d-none d-xl-inline-block ms-1" style="font-size:large">스크립트 측정</span>
-                                </button>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-
-                <div class="d-flex">
-                    <div class="dropdown d-inline-block">
-                        <button type="button" class="btn header-item waves-effect"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="d-none d-xl-inline-block ms-1" style="font-size:large">로그아웃</span>
-                            <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item text-danger" href="#"><i
-                                    class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> Logout</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-
+        <jsp:include page="/WEB-INF/jsp/common/menu.jsp"/>
         <!-- ============================================================== -->
         <!-- Start right Content here -->
         <!-- ============================================================== -->
         <div class="main-content">
-
             <div class="page-content">
 
                 <!-- start page title -->
@@ -138,54 +120,20 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="mb-3 row">
-
-                                        <div class="col-md-10">
-
-                                        </div>
+                                    <div class="mb-12 row">
                                     </div>
-                                    <div class="mb-3 row">
 
-                                        <div class="col-md-10">
 
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-
-                                        <div class="col-md-10">
-
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-
-                                        <div class="col-md-10">
-
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-
-                                        <div class="col-md-10">
-
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-
-                                        <div class="col-md-10">
-
-                                        </div>
-
-                                        <div class="button-items">
-                                            <a href="${contextPath}/scripts">
-                                                <button type="button"
-                                                        class="btn btn-outline-primary waves-effect waves-light" style="float: right">목록
-                                                </button>
-                                            </a>
-                                            <label style="float: right">  </label>
-                                            <button type="submit"
-                                                    class="btn btn-outline-primary waves-effect waves-light" style="float: right">배포
+                                    <div class="button-items">
+                                        <a href="${contextPath}/scripts">
+                                            <button type="button" class="btn btn-secondary waves-effect waves-light" style="float: right">목록
                                             </button>
-                                        </div>
+                                        </a>
+                                        <label style="float: right"> </label>
+                                        <button type="button" class="btn btn-secondary waves-effect waves-light" style="float: right">배포
+                                        </button>
                                     </div>
+
                                 </form>
                             </div>
                         </div>
@@ -225,7 +173,8 @@
 <script src="/assets/js/app.js"></script>
 
 <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
-<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+<script type="text/javascript"
+        src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
 <script type="text/javascript">
     var deviceNames = [];
     var execTimes = [];
@@ -253,7 +202,7 @@
             "data": chartData
         }
     };
-    FusionCharts.ready(function(){
+    FusionCharts.ready(function () {
         var fusioncharts = new FusionCharts(chartConfig);
         fusioncharts.render();
     });
