@@ -21,7 +21,8 @@
 
 </head>
 
-<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'NanumSquare'">
+<body data-layout="horizontal" data-layout-size="boxed"
+      style="font-family: 'NanumSquare'; font-size: medium; font-weigth: bold">
 
 <div class="container-fluid">
     <!-- Begin page -->
@@ -89,11 +90,11 @@
 
                                     <div class="button-items">
                                         <a href="${contextPath}/scripts">
-                                            <button type="button" class="btn btn-secondary waves-effect waves-light" style="float: right">목록
+                                            <button type="button" class="btn btn-primary waves-effect waves-light" style="float: right">목록
                                             </button>
                                         </a>
                                         <label style="float: right"> </label>
-                                        <button type="button" class="btn btn-secondary waves-effect waves-light" style="float: right">배포
+                                        <button type="button" class="btn btn-primary waves-effect waves-light" style="float: right">배포
                                         </button>
                                     </div>
 
