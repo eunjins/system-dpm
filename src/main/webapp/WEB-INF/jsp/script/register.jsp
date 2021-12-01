@@ -37,7 +37,6 @@
 
                 <!-- start page title -->
                 <div class="row">
-                    <p></p>
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
                             <h2 class="page-title mb-0 font-size-40">스크립트 등록</h2>
@@ -90,11 +89,11 @@
 
                                     <div class="button-items">
                                         <a href="${contextPath}/scripts">
-                                            <button type="button" class="btn btn-primary waves-effect waves-light" style="float: right">목록
+                                            <button type="button" class="btn btn-default btn-primary waves-effect waves-light" style="float: right">목록
                                             </button>
                                         </a>
                                         <label style="float: right"> </label>
-                                        <button type="button" class="btn btn-primary waves-effect waves-light" style="float: right">배포
+                                        <button type="button" class="btn btn-default btn-primary waves-effect waves-light" style="float: right">배포
                                         </button>
                                     </div>
 

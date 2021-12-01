@@ -18,11 +18,14 @@
     <link href="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
           type="text/css"/>
 
+    <link href="/assets/css/style.css" type="text/css"/>
+
     <jsp:include page="/WEB-INF/jsp/common/top.jsp"/>
 
 </head>
 
-<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'NanumSquare'; font-size: medium; font-weigth: bold">
+<body data-layout="horizontal" data-layout-size="boxed"
+      style="font-family: 'NanumSquare'; font-size: medium; font-weigth: bold">
 
 <div class="container-fluid">
     <!-- Begin page -->
@@ -45,20 +48,32 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-12 col-md-6">
+                    <div class="col-sm-12 col-md-5">
                         <div class="dataTables_length" id="datatable_length"><label><select
                                 name="datatable_length" aria-controls="datatable"
                                 class="custom-select form-control form-select">
+                            <option>전체</option>
                             <option value="Y">활성화</option>
                             <option value="N">비활성화</option>
                         </select></label></div>
                     </div>
-                    <div class="col-sm-12 col-md-6"  style="text-align: right">
-                        <div id="datatable_filter" class="dataTables_filter"><label><input
-                                type="search" class="form-control" placeholder="검색어를 입력하세요"
-                                aria-controls="datatable" style="text-align: left"></label>
-                        <button type="button" class="btn btn-default btn-primary waves-effect waves-light">검색</button>
-                        </div>
+                    <div class="col-sm-12 col-md-7" style="text-align: right">
+                        <label>
+                        <select name="datatable_type" aria-controls="datatable"
+                                class="custom-select form-control form-select">
+                            <option value="measureName">디바이스 명</option>
+                            <option value="insertDate">등록 일자</option>
+                        </select>
+                        </label>
+
+                        <%--                        <div id="datatable_filter" class="dataTables_filter">--%>
+                        <label>
+                            <input type="search" class="form-control" placeholder="검색어를 입력하세요"
+                                   aria-controls="datatable" style="text-align: left">
+                        </label>
+                        <button type="button" class="btn btn-default btn-primary waves-effect waves-light">검색
+                        </button>
+                        <%--                        </div>--%>
                     </div>
                 </div>
                 <!-- end page title -->
@@ -74,31 +89,37 @@
                                             <table id="datatable"
                                                    class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
                                                    style="border-collapse: collapse; border-spacing: 0px; width: 100%; text-align: center; outline-style: solid;
-                                                    outline-width: thin";
-                                                   role="grid" aria-describedby="datatable_info">
+                                                          outline-width: thin" ; role="grid"
+                                                   aria-describedby="datatable_info">
                                                 <thead>
                                                 <tr role="row" bgcolor="#4169e1" style="color: #FFFFFF">
-                                                    <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                    <th class="sorting_asc" tabindex="0" aria-controls="datatable"
+                                                        rowspan="1"
                                                         colspan="1" style="width: 5%;" aria-sort="ascending"
                                                         aria-label="Name: activate to sort column descending">번호
                                                     </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                    <th class="sorting" tabindex="0" aria-controls="datatable"
+                                                        rowspan="1"
                                                         colspan="1" style="width: 30%;"
                                                         aria-label="Position: activate to sort column ascending">디바이스 명
                                                     </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                    <th class="sorting" tabindex="0" aria-controls="datatable"
+                                                        rowspan="1"
                                                         colspan="1" style="width: 30%;"
                                                         aria-label="Office: activate to sort column ascending">호스트 명
                                                     </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                    <th class="sorting" tabindex="0" aria-controls="datatable"
+                                                        rowspan="1"
                                                         colspan="1" style="width: 15%;"
                                                         aria-label="Office: activate to sort column ascending">등록 일자
                                                     </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                    <th class="sorting" tabindex="0" aria-controls="datatable"
+                                                        rowspan="1"
                                                         colspan="1" style="width: 10%;"
                                                         aria-label="Office: activate to sort column ascending">JDK 버전
                                                     </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                    <th class="sorting" tabindex="0" aria-controls="datatable"
+                                                        rowspan="1"
                                                         colspan="1"
                                                         aria-label="Office: activate to sort column ascending">상태
                                                     </th>
@@ -132,15 +153,14 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-5"></div>
-                                        <div class="col-sm-12 col-md-7">
+                                        <div class="col-sm-12 col-md-12">
                                             <div class="dataTables_paginate paging_simple_numbers"
                                                  id="datatable_paginate">
-                                                <ul class="pagination">
+                                                <ul class="pagination justify-content-center">
                                                     <li class="paginate_button page-item previous disabled"
                                                         id="datatable_previous"><a href="#" aria-controls="datatable"
                                                                                    data-dt-idx="0" tabindex="0"
-                                                                                   class="page-link">Previous</a></li>
+                                                                                   class="page-link">&lt;</a></li>
                                                     <li class="paginate_button page-item active"><a href="#"
                                                                                                     aria-controls="datatable"
                                                                                                     data-dt-idx="1"
@@ -179,7 +199,7 @@
                                                     </li>
                                                     <li class="paginate_button page-item next" id="datatable_next"><a
                                                             href="#" aria-controls="datatable" data-dt-idx="7"
-                                                            tabindex="0" class="page-link">Next</a></li>
+                                                            tabindex="0" class="page-link">&gt;</a></li>
                                                 </ul>
                                             </div>
                                         </div>

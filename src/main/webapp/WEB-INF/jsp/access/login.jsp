@@ -46,10 +46,10 @@
                                            placeholder="Enter password">
                                 </div><br/>
 
-                                <div id="checkLogIn"></div>
+                                <div id="checkLogIn" style="color: blue"></div>
 
                                 <div class="mt-3">
-                                    <button class="btn btn-primary w-100 waves-effect waves-light"
+                                    <button class="btn btn-default btn-primary w-100 waves-effect waves-light"
                                             type="button" onclick="login()">
                                         Log In</button>
                                 </div>

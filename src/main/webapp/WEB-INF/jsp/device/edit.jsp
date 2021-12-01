@@ -22,7 +22,7 @@
 
 </head>
 
-<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'NanumSquare'">
+<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'NanumSquare'; font-size: medium; font-weigth: bold">
 
 <div class="container-fluid">
     <!-- Begin page -->
@@ -37,7 +37,6 @@
 
                 <!-- start page title -->
                 <div class="row">
-                    <p></p>
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
                             <h2 class="page-title mb-0 font-size-40">디바이스 상세 정보</h2>
@@ -80,6 +79,8 @@
                                         <label class="col-md-2 col-form-label">등록 일자:</label>
                                         <label class="col-md-6 col-form-label">${device.insertDate}</label>
                                     </div>
+
+
                                     <label for="example-search-input" class="col-md-2 col-form-label">상태:</label>
                                     <c:choose>
                                         <c:when test="${device.status eq 'Y'}">
@@ -107,17 +108,16 @@
                                             </div>
                                         </c:when>
                                     </c:choose>
-
                                     <div class="row">
                                         <div class="button-items">
                                             <a href="${contextPath}/devices/${device.id}">
                                                 <button type="button"
-                                                        class="btn btn-outline-primary waves-effect waves-light"
+                                                        class="btn btn-default btn-primary waves-effect waves-light"
                                                         style="float: right">취소
                                                 </button>
                                             </a>
                                             <button type="submit"
-                                                    class="btn btn-outline-primary waves-effect waves-light" style="float: right">수정
+                                                    class="btn btn-default btn-primary waves-effect waves-light" style="float: right">수정
                                             </button>
                                         </div>
                                     </div>

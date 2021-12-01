@@ -40,7 +40,6 @@
 
                 <!-- start page title -->
                 <div class="row">
-                    <p></p>
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
                             <h2 class="page-title mb-0 font-size-40">스크립트 측정 결과</h2>
@@ -135,7 +134,7 @@
                                                 <div class="col-md-6">
                                                     <a href="${contextPath}/scripts/excel/${script.no}">
                                                         <button type="button"
-                                                                class="btn btn-primary waves-effect waves-light"
+                                                                class="btn btn-default btn-primary waves-effect waves-light"
                                                                 style="float: right"><span>엑셀 다운로드</span>
                                                         </button>
                                                     </a>
@@ -198,7 +197,7 @@
                                         <div class="button-items">
                                             <a href="${contextPath}/scripts">
                                                 <button type="button"
-                                                        class="btn btn-primary waves-effect waves-light"
+                                                        class="btn btn-default btn-primary waves-effect waves-light"
                                                         style="float: right">목록
                                                 </button>
                                             </a>

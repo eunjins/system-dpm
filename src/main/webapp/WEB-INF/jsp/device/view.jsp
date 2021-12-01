@@ -22,7 +22,7 @@
 
 </head>
 
-<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'NanumSquare'">
+<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'NanumSquare'; font-size: medium; font-weigth: bold">
 
 <div class="container-fluid">
     <!-- Begin page -->
@@ -37,7 +37,6 @@
 
                 <!-- start page title -->
                 <div class="row">
-                    <p></p>
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
                             <h2 class="page-title mb-0 font-size-40">디바이스 상세 정보</h2>
@@ -90,13 +89,13 @@
                                     <div class="button-items">
                                         <a href="${contextPath}/devices">
                                             <button type="button"
-                                                    class="btn btn-outline-primary waves-effect waves-light"
+                                                    class="btn btn-default btn-primary waves-effect waves-light"
                                                     style="float: right">목록
                                             </button>
                                         </a>
                                         <a href="${contextPath}/devices/${device.id}/form">
                                             <button type="button"
-                                                    class="btn btn-outline-primary waves-effect waves-light"
+                                                    class="btn btn-default btn-primary waves-effect waves-light"
                                                     style="float: right">수정
                                             </button>
                                         </a>
