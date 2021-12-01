@@ -23,7 +23,7 @@
 
 </head>
 
-<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'Nanum Myeongjo', serif">
+<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'NanumSquare'">
 
 <div class="container-fluid">
     <!-- Begin page -->
@@ -55,7 +55,7 @@
                                 <div class="mb-3 row">
                                     <div class="col-md-6">
                                         <label class="col-md-1 col-form-label" style="text-align: center">
-                                            •
+                                            1
                                         </label>
                                         <label class="col-md-2 col-form-label"style="text-align: left">
                                             측정 결과 명
@@ -68,7 +68,7 @@
                                 <div class="mb-3 row">
                                     <div class="col-md-6">
                                         <label class="col-md-1 col-form-label" style="text-align: center">
-                                            •
+                                            2
                                         </label>
                                         <label class="col-md-2 col-form-label"style="text-align: left">
                                             스크립트 명
@@ -81,7 +81,7 @@
                                 <div class="mb-3 row">
                                     <div class="col-md-6">
                                         <label class="col-md-1 col-form-label" style="text-align: center">
-                                            •
+                                            3
                                         </label>
                                         <label class="col-md-2 col-form-label"style="text-align: left">
                                             업로드 일시
@@ -98,7 +98,7 @@
                                             <div class="mb-3 row">
                                                 <div class="col-md-6">
                                                     <label class="col-md-1 col-form-label" style="text-align: center">
-                                                        •
+                                                        4
                                                     </label>
                                                     <label class="col-md-2 col-form-label"style="text-align: left">
                                                         소스 파일
@@ -115,7 +115,7 @@
                                             <div class="mb-3 row">
                                                 <div class="col-md-6">
                                                     <label class="col-md-1 col-form-label" style="text-align: center">
-                                                        •
+                                                        5
                                                     </label>
                                                     <label class="col-md-2 col-form-label"style="text-align: left">
                                                         클래스 파일

@@ -7,6 +7,7 @@ import kr.co.dpm.system.measure.MeasureServiceImpl;
 import kr.co.dpm.system.script.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -43,45 +44,75 @@ public class Excel {
 
         XSSFSheet sheet = workbook.createSheet(measures.get(0).getName());
 
-        CellStyle center = workbook.createCellStyle() ;
-        center.setAlignment(HorizontalAlignment.CENTER);
+        sheet.setColumnWidth(0, 1400);
+        sheet.setColumnWidth(1, 4000);
+        sheet.setColumnWidth(2, 4000);
 
-        XSSFCellStyle color = workbook.createCellStyle();
-        color.setFillForegroundColor(IndexedColors.YELLOW.getIndex());
-        color.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        XSSFCellStyle centerStyle = workbook.createCellStyle();
+        centerStyle.setAlignment(HorizontalAlignment.CENTER);
+        centerStyle.setBorderLeft(BorderStyle.THICK);
+        centerStyle.setBorderRight(BorderStyle.THICK);
+
+        XSSFCellStyle title = workbook.createCellStyle();
+        title.setAlignment(HorizontalAlignment.CENTER);
+
+        title.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        title.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        title.setBorderTop(BorderStyle.THICK);
+        title.setBorderRight(BorderStyle.THICK);
+        title.setBorderLeft(BorderStyle.THICK);
+        title.setBorderBottom(BorderStyle.THICK);
+
+        XSSFCellStyle rowStyle = workbook.createCellStyle();
+        rowStyle.setBorderLeft(BorderStyle.THICK);
+        rowStyle.setBorderRight(BorderStyle.THICK);
+
+        XSSFCellStyle bottomStyle = workbook.createCellStyle();
+        bottomStyle.setBorderTop(BorderStyle.THICK);
+
 
         XSSFRow row = sheet.createRow(1);
         Cell cell = row.createCell(1);
         cell.setCellValue("측정 결과 명");
-        cell.setCellStyle(center);
-        cell.setCellStyle(color);
+        cell.setCellStyle(title);
 
         cell = row.createCell(2);
         cell.setCellValue("스크립트 명");
-        cell.setCellStyle(center);
-        cell.setCellStyle(color);
+        cell.setCellStyle(title);
 
         row = sheet.createRow(2);
-        row.createCell(1).setCellValue(measures.get(0).getName());
-        row.createCell(2).setCellValue(script.getNo());
+
+        cell = row.createCell(1);
+        cell.setCellValue(measures.get(0).getName());
+        cell.setCellStyle(rowStyle);
+
+        cell = row.createCell(2);
+        cell.setCellValue(script.getName());
+        cell.setCellStyle(rowStyle);
+
+        row = sheet.createRow(3);
+
+        cell = row.createCell(1);
+        cell.setCellStyle(bottomStyle);
+
+        cell = row.createCell(2);
+        cell.setCellStyle(bottomStyle);
 
         row = sheet.createRow(4);
         cell = row.createCell(0);
         cell.setCellValue("번호");
-        cell.setCellStyle(center);
-        cell.setCellStyle(color);
+        cell.setCellStyle(title);
 
         cell = row.createCell(1);
         cell.setCellValue("디바이스 명");
-        cell.setCellStyle(center);
-        cell.setCellStyle(color);
+        cell.setCellStyle(title);
 
         cell = row.createCell(2);
         cell.setCellValue("실행 시간 (ms)");
-        cell.setCellStyle(center);
-        cell.setCellStyle(color);
+        cell.setCellStyle(title);
 
-        for (int i = 0; i < measures.size(); i++) {
+        int i = 0;
+        for (i = 0; i < measures.size(); i++) {
             row = sheet.createRow(i + 5);
 
             Device device = deviceService.getDevice(
@@ -89,10 +120,23 @@ public class Excel {
             measures.get(i).setDeviceName(device.getName());
 
             // Row에 Cell 생성
-            row.createCell(0).setCellValue(i + 1);  // 번호
-            row.createCell(1).setCellValue(measures.get(i).getDeviceName());  // 디바이스 명
-            row.createCell(2).setCellValue(measures.get(i).getExecTime());    // 실행 시간
+            Cell noCell = row.createCell(0);
+            noCell.setCellValue(i + 1);  // 번호
+            noCell.setCellStyle(centerStyle);
+
+            Cell deviceCell = row.createCell(1);    // 디바이스 명
+            deviceCell.setCellValue(measures.get(i).getDeviceName());
+            deviceCell.setCellStyle(rowStyle);
+
+            Cell execTimeCell = row.createCell(2); // 실행 시간
+            execTimeCell.setCellValue(measures.get(i).getExecTime());
+            execTimeCell.setCellStyle(rowStyle);
         }
+
+        row = sheet.createRow(i + 5);
+        row.createCell(0).setCellStyle(bottomStyle);
+        row.createCell(1).setCellStyle(bottomStyle);
+        row.createCell(2).setCellStyle(bottomStyle);
 
         FileOutputStream fileOutputStream = null;
         String fileName = null;

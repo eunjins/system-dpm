@@ -46,7 +46,7 @@
 
 </head>
 
-<body data-layout="horizontal" data-layout-size="boxed">
+<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'NanumSquare'">
 
 <div class="container-fluid">
     <!-- Begin page -->

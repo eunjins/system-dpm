@@ -8,6 +8,8 @@
 <html lang="en">
 
 <head>
+    <jsp:include page="/WEB-INF/jsp/common/top.jsp"/>
+
     <meta charset="utf-8"/>
     <title>디바이스 성능 측정 통합 시스템</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,10 +31,9 @@
     <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css"/>
     <!-- style Css> -->
     <link href="/assets/css/style.css" rel="stylesheet" type="text/css"/>
-
 </head>
 
-<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'Nanum Myeongjo', serif">
+<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'NanumSquare'">
 
 <div class="container-fluid">
     <!-- Begin page -->
