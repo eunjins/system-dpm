@@ -8,7 +8,7 @@
 <html lang="en">
 
 <head>
-    <jsp:include page="/WEB-INF/jsp/common/menu.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/common/top.jsp"/>
 
     <!-- DataTables -->
     <link href="/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
@@ -51,7 +51,7 @@
 <div class="container-fluid">
     <!-- Begin page -->
     <div id="layout-wrapper">
-
+        <jsp:include page="/WEB-INF/jsp/common/menu.jsp"/>
         <!-- ============================================================== -->
         <!-- Start right Content here -->
         <!-- ============================================================== -->
@@ -140,7 +140,7 @@
                                                     class="table table-bordered dt-responsive nowrap no-footer dtr-inline"
                                                     style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
                                                     role="grid" aria-describedby="datatable-buttons_info">
-                                                <thead>
+                                                <thead class="table-light">
                                                 <tr role="row">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="datatable"
                                                         rowspan="1"
@@ -267,7 +267,7 @@
     let measureList = document.getElementById("measureList");
     measureList.innerHTML = '<c:forEach items="${measures}" var="measure" varStatus="object">' +
         '<tr class="odd">' +
-        '<td class="dtr-control sorting_1" tabindex="0" style="text-align:right">${object.count}</td>' +
+        '<td class="dtr-control sorting_1" tabindex="0" style="text-align:center">${object.count}</td>' +
         '<td>${measure.deviceName}</td>' +
         '<td id=execTime style="text-align:right">' + Number(${measure.execTime}).toLocaleString('en') + '</td>' +
         ' </tr>' +
