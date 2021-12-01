@@ -8,8 +8,6 @@
 <html lang="en">
 
 <head>
-    <jsp:include page="/WEB-INF/jsp/common/top.jsp"/>
-
     <meta charset="utf-8"/>
     <title>디바이스 성능 측정 통합 시스템</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,18 +20,10 @@
     <link href="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
           type="text/css"/>
 
-
-    <!-- Bootstrap Css -->
-    <link href="/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css"/>
-    <!-- Icons Css -->
-    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css"/>
-    <!-- App Css-->
-    <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css"/>
-    <!-- style Css> -->
-    <link href="/assets/css/style.css" rel="stylesheet" type="text/css"/>
+    <jsp:include page="/WEB-INF/jsp/common/top.jsp"/>
 </head>
 
-<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'NanumSquare'">
+<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'Nanum Myeongjo', serif">
 
 <div class="container-fluid">
     <!-- Begin page -->
@@ -92,11 +82,11 @@
 
                                 <div class="col-sm-12">
                                     <table id="datatable"
-                                           class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
-                                           style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+                                           class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                                           style="border-collapse: collapse; border-spacing: 0px; width: 100%; outline-style: auto"
                                            role="grid" aria-describedby="datatable_info">
                                         <thead>
-                                        <tr role="row">
+                                        <tr role="row" bgcolor="#87cefa">
                                             <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1"
                                                 colspan="1" style="width: 80px;" aria-sort="ascending"
                                                 aria-label="Name: activate to sort column descending">번호
@@ -167,17 +157,6 @@
 </div>
 <!-- end container-fluid -->
 
-<!-- JAVASCRIPT -->
-<script src="/assets/libs/jquery/jquery.min.js"></script>
-<script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/assets/libs/metismenu/metisMenu.min.js"></script>
-<script src="/assets/libs/simplebar/simplebar.min.js"></script>
-<script src="/assets/libs/node-waves/waves.min.js"></script>
-<script src="/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
-
-<!-- Required datatable js -->
-<script src="/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 <!-- Buttons examples -->
 <script src="/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 <script src="/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>

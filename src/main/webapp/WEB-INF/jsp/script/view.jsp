@@ -19,11 +19,13 @@
     <link href="/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet"
           type="text/css">
 
-    <link href="/assets/css/style.css" type="text/css">
+    <!-- NanumSquare -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
 
 </head>
 
-<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'NanumSquare'">
+<body data-layout="horizontal" data-layout-size="boxed"
+      style="font-family: 'NanumSquare'; font-size: medium; font-weigth: bold">
 
 <div class="container-fluid">
     <!-- Begin page -->
@@ -57,12 +59,13 @@
                                         <label class="col-md-1 col-form-label" style="text-align: center">
                                             1
                                         </label>
-                                        <label class="col-md-2 col-form-label"style="text-align: left">
+                                        <label class="col-md-2 col-form-label" style="text-align: left">
                                             측정 결과 명
                                         </label>
                                         <label class="col-md-1 col-form-label" style="text-align: right">
                                         </label>
-                                        <label class="col-md-6 col-form-label" style="text-align: left">${measures[0].name}</label>
+                                        <label class="col-md-6 col-form-label"
+                                               style="text-align: left">${measures[0].name}</label>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
@@ -70,12 +73,13 @@
                                         <label class="col-md-1 col-form-label" style="text-align: center">
                                             2
                                         </label>
-                                        <label class="col-md-2 col-form-label"style="text-align: left">
+                                        <label class="col-md-2 col-form-label" style="text-align: left">
                                             스크립트 명
                                         </label>
                                         <label class="col-md-1 col-form-label" style="text-align: right">
                                         </label>
-                                        <label class="col-md-6 col-form-label" style="text-align: left">${script.name}</label>
+                                        <label class="col-md-6 col-form-label"
+                                               style="text-align: left">${script.name}</label>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
@@ -83,13 +87,15 @@
                                         <label class="col-md-1 col-form-label" style="text-align: center">
                                             3
                                         </label>
-                                        <label class="col-md-2 col-form-label"style="text-align: left">
+                                        <label class="col-md-2 col-form-label" style="text-align: left">
                                             업로드 일시
                                         </label>
                                         <label class="col-md-1 col-form-label" style="text-align: right">
                                         </label>
-                                        <label class="col-md-6 col-form-label" style="text-align: left">${script.uploadPoint}</label>
+                                        <label class="col-md-6 col-form-label"
+                                               style="text-align: left">${script.uploadPoint}</label>
                                     </div>
+
                                 </div>
                                 <c:forEach items="${attaches}" var="attach">
                                     <c:choose>
@@ -99,7 +105,7 @@
                                                     <label class="col-md-1 col-form-label" style="text-align: center">
                                                         4
                                                     </label>
-                                                    <label class="col-md-2 col-form-label"style="text-align: left">
+                                                    <label class="col-md-2 col-form-label" style="text-align: left">
                                                         소스 파일
                                                     </label>
                                                     <label class="col-md-1 col-form-label" style="text-align: right">
@@ -116,7 +122,7 @@
                                                     <label class="col-md-1 col-form-label" style="text-align: center">
                                                         5
                                                     </label>
-                                                    <label class="col-md-2 col-form-label"style="text-align: left">
+                                                    <label class="col-md-2 col-form-label" style="text-align: left">
                                                         클래스 파일
                                                     </label>
                                                     <label class="col-md-1 col-form-label" style="text-align: right">
@@ -129,7 +135,7 @@
                                                 <div class="col-md-6">
                                                     <a href="${contextPath}/scripts/excel/${script.no}">
                                                         <button type="button"
-                                                                class="btn btn-secondary waves-effect waves-light"
+                                                                class="btn btn-primary waves-effect waves-light"
                                                                 style="float: right"><span>엑셀 다운로드</span>
                                                         </button>
                                                     </a>
@@ -140,21 +146,14 @@
                                 </c:forEach>
                                 <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="dt-buttons btn-group flex-wrap">
-
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6"></div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-sm-12">
                                             <table
-                                                    class="table table-striped table-bordered dt-responsive nowrap no-footer dtr-inline"
-                                                    style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
-                                                    role="grid" aria-describedby="datatable-buttons_info">
+                                                   class="table table-striped table-bordered dt-responsive nowrap no-footer dtr-inline"
+                                                   style="border-collapse: collapse; border-spacing: 0px; width: 100%; text-align: center; outline-style: solid;
+                                                    outline-width: thin";
+                                                   role="grid" aria-describedby="datatable_info">
                                                 <thead>
-                                                <tr role="row" bgcolor="#fffaf0">
+                                                <tr role="row" bgcolor="#4169e1" style="color: #FFFFFF">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="datatable"
                                                         rowspan="1"
                                                         colspan="1" style="width: 50px;" aria-sort="ascending"
@@ -199,7 +198,7 @@
                                         <div class="button-items">
                                             <a href="${contextPath}/scripts">
                                                 <button type="button"
-                                                        class="btn btn-secondary waves-effect waves-light"
+                                                        class="btn btn-primary waves-effect waves-light"
                                                         style="float: right">목록
                                                 </button>
                                             </a>
