@@ -82,7 +82,7 @@ File: Main Css File
     display: inline-block; } }
 
 .page-content {
-  padding: calc(70px + 12px) 24px 60px 24px; }
+  padding: calc(70px + 12px) 24px 24px 24px; }
 
 .header-item {
   height: 70px;

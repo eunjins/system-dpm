@@ -23,7 +23,7 @@
     <jsp:include page="/WEB-INF/jsp/common/top.jsp"/>
 </head>
 
-<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'Nanum Myeongjo', serif">
+<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'NanumSquare'; font-size: medium; font-weigth: bold">
 
 <div class="container-fluid">
     <!-- Begin page -->
@@ -57,7 +57,7 @@
                                 <div id="datatable_filter" class="dataTables_filter">
                                     검색 조건
                                     <select name="datatable_type" aria-controls="datatable"
-                                            class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm"
+                                            class="custom-select form-control form-select "
                                             style="width: 7vw">
                                         <option value="measureName">측정 결과 명</option>
                                         <option value="scriptName">스크립트 명</option>
