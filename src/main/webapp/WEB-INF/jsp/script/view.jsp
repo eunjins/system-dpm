@@ -149,8 +149,8 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <table id="datatable-buttons"
-                                                   class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed"
+                                            <table
+                                                    class="table table-bordered dt-responsive nowrap no-footer dtr-inline"
                                                    style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
                                                    role="grid" aria-describedby="datatable-buttons_info">
                                                 <thead>
@@ -159,19 +159,19 @@
                                                         rowspan="1"
                                                         colspan="1" style="width: 50px;" aria-sort="ascending"
                                                         aria-label="번호: activate to sort column descending">
-                                                        <label class="col-md-4 col-form-label"></label>번호
+                                                        <div style="text-align: center">번호</div>
                                                     </th>
                                                     <th class="sorting" tabindex="0" aria-controls="datatable"
                                                         rowspan="1"
                                                         colspan="1" style="width: 270px;"
                                                         aria-label="디바이스 명: activate to sort column ascending">
-                                                        <label class="col-md-5 col-form-label"></label>디바이스 명
+                                                        <div style="text-align: center">디바이스 명</div>
                                                     </th>
                                                     <th class="sorting" tabindex="0" aria-controls="datatable"
                                                         rowspan="1"
                                                         colspan="1" style="width: 270px;"
                                                         aria-label="실행 시간 (ms): activate to sort column ascending">
-                                                        <label class="col-md-5 col-form-label"></label>실행 시간 (ms)
+                                                        <div style="text-align: center">실행 시간 (ms)</div>
                                                     </th>
                                                 </tr>
                                                 </thead>
@@ -185,7 +185,7 @@
                                 </div>
 
                                 <div id="row">
-                                    <div class="col-md-10">
+                                    <div class="col-md-12">
                                         <table id="chartable"
                                                class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
                                                style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
@@ -293,9 +293,9 @@
     let measureList = document.getElementById("measureList");
     measureList.innerHTML = '<c:forEach items="${measures}" var="measure" varStatus="object">' +
         '<tr class="odd">' +
-        '<td class="dtr-control sorting_1" tabindex="0" align="right">${object.count}</td>' +
+        '<td class="dtr-control sorting_1" tabindex="0" style="text-align:right">${object.count}</td>' +
         '<td>${measure.deviceName}</td>' +
-        '<td id=execTime align="right">' + Number(${measure.execTime}).toLocaleString('en') + '</td>' +
+        '<td id=execTime style="text-align:right">' + Number(${measure.execTime}).toLocaleString('en') + '</td>' +
         ' </tr>' +
         '</c:forEach>'
 </script>
