@@ -8,13 +8,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>Data Table | Qovex - Admin &amp; Dashboard Template</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin &amp; Dashboard Template" name="description">
-    <meta content="Themesbrand" name="author">
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="/assets/images/favicon.ico">
+    <jsp:include page="/WEB-INF/jsp/common/menu.jsp"/>
 
     <!-- DataTables -->
     <link href="/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
@@ -24,13 +18,6 @@
     <!-- Responsive datatable examples -->
     <link href="/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet"
           type="text/css">
-
-    <!-- Bootstrap Css -->
-    <link href="/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css">
-    <!-- Icons Css -->
-    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css">
-    <!-- App Css-->
-    <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css">
 
     <style type="text/css">.jqstooltip {
         position: absolute;
@@ -64,7 +51,7 @@
 <div class="container-fluid">
     <!-- Begin page -->
     <div id="layout-wrapper">
-        <jsp:include page="/WEB-INF/jsp/common/menu.jsp"/>
+
         <!-- ============================================================== -->
         <!-- Start right Content here -->
         <!-- ============================================================== -->
@@ -151,8 +138,8 @@
                                         <div class="col-sm-12">
                                             <table
                                                     class="table table-bordered dt-responsive nowrap no-footer dtr-inline"
-                                                   style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
-                                                   role="grid" aria-describedby="datatable-buttons_info">
+                                                    style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+                                                    role="grid" aria-describedby="datatable-buttons_info">
                                                 <thead>
                                                 <tr role="row">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="datatable"
@@ -222,18 +209,7 @@
 </div>
 <!-- end container-fluid -->
 
-<!-- JAVASCRIPT -->
-<!-- JAVASCRIPT -->
-<script src="/assets/libs/jquery/jquery.min.js"></script>
-<script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/assets/libs/metismenu/metisMenu.min.js"></script>
-<script src="/assets/libs/simplebar/simplebar.min.js"></script>
-<script src="/assets/libs/node-waves/waves.min.js"></script>
-<script src="/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
 
-<!-- Required datatable js -->
-<script src="/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 <!-- Buttons examples -->
 <script src="/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 <script src="/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
@@ -250,8 +226,6 @@
 <!-- Datatable init js -->
 <script src="/assets/js/pages/datatables.init.js"></script>
 
-<!-- App js -->
-<script src="/assets/js/app.js"></script>
 
 <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
 <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
