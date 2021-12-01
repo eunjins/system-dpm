@@ -229,6 +229,7 @@
 
 <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
 <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.gammel.js"></script>
 <script type="text/javascript">
     var deviceNames = [];
     var execTimes = [];
@@ -251,7 +252,7 @@
         dataSource: {
             "chart": {
                 "yAxisName": "실행 시간 (ms)",
-                "theme": "fusion",
+                "theme": "gammel",
                 "showBorder": 1
             },
             "data": chartData
