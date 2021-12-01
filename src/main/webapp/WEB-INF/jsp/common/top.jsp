@@ -20,6 +20,8 @@
 <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css"/>
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css" rel="stylesheet">
 
+<!-- NanumSquare -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
 
 <!-- JAVASCRIPT -->
 <!-- JAVASCRIPT -->
