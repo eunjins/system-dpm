@@ -27,10 +27,12 @@
     <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <!-- App Css-->
     <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css"/>
+    <!-- style Css> -->
+    <link href="/assets/css/style.css" rel="stylesheet" type="text/css"/>
 
 </head>
 
-<body data-layout="horizontal" data-layout-size="boxed">
+<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'Nanum Myeongjo', serif">
 
 <div class="container-fluid">
     <!-- Begin page -->

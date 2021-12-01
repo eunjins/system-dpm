@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Nanum+Myeongjo:wght@400;700;800&display=swap');
+
+body {
+    font-family: 'Nanum Myeongjo', serif;
+}
+
+p {
+    font-family: 'Nanum Gothic', sans-serif;
+}
