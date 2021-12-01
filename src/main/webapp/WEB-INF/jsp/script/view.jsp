@@ -76,18 +76,21 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="mb-3 row">
+                                    <label class="col-md-1 col-form-label" style="text-align: center">1</label>
                                     <label class="col-md-2 col-form-label">측정 결과 명 :</label>
                                     <div class="col-md-7">
                                         <label class="col-md-12 col-form-label">${measures[0].name}</label>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
+                                    <label class="col-md-1 col-form-label" style="text-align: center">2</label>
                                     <label class="col-md-2 col-form-label">스크립트 명 :</label>
                                     <div class="col-md-7">
                                         <label class="col-md-12 col-form-label">${script.name}</label>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
+                                    <label class="col-md-1 col-form-label" style="text-align: center">3</label>
                                     <label class="col-md-2 col-form-label">업로드 일시 :</label>
                                     <div class="col-md-7">
                                         <label class="col-md-12 col-form-label">${script.uploadPoint}</label>
@@ -97,6 +100,8 @@
                                     <c:choose>
                                         <c:when test="${attach.division eq 'S'}">
                                             <div class="mb-3 row">
+                                                <label class="col-md-1 col-form-label"
+                                                       style="text-align: center">4</label>
                                                 <label class="col-md-2 col-form-label">소스 파일 :</label>
                                                 <div class="col-md-7">
                                                     <label class="col-md-12 col-form-label">
@@ -107,8 +112,10 @@
                                         </c:when>
                                         <c:when test="${attach.division eq 'C'}">
                                             <div class="mb-3 row">
+                                                <label class="col-md-1 col-form-label"
+                                                       style="text-align: center">5</label>
                                                 <label class="col-md-2 col-form-label">클래스 파일 :</label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-7">
                                                     <label class="col-md-10 col-form-label">
                                                         <a href="/scripts/file/${attach.no}">${attach.name}.class</a>
                                                     </label>
@@ -137,10 +144,10 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <table
-                                                    class="table table-bordered dt-responsive nowrap no-footer dtr-inline"
-                                                    style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
-                                                    role="grid" aria-describedby="datatable-buttons_info">
-                                                <thead class="table-light">
+                                                   class="table table-striped table-bordered dt-responsive nowrap no-footer dtr-inline"
+                                                   style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+                                                   role="grid" aria-describedby="datatable-buttons_info">
+                                                <thead>
                                                 <tr role="row">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="datatable"
                                                         rowspan="1"
@@ -228,7 +235,8 @@
 
 
 <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
-<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+<script type="text/javascript"
+        src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
 <script type="text/javascript">
     var deviceNames = [];
     var execTimes = [];
