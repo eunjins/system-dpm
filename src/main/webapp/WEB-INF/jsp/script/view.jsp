@@ -24,7 +24,7 @@
 
 </head>
 
-<body data-layout="horizontal" data-layout-size="boxed">
+<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'NanumSquare'">
 
 <div class="container-fluid">
     <!-- Begin page -->
@@ -115,11 +115,11 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <table
-                                                    class="table table-bordered dt-responsive nowrap no-footer dtr-inline"
+                                                    class="table table-striped table-bordered dt-responsive nowrap no-footer dtr-inline"
                                                     style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
                                                     role="grid" aria-describedby="datatable-buttons_info">
-                                                <thead class="table-light">
-                                                <tr role="row">
+                                                <thead>
+                                                <tr role="row" bgcolor="#fffaf0">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="datatable"
                                                         rowspan="1"
                                                         colspan="1" style="width: 50px;" aria-sort="ascending"

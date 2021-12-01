@@ -211,8 +211,8 @@ public class ScriptController {
     /* 스크립트 측정 결과 다운로드 */
     @GetMapping("/excel/{no}")
     public void downloadExcel(Script script, HttpServletResponse response) {
-        String fileName = excel.create(scriptService.getScript(script));
         OutputStream outputStream = null;
+        String fileName = excel.create(scriptService.getScript(script));
 
         try {
             byte[] file = FileUtils.readFileToByteArray(new File(excelPath + File.separator + fileName));
