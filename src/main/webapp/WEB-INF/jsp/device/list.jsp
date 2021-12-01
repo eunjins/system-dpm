@@ -48,16 +48,16 @@
                     <div class="col-sm-12 col-md-6">
                         <div class="dataTables_length" id="datatable_length"><label><select
                                 name="datatable_length" aria-controls="datatable"
-                                class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+                                class="custom-select form-control form-select">
                             <option value="Y">활성화</option>
                             <option value="N">비활성화</option>
                         </select></label></div>
                     </div>
                     <div class="col-sm-12 col-md-6"  style="text-align: right">
                         <div id="datatable_filter" class="dataTables_filter"><label><input
-                                type="search" class="form-control form-control-sm" placeholder="검색어를 입력하세요"
+                                type="search" class="form-control" placeholder="검색어를 입력하세요"
                                 aria-controls="datatable" style="text-align: left"></label>
-                        <button type="button" class="btn btn-sm btn-primary waves-effect waves-light">검색</button>
+                        <button type="button" class="btn btn-default btn-primary waves-effect waves-light">검색</button>
                         </div>
                     </div>
                 </div>
