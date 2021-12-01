@@ -8,28 +8,45 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8"/>
-    <title>디바이스 성능 측정 통합 시스템</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description"/>
-    <meta content="Themesbrand" name="author"/>
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="/assets/images/favicon.ico">
+    <jsp:include page="/WEB-INF/jsp/common/top.jsp"/>
 
-    <!-- jquery.vectormap css -->
-    <link href="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
-          type="text/css"/>
+    <!-- DataTables -->
+    <link href="/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
+          type="text/css">
 
     <!-- Responsive datatable examples -->
     <link href="/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet"
           type="text/css">
 
-    <!-- style Css> -->
-    <link href="/assets/css/style.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">.jqstooltip {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        visibility: hidden;
+        background: rgb(0, 0, 0) transparent;
+        background-color: rgba(0, 0, 0, 0.6);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+        color: white;
+        font: 10px arial, san serif;
+        text-align: left;
+        white-space: nowrap;
+        padding: 5px;
+        border: 1px solid white;
+        box-sizing: content-box;
+        z-index: 10000;
+    }
+
+    .jqsfield {
+        color: white;
+        font: 10px arial, san serif;
+        text-align: left;
+    }</style>
 
 </head>
 
-<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'Nanum Myeongjo', serif">
+<body data-layout="horizontal" data-layout-size="boxed">
 
 <div class="container-fluid">
     <!-- Begin page -->
@@ -123,7 +140,7 @@
                                                     class="table table-bordered dt-responsive nowrap no-footer dtr-inline"
                                                     style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
                                                     role="grid" aria-describedby="datatable-buttons_info">
-                                                <thead>
+                                                <thead class="table-light">
                                                 <tr role="row">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="datatable"
                                                         rowspan="1"
@@ -250,7 +267,7 @@
     let measureList = document.getElementById("measureList");
     measureList.innerHTML = '<c:forEach items="${measures}" var="measure" varStatus="object">' +
         '<tr class="odd">' +
-        '<td class="dtr-control sorting_1" tabindex="0" style="text-align:right">${object.count}</td>' +
+        '<td class="dtr-control sorting_1" tabindex="0" style="text-align:center">${object.count}</td>' +
         '<td>${measure.deviceName}</td>' +
         '<td id=execTime style="text-align:right">' + Number(${measure.execTime}).toLocaleString('en') + '</td>' +
         ' </tr>' +
