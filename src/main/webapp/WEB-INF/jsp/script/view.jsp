@@ -19,34 +19,11 @@
     <link href="/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet"
           type="text/css">
 
-    <style type="text/css">.jqstooltip {
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        visibility: hidden;
-        background: rgb(0, 0, 0) transparent;
-        background-color: rgba(0, 0, 0, 0.6);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
-        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
-        color: white;
-        font: 10px arial, san serif;
-        text-align: left;
-        white-space: nowrap;
-        padding: 5px;
-        border: 1px solid white;
-        box-sizing: content-box;
-        z-index: 10000;
-    }
-
-    .jqsfield {
-        color: white;
-        font: 10px arial, san serif;
-        text-align: left;
-    }</style>
+    <link href="/assets/css/style.css" type="text/css">
 
 </head>
 
-<body data-layout="horizontal" data-layout-size="boxed">
+<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'Nanum Myeongjo', serif">
 
 <div class="container-fluid">
     <!-- Begin page -->
@@ -76,35 +53,59 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="mb-3 row">
-                                    <label class="col-md-1 col-form-label" style="text-align: center">1</label>
-                                    <label class="col-md-2 col-form-label">측정 결과 명 :</label>
-                                    <div class="col-md-7">
-                                        <label class="col-md-12 col-form-label">${measures[0].name}</label>
+                                    <div class="col-md-6">
+                                        <label class="col-md-1 col-form-label" style="text-align: center">
+                                            •
+                                        </label>
+                                        <label class="col-md-2 col-form-label"style="text-align: left">
+                                            측정 결과 명
+                                        </label>
+                                        <label class="col-md-1 col-form-label" style="text-align: right">
+                                        </label>
+                                        <label class="col-md-6 col-form-label" style="text-align: left">${measures[0].name}</label>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-md-1 col-form-label" style="text-align: center">2</label>
-                                    <label class="col-md-2 col-form-label">스크립트 명 :</label>
-                                    <div class="col-md-7">
-                                        <label class="col-md-12 col-form-label">${script.name}</label>
+                                    <div class="col-md-6">
+                                        <label class="col-md-1 col-form-label" style="text-align: center">
+                                            •
+                                        </label>
+                                        <label class="col-md-2 col-form-label"style="text-align: left">
+                                            스크립트 명
+                                        </label>
+                                        <label class="col-md-1 col-form-label" style="text-align: right">
+                                        </label>
+                                        <label class="col-md-6 col-form-label" style="text-align: left">${script.name}</label>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-md-1 col-form-label" style="text-align: center">3</label>
-                                    <label class="col-md-2 col-form-label">업로드 일시 :</label>
-                                    <div class="col-md-7">
-                                        <label class="col-md-12 col-form-label">${script.uploadPoint}</label>
+                                    <div class="col-md-6">
+                                        <label class="col-md-1 col-form-label" style="text-align: center">
+                                            •
+                                        </label>
+                                        <label class="col-md-2 col-form-label"style="text-align: left">
+                                            업로드 일시
+                                        </label>
+                                        <label class="col-md-1 col-form-label" style="text-align: right">
+                                        </label>
+                                        <label class="col-md-6 col-form-label" style="text-align: left">${script.uploadPoint}</label>
                                     </div>
+
                                 </div>
                                 <c:forEach items="${attaches}" var="attach">
                                     <c:choose>
                                         <c:when test="${attach.division eq 'S'}">
                                             <div class="mb-3 row">
-                                                <label class="col-md-1 col-form-label"
-                                                       style="text-align: center">4</label>
-                                                <label class="col-md-2 col-form-label">소스 파일 :</label>
-                                                <div class="col-md-7">
-                                                    <label class="col-md-12 col-form-label">
+                                                <div class="col-md-6">
+                                                    <label class="col-md-1 col-form-label" style="text-align: center">
+                                                        •
+                                                    </label>
+                                                    <label class="col-md-2 col-form-label"style="text-align: left">
+                                                        소스 파일
+                                                    </label>
+                                                    <label class="col-md-1 col-form-label" style="text-align: right">
+                                                    </label>
+                                                    <label class="col-md-6 col-form-label">
                                                         <a href="/scripts/file/${attach.no}">${attach.name}.java</a>
                                                     </label>
                                                 </div>
@@ -112,15 +113,21 @@
                                         </c:when>
                                         <c:when test="${attach.division eq 'C'}">
                                             <div class="mb-3 row">
-                                                <label class="col-md-1 col-form-label"
-                                                       style="text-align: center">5</label>
-                                                <label class="col-md-2 col-form-label">클래스 파일 :</label>
-                                                <div class="col-md-7">
-                                                    <label class="col-md-10 col-form-label">
+                                                <div class="col-md-6">
+                                                    <label class="col-md-1 col-form-label" style="text-align: center">
+                                                        •
+                                                    </label>
+                                                    <label class="col-md-2 col-form-label"style="text-align: left">
+                                                        클래스 파일
+                                                    </label>
+                                                    <label class="col-md-1 col-form-label" style="text-align: right">
+                                                    </label>
+                                                    <label class="col-md-6 col-form-label">
                                                         <a href="/scripts/file/${attach.no}">${attach.name}.class</a>
                                                     </label>
                                                 </div>
-                                                <div class="col-md-2">
+
+                                                <div class="col-md-6">
                                                     <a href="${contextPath}/scripts/excel/${script.no}">
                                                         <button type="button"
                                                                 class="btn btn-secondary waves-effect waves-light"
@@ -144,11 +151,11 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <table
-                                                   class="table table-striped table-bordered dt-responsive nowrap no-footer dtr-inline"
-                                                   style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
-                                                   role="grid" aria-describedby="datatable-buttons_info">
+                                                    class="table table-striped table-bordered dt-responsive nowrap no-footer dtr-inline"
+                                                    style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+                                                    role="grid" aria-describedby="datatable-buttons_info">
                                                 <thead>
-                                                <tr role="row">
+                                                <tr role="row" bgcolor="#fffaf0">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="datatable"
                                                         rowspan="1"
                                                         colspan="1" style="width: 50px;" aria-sort="ascending"
@@ -237,6 +244,8 @@
 <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
 <script type="text/javascript"
         src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+<script type="text/javascript"
+        src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.gammel.js"></script>
 <script type="text/javascript">
     var deviceNames = [];
     var execTimes = [];
@@ -259,7 +268,7 @@
         dataSource: {
             "chart": {
                 "yAxisName": "실행 시간 (ms)",
-                "theme": "fusion",
+                "theme": "gammel",
                 "showBorder": 1
             },
             "data": chartData
