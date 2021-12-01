@@ -90,7 +90,6 @@
                                         </label>
                                         <label class="col-md-6 col-form-label" style="text-align: left">${script.uploadPoint}</label>
                                     </div>
-
                                 </div>
                                 <c:forEach items="${attaches}" var="attach">
                                     <c:choose>

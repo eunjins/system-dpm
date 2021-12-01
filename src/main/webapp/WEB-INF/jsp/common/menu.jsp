@@ -10,7 +10,7 @@
             <div class="navbar-brand-box">
 
 
-                <a href="index.html" class="logo logo-dark">
+                <a class="logo logo-dark">
                                 <span class="logo-sm">
                                     <img src="/assets/images/logo-sm-dark.png" alt="" height="20">
                                 </span>
