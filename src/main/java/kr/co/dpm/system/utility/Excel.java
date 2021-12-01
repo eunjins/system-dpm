@@ -43,46 +43,41 @@ public class Excel {
 
         XSSFSheet sheet = workbook.createSheet(measures.get(0).getName());
 
-        CellStyle center = workbook.createCellStyle() ;
-        center.setAlignment(HorizontalAlignment.CENTER);
-
-        XSSFCellStyle color = workbook.createCellStyle();
-        color.setFillForegroundColor(IndexedColors.YELLOW.getIndex());
-        color.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        CellStyle title = workbook.createCellStyle();
+        title.setAlignment(HorizontalAlignment.CENTER);
+        title.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        title.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
         XSSFRow row = sheet.createRow(1);
         Cell cell = row.createCell(1);
         cell.setCellValue("측정 결과 명");
-        cell.setCellStyle(center);
-        cell.setCellStyle(color);
+        cell.setCellStyle(title);
 
         cell = row.createCell(2);
         cell.setCellValue("스크립트 명");
-        cell.setCellStyle(center);
-        cell.setCellStyle(color);
+        cell.setCellStyle(title);
 
         row = sheet.createRow(2);
         row.createCell(1).setCellValue(measures.get(0).getName());
-        row.createCell(2).setCellValue(script.getNo());
+        row.createCell(2).setCellValue(script.getName());
+
+        logger.debug(script.toString());
 
         row = sheet.createRow(4);
         cell = row.createCell(0);
         cell.setCellValue("번호");
-        cell.setCellStyle(center);
-        cell.setCellStyle(color);
+        cell.setCellStyle(title);
 
         cell = row.createCell(1);
         cell.setCellValue("디바이스 명");
-        cell.setCellStyle(center);
-        cell.setCellStyle(color);
+        cell.setCellStyle(title);
 
         cell = row.createCell(2);
         cell.setCellValue("실행 시간 (ms)");
-        cell.setCellStyle(center);
-        cell.setCellStyle(color);
+        cell.setCellStyle(title);
 
         for (int i = 0; i < measures.size(); i++) {
-            row = sheet.createRow(i + 5);
+            row = sheet.createRow(i + 6);
 
             Device device = deviceService.getDevice(
                     new Device(measures.get(i).getDeviceId()));

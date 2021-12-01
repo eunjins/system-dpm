@@ -9,7 +9,8 @@
             <!-- LOGO -->
             <div class="navbar-brand-box">
 
-                <a href="index.html" class="logo logo-dark">
+
+                <a class="logo logo-dark">
                                 <span class="logo-sm">
                                     <img src="/assets/images/logo-sm-dark.png" alt="" height="20">
                                 </span>
@@ -29,14 +30,14 @@
                     <div class="collapse navbar-collapse" id="topnav-menu-content">
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" style="font-size: large"
+                                <a class="nav-link dropdown-toggle arrow-none"
                                    href="${pageContext.request.contextPath}/devices" id="topnav-device"
                                    role="button">
                                     디바이스
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" style="font-size: large"
+                                <a class="nav-link dropdown-toggle arrow-none"
                                    href="${pageContext.request.contextPath}/scripts" id="topnav-script"
                                    role="button">
                                     스크립트 측정
@@ -52,7 +53,7 @@
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="d-none d-xl-inline-block ms-1" style="font-size: large">로그아웃</span>
+                    <span class="d-none d-xl-inline-block ms-1 font-size:16">로그아웃</span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
