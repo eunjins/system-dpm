@@ -13,26 +13,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description"/>
     <meta content="Themesbrand" name="author"/>
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="/assets/images/favicon.ico">
 
     <!-- jquery.vectormap css -->
     <link href="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
           type="text/css"/>
 
-
-    <!-- Bootstrap Css -->
-    <link href="/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css"/>
-    <!-- Icons Css -->
-    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css"/>
-    <!-- App Css-->
-    <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css"/>
-    <!-- style Css> -->
-    <link href="/assets/css/style.css" rel="stylesheet" type="text/css"/>
+    <jsp:include page="/WEB-INF/jsp/common/top.jsp"/>
 
 </head>
 
-<body data-layout="horizontal" data-layout-size="boxed">
+<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'NanumSquare'; font-size: medium; font-weigth: bold">
 
 <div class="container-fluid">
     <!-- Begin page -->
@@ -47,7 +37,6 @@
 
                 <!-- start page title -->
                 <div class="row">
-                    <p></p>
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
                             <h2 class="page-title mb-0 font-size-40">디바이스 정보 목록</h2>
@@ -57,17 +46,19 @@
 
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <div class="dataTables_length" id="datatable_length"><label>상태 <select
+                        <div class="dataTables_length" id="datatable_length"><label><select
                                 name="datatable_length" aria-controls="datatable"
                                 class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
                             <option value="Y">활성화</option>
                             <option value="N">비활성화</option>
                         </select></label></div>
                     </div>
-                    <div class="col-sm-12 col-md-6" >
-                        <div id="datatable_filter" class="dataTables_filter"><label>Search:<input
+                    <div class="col-sm-12 col-md-6"  style="text-align: right">
+                        <div id="datatable_filter" class="dataTables_filter"><label><input
                                 type="search" class="form-control form-control-sm" placeholder="검색어를 입력하세요"
-                                aria-controls="datatable" style="text-align: center"></label></div>
+                                aria-controls="datatable" style="text-align: left"></label>
+                        <button type="button" class="btn btn-sm btn-primary waves-effect waves-light">검색</button>
+                        </div>
                     </div>
                 </div>
                 <!-- end page title -->
@@ -81,33 +72,34 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <table id="datatable"
-                                                   class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
-                                                   style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+                                                   class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                                                   style="border-collapse: collapse; border-spacing: 0px; width: 100%; text-align: center; outline-style: solid;
+                                                    outline-width: thin";
                                                    role="grid" aria-describedby="datatable_info">
                                                 <thead>
-                                                <tr role="row">
+                                                <tr role="row" bgcolor="#4169e1" style="color: #FFFFFF">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                        colspan="1" style="width: 80px;" aria-sort="ascending"
+                                                        colspan="1" style="width: 5%;" aria-sort="ascending"
                                                         aria-label="Name: activate to sort column descending">번호
                                                     </th>
                                                     <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                        colspan="1" style="width: 220px;"
+                                                        colspan="1" style="width: 30%;"
                                                         aria-label="Position: activate to sort column ascending">디바이스 명
                                                     </th>
                                                     <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                        colspan="1" style="width: 180px;"
+                                                        colspan="1" style="width: 30%;"
                                                         aria-label="Office: activate to sort column ascending">호스트 명
                                                     </th>
                                                     <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                        colspan="1" style="width: 100px;"
+                                                        colspan="1" style="width: 15%;"
                                                         aria-label="Office: activate to sort column ascending">등록 일자
                                                     </th>
                                                     <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                        colspan="1" style="width: 100px;"
+                                                        colspan="1" style="width: 10%;"
                                                         aria-label="Office: activate to sort column ascending">JDK 버전
                                                     </th>
                                                     <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                        colspan="1" style="width: 100px;"
+                                                        colspan="1"
                                                         aria-label="Office: activate to sort column ascending">상태
                                                     </th>
                                                 </tr>
@@ -116,12 +108,11 @@
                                                 <tbody>
                                                 <c:forEach items="${devices}" var="device" varStatus="object">
                                                     <tr class="odd">
-                                                            <%--                                                    <td class="dtr-control sorting_1" tabindex="0">${object.count}</td>--%>
                                                         <td style="">${object.count}</td>
-                                                        <td style=""><a
+                                                        <td style="text-align: left"><a
                                                                 href="${contextPath}/devices/${device.id}">${device.name}</a>
                                                         </td>
-                                                        <td style="">${device.hostName}</td>
+                                                        <td style="text-align: left">${device.hostName}</td>
                                                         <td style="">${device.insertDate}</td>
                                                         <td style="">${device.jdkVersion}</td>
                                                         <td style="">
@@ -213,17 +204,6 @@
 </div>
 <!-- end container-fluid -->
 
-<!-- JAVASCRIPT -->
-<script src="/assets/libs/jquery/jquery.min.js"></script>
-<script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/assets/libs/metismenu/metisMenu.min.js"></script>
-<script src="/assets/libs/simplebar/simplebar.min.js"></script>
-<script src="/assets/libs/node-waves/waves.min.js"></script>
-<script src="/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
-
-<!-- Required datatable js -->
-<script src="/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 <!-- Buttons examples -->
 <script src="/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 <script src="/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
@@ -240,8 +220,6 @@
 <!-- jquery.vectormap map -->
 <script src="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
 <script src="/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js"></script>
-
-<%--<script src="/assets/js/pages/dashboard.init.js"></script>--%>
 
 <script src="/assets/js/app.js"></script>
 
