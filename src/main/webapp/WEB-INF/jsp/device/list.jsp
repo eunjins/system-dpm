@@ -32,7 +32,7 @@
 
 </head>
 
-<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'Nanum Myeongjo', serif">
+<body data-layout="horizontal" data-layout-size="boxed">
 
 <div class="container-fluid">
     <!-- Begin page -->
@@ -54,6 +54,22 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="dataTables_length" id="datatable_length"><label>상태 <select
+                                name="datatable_length" aria-controls="datatable"
+                                class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+                            <option value="Y">활성화</option>
+                            <option value="N">비활성화</option>
+                        </select></label></div>
+                    </div>
+                    <div class="col-sm-12 col-md-6" >
+                        <div id="datatable_filter" class="dataTables_filter"><label>Search:<input
+                                type="search" class="form-control form-control-sm" placeholder="검색어를 입력하세요"
+                                aria-controls="datatable" style="text-align: center"></label></div>
+                    </div>
+                </div>
                 <!-- end page title -->
                 <div class="row">
                     <div class="col-12">
@@ -61,21 +77,7 @@
                             <div class="card-body">
 
                                 <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="dataTables_length" id="datatable_length"><label>상태 <select
-                                                    name="datatable_length" aria-controls="datatable"
-                                                    class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
-                                                <option value="Y">활성화</option>
-                                                <option value="N">비활성화</option>
-                                            </select></label></div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6">
-                                            <div id="datatable_filter" class="dataTables_filter"><label>Search:<input
-                                                    type="search" class="form-control form-control-sm" placeholder=""
-                                                    aria-controls="datatable"></label></div>
-                                        </div>
-                                    </div>
+
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <table id="datatable"

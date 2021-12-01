@@ -20,7 +20,6 @@
     <link href="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
           type="text/css"/>
 
-
     <!-- Bootstrap Css -->
     <link href="/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css"/>
     <!-- Icons Css -->
@@ -32,7 +31,7 @@
 
 </head>
 
-<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'Nanum Myeongjo', serif">
+<body data-layout="horizontal" data-layout-size="boxed">
 
 <div class="container-fluid">
     <!-- Begin page -->
