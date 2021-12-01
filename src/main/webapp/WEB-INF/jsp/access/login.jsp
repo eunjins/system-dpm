@@ -21,9 +21,10 @@
     <!-- App Css-->
     <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
 
+
 </head>
 
-<body>
+<body style="font-family: 'Nanum Myeongjo', serif">
 <div class="account-pages my-5 pt-sm-5">
     <div class="container">
         <div class="row justify-content-center">
