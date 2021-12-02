@@ -6,7 +6,7 @@ import kr.co.dpm.system.device.Device;
 import kr.co.dpm.system.device.DeviceServiceImpl;
 import kr.co.dpm.system.management.ManagementServiceImpl;
 import kr.co.dpm.system.measure.Measure;
-import kr.co.dpm.system.utility.Excel;
+import kr.co.dpm.system.util.ExcelUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import kr.co.dpm.system.measure.MeasureServiceImpl;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,7 +22,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +62,7 @@ public class ScriptController {
     private ResponseMessage responseMessage;
 
     @Autowired
-    private Excel excel;
+    private ExcelUtil excelUtil;
 
     /*  스크립트 측정 결과 목록 폼 */
     @GetMapping
@@ -212,7 +210,7 @@ public class ScriptController {
     @GetMapping("/excel/{no}")
     public void downloadExcel(Script script, HttpServletResponse response) {
         OutputStream outputStream = null;
-        String fileName = excel.create(scriptService.getScript(script));
+        String fileName = excelUtil.create(scriptService.getScript(script));
 
         try {
             byte[] file = FileUtils.readFileToByteArray(new File(excelPath + File.separator + fileName));
@@ -233,7 +231,7 @@ public class ScriptController {
                 if (outputStream != null) {
                     outputStream.close();
 
-                    excel.delete(fileName);
+                    excelUtil.delete(fileName);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

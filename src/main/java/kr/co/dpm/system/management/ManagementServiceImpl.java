@@ -2,18 +2,14 @@ package kr.co.dpm.system.management;
 
 import kr.co.dpm.system.device.Device;
 import kr.co.dpm.system.device.DeviceServiceImpl;
-import kr.co.dpm.system.measure.Measure;
-import kr.co.dpm.system.script.Script;
 import kr.co.dpm.system.script.ScriptFileRepositoryImpl;
-import kr.co.dpm.system.utility.Cryptogram;
-import kr.co.dpm.system.utility.CryptogramImpl;
+import kr.co.dpm.system.util.CryptogramImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletContext;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

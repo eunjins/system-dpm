@@ -1,8 +1,7 @@
-package kr.co.dpm.system.utility;
+package kr.co.dpm.system.util;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;

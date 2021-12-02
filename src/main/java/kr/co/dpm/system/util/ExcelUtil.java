@@ -1,4 +1,4 @@
-package kr.co.dpm.system.utility;
+package kr.co.dpm.system.util;
 
 import kr.co.dpm.system.device.Device;
 import kr.co.dpm.system.device.DeviceServiceImpl;
@@ -7,11 +7,6 @@ import kr.co.dpm.system.measure.MeasureServiceImpl;
 import kr.co.dpm.system.script.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -22,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
-public class Excel {
+public class ExcelUtil {
     private static final Logger logger = LogManager.getLogger(ScriptController.class);
 
     @Value("${excelPath}")
