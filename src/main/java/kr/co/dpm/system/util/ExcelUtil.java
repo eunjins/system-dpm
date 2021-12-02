@@ -44,7 +44,7 @@ public class ExcelUtil {
         XSSFSheet sheet = workbook.createSheet(measures.get(0).getName());
 
         sheet.setColumnWidth(0, 1400);
-        sheet.setColumnWidth(1, 4000);
+        sheet.setColumnWidth(1, 6000);
         sheet.setColumnWidth(2, 4000);
 
         XSSFCellStyle centerStyle = workbook.createCellStyle();
