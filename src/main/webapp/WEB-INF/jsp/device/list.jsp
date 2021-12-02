@@ -49,17 +49,17 @@
 
                 <div class="row">
                     <div class="col-sm-12 col-md-5">
-                        <div class="dataTables_length" id="datatable_length"><label><select
+                        <div class="dataTables_length" id="datatable_length"><label><select id="select_status"
                                 name="datatable_length" aria-controls="datatable"
                                 class="custom-select form-control form-select">
-                            <option>전체</option>
+                            <option value="">전체</option>
                             <option value="Y">활성화</option>
                             <option value="N">비활성화</option>
                         </select></label></div>
                     </div>
                     <div class="col-sm-12 col-md-7" style="text-align: right">
                         <label>
-                        <select name="datatable_type" aria-controls="datatable"
+                        <select id="select_condition" name="datatable_type" aria-controls="datatable"
                                 class="custom-select form-control form-select">
                             <option value="measureName">디바이스 명</option>
                             <option value="insertDate">등록 일자</option>
@@ -67,11 +67,11 @@
                         </label>
 
                         <%--                        <div id="datatable_filter" class="dataTables_filter">--%>
-                        <label>
-                            <input type="search" class="form-control" placeholder="검색어를 입력하세요"
+                        <label id="search_bar">
+                            <input id="search_message" type="search" class="form-control" placeholder="검색어를 입력하세요"
                                    aria-controls="datatable" style="text-align: left">
                         </label>
-                        <button type="button" class="btn btn-default btn-primary waves-effect waves-light">검색
+                        <button id="button_search" type="button" class="btn btn-default btn-primary waves-effect waves-light">검색
                         </button>
                         <%--                        </div>--%>
                     </div>
@@ -126,84 +126,14 @@
                                                 </tr>
                                                 </thead>
 
-                                                <tbody>
-<%--                                                <c:forEach items="${devices}" var="device" varStatus="object">--%>
-<%--                                                    <tr class="odd">--%>
-<%--                                                        <td style="">${object.count}</td>--%>
-<%--                                                        <td style="text-align: left"><a--%>
-<%--                                                                href="${contextPath}/devices/${device.id}">${device.name}</a>--%>
-<%--                                                        </td>--%>
-<%--                                                        <td style="text-align: left">${device.hostName}</td>--%>
-<%--                                                        <td style="">${device.insertDate}</td>--%>
-<%--                                                        <td style="">${device.jdkVersion}</td>--%>
-<%--                                                        <td style="">--%>
-<%--                                                            <c:choose>--%>
-<%--                                                                <c:when test="${device.status eq 'Y'}">--%>
-<%--                                                                    활성화--%>
-<%--                                                                </c:when>--%>
-<%--                                                                <c:when test="${device.status eq 'N'}">--%>
-<%--                                                                    비활성화--%>
-<%--                                                                </c:when>--%>
-<%--                                                            </c:choose>--%>
-<%--                                                        </td>--%>
-<%--                                                    </tr>--%>
-<%--                                                </c:forEach>--%>
+                                                <tbody id="table">
+
                                                 </tbody>
+
                                             </table>
                                         </div>
                                     </div>
-<%--                                    <div class="row">--%>
-<%--                                        <div class="col-sm-12 col-md-12">--%>
-<%--                                            <div class="dataTables_paginate paging_simple_numbers"--%>
-<%--                                                 id="datatable_paginate">--%>
-<%--                                                <ul class="pagination justify-content-center">--%>
-<%--                                                    <li class="paginate_button page-item previous disabled"--%>
-<%--                                                        id="datatable_previous"><a href="#" aria-controls="datatable"--%>
-<%--                                                                                   data-dt-idx="0" tabindex="0"--%>
-<%--                                                                                   class="page-link">&lt;</a></li>--%>
-<%--                                                    <li class="paginate_button page-item active"><a href="#"--%>
-<%--                                                                                                    aria-controls="datatable"--%>
-<%--                                                                                                    data-dt-idx="1"--%>
-<%--                                                                                                    tabindex="0"--%>
-<%--                                                                                                    class="page-link">1</a>--%>
-<%--                                                    </li>--%>
-<%--                                                    <li class="paginate_button page-item "><a href="#"--%>
-<%--                                                                                              aria-controls="datatable"--%>
-<%--                                                                                              data-dt-idx="2"--%>
-<%--                                                                                              tabindex="0"--%>
-<%--                                                                                              class="page-link">2</a>--%>
-<%--                                                    </li>--%>
-<%--                                                    <li class="paginate_button page-item "><a href="#"--%>
-<%--                                                                                              aria-controls="datatable"--%>
-<%--                                                                                              data-dt-idx="3"--%>
-<%--                                                                                              tabindex="0"--%>
-<%--                                                                                              class="page-link">3</a>--%>
-<%--                                                    </li>--%>
-<%--                                                    <li class="paginate_button page-item "><a href="#"--%>
-<%--                                                                                              aria-controls="datatable"--%>
-<%--                                                                                              data-dt-idx="4"--%>
-<%--                                                                                              tabindex="0"--%>
-<%--                                                                                              class="page-link">4</a>--%>
-<%--                                                    </li>--%>
-<%--                                                    <li class="paginate_button page-item "><a href="#"--%>
-<%--                                                                                              aria-controls="datatable"--%>
-<%--                                                                                              data-dt-idx="5"--%>
-<%--                                                                                              tabindex="0"--%>
-<%--                                                                                              class="page-link">5</a>--%>
-<%--                                                    </li>--%>
-<%--                                                    <li class="paginate_button page-item "><a href="#"--%>
-<%--                                                                                              aria-controls="datatable"--%>
-<%--                                                                                              data-dt-idx="6"--%>
-<%--                                                                                              tabindex="0"--%>
-<%--                                                                                              class="page-link">6</a>--%>
-<%--                                                    </li>--%>
-<%--                                                    <li class="paginate_button page-item next" id="datatable_next"><a--%>
-<%--                                                            href="#" aria-controls="datatable" data-dt-idx="7"--%>
-<%--                                                            tabindex="0" class="page-link">&gt;</a></li>--%>
-<%--                                                </ul>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
+
                                     <div class="row">
                                     <div class="col-sm-12 col-md-12">
                                         <div class="dataTables_paginate paging_simple_numbers"

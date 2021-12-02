@@ -22,7 +22,8 @@
 
 </head>
 
-<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'NanumSquare'; font-size: medium; font-weigth: bold">
+<body data-layout="horizontal" data-layout-size="boxed"
+      style="font-family: 'NanumSquare'; font-size: medium; font-weigth: bold">
 
 <div class="container-fluid">
     <!-- Begin page -->
@@ -57,7 +58,8 @@
                                         <label class="col-md-6 col-form-label">${device.id}</label>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-search-input" class="col-md-2 col-form-label">디바이스 명:</label>
+                                        <label for="example-search-input" class="col-md-2 col-form-label">디바이스
+                                            명:</label>
                                         <div class="col-md-6">
                                             <input class="form-control" type="text" name=name value="${device.name}"
                                                    id="example-search-input">
@@ -117,8 +119,10 @@
                                                 </button>
                                             </a>
                                             <button type="submit"
-                                                    class="btn btn-default btn-primary waves-effect waves-light" style="float: right">수정
+                                                    class="btn btn-default btn-primary waves-effect waves-light"
+                                                    style="float: right">수정
                                             </button>
+
                                         </div>
                                     </div>
                                 </form>
@@ -165,7 +169,6 @@
 <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
 <script type="text/javascript"
         src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
-
 
 </body>
 
