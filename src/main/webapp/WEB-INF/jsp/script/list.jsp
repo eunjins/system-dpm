@@ -244,7 +244,7 @@
             if (scriptMeasure[i].status == 'N') {
                 text += '측정중';
             } else {
-                text += '<a href="${contextPath}/scripts/${script.no}">결과 보기</a>';
+                text += '<a href="${contextPath}/scripts/' + scripts[i].no + '">결과 보기</a>';
             }
             text += '</td>' +
                 '</tr>';
