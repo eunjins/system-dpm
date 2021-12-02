@@ -143,9 +143,22 @@
                                         </c:when>
                                     </c:choose>
                                 </c:forEach>
+<%--                                <div class="row">--%>
+<%--                                    <div class="col-sm-6 col-md-6">--%>
+<%--                                        <label style="font-size: x-large; color: black; padding-left: 5px"></label>--%>
+<%--                                    </div>--%>
+<%--                                    <div class="col-sm-6 col-md-6">--%>
+<%--                                        <a href="${contextPath}/scripts/excel/${script.no}">--%>
+<%--                                            <button type="button"--%>
+<%--                                                    class="btn btn-default btn-primary waves-effect waves-light"--%>
+<%--                                                    style="float: right"><span>엑셀 다운로드</span>--%>
+<%--                                            </button>--%>
+<%--                                        </a>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
                                 <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                     <div class="row">
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-12" style="padding-top: 10px;">
                                             <table
                                                    class="table table-striped table-bordered dt-responsive nowrap no-footer dtr-inline"
                                                    style="border-collapse: collapse; border-spacing: 0px; width: 100%; text-align: center; outline-style: solid;
@@ -181,9 +194,8 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div id="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-12" style="padding-top: 15px">
                                         <table id="chartable"
                                                class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
                                                style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
@@ -191,17 +203,15 @@
                                             <div class="col-sm-12" id="chart-container"></div>
                                         </table>
                                     </div>
-                                    <div class="mb-3 row">
-                                        <div class="col-md-10">
-                                        </div>
-                                        <div class="button-items">
-                                            <a href="${contextPath}/scripts">
-                                                <button type="button"
-                                                        class="btn btn-default btn-primary waves-effect waves-light"
-                                                        style="float: right">목록
-                                                </button>
-                                            </a>
-                                        </div>
+                                </div>
+                                <div class="row">
+                                    <div class="button-items" style="padding-top: 10px">
+                                        <a href="${contextPath}/scripts">
+                                            <button type="button"
+                                                    class="btn btn-default btn-primary waves-effect waves-light"
+                                                    style="float: right">목록
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

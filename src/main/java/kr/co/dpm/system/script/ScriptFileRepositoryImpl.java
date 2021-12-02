@@ -23,6 +23,9 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
     private static final Logger logger = LogManager.getLogger(ScriptController.class);
     private static final MediaType MULTIPART = MediaType.parse("multipart/form-data");
 
+    @Value("${path}")
+    private String path;
+
     @Value("${protocol}")
     private String http;
 
@@ -35,7 +38,7 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
     @Override
     public boolean distribute(MultipartFile classFile, String encryptResult, String ip) {
         try {
-            File convertFile = new File(classFile.getOriginalFilename());
+            File convertFile = new File(path + File.separator + classFile.getOriginalFilename());
             convertFile.createNewFile();
             FileOutputStream fileOutputStream = new FileOutputStream(convertFile);
             fileOutputStream.write(classFile.getBytes());
@@ -64,14 +67,13 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
             JSONObject jsonResponse = new JSONObject(responseBody.string());
 
             if ("200".equals(jsonResponse.getString("code"))) {
-                logger.debug("-------> 에이전트 배포 성공 200 OK");
+                logger.debug("-------> 에이전트 배포 성공");
 
                 return true;
             }
             logger.debug("-------> 에이전트 배포 오류 : " + jsonResponse.getString("message"));
 
         } catch(NoRouteToHostException e) {
-            logger.debug("-------> 호스트로 갈 루트 없음");
             e.printStackTrace();
         } catch(SocketTimeoutException e) {
             logger.debug("-------> 에이전트 연결 시간 초과");
