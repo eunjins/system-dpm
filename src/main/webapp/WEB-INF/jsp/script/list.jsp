@@ -166,18 +166,20 @@
 
     function changePage(pageButtonId) {
         if (pageButtonId == "backPage") {
-            if (pageNo != 0) {
-                pageNo -= 1;
+            if ((parseInt(pageNo / 5) * 5) - 5 > 0) {
+                pageNo = (parseInt(pageNo / 5) * 5) - 5;
             }
 
         } else if (pageButtonId == "nextPage") {
-            if (pageNo !== (parseInt(allDeviceNo / 10))) {
-                pageNo += 1;
+            if ((parseInt(pageNo / 5) * 5) + 5 <= (parseInt(allDeviceNo / 10))) {
+                pageNo = (parseInt(pageNo / 5) * 5) + 5;
             }
 
         } else {
             pageNo = pageButtonId;
         }
+
+        search();
     }
 
     function condition() {

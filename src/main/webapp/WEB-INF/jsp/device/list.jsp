@@ -143,48 +143,7 @@
                                                 <div class="dataTables_paginate paging_simple_numbers"
                                                      id="datatable_paginate">
                                                     <ul class="pagination justify-content-center" id="pageNo">
-                                                        <li class="paginate_button page-item previous disabled"
-                                                            id="datatable_previous"><a id="backPage"
-                                                                                       href="#"
-                                                                                       aria-controls="datatable"
-                                                                                       data-dt-idx="0" tabindex="0"
-                                                                                       class="page-link"
-                                                                                       onclick="changePage(this.id)">&lt;</a>
-                                                        </li>
-                                                        <li class="paginate_button page-item active"><a href="#"
-                                                                                                        aria-controls="datatable"
-                                                                                                        data-dt-idx="1"
-                                                                                                        tabindex="0"
-                                                                                                        class="page-link">1</a>
-                                                        </li>
-                                                        <li class="paginate_button page-item "><a href="#"
-                                                                                                  aria-controls="datatable"
-                                                                                                  data-dt-idx="2"
-                                                                                                  tabindex="0"
-                                                                                                  class="page-link">2</a>
-                                                        </li>
-                                                        <li class="paginate_button page-item "><a href="#"
-                                                                                                  aria-controls="datatable"
-                                                                                                  data-dt-idx="3"
-                                                                                                  tabindex="0"
-                                                                                                  class="page-link">3</a>
-                                                        </li>
-                                                        <li class="paginate_button page-item "><a href="#"
-                                                                                                  aria-controls="datatable"
-                                                                                                  data-dt-idx="4"
-                                                                                                  tabindex="0"
-                                                                                                  class="page-link">4</a>
-                                                        </li>
-                                                        <li class="paginate_button page-item "><a href="#"
-                                                                                                  aria-controls="datatable"
-                                                                                                  data-dt-idx="5"
-                                                                                                  tabindex="0"
-                                                                                                  class="page-link">5</a>
-                                                        </li>
-                                                        <li class="paginate_button page-item next" id="datatable_next">
-                                                            <a id="nextPage" onclick="changePage(this.id)"
-                                                               href="#" aria-controls="datatable" data-dt-idx="6"
-                                                               tabindex="0" class="page-link">&gt;</a></li>
+
                                                     </ul>
                                                 </div>
                                             </div>
@@ -223,18 +182,20 @@
 
     function changePage(pageButtonId) {
         if (pageButtonId == "backPage") {
-            if (pageNo != 0) {
-                pageNo -= 1;
+            if ((parseInt(pageNo / 5) * 5) - 5 > 0) {
+                pageNo = (parseInt(pageNo / 5) * 5) - 5;
             }
 
         } else if (pageButtonId == "nextPage") {
-            if (pageNo !== (parseInt(allDeviceNo / 10))) {
-                pageNo += 1;
+            if ((parseInt(pageNo / 5) * 5) + 5 <= (parseInt(allDeviceNo / 10))) {
+                pageNo = (parseInt(pageNo / 5) * 5) + 5;
             }
 
         } else {
             pageNo = pageButtonId;
         }
+
+        search();
     }
 
     function condition() {
@@ -313,7 +274,7 @@
         table.innerHTML = text;
 
         let endPageNo;
-        if ((parseInt(allDeviceNo / 10)) < ((pageNo / 5) * 5) + 5) {
+        if ((parseInt(allDeviceNo / 10)) < (parseInt(pageNo / 5) * 5) + 5) {
             endPageNo = ((parseInt(allDeviceNo / 10))) + 1;
         } else {
             endPageNo = ((pageNo / 5) * 5) + 5;
@@ -323,7 +284,7 @@
 
         pageNoHtml += '<li class="paginate_button page-item previous disabled"' +
             'id="datatable_previous"><a id="backPage"' +
-            'href="#"' +
+            'href="#" onclick="changePage(this.id)"' +
             'aria-controls="datatable"' +
             'data-dt-idx="0" tabindex="0"' +
             'class="page-link" onclick="changePage(this.id)">&lt;</a></li>';
@@ -331,9 +292,9 @@
         let count = 1;
         for (let i = ((pageNo / 5) * 5); i < endPageNo; i++) {
             if (pageNo == i) {
-                pageNoHtml += '<li class="paginate_button page-item active"><a id="' + (i) + '" href="#"';
+                pageNoHtml += '<li class="paginate_button page-item active"><a id="' + (i) + '" href="#" onclick="changePage(this.id)"';
             } else {
-                pageNoHtml += '<li class="paginate_button page-item "><a href="#"';
+                pageNoHtml += '<li class="paginate_button page-item "><a href="#" onclick="changePage(this.id)"';
             }
 
             pageNoHtml += 'aria-controls="datatable"' +
@@ -344,7 +305,7 @@
         pageNoHtml += '<li class="paginate_button page-item next" id="datatable_next">' +
             '<a id="nextPage" onclick="changePage(this.id)"' +
             'href="#" aria-controls="datatable" data-dt-idx="' + (count) + '"' +
-            'tabindex="0" class="page-link" onclick="changePage(this.id)">&gt;</a></li>'
+            'tabindex="0" class="page-link" >&gt;</a></li>'
 
         let pageTable = document.getElementById("pageNo");
 
