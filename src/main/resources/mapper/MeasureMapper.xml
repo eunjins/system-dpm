@@ -20,6 +20,9 @@
             <if test="scriptNo > 0">
                 AND SCRIPT_NO = #{scriptNo}
             </if>
+            <if test="name != null and name != ''">
+                AND MEASURE.NAME LIKE '%${name}%'
+            </if>
         </where>
         ORDER BY DEVICE.NAME
     </select>

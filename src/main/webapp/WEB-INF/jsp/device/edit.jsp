@@ -22,7 +22,8 @@
 
 </head>
 
-<body data-layout="horizontal" data-layout-size="boxed" style="font-family: 'NanumSquare'; font-size: medium; font-weigth: bold">
+<body data-layout="horizontal" data-layout-size="boxed"
+      style="font-family: 'NanumSquare'; font-size: medium; font-weigth: bold">
 
 <div class="container-fluid">
     <!-- Begin page -->
@@ -57,7 +58,8 @@
                                         <label class="col-md-6 col-form-label">${device.id}</label>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-search-input" class="col-md-2 col-form-label">디바이스 명</label>
+                                        <label for="example-search-input" class="col-md-2 col-form-label">디바이스
+                                            명:</label>
                                         <div class="col-md-6">
                                             <input class="form-control" type="text" name=name value="${device.name}"
                                                    id="example-search-input">
@@ -80,34 +82,34 @@
                                         <label class="col-md-6 col-form-label">${device.insertDate}</label>
                                     </div>
 
-
                                     <label for="example-search-input" class="col-md-2 col-form-label">상태:</label>
                                     <c:choose>
                                         <c:when test="${device.status eq 'Y'}">
-                                            <div class="form-check form-check-inline mb-2">
+                                            <div class="form-check form-check-inline mb-2" style="padding-bottom: 15px">
                                                 <input class="form-check-input" type="radio" name="status"
                                                        id="flexRadioDefault1" value="Y" checked="checked">
                                                 <label class="form-check-label" for="flexRadioDefault1">활성화</label>
                                             </div>
-                                            <div class="form-check form-check-inline mb-2">
+                                            <div class="form-check form-check-inline mb-2" style="padding-bottom: 15px">
                                                 <input class="form-check-input" type="radio" name="status"
                                                        id="flexRadioDefault2" value="N">
                                                 <label class="form-check-label" for="flexRadioDefault2">비활성화</label>
                                             </div>
                                         </c:when>
                                         <c:when test="${device.status eq 'N'}">
-                                            <div class="form-check form-check-inline mb-2">
+                                            <div class="form-check form-check-inline mb-2" style="padding-bottom: 15px">
                                                 <input class="form-check-input" type="radio" name="status"
                                                        id="flexRadioDefault3" value="Y">
                                                 <label class="form-check-label" for="flexRadioDefault3">활성화</label>
                                             </div>
-                                            <div class="form-check form-check-inline mb-2">
+                                            <div class="form-check form-check-inline mb-2" style="padding-bottom: 15px">
                                                 <input class="form-check-input" type="radio" name="status"
                                                        id="flexRadioDefault4" value="N" checked="checked">
                                                 <label class="form-check-label" for="flexRadioDefault4">비활성화</label>
                                             </div>
                                         </c:when>
                                     </c:choose>
+
                                     <div class="row">
                                         <div class="button-items">
                                             <a href="${contextPath}/devices/${device.id}">
@@ -116,9 +118,39 @@
                                                         style="float: right">취소
                                                 </button>
                                             </a>
-                                            <button type="submit"
-                                                    class="btn btn-default btn-primary waves-effect waves-light" style="float: right">수정
+                                            <button type="button" class="btn btn-default btn-primary" style="float: right"
+                                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                수정
                                             </button>
+                                        </div>
+                                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" style="display: none;" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="staticBackdropLabel" >수정 확인
+                                                        </h4>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body" style="font-size: large; color: blue; text-align: center" >
+                                                        디바이스를 수정 하시겠습니까?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                            <button type="submit"
+                                                                    class="btn btn-default btn-primary waves-effect waves-light"
+                                                                    style="float: right">예
+                                                            </button>
+
+                                                        <a href="${contextPath}/devices/${device.id}/form">
+                                                            <button type="button"
+                                                                    class="btn btn-default btn-primary waves-effect waves-light"
+                                                                    style="float: right">아니오
+                                                            </button>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
                                         </div>
                                     </div>
                                 </form>
@@ -165,7 +197,6 @@
 <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
 <script type="text/javascript"
         src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
-
 
 </body>
 

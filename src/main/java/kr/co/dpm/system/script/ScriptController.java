@@ -102,6 +102,56 @@ public class ScriptController {
         return mav;
     }
 
+    /*  스크립트 측정 결과 목록 폼 */
+    @PostMapping
+    public Map<String, Object> searchScripts(@RequestBody Map<String, String> condition) {
+        logger.debug(condition);
+
+        Map<String, Object> result = new HashMap<String, Object>();
+
+        Script conditionScript = new Script();
+
+        conditionScript.setName(condition.get("scriptName"));
+        conditionScript.setUploadPoint(condition.get("uploadPoint"));
+
+        List<Script> scripts = scriptService.getScripts(conditionScript);
+        List<Measure> scriptMeasure = new ArrayList<>();
+
+        for (int i = 0; i < scripts.size(); i++) {
+            Script object = scripts.get(i);
+
+            Measure measure = new Measure();
+            measure.setScriptNo(object.getNo());
+            measure.setName(condition.get("measureName"));
+
+            List<Measure> measures = measureService.getMeasures(measure);
+
+            if (measures.isEmpty()) {
+                if (measure.getName() == null) {
+                    measure.setStatus("N");
+                    measure.setName(measureInfo.getName());
+
+                    scriptMeasure.add(measure);
+
+                    continue;
+                } else {
+                    scripts.remove(object);
+                    i--;
+                }
+            } else {
+                measure.setName(measures.get(0).getName());
+                measure.setStatus("Y");
+                scriptMeasure.add(measure);
+
+            }
+        }
+
+        result.put("scripts", scripts);
+        result.put("scriptMeasure", scriptMeasure);
+
+        return result;
+    }
+
     /* 스크립트 등록 폼 */
     @GetMapping("/form")
     public ModelAndView registerScript() {
@@ -111,9 +161,9 @@ public class ScriptController {
     /* 스크립트 배포 */
     @PostMapping("/distribute")
     public ModelAndView distributeScript(
-                        @RequestParam("sourceFile") MultipartFile sourceFile,
-                        @RequestParam("classFile") MultipartFile classFile,
-                        @RequestParam("name") String measureName) {
+            @RequestParam("sourceFile") MultipartFile sourceFile,
+            @RequestParam("classFile") MultipartFile classFile,
+            @RequestParam("name") String measureName) {
         ModelAndView mav = new ModelAndView(new RedirectView("/scripts/form"));
 
         if (!sourceFile.isEmpty() && !classFile.isEmpty()) {
@@ -244,6 +294,8 @@ public class ScriptController {
     @ResponseBody
     public Map<String, String> receiveScript(
             @RequestBody Measure measure, HttpServletResponse httpServletResponse) {
+        logger.debug("-------> 측정 결과 수신 " + measure.toString());
+
         Map<String, String> responseData = new HashMap<>();
 
         Map<Integer, String> statusRepository = new HashMap<>();

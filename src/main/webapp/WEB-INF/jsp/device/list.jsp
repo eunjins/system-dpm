@@ -7,7 +7,7 @@
 <!doctype html>
 <html lang="en">
 
-<head>
+<head">
     <meta charset="utf-8"/>
     <title>디바이스 성능 측정 통합 시스템</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,149 +48,145 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <div class="dataTables_length" id="datatable_length"><label>
-                            <select id="select_status"
-                                    name="datatable_length" aria-controls="datatable"
-                                    class="custom-select form-control form-select">
-                                <option value="">전체</option>
-                                <option value="Y">활성화</option>
-                                <option value="N">비활성화</option>
-                            </select></label></div>
+                    <div class="col-sm-12 col-md-5">
+                        <div class="dataTables_length" id="datatable_length"><label><select id="select_status"
+                                name="datatable_length" aria-controls="datatable"
+                                class="custom-select form-control form-select">
+                            <option value="">전체</option>
+                            <option value="Y">활성화</option>
+                            <option value="N">비활성화</option>
+                        </select></label></div>
                     </div>
                     <div class="col-sm-12 col-md-7" style="text-align: right">
                         <label>
-                            <select id="select_condition"
-                                    name="datatable_type" aria-controls="datatable"
-                                    class="custom-select form-control form-select">
-                                <option value="measureName">디바이스 명</option>
-                                <option value="insertDate">등록 일자</option>
-                            </select>
+                        <select id="select_condition" name="datatable_type" aria-controls="datatable"
+                                class="custom-select form-control form-select">
+                            <option value="measureName">디바이스 명</option>
+                            <option value="insertDate">등록 일자</option>
+                        </select>
                         </label>
 
-                        <div class="col-sm-12 col-md-6" style="text-align: right">
-                            <div id="datatable_filter" class="dataTables_filter">
-                                <label id="search_bar">
-                                    <input id="search_message" type="search" class="form-control" placeholder="검색어를 입력하세요"
-                                           aria-controls="datatable" style="text-align: left">
-                                </label>
-                                <button id="button_search" type="button" class="btn btn-default btn-primary waves-effect waves-light">검색
-                                </button>
-
-                            </div>
-                        </div>
+                        <%--                        <div id="datatable_filter" class="dataTables_filter">--%>
+                        <label id="search_bar">
+                            <input id="search_message" type="search" class="form-control" placeholder="검색어를 입력하세요"
+                                   aria-controls="datatable" style="text-align: left">
+                        </label>
+                        <button id="button_search" type="button" class="btn btn-default btn-primary waves-effect waves-light">검색
+                        </button>
+                        <%--                        </div>--%>
                     </div>
-                    <!-- end page title -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
+                </div>
+                <!-- end page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
 
-                                    <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
 
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <table id="datatable"
-                                                       class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
-                                                       style="border-collapse: collapse; border-spacing: 0px; width: 100%; text-align: center; outline-style: solid;
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table id="datatable"
+                                                   class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                                                   style="border-collapse: collapse; border-spacing: 0px; width: 100%; text-align: center; outline-style: solid;
                                                           outline-width: thin" ; role="grid"
-                                                       aria-describedby="datatable_info">
-                                                    <thead>
-                                                    <tr role="row" bgcolor="#4169e1" style="color: #FFFFFF">
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="datatable"
-                                                            rowspan="1"
-                                                            colspan="1" style="width: 5%;" aria-sort="ascending"
-                                                            aria-label="Name: activate to sort column descending">번호
-                                                        </th>
-                                                        <th class="sorting" tabindex="0" aria-controls="datatable"
-                                                            rowspan="1"
-                                                            colspan="1" style="width: 30%;"
-                                                            aria-label="Position: activate to sort column ascending">
-                                                            디바이스 명
-                                                        </th>
-                                                        <th class="sorting" tabindex="0" aria-controls="datatable"
-                                                            rowspan="1"
-                                                            colspan="1" style="width: 30%;"
-                                                            aria-label="Office: activate to sort column ascending">호스트 명
-                                                        </th>
-                                                        <th class="sorting" tabindex="0" aria-controls="datatable"
-                                                            rowspan="1"
-                                                            colspan="1" style="width: 15%;"
-                                                            aria-label="Office: activate to sort column ascending">등록 일자
-                                                        </th>
-                                                        <th class="sorting" tabindex="0" aria-controls="datatable"
-                                                            rowspan="1"
-                                                            colspan="1" style="width: 10%;"
-                                                            aria-label="Office: activate to sort column ascending">JDK
-                                                            버전
-                                                        </th>
-                                                        <th class="sorting" tabindex="0" aria-controls="datatable"
-                                                            rowspan="1"
-                                                            colspan="1"
-                                                            aria-label="Office: activate to sort column ascending">상태
-                                                        </th>
-                                                    </tr>
-                                                    </thead>
+                                                   aria-describedby="datatable_info">
+                                                <thead>
+                                                <tr role="row" bgcolor="#4169e1" style="color: #FFFFFF">
+                                                    <th class="sorting_asc" tabindex="0" aria-controls="datatable"
+                                                        rowspan="1"
+                                                        colspan="1" style="width: 5%;" aria-sort="ascending"
+                                                        aria-label="Name: activate to sort column descending">번호
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="datatable"
+                                                        rowspan="1"
+                                                        colspan="1" style="width: 30%;"
+                                                        aria-label="Position: activate to sort column ascending">디바이스 명
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="datatable"
+                                                        rowspan="1"
+                                                        colspan="1" style="width: 30%;"
+                                                        aria-label="Office: activate to sort column ascending">호스트 명
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="datatable"
+                                                        rowspan="1"
+                                                        colspan="1" style="width: 15%;"
+                                                        aria-label="Office: activate to sort column ascending">등록 일자
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="datatable"
+                                                        rowspan="1"
+                                                        colspan="1" style="width: 10%;"
+                                                        aria-label="Office: activate to sort column ascending">JDK 버전
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="datatable"
+                                                        rowspan="1"
+                                                        colspan="1"
+                                                        aria-label="Office: activate to sort column ascending">상태
+                                                    </th>
+                                                </tr>
+                                                </thead>
 
-                                                    <tbody id="table">
+                                                <tbody id="table">
 
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                </tbody>
+
+                                            </table>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-12">
-                                                <div class="dataTables_paginate paging_simple_numbers"
-                                                     id="datatable_paginate">
-                                                    <ul class="pagination justify-content-center" id="pageNo">
-                                                        <li class="paginate_button page-item previous disabled"
-                                                            id="datatable_previous"><a id="backPage"
-                                                                                       href="#"
-                                                                                       aria-controls="datatable"
-                                                                                       data-dt-idx="0" tabindex="0"
-                                                                                       class="page-link"
-                                                                                       onclick="changePage(this.id)">&lt;</a>
-                                                        </li>
-                                                        <li class="paginate_button page-item active"><a href="#"
-                                                                                                        aria-controls="datatable"
-                                                                                                        data-dt-idx="1"
-                                                                                                        tabindex="0"
-                                                                                                        class="page-link">1</a>
-                                                        </li>
-                                                        <li class="paginate_button page-item "><a href="#"
-                                                                                                  aria-controls="datatable"
-                                                                                                  data-dt-idx="2"
-                                                                                                  tabindex="0"
-                                                                                                  class="page-link">2</a>
-                                                        </li>
-                                                        <li class="paginate_button page-item "><a href="#"
-                                                                                                  aria-controls="datatable"
-                                                                                                  data-dt-idx="3"
-                                                                                                  tabindex="0"
-                                                                                                  class="page-link">3</a>
-                                                        </li>
-                                                        <li class="paginate_button page-item "><a href="#"
-                                                                                                  aria-controls="datatable"
-                                                                                                  data-dt-idx="4"
-                                                                                                  tabindex="0"
-                                                                                                  class="page-link">4</a>
-                                                        </li>
-                                                        <li class="paginate_button page-item "><a href="#"
-                                                                                                  aria-controls="datatable"
-                                                                                                  data-dt-idx="5"
-                                                                                                  tabindex="0"
-                                                                                                  class="page-link">5</a>
-                                                        </li>
-                                                        <li class="paginate_button page-item next" id="datatable_next">
-                                                            <a id="nextPage" onclick="changePage(this.id)"
-                                                               href="#" aria-controls="datatable" data-dt-idx="6"
-                                                               tabindex="0" class="page-link">&gt;</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                    </div>
+
+                                    <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="dataTables_paginate paging_simple_numbers"
+                                             id="datatable_paginate">
+                                            <ul class="pagination justify-content-center" id="pageNo">
+                                                <li class="paginate_button page-item previous disabled"
+                                                    id="datatable_previous"><a id="backPage"
+                                                                               href="#"
+                                                                               aria-controls="datatable"
+                                                                               data-dt-idx="0" tabindex="0"
+                                                                               class="page-link"
+                                                                               onclick="changePage(this.id)">&lt;</a>
+                                                </li>
+                                                <li class="paginate_button page-item active"><a href="#"
+                                                                                                aria-controls="datatable"
+                                                                                                data-dt-idx="1"
+                                                                                                tabindex="0"
+                                                                                                class="page-link">1</a>
+                                                </li>
+                                                <li class="paginate_button page-item "><a href="#"
+                                                                                          aria-controls="datatable"
+                                                                                          data-dt-idx="2"
+                                                                                          tabindex="0"
+                                                                                          class="page-link">2</a>
+                                                </li>
+                                                <li class="paginate_button page-item "><a href="#"
+                                                                                          aria-controls="datatable"
+                                                                                          data-dt-idx="3"
+                                                                                          tabindex="0"
+                                                                                          class="page-link">3</a>
+                                                </li>
+                                                <li class="paginate_button page-item "><a href="#"
+                                                                                          aria-controls="datatable"
+                                                                                          data-dt-idx="4"
+                                                                                          tabindex="0"
+                                                                                          class="page-link">4</a>
+                                                </li>
+                                                <li class="paginate_button page-item "><a href="#"
+                                                                                          aria-controls="datatable"
+                                                                                          data-dt-idx="5"
+                                                                                          tabindex="0"
+                                                                                          class="page-link">5</a>
+                                                </li>
+                                                <li class="paginate_button page-item next" id="datatable_next">
+                                                    <a id="nextPage" onclick="changePage(this.id)"
+                                                       href="#" aria-controls="datatable" data-dt-idx="6"
+                                                       tabindex="0" class="page-link">&gt;</a></li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -223,18 +219,19 @@
 
     function changePage(pageButtonId) {
         if (pageButtonId == "backPage") {
-            if (pageNo != 0) {
-                pageNo -= 1;
+            if ((parseInt(pageNo / 5) * 5) - 5 >= 0) {
+                pageNo = (parseInt(pageNo / 5) * 5) - 5;
             }
 
         } else if (pageButtonId == "nextPage") {
-            if (pageNo !== (parseInt(allDeviceNo / 10))) {
-                pageNo += 1;
+            if ((parseInt(pageNo / 5) * 5) + 5 <= (parseInt(allDeviceNo / 10))) {
+                pageNo = (parseInt(pageNo / 5) * 5) + 5;
             }
 
         } else {
-            pageNo = pageButtonId;
+            pageNo = parseInt(pageButtonId);
         }
+        search();
     }
 
     function condition() {
@@ -299,7 +296,7 @@
                 '</td>' +
                 '<td style="text-align: left">' + responseJSON[i].hostName + '</td>' +
                 '<td style="">' + responseJSON[i].insertDate + '</td>' +
-                '<td style="">' + responseJSON[i].jdkVersion + '</td>' +
+                '<td style="text-align: left">' + responseJSON[i].jdkVersion + '</td>' +
                 '<td style="">';
                 if ("Y" == responseJSON[i].status) {
                     text += '활성화';
@@ -313,27 +310,27 @@
         table.innerHTML = text;
 
         let endPageNo;
-        if ((parseInt(allDeviceNo / 10)) < ((pageNo / 5) * 5) + 5) {
+        if ((parseInt(allDeviceNo / 10)) < (parseInt(pageNo / 5) * 5) + 5) {
             endPageNo = ((parseInt(allDeviceNo / 10))) + 1;
         } else {
-            endPageNo = ((pageNo / 5) * 5) + 5;
+            endPageNo = (parseInt(pageNo / 5) * 5) + 5;
         }
 
         let pageNoHtml = "";
 
-        pageNoHtml += '<li class="paginate_button page-item previous disabled"' +
+        pageNoHtml += '<li class="paginate_button page-item previous"' +
             'id="datatable_previous"><a id="backPage"' +
-            'href="#"' +
+            'href="#" ' +
             'aria-controls="datatable"' +
             'data-dt-idx="0" tabindex="0"' +
             'class="page-link" onclick="changePage(this.id)">&lt;</a></li>';
 
         let count = 1;
-        for (let i = ((pageNo / 5) * 5); i < endPageNo; i++) {
+        for (let i = (parseInt(pageNo / 5) * 5); i < endPageNo; i++) {
             if (pageNo == i) {
-                pageNoHtml += '<li class="paginate_button page-item active"><a id="' + (i) + '" href="#"';
+                pageNoHtml += '<li class="paginate_button page-item active"><a id="' + (i) + '" href="#" onclick="changePage(i)"';
             } else {
-                pageNoHtml += '<li class="paginate_button page-item "><a href="#"';
+                pageNoHtml += '<li class="paginate_button page-item "><a href="#" onclick="changePage(' + i + ')"';
             }
 
             pageNoHtml += 'aria-controls="datatable"' +
@@ -344,7 +341,7 @@
         pageNoHtml += '<li class="paginate_button page-item next" id="datatable_next">' +
             '<a id="nextPage" onclick="changePage(this.id)"' +
             'href="#" aria-controls="datatable" data-dt-idx="' + (count) + '"' +
-            'tabindex="0" class="page-link" onclick="changePage(this.id)">&gt;</a></li>'
+            'tabindex="0" class="page-link" >&gt;</a></li>'
 
         let pageTable = document.getElementById("pageNo");
 

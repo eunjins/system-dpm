@@ -16,14 +16,14 @@
                     <div class="collapse navbar-collapse" id="topnav-menu-content">
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none"
+                                <a class="nav-link dropdown-toggle arrow-none" style="font-size: medium"
                                    href="${pageContext.request.contextPath}/devices" id="topnav-device"
                                    role="button">
                                     디바이스
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none"
+                                <a class="nav-link dropdown-toggle arrow-none" style="font-size: medium"
                                    href="${pageContext.request.contextPath}/scripts" id="topnav-script"
                                    role="button">
                                     스크립트 측정
@@ -38,7 +38,8 @@
         <div class="d-flex">
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect">
-                    <a class="dropdown-item text-danger" href="${pageContext.request.contextPath}/logout">
+                    <a class="dropdown-item text-danger" style="font-size: medium"
+                       href="${pageContext.request.contextPath}/logout">
                         <i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>로그아웃</a>
                 </button>
             </div>
