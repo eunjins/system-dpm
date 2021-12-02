@@ -51,7 +51,7 @@
 
                                 <div class="mb-3 row">
                                     <label class="col-md-2 col-form-label">디바이스 ID:</label>
-                                    <label class="col-md-6 col-form-label">${device.id}</label>
+                                    <label class="col-md-6 col-form-label" >${device.id}</label>
                                 </div>
                                 <div class="mb-3 row">
                                     <label class="col-md-2 col-form-label">디바이스 명:</label>

@@ -57,7 +57,7 @@
                                         <label class="col-md-6 col-form-label">${device.id}</label>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-search-input" class="col-md-2 col-form-label">디바이스 명</label>
+                                        <label for="example-search-input" class="col-md-2 col-form-label">디바이스 명:</label>
                                         <div class="col-md-6">
                                             <input class="form-control" type="text" name=name value="${device.name}"
                                                    id="example-search-input">
@@ -80,34 +80,34 @@
                                         <label class="col-md-6 col-form-label">${device.insertDate}</label>
                                     </div>
 
-
                                     <label for="example-search-input" class="col-md-2 col-form-label">상태:</label>
                                     <c:choose>
                                         <c:when test="${device.status eq 'Y'}">
-                                            <div class="form-check form-check-inline mb-2">
+                                            <div class="form-check form-check-inline mb-2" style="padding-bottom: 15px">
                                                 <input class="form-check-input" type="radio" name="status"
                                                        id="flexRadioDefault1" value="Y" checked="checked">
                                                 <label class="form-check-label" for="flexRadioDefault1">활성화</label>
                                             </div>
-                                            <div class="form-check form-check-inline mb-2">
+                                            <div class="form-check form-check-inline mb-2" style="padding-bottom: 15px">
                                                 <input class="form-check-input" type="radio" name="status"
                                                        id="flexRadioDefault2" value="N">
                                                 <label class="form-check-label" for="flexRadioDefault2">비활성화</label>
                                             </div>
                                         </c:when>
                                         <c:when test="${device.status eq 'N'}">
-                                            <div class="form-check form-check-inline mb-2">
+                                            <div class="form-check form-check-inline mb-2" style="padding-bottom: 15px">
                                                 <input class="form-check-input" type="radio" name="status"
                                                        id="flexRadioDefault3" value="Y">
                                                 <label class="form-check-label" for="flexRadioDefault3">활성화</label>
                                             </div>
-                                            <div class="form-check form-check-inline mb-2">
+                                            <div class="form-check form-check-inline mb-2" style="padding-bottom: 15px">
                                                 <input class="form-check-input" type="radio" name="status"
                                                        id="flexRadioDefault4" value="N" checked="checked">
                                                 <label class="form-check-label" for="flexRadioDefault4">비활성화</label>
                                             </div>
                                         </c:when>
                                     </c:choose>
+
                                     <div class="row">
                                         <div class="button-items">
                                             <a href="${contextPath}/devices/${device.id}">

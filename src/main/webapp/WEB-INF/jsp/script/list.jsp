@@ -183,7 +183,7 @@
                                         <div class="button-items">
                                             <a href="${contextPath}/scripts/form">
                                                 <button type="button"
-                                                        class="btn btn-outline-primary waves-effect waves-light"
+                                                        class="btn btn-default btn-primary waves-effect waves-light"
                                                         style="float: right">등록
                                                 </button>
                                             </a>

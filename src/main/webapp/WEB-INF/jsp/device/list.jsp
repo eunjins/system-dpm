@@ -67,9 +67,14 @@
                         </label>
 
                         <%--                        <div id="datatable_filter" class="dataTables_filter">--%>
+<%--                        <div class="input-group" id="datepicker2">--%>
+<%--                            <input type="text" class="form-control" placeholder="mm/dd/yyyy" data-date-container="#datepicker2" data-provide="datepicker" data-date-autoclose="true">--%>
+<%--                            <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>--%>
+<%--                        </div>--%>
                         <label>
-                            <input type="search" class="form-control" placeholder="검색어를 입력하세요"
+                            <input type="search" class="form-control mdi mdi-calendar" placeholder="검색어를 입력하세요"
                                    aria-controls="datatable" style="text-align: left">
+<%--                            <i class="mdi mdi-calendar"></i>--%>
                         </label>
                         <button type="button" class="btn btn-default btn-primary waves-effect waves-light">검색
                         </button>
