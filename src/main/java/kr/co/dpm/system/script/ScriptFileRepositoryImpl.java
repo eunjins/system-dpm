@@ -23,6 +23,9 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
     private static final Logger logger = LogManager.getLogger(ScriptController.class);
     private static final MediaType MULTIPART = MediaType.parse("multipart/form-data");
 
+    @Value("${path}")
+    private String path;
+
     @Value("${protocol}")
     private String http;
 
@@ -35,7 +38,7 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
     @Override
     public boolean distribute(MultipartFile classFile, String encryptResult, String ip) {
         try {
-            File convertFile = new File(classFile.getOriginalFilename());
+            File convertFile = new File(path + File.separator + classFile.getOriginalFilename());
             convertFile.createNewFile();
             FileOutputStream fileOutputStream = new FileOutputStream(convertFile);
             fileOutputStream.write(classFile.getBytes());

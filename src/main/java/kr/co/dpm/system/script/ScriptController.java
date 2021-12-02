@@ -105,8 +105,6 @@ public class ScriptController {
     /*  스크립트 측정 결과 목록 폼 */
     @PostMapping
     public Map<String, Object> searchScripts(@RequestBody Map<String, String> condition) {
-        logger.debug(condition);
-
         Map<String, Object> result = new HashMap<String, Object>();
 
         Script conditionScript = new Script();
@@ -232,7 +230,7 @@ public class ScriptController {
                 attach.setName(attach.getName() + ".class");
             }
 
-            byte[] file = FileUtils.readFileToByteArray(new File(path + File.separator + attach.getName()));
+            byte[] file = FileUtils.readFileToByteArray(new File(path + File.separator + attach.getPhysicName()));
             String encodingName = new String(attach.getName().getBytes("UTF-8"), "ISO-8859-1");
 
             response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingName + "\"");
