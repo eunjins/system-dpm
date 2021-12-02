@@ -309,7 +309,7 @@
         table.innerHTML = text;
 
         let endPageNo;
-        if ((parseInt(allDeviceNo / 10)) < ((pageNo / 5) * 5) + 5) {
+        if ((parseInt(allDeviceNo / 10)) < (parseInt(pageNo / 5) * 5) + 5) {
             endPageNo = ((parseInt(allDeviceNo / 10))) + 1;
         } else {
             endPageNo = ((pageNo / 5) * 5) + 5;
@@ -319,7 +319,7 @@
 
         pageNoHtml += '<li class="paginate_button page-item previous disabled"' +
             'id="datatable_previous"><a id="backPage"' +
-            'href="#"' +
+            'href="#" onclick="changePage(this.id)"' +
             'aria-controls="datatable"' +
             'data-dt-idx="0" tabindex="0"' +
             'class="page-link" onclick="changePage(this.id)">&lt;</a></li>';
@@ -327,9 +327,9 @@
         let count = 1;
         for (let i = ((pageNo / 5) * 5); i < endPageNo; i++) {
             if (pageNo == i) {
-                pageNoHtml += '<li class="paginate_button page-item active"><a id="' + (i) + '" href="#"';
+                pageNoHtml += '<li class="paginate_button page-item active"><a id="' + (i) + '" href="#" onclick="changePage(this.id)"';
             } else {
-                pageNoHtml += '<li class="paginate_button page-item "><a href="#"';
+                pageNoHtml += '<li class="paginate_button page-item "><a href="#" onclick="changePage(this.id)"';
             }
 
             pageNoHtml += 'aria-controls="datatable"' +
@@ -340,7 +340,7 @@
         pageNoHtml += '<li class="paginate_button page-item next" id="datatable_next">' +
             '<a id="nextPage" onclick="changePage(this.id)"' +
             'href="#" aria-controls="datatable" data-dt-idx="' + (count) + '"' +
-            'tabindex="0" class="page-link" onclick="changePage(this.id)">&gt;</a></li>'
+            'tabindex="0" class="page-link" >&gt;</a></li>'
 
         let pageTable = document.getElementById("pageNo");
 

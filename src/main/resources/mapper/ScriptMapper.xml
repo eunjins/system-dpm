@@ -17,7 +17,7 @@
                 AND NAME LIKE '%${name}%'
             </if>
             <if test="uploadPoint != null and uploadPoint != ''">
-                OR UPLOAD_POINT = DATE_FORMAT(#{uploadPoint}, '%Y-%m-%d')
+                AND DATE(UPLOAD_POINT)= #{uploadPoint}
             </if>
         </where>
         ORDER BY UPLOAD_POINT DESC

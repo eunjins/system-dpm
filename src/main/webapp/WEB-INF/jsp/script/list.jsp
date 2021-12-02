@@ -55,20 +55,21 @@
                             <div class="col-sm-12 col-md-12" style="text-align: right">
                                 <div id="datatable_filter" class="dataTables_filter">
                                     <label>
-                                    <select name="datatable_type" aria-controls="datatable"
+                                    <select id="select_condition"
+                                            name="datatable_type" aria-controls="datatable"
                                             class="custom-select form-control form-select">
                                         <option value="measureName">측정 결과 명</option>
                                         <option value="scriptName">스크립트 명</option>
                                         <option value="uploadPoint">업로드 일자</option>
                                     </select>
                                     </label>
-                                    <label>
-                                        <input type="search"
+                                    <label id="search_bar">
+                                        <input id="search_message" type="search"
                                                class="form-control"
                                                placeholder="검색어를 입력하세요"
                                                aria-controls="datatable" style="text-align: left">
                                     </label>
-                                    <button type="button"
+                                    <button id="button_search" type="button"
                                             class="btn btn-default btn-primary waves-effect waves-light">검색
                                     </button>
                                 </div>
@@ -108,25 +109,8 @@
                                         </tr>
                                         </thead>
 
-                                        <tbody>
-                                        <c:forEach items="${scripts}" var="script" varStatus="object">
-                                            <tr class="odd">
-                                                <td class="dtr-control sorting_1" tabindex="0">${object.count}</td>
-                                                <td style="text-align: left">${scriptMeasure[object.count - 1].name}</td>
-                                                <td style="text-align: left">${script.name}</td>
-                                                <td>${script.uploadPoint}</td>
-                                                <td>
-                                                    <c:choose>
-                                                        <c:when test="${scriptMeasure[object.count - 1].status eq 'N'}">
-                                                            측정 중
-                                                        </c:when>
-                                                        <c:when test="${scriptMeasure[object.count - 1].status eq 'Y'}">
-                                                            <a href="${contextPath}/scripts/${script.no}">결과 보기</a>
-                                                        </c:when>
-                                                    </c:choose>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
+                                        <tbody id="table">
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -134,50 +118,7 @@
                                     <div class="col-sm-12 col-md-12">
                                         <div class="dataTables_paginate paging_simple_numbers"
                                              id="datatable_paginate">
-                                            <ul class="pagination justify-content-center">
-                                                <li class="paginate_button page-item previous disabled"
-                                                    id="datatable_previous"><a href="#" aria-controls="datatable"
-                                                                               data-dt-idx="0" tabindex="0"
-                                                                               class="page-link">&lt;</a></li>
-                                                <li class="paginate_button page-item active"><a href="#"
-                                                                                                aria-controls="datatable"
-                                                                                                data-dt-idx="1"
-                                                                                                tabindex="0"
-                                                                                                class="page-link">1</a>
-                                                </li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                                                          aria-controls="datatable"
-                                                                                          data-dt-idx="2"
-                                                                                          tabindex="0"
-                                                                                          class="page-link">2</a>
-                                                </li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                                                          aria-controls="datatable"
-                                                                                          data-dt-idx="3"
-                                                                                          tabindex="0"
-                                                                                          class="page-link">3</a>
-                                                </li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                                                          aria-controls="datatable"
-                                                                                          data-dt-idx="4"
-                                                                                          tabindex="0"
-                                                                                          class="page-link">4</a>
-                                                </li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                                                          aria-controls="datatable"
-                                                                                          data-dt-idx="5"
-                                                                                          tabindex="0"
-                                                                                          class="page-link">5</a>
-                                                </li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                                                          aria-controls="datatable"
-                                                                                          data-dt-idx="6"
-                                                                                          tabindex="0"
-                                                                                          class="page-link">6</a>
-                                                </li>
-                                                <li class="paginate_button page-item next" id="datatable_next"><a
-                                                        href="#" aria-controls="datatable" data-dt-idx="7"
-                                                        tabindex="0" class="page-link">&gt;</a></li>
+                                            <ul class="pagination justify-content-center" id="pageNo">
                                             </ul>
                                         </div>
                                         <div class="button-items">
@@ -212,6 +153,149 @@
 </div>
 <!-- end container-fluid -->
 
+<!-- JAVASCRIPT -->
+<!-- JAVASCRIPT -->
+<script>
+    var allScriptNo;
+    var pageNo = 0;
+
+    search();
+
+    document.getElementById("button_search").addEventListener("click", search, false);
+    document.getElementById("select_condition").addEventListener("change", condition, false);
+
+    function changePage(pageButtonId) {
+        if (pageButtonId == "backPage") {
+            if ((parseInt(pageNo / 5) * 5) - 5 > 0) {
+                pageNo = (parseInt(pageNo / 5) * 5) - 5;
+            }
+
+        } else if (pageButtonId == "nextPage") {
+            if ((parseInt(pageNo / 5) * 5) + 5 <= (parseInt(allDeviceNo / 10))) {
+                pageNo = (parseInt(pageNo / 5) * 5) + 5;
+            }
+
+        } else {
+            pageNo = pageButtonId;
+        }
+
+        search();
+    }
+
+    function condition() {
+        const selectCondition = document.getElementById("select_condition").value;
+        if (selectCondition == "uploadPoint") {
+            document.getElementById("search_bar").innerHTML = '<input id="search_message" class="form-control" type="date" value="">';
+        } else {
+            document.getElementById("search_bar").innerHTML = '<input id="search_message" type="search"' +
+                                                               'class="form-control"' +
+                                                               'placeholder="검색어를 입력하세요"' +
+                                                               'aria-controls="datatable" style="text-align: left">';
+        }
+    }
+
+    function search() {
+        let searchKeyword = "";
+        const selectCondition = document.getElementById("select_condition").value;
+        if (selectCondition == "measureName") {
+            searchKeyword = {"measureName": document.getElementById("search_message").value};
+        } else if (selectCondition == "scriptName") {
+            searchKeyword = {"scriptName": document.getElementById("search_message").value};
+        } else {
+            searchKeyword = {"uploadPoint": document.getElementById("search_message").value};
+        }
+
+        $.ajax({
+            url: "${pageContext.request.contextPath}/scripts",
+            type: "POST",
+            data: JSON.stringify(searchKeyword),
+            headers: {"Content-Type": "application/json;charset=UTF-8"},
+            success: function (rows) {
+                drawTable(rows);
+            }
+        })
+    }
+
+    function drawTable(responseJSON) {
+        let scripts = responseJSON.scripts;
+        let scriptMeasure = responseJSON.scriptMeasure;
+        allScriptNo = scripts.length;
+
+        console.log((parseInt(allScriptNo / 10)));
+
+        let text = "";
+
+        let endScriptNo;
+
+        if (allScriptNo - (pageNo * 10) < 10) {
+            endScriptNo = allScriptNo;
+        } else {
+            endScriptNo = ((pageNo + 1) * 10);
+        }
+
+        for (let i = pageNo * 10; i < endScriptNo; i++) {
+            text +=
+                '<tr class="odd">' +
+                '<td class="dtr-control sorting_1" tabindex="0">' + (i + 1) + '</td>' +
+                '<td style="text-align: left">' + scriptMeasure[i].name +
+                '</td>' +
+                '<td style="text-align: left">' + scripts[i].name + '</td>' +
+                '<td style="text-align: left">' + scripts[i].uploadPoint + '</td>' +
+                '<td>';
+
+            if (scriptMeasure[i].status == 'N') {
+                text += '측정중';
+            } else {
+                text += '<a href="${contextPath}/scripts/' + scripts[i].no + '">결과 보기</a>';
+            }
+            text += '</td>' +
+                '</tr>';
+
+        }
+        const table = document.getElementById("table");
+        table.innerHTML = text;
+
+        let endPageNo;
+        if ((parseInt(allScriptNo / 10)) < ((pageNo / 5) * 5) + 5) {
+            endPageNo = ((parseInt(allScriptNo / 10))) + 1;
+        } else {
+            endPageNo = ((pageNo / 5) * 5) + 5;
+        }
+
+        let pageNoHtml = "";
+
+        pageNoHtml += '<li class="paginate_button page-item previous disabled"' +
+            'id="datatable_previous"><a id="backPage"' +
+            'href="#"' +
+            'aria-controls="datatable"' +
+            'data-dt-idx="0" tabindex="0"' +
+            'class="page-link" onclick="changePage(this.id)">&lt;</a></li>';
+
+        let count = 1;
+        for (let i = ((pageNo / 5) * 5); i < endPageNo; i++) {
+            if (pageNo == i) {
+                pageNoHtml += '<li class="paginate_button page-item active"><a id="' + (i) + '" href="#"';
+            } else {
+                pageNoHtml += '<li class="paginate_button page-item "><a href="#"';
+            }
+
+            pageNoHtml += 'aria-controls="datatable"' +
+                'data-dt-idx="' + (count++) + '"' +
+                'tabindex="0"' +
+                'class="page-link" onclick="changePage(this.id)" >' + (i + 1) + '</a>';
+        }
+        pageNoHtml += '<li class="paginate_button page-item next" id="datatable_next">' +
+            '<a id="nextPage" onclick="changePage(this.id)"' +
+            'href="#" aria-controls="datatable" data-dt-idx="' + (count) + '"' +
+            'tabindex="0" class="page-link" onclick="changePage(this.id)">&gt;</a></li>'
+
+        let pageTable = document.getElementById("pageNo");
+
+        pageTable.innerHTML = pageNoHtml;
+    }
+</script>
+
+
 <!-- Buttons examples -->
 <script src="/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 <script src="/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
@@ -222,20 +306,11 @@
 <script src="/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
 <script src="/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 
-<!-- apexcharts -->
-<script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
-
-<!-- jquery.vectormap map -->
-<script src="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js"></script>
 
 <script src="/assets/js/pages/dashboard.init.js"></script>
 
 <script src="/assets/js/app.js"></script>
 
-<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
-<script type="text/javascript"
-        src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
 
 
 </body>
