@@ -1,4 +1,4 @@
-package kr.co.dpm.system.utility;
+package kr.co.dpm.system.util;
 
 import kr.co.dpm.system.device.Device;
 import kr.co.dpm.system.device.DeviceServiceImpl;
@@ -22,7 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
-public class Excel {
+public class ExcelUtil {
     private static final Logger logger = LogManager.getLogger(ScriptController.class);
 
     @Value("${excelPath}")
