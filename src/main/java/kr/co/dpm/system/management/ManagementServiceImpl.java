@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.ConnectException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,27 +46,30 @@ public class ManagementServiceImpl implements ManagementService {
         List<Boolean> flags = new ArrayList<Boolean>();
 
         List<Device> devices = deviceService.getDevices(new Device());
-        try {
-            for (Device device : devices) {
-                if (device.getStatus().equals("N")) {
-                    continue;
-                } else {
+
+        for (Device device : devices) {
+            if (device.getStatus().equals("Y")) {
+
+                try {
                     CryptogramImpl cryptogram = new CryptogramImpl(device.getId());
                     String encryptResult = cryptogram.encryption(device.getId());
 
                     flags.add(scriptFileRepository.distribute(classFile, encryptResult, device.getIpAddress()));
+                } catch (ConnectException e) {
+                    logger.debug("----> 연결 시간 초과");
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
-
-            for (boolean flag : flags) {
-                if (flag != false) {
-
-                    return true;
-                }
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
         }
+
+        for (boolean flag : flags) {
+            if (flag != false) {
+
+                return true;
+            }
+        }
+
 
         return false;
     }
