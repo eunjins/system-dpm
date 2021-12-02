@@ -65,9 +65,9 @@
                                         <label class="col-md-2 col-form-label">소스 파일</label>
                                         <div class="col-md-7">
                                             <div class="input-group">
-                                                <input type="file" class="form-control" name="sourceFile"
-                                                       accept=".java">
-                                                <label class="input-group-text">Upload</label>
+                                                <input type="file" class="form-control hidden" name="sourceFile"
+                                                        accept=".java" id="sourcefile">
+                                                <label class="input-group-text" for="sourcefile">Upload</label>
                                             </div>
                                         </div>
                                     </div>
@@ -78,7 +78,7 @@
                                         <div class="col-md-7">
                                             <div class="input-group">
                                                 <input type="file" class="form-control" name="classFile"
-                                                       accept=".class">
+                                                        accept=".class">
                                                 <label class="input-group-text">Upload</label>
                                             </div>
                                         </div>
