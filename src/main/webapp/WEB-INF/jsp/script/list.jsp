@@ -166,7 +166,7 @@
 
     function changePage(pageButtonId) {
         if (pageButtonId == "backPage") {
-            if ((parseInt(pageNo / 5) * 5) - 5 > 0) {
+            if ((parseInt(pageNo / 5) * 5) - 5 >= 0) {
                 pageNo = (parseInt(pageNo / 5) * 5) - 5;
             }
 
@@ -176,9 +176,8 @@
             }
 
         } else {
-            pageNo = pageButtonId;
+            pageNo = parseInt(pageButtonId);
         }
-
         search();
     }
 
@@ -256,15 +255,15 @@
         table.innerHTML = text;
 
         let endPageNo;
-        if ((parseInt(allScriptNo / 10)) < ((pageNo / 5) * 5) + 5) {
+        if ((parseInt(allScriptNo / 10)) < (parseInt(pageNo / 5) * 5) + 5) {
             endPageNo = ((parseInt(allScriptNo / 10))) + 1;
         } else {
-            endPageNo = ((pageNo / 5) * 5) + 5;
+            endPageNo = (parseInt(pageNo / 5) * 5) + 5;
         }
 
         let pageNoHtml = "";
 
-        pageNoHtml += '<li class="paginate_button page-item previous disabled"' +
+        pageNoHtml += '<li class="paginate_button page-item previous"' +
             'id="datatable_previous"><a id="backPage"' +
             'href="#"' +
             'aria-controls="datatable"' +
@@ -272,11 +271,11 @@
             'class="page-link" onclick="changePage(this.id)">&lt;</a></li>';
 
         let count = 1;
-        for (let i = ((pageNo / 5) * 5); i < endPageNo; i++) {
+        for (let i = (parseInt(pageNo / 5) * 5); i < endPageNo; i++) {
             if (pageNo == i) {
-                pageNoHtml += '<li class="paginate_button page-item active"><a id="' + (i) + '" href="#"';
+                pageNoHtml += '<li class="paginate_button page-item active"><a id="' + (i) + '" href="#" onclick="changePage(i)"';
             } else {
-                pageNoHtml += '<li class="paginate_button page-item "><a href="#"';
+                pageNoHtml += '<li class="paginate_button page-item "><a href="#" onclick="changePage(' + i + ')"';
             }
 
             pageNoHtml += 'aria-controls="datatable"' +

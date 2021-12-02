@@ -673,7 +673,7 @@ body[data-layout="horizontal"] .navbar-brand-box {
 
 body[data-layout="horizontal"] .page-content {
   margin-top: 70px;
-  padding: 0 24px 60px 24px; }
+  padding: 0 24px 0px 24px; }
 
 body[data-layout="horizontal"] .page-title-box {
   padding-bottom: 0; }
