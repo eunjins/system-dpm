@@ -281,8 +281,8 @@
     let measureList = document.getElementById("measureList");
     measureList.innerHTML = '<c:forEach items="${measures}" var="measure" varStatus="object">' +
         '<tr class="odd">' +
-        '<td class="dtr-control sorting_1" tabindex="0" style="text-align:center">${object.count}</td>' +
-        '<td>${measure.deviceName}</td>' +
+        '<td class="dtr-control sorting_1" tabindex="0" style="text-align: center">${object.count}</td>' +
+        '<td style="text-align: left">${measure.deviceName}</td>' +
         '<td id=execTime style="text-align:right">' + Number(${measure.execTime}).toLocaleString('en') + '</td>' +
         ' </tr>' +
         '</c:forEach>'

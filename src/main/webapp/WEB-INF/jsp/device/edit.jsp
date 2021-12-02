@@ -118,39 +118,47 @@
                                                         style="float: right">취소
                                                 </button>
                                             </a>
-                                            <button type="button" class="btn btn-default btn-primary" style="float: right"
+                                            <button type="button" class="btn btn-default btn-primary"
+                                                    style="float: right"
                                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                                 수정
                                             </button>
                                         </div>
-                                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" style="display: none;" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title" id="staticBackdropLabel" >수정 확인
-                                                        </h4>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body" style="font-size: large; color: blue; text-align: center" >
-                                                        디바이스를 수정 하시겠습니까?
-                                                    </div>
-                                                    <div class="modal-footer">
+                                        <div class="modal-contatiner" id="modal">
+                                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                                 data-bs-keyboard="false" tabindex="-1"
+                                                 aria-labelledby="staticBackdropLabel" style="display: none;"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title" id="staticBackdropLabel">수정 확인
+                                                            </h4>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body"
+                                                             style="font-size: large; color: blue; text-align: center">
+                                                            디바이스를 수정 하시겠습니까?
+                                                        </div>
+                                                        <div class="modal-footer">
                                                             <button type="submit"
                                                                     class="btn btn-default btn-primary waves-effect waves-light"
                                                                     style="float: right">예
                                                             </button>
 
-                                                        <a href="${contextPath}/devices/${device.id}/form">
-                                                            <button type="button"
-                                                                    class="btn btn-default btn-primary waves-effect waves-light"
-                                                                    style="float: right">아니오
-                                                            </button>
-                                                        </a>
+                                                            <a href="${contextPath}/devices/${device.id}/form">
+                                                                <button type="button"
+                                                                        class="btn btn-default btn-primary waves-effect waves-light"
+                                                                        style="float: right">아니오
+                                                                </button>
+                                                            </a>
+                                                        </div>
                                                     </div>
+                                                    <!-- /.modal-content -->
                                                 </div>
-                                                <!-- /.modal-content -->
+                                                <!-- /.modal-dialog -->
                                             </div>
-                                            <!-- /.modal-dialog -->
                                         </div>
                                     </div>
                                 </form>
