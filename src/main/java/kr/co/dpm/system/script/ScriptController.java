@@ -258,7 +258,7 @@ public class ScriptController {
     @GetMapping("/excel/{no}")
     public void downloadExcel(Script script, HttpServletResponse response) {
         OutputStream outputStream = null;
-        String fileName = excelUtil.create(scriptService.getScript(script));
+        String fileName = excelUtil.createExcel(scriptService.getScript(script));
 
         try {
             byte[] file = FileUtils.readFileToByteArray(new File(excelPath + File.separator + fileName));
@@ -279,7 +279,7 @@ public class ScriptController {
                 if (outputStream != null) {
                     outputStream.close();
 
-                    excelUtil.delete(fileName);
+                    excelUtil.deleteExcel(fileName);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
