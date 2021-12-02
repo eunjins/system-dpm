@@ -7,7 +7,7 @@
 <!doctype html>
 <html lang="en">
 
-<head>
+<head">
     <meta charset="utf-8"/>
     <title>디바이스 성능 측정 통합 시스템</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -295,7 +295,7 @@
                 '</td>' +
                 '<td style="text-align: left">' + responseJSON[i].hostName + '</td>' +
                 '<td style="">' + responseJSON[i].insertDate + '</td>' +
-                '<td style="">' + responseJSON[i].jdkVersion + '</td>' +
+                '<td style="text-align: left">' + responseJSON[i].jdkVersion + '</td>' +
                 '<td style="">';
                 if ("Y" == responseJSON[i].status) {
                     text += '활성화';

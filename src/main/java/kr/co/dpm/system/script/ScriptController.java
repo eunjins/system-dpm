@@ -296,6 +296,8 @@ public class ScriptController {
     @ResponseBody
     public Map<String, String> receiveScript(
             @RequestBody Measure measure, HttpServletResponse httpServletResponse) {
+        logger.debug("-------> 측정 결과 수신 " + measure.toString());
+
         Map<String, String> responseData = new HashMap<>();
 
         Map<Integer, String> statusRepository = new HashMap<>();

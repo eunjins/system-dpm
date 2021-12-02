@@ -93,7 +93,7 @@
                                             </button>
                                         </a>
                                         <label style="float: right"> </label>
-                                        <button type="button" class="btn btn-default btn-primary waves-effect waves-light" style="float: right">배포
+                                        <button type="submit" class="btn btn-default btn-primary waves-effect waves-light" style="float: right">배포
                                         </button>
                                     </div>
 
