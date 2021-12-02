@@ -35,7 +35,7 @@ public class ExcelUtil {
     private DeviceServiceImpl deviceService;
 
     /* 엑셀 생성 */
-    public String create(Script script) {
+    public String createExcel(Script script) {
         List<Measure> measures =
                 measureService.getMeasures(new Measure(script.getNo()));
 
@@ -44,7 +44,7 @@ public class ExcelUtil {
         XSSFSheet sheet = workbook.createSheet(measures.get(0).getName());
 
         sheet.setColumnWidth(0, 1400);
-        sheet.setColumnWidth(1, 4000);
+        sheet.setColumnWidth(1, 6000);
         sheet.setColumnWidth(2, 4000);
 
         XSSFCellStyle centerStyle = workbook.createCellStyle();
@@ -160,8 +160,8 @@ public class ExcelUtil {
         return fileName;
     }
 
-    /* 엑셀 파일 삭제 */
-    public void delete(String fileName) {
+    /* 엑셀 삭제 */
+    public void deleteExcel(String fileName) {
         File file = new File(excelPath + File.separator + fileName);
         file.delete();
     }

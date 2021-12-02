@@ -223,8 +223,6 @@
         let scriptMeasure = responseJSON.scriptMeasure;
         allScriptNo = scripts.length;
 
-        console.log((parseInt(allScriptNo / 10)));
-
         let text = "";
 
         let endScriptNo;
@@ -309,7 +307,6 @@
 <script src="/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 
 
-<script src="/assets/js/pages/dashboard.init.js"></script>
 
 <script src="/assets/js/app.js"></script>
 

@@ -232,7 +232,7 @@ public class ScriptController {
             }
 
             byte[] file = FileUtils.readFileToByteArray(new File(path + File.separator + attach.getPhysicName()));
-            String encodingName = new String(attach.getName().getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
+            String encodingName = new String(attach.getName().getBytes("UTF-8"), "ISO-8859-1");
 
             response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingName + "\"");
             response.setHeader("Content-Transfer-Encoding", "binary");
@@ -259,7 +259,7 @@ public class ScriptController {
     @GetMapping("/excel/{no}")
     public void downloadExcel(Script script, HttpServletResponse response) {
         OutputStream outputStream = null;
-        String fileName = excelUtil.create(scriptService.getScript(script));
+        String fileName = excelUtil.createExcel(scriptService.getScript(script));
 
         try {
             byte[] file = FileUtils.readFileToByteArray(new File(excelPath + File.separator + fileName));
@@ -280,7 +280,7 @@ public class ScriptController {
                 if (outputStream != null) {
                     outputStream.close();
 
-                    excelUtil.delete(fileName);
+                    excelUtil.deleteExcel(fileName);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

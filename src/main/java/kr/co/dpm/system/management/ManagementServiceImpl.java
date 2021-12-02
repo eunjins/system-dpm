@@ -47,29 +47,32 @@ public class ManagementServiceImpl implements ManagementService {
 
         List<Device> devices = deviceService.getDevices(new Device());
 
-            for (Device device : devices) {
-                if (device.getStatus().equals("N")) {
-                    continue;
-                } else {
-                    try {
-                    CryptogramImpl cryptogram = new CryptogramImpl(device.getId());
-                    String encryptResult = cryptogram.encryption(device.getId());
+        for (Device device : devices) {
+            if (device.getStatus().equals("Y")) {
 
-                    flags.add(scriptFileRepository.distribute(classFile, encryptResult, device.getIpAddress()));
-                    } catch(ConnectException e) {
+                try {
+                    try {
+                        CryptogramImpl cryptogram = new CryptogramImpl(device.getId());
+                        String encryptResult = cryptogram.encryption(device.getId());
+
+                        flags.add(scriptFileRepository.distribute(classFile, encryptResult, device.getIpAddress()));
+                    } catch (ConnectException e) {
                         logger.debug("----> 연결 시간 초과");
-                    } catch(Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
+                
             }
+        }
 
-            for (boolean flag : flags) {
-                if (flag != false) {
+        for (boolean flag : flags) {
+            if (flag != false) {
 
-                    return true;
-                }
+                return true;
             }
+        }
+
 
         return false;
     }
