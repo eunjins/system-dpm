@@ -39,6 +39,7 @@ public class ScriptController {
     private String excelPath;
 
     private Measure measureInfo = new Measure();
+    private boolean measureStatus = false;
 
     @Autowired
     private MeasureServiceImpl measureService;
@@ -102,7 +103,7 @@ public class ScriptController {
         return mav;
     }
 
-    /*  스크립트 측정 결과 목록 폼 */
+    /*  스크립트 측정 결과 목록 검색 */
     @PostMapping
     public Map<String, Object> searchScripts(@RequestBody Map<String, String> condition) {
         Map<String, Object> result = new HashMap<String, Object>();
@@ -115,37 +116,58 @@ public class ScriptController {
         List<Script> scripts = scriptService.getScripts(conditionScript);
         List<Measure> scriptMeasure = new ArrayList<>();
 
-        for (int i = 0; i < scripts.size(); i++) {
+        Script firstScript = scripts.get(0);
+
+        Measure measure = new Measure();
+
+        if (measureStatus) {
+            measure.setStatus("N");
+            measure.setName(measureInfo.getName());
+
+            scriptMeasure.add(measure);
+
+        } else {
+            measure.setScriptNo(firstScript.getNo());
+
+            logger.debug("---------> 첫번째 스크립트 : " + firstScript);   //debug
+
+            List<Measure> measures = measureService.getMeasures(measure);
+
+            logger.debug("---------> 첫번째 스크립트에 해당하는 결과 : " + measures); //debug
+
+            measure.setName(measures.get(0).getName());
+            if (measure.getName() != null) {
+                measure.setStatus("Y");
+
+                scriptMeasure.add(measure);
+            }
+        }
+
+        logger.debug(scriptMeasure);        //Debug
+
+        for (int i = 1; i < scripts.size(); i++) {
             Script object = scripts.get(i);
 
-            Measure measure = new Measure();
+            measure = new Measure();
             measure.setScriptNo(object.getNo());
-            measure.setName(condition.get("measureName"));
 
             List<Measure> measures = measureService.getMeasures(measure);
 
             if (measures.isEmpty()) {
-                if (measure.getName() == null) {
-                    measure.setStatus("N");
-                    measure.setName(measureInfo.getName());
+                scripts.remove(object);
+                i--;
 
-                    scriptMeasure.add(measure);
-
-                    continue;
-                } else {
-                    scripts.remove(object);
-                    i--;
-                }
             } else {
                 measure.setName(measures.get(0).getName());
                 measure.setStatus("Y");
                 scriptMeasure.add(measure);
-
             }
         }
 
         result.put("scripts", scripts);
         result.put("scriptMeasure", scriptMeasure);
+
+        logger.debug("--------> 목록 검색 결과 : " + scripts + scriptMeasure);
 
         return result;
     }
@@ -183,6 +205,7 @@ public class ScriptController {
 
                     measureInfo.setName(measureName);
                     measureInfo.setScriptNo(scriptNo);
+                    measureStatus = true;
 
                     mav = new ModelAndView(new RedirectView("/scripts"));
                 }
@@ -320,6 +343,8 @@ public class ScriptController {
         } else {
             responseData.put("message", "수신 데이터가 존재하지 않습니다.");
         }
+
+        measureStatus = false;
 
         return responseData;
     }
