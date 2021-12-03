@@ -115,15 +115,4 @@ public class CryptogramImpl implements Cryptogram {
         return decryptWord;
     }
 
-    public static void main(String[] args) throws Exception {
-        //TODO: 실행 코드 작성
-        String loginidx = "MEM201605090243"; //암호화할 문자
-        String key = "aes256-test-key!!"; //암호화에 사용할 키 (16byte)
-
-        Cryptogram cryptogram = new CryptogramImpl(key);
-
-        String encryptWord = cryptogram.encrypt(loginidx);
-
-        String decryptWord = cryptogram.decrypt(encryptWord);
-    }
 }

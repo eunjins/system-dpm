@@ -130,7 +130,7 @@
                                 <div class="row">
                                     <div class="button-items">
                                         <a href="${contextPath}/scripts/form">
-                                            <button type="button"
+                                            <button id="add_button" type="button" disabled="disabled"
                                                     class="btn btn-default btn-primary waves-effect waves-light"
                                                     style="float: right">등록
                                             </button>
@@ -221,6 +221,8 @@
     function drawTable(responseJSON) {
         let scripts = responseJSON.scripts;
         let scriptMeasure = responseJSON.scriptMeasure;
+        let addButton = responseJSON.addButton;
+
         allScriptNo = scripts.length;
 
         let text = "";
@@ -292,6 +294,14 @@
         let pageTable = document.getElementById("pageNo");
 
         pageTable.innerHTML = pageNoHtml;
+
+        const targetButton = document.getElementById("add_button");
+        if (addButton == 'Y') {
+            targetButton.disabled = false;
+        } else {
+            targetButton.disabled = true;
+        }
+
     }
 </script>
 

@@ -32,6 +32,7 @@ import java.util.*;
 @RequestMapping("/scripts")
 public class ScriptController {
     private static final Logger logger = LogManager.getLogger(ScriptController.class);
+    public static int distributeCount;
 
     @Value("${path}")
     private String path;
@@ -40,7 +41,6 @@ public class ScriptController {
     private String excelPath;
 
     private Measure measureInfo = new Measure();
-    private boolean measureStatus = false;
 
     @Autowired
     private MeasureServiceImpl measureService;
@@ -121,7 +121,7 @@ public class ScriptController {
 
         Measure measure = new Measure();
 
-        if (measureStatus) {
+        if (distributeCount > 0) {
             measure.setStatus("N");
             measure.setName(measureInfo.getName());
 
@@ -130,11 +130,8 @@ public class ScriptController {
         } else {
             measure.setScriptNo(firstScript.getNo());
 
-            logger.debug("---------> 첫번째 스크립트 : " + firstScript);   //debug
-
             List<Measure> measures = measureService.getMeasures(measure);
 
-            logger.debug("---------> 첫번째 스크립트에 해당하는 결과 : " + measures); //debug
 
             measure.setName(measures.get(0).getName());
             if (measure.getName() != null) {
@@ -143,8 +140,6 @@ public class ScriptController {
                 scriptMeasure.add(measure);
             }
         }
-
-        logger.debug(scriptMeasure);        //Debug
 
         for (int i = 1; i < scripts.size(); i++) {
             Script object = scripts.get(i);
@@ -168,7 +163,11 @@ public class ScriptController {
         result.put("scripts", scripts);
         result.put("scriptMeasure", scriptMeasure);
 
-        logger.debug("--------> 목록 검색 결과 : " + scripts + scriptMeasure);
+        if (distributeCount > 0) {
+            result.put("addButton", "N");
+        } else {
+            result.put("addButton", "Y");
+        }
 
         return result;
     }
@@ -185,6 +184,8 @@ public class ScriptController {
             @RequestParam("sourceFile") MultipartFile sourceFile,
             @RequestParam("classFile") MultipartFile classFile,
             @RequestParam("name") String measureName) {
+        measureInfo.setName(measureName);
+
         ModelAndView mav = new ModelAndView(new RedirectView("/scripts/form"));
 
         if (!sourceFile.isEmpty() && !classFile.isEmpty()) {
@@ -204,17 +205,27 @@ public class ScriptController {
 
                     attachService.registerAttach(sourceFile, classFile, attach);
 
-                    measureInfo.setName(measureName);
                     measureInfo.setScriptNo(scriptNo);
-                    measureStatus = true;
+                    distributeCount = 0;
 
                     mav = new ModelAndView(new RedirectView("/scripts"));
-                } else {
+
+                }
+
+                try {
+                    Thread.sleep(4000);     //스크립트 송신 체크 시간
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                if (!ManagementServiceImpl.distributeStatus) {
                     mav = new ModelAndView("script/register");
                     mav.addObject("distributeFail", "배포된 디바이스가 없습니다.");
                 }
             }
         }
+
+        ManagementServiceImpl.distributeStatus = false;
 
         return mav;
     }
@@ -343,12 +354,15 @@ public class ScriptController {
         if (measure.getDeviceId() != null) {
             measure.setName(measureInfo.getName());
             measure.setScriptNo(measureInfo.getScriptNo());
+
+            logger.debug("---------> 등록 되는 측정 결과 정보 :" + measure);
+
             measureService.registerMeasure(measure);
         } else {
             responseData.put("message", "수신 데이터가 존재하지 않습니다.");
         }
 
-        measureStatus = false;
+        logger.debug("현재 배포 개수 : " + --distributeCount);
 
         return responseData;
     }

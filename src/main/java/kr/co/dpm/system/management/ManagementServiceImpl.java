@@ -4,20 +4,20 @@ import kr.co.dpm.system.device.Device;
 import kr.co.dpm.system.device.DeviceServiceImpl;
 import kr.co.dpm.system.script.ScriptFileRepositoryImpl;
 import kr.co.dpm.system.util.CryptogramImpl;
+import kr.co.dpm.system.util.DistributeUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.net.ConnectException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ManagementServiceImpl implements ManagementService {
     private static final Logger logger = LogManager.getLogger(CryptogramImpl.class);
+    public static boolean distributeStatus;          //변경할건지 고민...
 
     @Autowired
     private DeviceServiceImpl deviceService;
@@ -43,30 +43,20 @@ public class ManagementServiceImpl implements ManagementService {
 
     @Override
     public boolean distributeScript(MultipartFile classFile) {
-        List<Boolean> flags = new ArrayList<Boolean>();
-
         List<Device> devices = deviceService.getDevices(new Device());
 
         for (Device device : devices) {
             if (device.getStatus().equals("Y")) {
-                    try {
-                        CryptogramImpl cryptogram = new CryptogramImpl(device.getId());
-                        String encryptResult = cryptogram.encryption(device.getId());
+                DistributeUtil distributeUtil = new DistributeUtil();
+                distributeUtil.setDevice(device);
+                distributeUtil.setClassFile(classFile);
+                distributeUtil.setScriptFileRepository(scriptFileRepository);
 
-                        flags.add(scriptFileRepository.distribute(classFile, encryptResult, device.getIpAddress()));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                Thread thread = new Thread(distributeUtil);
+
+                thread.start();
             }
         }
-
-        for (boolean flag : flags) {
-            if (flag != false) {
-
-                return true;
-            }
-        }
-
-        return false;
+        return true;
     }
 }
