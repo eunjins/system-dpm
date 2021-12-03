@@ -22,6 +22,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -185,6 +186,9 @@ public class ScriptController {
                     measureInfo.setScriptNo(scriptNo);
 
                     mav = new ModelAndView(new RedirectView("/scripts"));
+                } else {
+                    mav = new ModelAndView("script/register");
+                    mav.addObject("distributeFail", "배포된 디바이스가 없습니다.");
                 }
             }
         }
