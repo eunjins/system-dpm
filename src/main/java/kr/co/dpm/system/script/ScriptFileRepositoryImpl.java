@@ -39,9 +39,8 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
     public boolean distribute(MultipartFile classFile, String encryptResult, String ip) {
         File convertFile = null;
         try {
-            // 여기서 클래스파일이 경로에 들어감
             convertFile = new File(path + File.separator + classFile.getOriginalFilename());
-            //convertFile.createNewFile();
+
             FileOutputStream fileOutputStream = new FileOutputStream(convertFile);
             fileOutputStream.write(classFile.getBytes());
             fileOutputStream.close();

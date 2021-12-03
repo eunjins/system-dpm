@@ -104,9 +104,9 @@ public class ScriptController {
         return mav;
     }
 
-    /*  스크립트 측정 결과 목록 검색 */
+    /*  스크립트 측정 결과 목록 조회 */
     @PostMapping
-    public Map<String, Object> searchScripts(@RequestBody Map<String, String> condition) {
+    public Map<String, Object> getScripts(@RequestBody Map<String, String> condition) {
         Map<String, Object> result = new HashMap<String, Object>();
 
         Script conditionScript = new Script();
