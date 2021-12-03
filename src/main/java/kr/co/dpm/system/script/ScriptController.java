@@ -220,11 +220,10 @@ public class ScriptController {
                     e.printStackTrace();
                 }
 
-                if (!ManagementServiceImpl.distributeStatus) {
+                if (distributeCount == 0) {
                     mav = new ModelAndView("script/register");
                     mav.addObject("distributeFail", "배포된 디바이스가 없습니다.");
                 } else {
-
                     scriptService.registerScript(script);
 
                     int scriptNo = script.getNo();
@@ -235,8 +234,6 @@ public class ScriptController {
                 }
             }
         }
-
-        ManagementServiceImpl.distributeStatus = false;
 
         return mav;
     }

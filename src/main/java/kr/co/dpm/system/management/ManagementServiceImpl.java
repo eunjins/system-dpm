@@ -17,7 +17,6 @@ import java.util.List;
 @Service
 public class ManagementServiceImpl implements ManagementService {
     private static final Logger logger = LogManager.getLogger(CryptogramImpl.class);
-    public static boolean distributeStatus;          //변경할건지 고민...
 
     @Autowired
     private DeviceServiceImpl deviceService;
