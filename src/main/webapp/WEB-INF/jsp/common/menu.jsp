@@ -38,7 +38,7 @@
         <div class="d-flex">
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect">
-                    <a class="dropdown-item text-danger" style="font-size: medium"
+                    <a class="dropdown-item text-danger" style="font-size: larger"
                        href="${pageContext.request.contextPath}/logout">
                         <i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>로그아웃</a>
                 </button>
