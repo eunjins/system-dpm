@@ -35,15 +35,15 @@
                             <form name="loginForm" class="form-horizontal" action="/login" method="POST">
 
                                 <div class="mb-3">
-                                    <label class="form-label" for="id">아이디</label>
+<%--                                    <label class="form-label" for="id">아이디</label>--%>
                                     <input type="text" class="form-control" id="id" name="id"
-                                           placeholder="Enter username">
+                                           placeholder="아이디">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label" for="password">비밀번호</label>
+<%--                                    <label class="form-label" for="password">비밀번호</label>--%>
                                     <input type="password" class="form-control" id="password" name="password"
-                                           placeholder="Enter password">
+                                           placeholder="비밀번호">
                                 </div><br/>
 
                                 <div id="checkLogIn" style="color: blue"></div>
@@ -51,7 +51,7 @@
                                 <div class="mt-3">
                                     <button class="btn btn-default btn-primary w-100 waves-effect waves-light"
                                             type="button" onclick="login()">
-                                        Log In</button>
+                                        로그인</button>
                                 </div>
                             </form>
                         </div>
@@ -69,7 +69,7 @@
 
     function login() {
         var loginInfo = {
-            loginForm:document.loginForm,
+            loginForm: document.loginForm,
             id: document.getElementById("id").value,
             password: document.getElementById("password").value
         };

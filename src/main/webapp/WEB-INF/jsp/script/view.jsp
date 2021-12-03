@@ -55,13 +55,8 @@
                             <div class="card-body">
                                 <div class="mb-3 row">
                                     <div class="col-md-6">
-                                        <label class="col-md-1 col-form-label" style="text-align: center">
-                                            1
-                                        </label>
-                                        <label class="col-md-2 col-form-label" style="text-align: left">
+                                        <label class="col-md-4 col-form-label" style="padding-left: 30px">
                                             측정 결과 명
-                                        </label>
-                                        <label class="col-md-1 col-form-label" style="text-align: right">
                                         </label>
                                         <label class="col-md-6 col-form-label"
                                                style="text-align: left">${measures[0].name}</label>
@@ -69,13 +64,8 @@
                                 </div>
                                 <div class="mb-3 row">
                                     <div class="col-md-6">
-                                        <label class="col-md-1 col-form-label" style="text-align: center">
-                                            2
-                                        </label>
-                                        <label class="col-md-2 col-form-label" style="text-align: left">
+                                        <label class="col-md-4 col-form-label" style="padding-left: 30px">
                                             스크립트 명
-                                        </label>
-                                        <label class="col-md-1 col-form-label" style="text-align: right">
                                         </label>
                                         <label class="col-md-6 col-form-label"
                                                style="text-align: left">${script.name}</label>
@@ -83,13 +73,8 @@
                                 </div>
                                 <div class="mb-3 row">
                                     <div class="col-md-6">
-                                        <label class="col-md-1 col-form-label" style="text-align: center">
-                                            3
-                                        </label>
-                                        <label class="col-md-2 col-form-label" style="text-align: left">
+                                        <label class="col-md-4 col-form-label" style="padding-left: 30px">
                                             업로드 일시
-                                        </label>
-                                        <label class="col-md-1 col-form-label" style="text-align: right">
                                         </label>
                                         <label class="col-md-6 col-form-label"
                                                style="text-align: left">${script.uploadPoint}</label>
@@ -101,13 +86,8 @@
                                         <c:when test="${attach.division eq 'S'}">
                                             <div class="mb-3 row">
                                                 <div class="col-md-6">
-                                                    <label class="col-md-1 col-form-label" style="text-align: center">
-                                                        4
-                                                    </label>
-                                                    <label class="col-md-2 col-form-label" style="text-align: left">
+                                                    <label class="col-md-4 col-form-label" style="padding-left: 30px"">
                                                         소스 파일
-                                                    </label>
-                                                    <label class="col-md-1 col-form-label" style="text-align: right">
                                                     </label>
                                                     <label class="col-md-6 col-form-label">
                                                         <a href="/scripts/file/${attach.no}">${attach.name}.java</a>
@@ -118,13 +98,8 @@
                                         <c:when test="${attach.division eq 'C'}">
                                             <div class="mb-3 row">
                                                 <div class="col-md-6">
-                                                    <label class="col-md-1 col-form-label" style="text-align: center">
-                                                        5
-                                                    </label>
-                                                    <label class="col-md-2 col-form-label" style="text-align: left">
+                                                    <label class="col-md-4 col-form-label" style="padding-left: 30px">
                                                         클래스 파일
-                                                    </label>
-                                                    <label class="col-md-1 col-form-label" style="text-align: right">
                                                     </label>
                                                     <label class="col-md-6 col-form-label">
                                                         <a href="/scripts/file/${attach.no}">${attach.name}.class</a>

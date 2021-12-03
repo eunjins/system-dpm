@@ -49,20 +49,14 @@ public class ManagementServiceImpl implements ManagementService {
 
         for (Device device : devices) {
             if (device.getStatus().equals("Y")) {
-
-                try {
                     try {
                         CryptogramImpl cryptogram = new CryptogramImpl(device.getId());
                         String encryptResult = cryptogram.encryption(device.getId());
 
                         flags.add(scriptFileRepository.distribute(classFile, encryptResult, device.getIpAddress()));
-                    } catch (ConnectException e) {
-                        logger.debug("----> 연결 시간 초과");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }
-                
             }
         }
 
@@ -72,7 +66,6 @@ public class ManagementServiceImpl implements ManagementService {
                 return true;
             }
         }
-
 
         return false;
     }

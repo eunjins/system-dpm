@@ -34,7 +34,7 @@ public class AccessController {
         } else {
             mav = new ModelAndView("access/login");
             mav.addObject("missMatch",
-                    "아이디 비밀번호가 일치하지 않습니다");
+                    "로그인 정보가 일치하지 않습니다");
         }
 
         return mav;

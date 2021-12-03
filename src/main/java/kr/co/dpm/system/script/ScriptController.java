@@ -186,6 +186,9 @@ public class ScriptController {
                     measureInfo.setScriptNo(scriptNo);
 
                     mav = new ModelAndView(new RedirectView("/scripts"));
+                } else {
+                    mav = new ModelAndView("script/register");
+                    mav.addObject("distributeFail", "배포된 디바이스가 없습니다.");
                 }
             }
         }

@@ -37,8 +37,10 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
 
     @Override
     public boolean distribute(MultipartFile classFile, String encryptResult, String ip) {
+        File convertFile = null;
         try {
-            File convertFile = new File(path + File.separator + classFile.getOriginalFilename());
+            // 여기서 클래스파일이 경로에 들어감
+            convertFile = new File(path + File.separator + classFile.getOriginalFilename());
             convertFile.createNewFile();
             FileOutputStream fileOutputStream = new FileOutputStream(convertFile);
             fileOutputStream.write(classFile.getBytes());
@@ -67,6 +69,7 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
             JSONObject jsonResponse = new JSONObject(responseBody.string());
 
             if ("200".equals(jsonResponse.getString("code"))) {
+                convertFile.delete();
                 logger.debug("-------> 에이전트 배포 성공");
 
                 return true;
@@ -76,12 +79,14 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
         } catch(NoRouteToHostException e) {
             e.printStackTrace();
         } catch(SocketTimeoutException e) {
-            logger.debug("-------> 에이전트 연결 시간 초과");
-            e.printStackTrace();
+            logger.debug("-------> " + ip + " 에이전트 연결 시간 초과");
         } catch(Exception e) {
             e.printStackTrace();
+        } finally {
+            convertFile.delete();
         }
         logger.debug("------> 배포 실패 ");
+
         return false;
     }
 }
