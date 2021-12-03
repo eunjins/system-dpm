@@ -213,7 +213,7 @@ public class ScriptController {
                 }
 
                 try {
-                    Thread.sleep(4000);     //스크립트 송신 체크 시간
+                    Thread.sleep(4000);     //TODO 스크립트 송신 체크 시간
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -355,14 +355,10 @@ public class ScriptController {
             measure.setName(measureInfo.getName());
             measure.setScriptNo(measureInfo.getScriptNo());
 
-            logger.debug("---------> 등록 되는 측정 결과 정보 :" + measure);
-
             measureService.registerMeasure(measure);
         } else {
             responseData.put("message", "수신 데이터가 존재하지 않습니다.");
         }
-
-        logger.debug("현재 배포 개수 : " + --distributeCount);
 
         return responseData;
     }
