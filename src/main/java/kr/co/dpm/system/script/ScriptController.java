@@ -307,10 +307,12 @@ public class ScriptController {
     @GetMapping("/excel/{no}")
     public void downloadExcel(Script script, HttpServletResponse response) {
         OutputStream outputStream = null;
-        String fileName = excelUtil.createExcel(scriptService.getScript(script));
+        File excelFile = excelUtil.createExcel(scriptService.getScript(script));
+        String fileName = excelFile.getName();
 
         try {
-            byte[] file = FileUtils.readFileToByteArray(new File(excelPath + File.separator + fileName));
+            byte[] file = FileUtils.readFileToByteArray(excelFile);
+
             String encodingName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
 
             response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingName + "\"");
