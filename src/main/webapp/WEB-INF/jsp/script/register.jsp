@@ -130,8 +130,9 @@
 
 
 <script>
+    var distributeFail = document.getElementById("register").innerHTML = "${distributeFail}";
+
     function distribute() {
-        var distributeFail = document.getElementById("register").innerHTML = "${distributeFail}";
         var registerInfo = {
             registerForm:document.registerForm,
             name: document.getElementById("measureName").value,
