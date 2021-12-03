@@ -35,7 +35,7 @@ public class ExcelUtil {
     private DeviceServiceImpl deviceService;
 
     /* 엑셀 생성 */
-    public String create(Script script) {
+    public File create(Script script) {
         List<Measure> measures =
                 measureService.getMeasures(new Measure(script.getNo()));
 
@@ -157,7 +157,7 @@ public class ExcelUtil {
             }
         }
 
-        return fileName;
+        return new File(excelPath + File.separator + fileName);
     }
 
     /* 엑셀 파일 삭제 */
