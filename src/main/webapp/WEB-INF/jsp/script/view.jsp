@@ -242,7 +242,7 @@
     ];
 
     const chartConfig = {
-        type: 'column2d',
+        type: 'column3d',
         renderAt: 'chart-container',
         width: '100%',
         height: '400',
@@ -250,10 +250,11 @@
         dataSource: {
             "chart": {
                 "yAxisName": "실행 시간 (ms)",
-                "theme": "gammel",
-                "showBorder": 1
+                "theme": "fusion",
+                "showBorder": 1,
             },
-            "data": chartData
+            "data": chartData,
+            "yellow": chartData
         }
     };
     FusionCharts.ready(function () {

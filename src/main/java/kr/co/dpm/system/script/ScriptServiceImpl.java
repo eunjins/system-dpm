@@ -16,22 +16,21 @@ public class ScriptServiceImpl implements ScriptService {
     @Autowired
     private ScriptRepository scriptRepository;
 
-    /* 목록 조회  */
+    /* 스크립트 정보 목록 조회  */
     @Override
     public List<Script> getScripts(Script script) {
         return scriptRepository.selectAll(script);
     }
 
-    /* 상세 조회 */
+    /* 스크립트 정보 조회 */
     @Override
     public Script getScript(Script script) {
         return scriptRepository.select(script);
     }
 
-    /* 등록 */
+    /* 스크립트 정보 등록 */
     @Override
     public void registerScript(Script script) {
-        // 등록 일시 추가
         SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 
         String dateTime = format.format(System.currentTimeMillis());
