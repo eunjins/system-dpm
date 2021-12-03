@@ -188,6 +188,8 @@ public class ScriptController {
         measureInfo.setName(measureName);
 
         ModelAndView mav = new ModelAndView(new RedirectView("/scripts/form"));
+        Attach attach = new Attach();
+        Script script = new Script();
 
         if (!sourceFile.isEmpty() && !classFile.isEmpty()) {
             String sourceFileName = FilenameUtils.getBaseName((sourceFile.getOriginalFilename()));
@@ -196,20 +198,8 @@ public class ScriptController {
                 distributeCount = 0;
 
                 if (managementService.distributeScript(classFile)) {
-                    Script script = new Script();
                     String scriptName = FilenameUtils.getBaseName(sourceFile.getOriginalFilename());
                     script.setName(scriptName);
-
-                    scriptService.registerScript(script);
-
-                    Attach attach = new Attach();
-                    int scriptNo = script.getNo();
-                    attach.setScriptNo(scriptNo);
-
-                    attachService.registerAttach(sourceFile, classFile, attach);
-
-                    measureInfo.setScriptNo(scriptNo);
-
 
                     mav = new ModelAndView(new RedirectView("/scripts"));
 
@@ -224,6 +214,15 @@ public class ScriptController {
                 if (!ManagementServiceImpl.distributeStatus) {
                     mav = new ModelAndView("script/register");
                     mav.addObject("distributeFail", "배포된 디바이스가 없습니다.");
+                } else {
+
+                    scriptService.registerScript(script);
+
+                    int scriptNo = script.getNo();
+                    attach.setScriptNo(scriptNo);
+
+                    measureInfo.setScriptNo(scriptNo);
+                    attachService.registerAttach(sourceFile, classFile, attach);
                 }
             }
         }
