@@ -192,6 +192,15 @@ public class ScriptController {
         Script script = new Script();
 
         if (!sourceFile.isEmpty() && !classFile.isEmpty()) {
+            String sourceFileExtension = FilenameUtils.getExtension(sourceFile.getOriginalFilename());
+            String classFileExtension = FilenameUtils.getExtension(classFile.getOriginalFilename());
+            if (!("java".equals(sourceFileExtension) || "class".equals(classFileExtension))) {
+                mav = new ModelAndView("script/register");
+                mav.addObject("extensionMiss", "스크립트 확장자를 확인하세요.");
+
+                return mav;
+            }
+
             String sourceFileName = FilenameUtils.getBaseName((sourceFile.getOriginalFilename()));
             String classFileName = FilenameUtils.getBaseName((classFile.getOriginalFilename()));
             if (sourceFileName.equals(classFileName)) {
