@@ -131,6 +131,7 @@
 
 <script>
     var distributeFail = document.getElementById("register").innerHTML = "${distributeFail}";
+    var extenstionMiss = document.getElementById("register").innerHTML = "${extensionMiss}";
 
     function distribute() {
         var registerInfo = {
