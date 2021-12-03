@@ -41,7 +41,6 @@ public class DistributeUtil implements Runnable{
             String encryptResult = cryptogram.encryption(device.getId());
 
             if (scriptFileRepository.distribute(classFile, encryptResult, device.getIpAddress())) {
-                ManagementServiceImpl.distributeStatus = true;
                 ScriptController.distributeCount++;
             }
 
