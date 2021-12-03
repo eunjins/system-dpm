@@ -1,8 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page isELIgnored="false" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 
-<!doctype html>
+<!DOCTYPE HTML>
 <html>
 <head>
 
@@ -13,7 +12,6 @@
     <meta content="Themesbrand" name="author" />
 
     <jsp:include page="/WEB-INF/jsp/common/top.jsp"/>
-
 
 </head>
 
