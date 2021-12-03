@@ -121,18 +121,21 @@
                                             <ul class="pagination justify-content-center" id="pageNo">
                                             </ul>
                                         </div>
-                                        <div class="button-items">
-                                            <a href="${contextPath}/scripts/form">
-                                                <button type="button"
-                                                        class="btn btn-default btn-primary waves-effect waves-light"
-                                                        style="float: right">등록
-                                                </button>
-                                            </a>
-                                        </div>
+
                                     </div>
 <%--                                    <div class="col-sm-12 col-md-5">--%>
 
 <%--                                    </div>--%>
+                                </div>
+                                <div class="row">
+                                    <div class="button-items">
+                                        <a href="${contextPath}/scripts/form">
+                                            <button type="button"
+                                                    class="btn btn-default btn-primary waves-effect waves-light"
+                                                    style="float: right">등록
+                                            </button>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

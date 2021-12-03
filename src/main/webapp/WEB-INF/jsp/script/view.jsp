@@ -55,13 +55,8 @@
                             <div class="card-body">
                                 <div class="mb-3 row">
                                     <div class="col-md-6">
-                                        <label class="col-md-1 col-form-label" style="text-align: center">
-                                            1
-                                        </label>
-                                        <label class="col-md-2 col-form-label" style="text-align: left">
+                                        <label class="col-md-4 col-form-label" style="padding-left: 30px">
                                             측정 결과 명
-                                        </label>
-                                        <label class="col-md-1 col-form-label" style="text-align: right">
                                         </label>
                                         <label class="col-md-6 col-form-label"
                                                style="text-align: left">${measures[0].name}</label>
@@ -69,13 +64,8 @@
                                 </div>
                                 <div class="mb-3 row">
                                     <div class="col-md-6">
-                                        <label class="col-md-1 col-form-label" style="text-align: center">
-                                            2
-                                        </label>
-                                        <label class="col-md-2 col-form-label" style="text-align: left">
+                                        <label class="col-md-4 col-form-label" style="padding-left: 30px">
                                             스크립트 명
-                                        </label>
-                                        <label class="col-md-1 col-form-label" style="text-align: right">
                                         </label>
                                         <label class="col-md-6 col-form-label"
                                                style="text-align: left">${script.name}</label>
@@ -83,13 +73,8 @@
                                 </div>
                                 <div class="mb-3 row">
                                     <div class="col-md-6">
-                                        <label class="col-md-1 col-form-label" style="text-align: center">
-                                            3
-                                        </label>
-                                        <label class="col-md-2 col-form-label" style="text-align: left">
+                                        <label class="col-md-4 col-form-label" style="padding-left: 30px">
                                             업로드 일시
-                                        </label>
-                                        <label class="col-md-1 col-form-label" style="text-align: right">
                                         </label>
                                         <label class="col-md-6 col-form-label"
                                                style="text-align: left">${script.uploadPoint}</label>
@@ -101,13 +86,8 @@
                                         <c:when test="${attach.division eq 'S'}">
                                             <div class="mb-3 row">
                                                 <div class="col-md-6">
-                                                    <label class="col-md-1 col-form-label" style="text-align: center">
-                                                        4
-                                                    </label>
-                                                    <label class="col-md-2 col-form-label" style="text-align: left">
+                                                    <label class="col-md-4 col-form-label" style="padding-left: 30px"">
                                                         소스 파일
-                                                    </label>
-                                                    <label class="col-md-1 col-form-label" style="text-align: right">
                                                     </label>
                                                     <label class="col-md-6 col-form-label">
                                                         <a href="/scripts/file/${attach.no}">${attach.name}.java</a>
@@ -118,13 +98,8 @@
                                         <c:when test="${attach.division eq 'C'}">
                                             <div class="mb-3 row">
                                                 <div class="col-md-6">
-                                                    <label class="col-md-1 col-form-label" style="text-align: center">
-                                                        5
-                                                    </label>
-                                                    <label class="col-md-2 col-form-label" style="text-align: left">
+                                                    <label class="col-md-4 col-form-label" style="padding-left: 30px">
                                                         클래스 파일
-                                                    </label>
-                                                    <label class="col-md-1 col-form-label" style="text-align: right">
                                                     </label>
                                                     <label class="col-md-6 col-form-label">
                                                         <a href="/scripts/file/${attach.no}">${attach.name}.class</a>
@@ -143,9 +118,22 @@
                                         </c:when>
                                     </c:choose>
                                 </c:forEach>
+<%--                                <div class="row">--%>
+<%--                                    <div class="col-sm-6 col-md-6">--%>
+<%--                                        <label style="font-size: x-large; color: black; padding-left: 5px"></label>--%>
+<%--                                    </div>--%>
+<%--                                    <div class="col-sm-6 col-md-6">--%>
+<%--                                        <a href="${contextPath}/scripts/excel/${script.no}">--%>
+<%--                                            <button type="button"--%>
+<%--                                                    class="btn btn-default btn-primary waves-effect waves-light"--%>
+<%--                                                    style="float: right"><span>엑셀 다운로드</span>--%>
+<%--                                            </button>--%>
+<%--                                        </a>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
                                 <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                     <div class="row">
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-12" style="padding-top: 10px;">
                                             <table
                                                    class="table table-striped table-bordered dt-responsive nowrap no-footer dtr-inline"
                                                    style="border-collapse: collapse; border-spacing: 0px; width: 100%; text-align: center; outline-style: solid;
@@ -181,9 +169,8 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div id="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-12" style="padding-top: 15px">
                                         <table id="chartable"
                                                class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
                                                style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
@@ -191,17 +178,15 @@
                                             <div class="col-sm-12" id="chart-container"></div>
                                         </table>
                                     </div>
-                                    <div class="mb-3 row">
-                                        <div class="col-md-10">
-                                        </div>
-                                        <div class="button-items">
-                                            <a href="${contextPath}/scripts">
-                                                <button type="button"
-                                                        class="btn btn-default btn-primary waves-effect waves-light"
-                                                        style="float: right">목록
-                                                </button>
-                                            </a>
-                                        </div>
+                                </div>
+                                <div class="row">
+                                    <div class="button-items" style="padding-top: 10px">
+                                        <a href="${contextPath}/scripts">
+                                            <button type="button"
+                                                    class="btn btn-default btn-primary waves-effect waves-light"
+                                                    style="float: right">목록
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

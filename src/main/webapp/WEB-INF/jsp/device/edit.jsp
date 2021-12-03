@@ -54,35 +54,34 @@
                                     <input type="hidden" name="_method" value="put"/>
                                     <input type="hidden" name="id" value="${device.id}"/>
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label">디바이스 ID:</label>
+                                        <label class="col-md-2 col-form-label" style="padding-left: 30px">디바이스 ID</label>
                                         <label class="col-md-6 col-form-label">${device.id}</label>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-search-input" class="col-md-2 col-form-label">디바이스
-                                            명:</label>
+                                        <label for="example-search-input" class="col-md-2 col-form-label"style="padding-left: 30px">디바이스 명</label>
                                         <div class="col-md-6">
                                             <input class="form-control" type="text" name=name value="${device.name}"
                                                    id="example-search-input">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label">호스트 명:</label>
+                                        <label class="col-md-2 col-form-label"style="padding-left: 30px">호스트 명</label>
                                         <label class="col-md-6 col-form-label">${device.hostName}</label>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label">IP 주소:</label>
+                                        <label class="col-md-2 col-form-label"style="padding-left: 30px">IP 주소</label>
                                         <label class="col-md-6 col-form-label">${device.ipAddress}</label>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label">JDK 버전:</label>
+                                        <label class="col-md-2 col-form-label"style="padding-left: 30px">JDK 버전</label>
                                         <label class="col-md-6 col-form-label">${device.jdkVersion}</label>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label">등록 일자:</label>
+                                        <label class="col-md-2 col-form-label"style="padding-left: 30px">등록 일자</label>
                                         <label class="col-md-6 col-form-label">${device.insertDate}</label>
                                     </div>
 
-                                    <label for="example-search-input" class="col-md-2 col-form-label">상태:</label>
+                                    <label for="example-search-input" class="col-md-2 col-form-label" style="padding-left: 18px">상태</label>
                                     <c:choose>
                                         <c:when test="${device.status eq 'Y'}">
                                             <div class="form-check form-check-inline mb-2" style="padding-bottom: 15px">

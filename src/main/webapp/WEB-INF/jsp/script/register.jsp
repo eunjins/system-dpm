@@ -51,12 +51,12 @@
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="/scripts/distribute" method="POST" enctype="multipart/form-data">
+                                <form action="/scripts/distribute" method="POST" enctype="multipart/form-data" name="registerForm">
                                     <div class="mb-3 row">
                                         <label class="col-md-1 col-form-label"></label>
                                         <label class="col-md-2 col-form-label">측정 결과 명</label>
                                         <div class="col-md-7">
-                                            <input class="form-control" type="text" value="" name="name">
+                                            <input class="form-control" type="text" value="" name="name" id="measureName">
                                         </div>
                                     </div>
 
@@ -67,7 +67,7 @@
                                             <div class="input-group">
                                                 <input type="file" class="form-control hidden" name="sourceFile"
                                                         accept=".java" id="sourcefile">
-                                                <label class="input-group-text" for="sourcefile">Upload</label>
+<%--                                                <label class="input-group-text">Upload</label>--%>
                                             </div>
                                         </div>
                                     </div>
@@ -78,14 +78,18 @@
                                         <div class="col-md-7">
                                             <div class="input-group">
                                                 <input type="file" class="form-control" name="classFile"
-                                                        accept=".class">
-                                                <label class="input-group-text">Upload</label>
+                                                        accept=".class" id="classfile">
+<%--                                                <label class="input-group-text" >Upload</label>--%>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="mb-12 row">
                                     </div>
 
+                                    <label class="col-md-1 col-form-label"></label>
+                                    <label class="col-md-6 col-form-label">
+                                    <div class=col-form-label" id="register"  style="color: blue"></div>
+                                    </label>
 
                                     <div class="button-items">
                                         <a href="${contextPath}/scripts">
@@ -93,7 +97,8 @@
                                             </button>
                                         </a>
                                         <label style="float: right"> </label>
-                                        <button type="submit" class="btn btn-default btn-primary waves-effect waves-light" style="float: right">배포
+                                        <button type="button" class="btn btn-default btn-primary waves-effect waves-light"
+                                                onclick="distribute()" style="float: right">배포
                                         </button>
                                     </div>
 
@@ -123,6 +128,28 @@
 <script src="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
 <script src="/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js"></script>
 
+
+<script>
+    var distributeFail = document.getElementById("register").innerHTML = "${distributeFail}";
+
+    function distribute() {
+        var registerInfo = {
+            registerForm:document.registerForm,
+            name: document.getElementById("measureName").value,
+            sourcefile: document.getElementById("sourcefile").value,
+            classfile: document.getElementById("classfile").value
+        };
+
+        if (registerInfo.name == null || registerInfo.name == "" ) {
+            document.getElementById("register").innerHTML = "측정 결과명을 입력하세요";
+        } else if(registerInfo.sourcefile == null || registerInfo.sourcefile == "" ||
+                  registerInfo.classfile == null || registerInfo.classfile == "") {
+            document.getElementById("register").innerHTML = "스크립트 파일을 선택하세요";
+        } else {
+            registerInfo.registerForm.submit();
+        }
+    }
+</script>
 
 </body>
 

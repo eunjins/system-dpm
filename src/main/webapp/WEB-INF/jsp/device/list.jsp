@@ -276,8 +276,6 @@
     function drawTable(responseJSON) {
         allDeviceNo = responseJSON.length;
 
-        console.log((parseInt(allDeviceNo / 10)));
-
         let text = "";
 
         let endDeviceNo;

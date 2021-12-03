@@ -22,6 +22,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -208,6 +209,9 @@ public class ScriptController {
                     measureStatus = true;
 
                     mav = new ModelAndView(new RedirectView("/scripts"));
+                } else {
+                    mav = new ModelAndView("script/register");
+                    mav.addObject("distributeFail", "배포된 디바이스가 없습니다.");
                 }
             }
         }
@@ -281,7 +285,7 @@ public class ScriptController {
     @GetMapping("/excel/{no}")
     public void downloadExcel(Script script, HttpServletResponse response) {
         OutputStream outputStream = null;
-        String fileName = excelUtil.create(scriptService.getScript(script));
+        String fileName = excelUtil.createExcel(scriptService.getScript(script));
 
         try {
             byte[] file = FileUtils.readFileToByteArray(new File(excelPath + File.separator + fileName));
@@ -302,7 +306,7 @@ public class ScriptController {
                 if (outputStream != null) {
                     outputStream.close();
 
-                    excelUtil.delete(fileName);
+                    excelUtil.deleteExcel(fileName);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
