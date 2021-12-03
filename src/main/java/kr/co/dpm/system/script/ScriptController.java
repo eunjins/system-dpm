@@ -184,6 +184,7 @@ public class ScriptController {
             @RequestParam("sourceFile") MultipartFile sourceFile,
             @RequestParam("classFile") MultipartFile classFile,
             @RequestParam("name") String measureName) {
+        measureInfo.setScriptNo(0);
         measureInfo.setName(measureName);
 
         ModelAndView mav = new ModelAndView(new RedirectView("/scripts/form"));
@@ -192,6 +193,8 @@ public class ScriptController {
             String sourceFileName = FilenameUtils.getBaseName((sourceFile.getOriginalFilename()));
             String classFileName = FilenameUtils.getBaseName((classFile.getOriginalFilename()));
             if (sourceFileName.equals(classFileName)) {
+                distributeCount = 0;
+
                 if (managementService.distributeScript(classFile)) {
                     Script script = new Script();
                     String scriptName = FilenameUtils.getBaseName(sourceFile.getOriginalFilename());
@@ -206,7 +209,7 @@ public class ScriptController {
                     attachService.registerAttach(sourceFile, classFile, attach);
 
                     measureInfo.setScriptNo(scriptNo);
-                    distributeCount = 0;
+
 
                     mav = new ModelAndView(new RedirectView("/scripts"));
 
@@ -353,9 +356,27 @@ public class ScriptController {
 
         if (measure.getDeviceId() != null) {
             measure.setName(measureInfo.getName());
+
+            while (true) {
+                if (measureInfo.getScriptNo() == 0) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    break;
+                }
+            }
+
             measure.setScriptNo(measureInfo.getScriptNo());
 
+            logger.debug("-------> 등록 측정 결과 정보 " + measure);
+
             measureService.registerMeasure(measure);
+
+            logger.debug("-------> 배포중 디바이스 개수 : " + --distributeCount);
+
         } else {
             responseData.put("message", "수신 데이터가 존재하지 않습니다.");
         }
