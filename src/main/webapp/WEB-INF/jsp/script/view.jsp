@@ -3,30 +3,24 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <!doctype html>
 <html lang="en">
 
 <head>
     <jsp:include page="/WEB-INF/jsp/common/top.jsp"/>
-
     <!-- DataTables -->
     <link href="/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
     <link href="/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
           type="text/css">
-
     <!-- Responsive datatable examples -->
     <link href="/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet"
           type="text/css">
-
     <!-- NanumSquare -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
-
 </head>
 
 <body data-layout="horizontal" data-layout-size="boxed"
       style="font-family: 'NanumSquare'; font-size: medium; font-weigth: bold">
-
 <div class="container-fluid">
     <!-- Begin page -->
     <div id="layout-wrapper">
@@ -35,9 +29,7 @@
         <!-- Start right Content here -->
         <!-- ============================================================== -->
         <div class="main-content">
-
             <div class="page-content">
-
                 <!-- start page title -->
                 <div class="row">
                     <div class="col-12">
@@ -47,7 +39,6 @@
                     </div>
                 </div>
                 <!-- end page title -->
-
                 <!-- start row -->
                 <div class="row">
                     <div class="col-xl-12">
@@ -118,19 +109,6 @@
                                         </c:when>
                                     </c:choose>
                                 </c:forEach>
-<%--                                <div class="row">--%>
-<%--                                    <div class="col-sm-6 col-md-6">--%>
-<%--                                        <label style="font-size: x-large; color: black; padding-left: 5px"></label>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="col-sm-6 col-md-6">--%>
-<%--                                        <a href="${contextPath}/scripts/excel/${script.no}">--%>
-<%--                                            <button type="button"--%>
-<%--                                                    class="btn btn-default btn-primary waves-effect waves-light"--%>
-<%--                                                    style="float: right"><span>엑셀 다운로드</span>--%>
-<%--                                            </button>--%>
-<%--                                        </a>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
                                 <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                     <div class="row">
                                         <div class="col-sm-12" style="padding-top: 10px;">
@@ -161,9 +139,7 @@
                                                     </th>
                                                 </tr>
                                                 </thead>
-
                                                 <tbody id="measureList">
-
                                                 </tbody>
                                             </table>
                                         </div>
@@ -195,17 +171,15 @@
                     <!-- end row -->
                 </div>
                 <!-- End Page-content -->
-
             </div>
             <!-- end main content-->
         </div>
     </div>
     <!-- END layout-wrapper -->
-
 </div>
 <!-- end container-fluid -->
-
-
+<!-- JAVASCRIPT -->
+<jsp:include page="/WEB-INF/jsp/common/bottom.jsp"/>
 <!-- Buttons examples -->
 <script src="/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 <script src="/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
@@ -218,11 +192,8 @@
 <!-- Responsive examples -->
 <script src="/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 <script src="/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
-
 <!-- Datatable init js -->
 <script src="/assets/js/pages/datatables.init.js"></script>
-
-
 <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
 <script type="text/javascript"
         src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
