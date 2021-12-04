@@ -8,16 +8,18 @@
             parameterType="hashMap"
             resultType="script">
         SELECT
-            NO
-          , NAME
-          , UPLOAD_POINT
-            FROM SCRIPT
+        NO
+        , NAME
+        , UPLOAD_POINT
+        FROM SCRIPT
         <where>
-            <if test="name != null and name != ''">
-                AND NAME LIKE '%${name}%'
-            </if>
-            <if test="uploadPoint != null and uploadPoint != ''">
-                AND DATE(UPLOAD_POINT)= #{uploadPoint}
+            <if test="script != null and script !=''">
+                <if test="name != null and name != ''">
+                    AND NAME LIKE '%${name}%'
+                </if>
+                <if test="uploadPoint != null and uploadPoint != ''">
+                    AND DATE(UPLOAD_POINT)= #{uploadPoint}
+                </if>
             </if>
         </where>
         ORDER BY UPLOAD_POINT DESC
@@ -30,9 +32,9 @@
             parameterType="script"
             resultType="script">
         SELECT
-            NO
-          , NAME
-          , UPLOAD_POINT
+        NO
+        , NAME
+        , UPLOAD_POINT
         FROM SCRIPT
         <where>
             <if test="no > 0">
@@ -45,9 +47,9 @@
     <insert id="insert"
             parameterType="script">
         INSERT INTO SCRIPT
-            (NAME, UPLOAD_POINT)
+        (NAME, UPLOAD_POINT)
         VALUES
-            (#{name}, #{uploadPoint})
+        (#{name}, #{uploadPoint})
         <selectKey keyProperty="no" resultType="int" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
