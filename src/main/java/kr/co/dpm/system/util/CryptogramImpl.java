@@ -9,7 +9,6 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.security.Key;
 
-//@Component
 public class CryptogramImpl implements Cryptogram {
     private String iv;
     private Key secretKeySpec;

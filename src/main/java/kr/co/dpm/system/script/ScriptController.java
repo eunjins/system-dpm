@@ -7,6 +7,7 @@ import kr.co.dpm.system.device.DeviceServiceImpl;
 import kr.co.dpm.system.management.ManagementServiceImpl;
 import kr.co.dpm.system.measure.Measure;
 import kr.co.dpm.system.util.ExcelUtil;
+import kr.co.dpm.system.util.Navigator;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
@@ -46,6 +47,9 @@ public class ScriptController {
     private MeasureServiceImpl measureService;
 
     @Autowired
+    private Navigator navigator;
+
+    @Autowired
     private DeviceServiceImpl deviceService;
 
     @Autowired
@@ -70,52 +74,28 @@ public class ScriptController {
     @GetMapping
     public ModelAndView getScripts() {
         ModelAndView mav = new ModelAndView("script/list");
-
-        List<Measure> scriptMeasure = new ArrayList<>();
-
-        List<Script> scripts = scriptService.getScripts(new Script());
-        mav.addObject("scripts", scripts);
-
-        for (Script object : scripts) {
-            Measure measure = new Measure();
-            measure.setScriptNo(object.getNo());
-
-            List<Measure> measures = measureService.getMeasures(measure);
-            if (measures.isEmpty()) {
-                measure.setStatus("N");
-                measure.setName(measureInfo.getName());
-
-                scriptMeasure.add(measure);
-
-                continue;
-            }
-
-            measure.setName(measures.get(0).getName());
-            if (measure.getName() == null) {
-                measure.setStatus("N");
-                measure.setName(measureInfo.getName());
-            } else {
-                measure.setStatus("Y");
-            }
-            scriptMeasure.add(measure);
-        }
-        mav.addObject("scriptMeasure", scriptMeasure);
-
         return mav;
     }
 
     /*  스크립트 측정 결과 목록 조회 */
     @PostMapping
-    public Map<String, Object> getScripts(@RequestBody Map<String, String> condition) {
-        Map<String, Object> result = new HashMap<String, Object>();
+    public Map<String, Object> getScripts(@RequestBody Map<String, String> inputCondition) {
+        Map<String, Object> condition = new HashMap<String, Object>();
 
         Script conditionScript = new Script();
 
-        conditionScript.setName(condition.get("scriptName"));
-        conditionScript.setUploadPoint(condition.get("uploadPoint"));
+        conditionScript.setName(inputCondition.get("scriptName"));
+        conditionScript.setUploadPoint(inputCondition.get("uploadPoint"));
 
-        List<Script> scripts = scriptService.getScripts(conditionScript);
-        List<Measure> scriptMeasure = new ArrayList<>();
+        condition.put("script", conditionScript);
+        int scriptsCount = scriptService.getScripts(condition).size();
+
+        Integer pageNo = Integer.valueOf(inputCondition.get("pageNo")) * 10;
+        condition.put("pageNo", (pageNo.toString()));
+
+        List<Script> scripts = scriptService.getScripts(condition);
+
+        List<Measure> scriptMeasure = new ArrayList<Measure>();
 
         Script firstScript = scripts.get(0);
 
@@ -160,6 +140,8 @@ public class ScriptController {
             }
         }
 
+        Map<String, Object> result = new HashMap<String, Object>();
+
         result.put("scripts", scripts);
         result.put("scriptMeasure", scriptMeasure);
 
@@ -168,6 +150,9 @@ public class ScriptController {
         } else {
             result.put("addButton", "Y");
         }
+
+        String navigatorHtml = navigator.getNavigator(scriptsCount, pageNo / 10);
+        result.put("navigator", navigatorHtml);
 
         return result;
     }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ScriptServiceImpl implements ScriptService {
@@ -18,8 +19,8 @@ public class ScriptServiceImpl implements ScriptService {
 
     /* 스크립트 정보 목록 조회  */
     @Override
-    public List<Script> getScripts(Script script) {
-        return scriptRepository.selectAll(script);
+    public List<Script> getScripts(Map<String, Object> condition) {
+        return scriptRepository.selectAll(condition);
     }
 
     /* 스크립트 정보 조회 */

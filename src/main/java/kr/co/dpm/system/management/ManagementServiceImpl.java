@@ -1,7 +1,9 @@
 package kr.co.dpm.system.management;
 
 import kr.co.dpm.system.device.Device;
+import kr.co.dpm.system.device.DeviceService;
 import kr.co.dpm.system.device.DeviceServiceImpl;
+import kr.co.dpm.system.script.ScriptFileRepository;
 import kr.co.dpm.system.script.ScriptFileRepositoryImpl;
 import kr.co.dpm.system.util.CryptogramImpl;
 import kr.co.dpm.system.util.DistributeUtil;
@@ -12,17 +14,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ManagementServiceImpl implements ManagementService {
     private static final Logger logger = LogManager.getLogger(CryptogramImpl.class);
 
     @Autowired
-    private DeviceServiceImpl deviceService;
+    private DeviceService deviceService;
 
     @Autowired
-    private ScriptFileRepositoryImpl scriptFileRepository;
+    private ScriptFileRepository scriptFileRepository;
 
     @Override
     public void receiveDevice(Device device) {
@@ -42,7 +46,7 @@ public class ManagementServiceImpl implements ManagementService {
 
     @Override
     public boolean distributeScript(MultipartFile classFile) {
-        List<Device> devices = deviceService.getDevices(new Device());
+        List<Device> devices = deviceService.getDevices(new HashMap<String, Object>());
 
         for (Device device : devices) {
             if (device.getStatus().equals("Y")) {

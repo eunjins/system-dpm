@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedInputStream;
@@ -18,7 +19,7 @@ import java.io.InputStream;
 import java.net.NoRouteToHostException;
 import java.net.SocketTimeoutException;
 
-@Component
+@Repository
 public class ScriptFileRepositoryImpl implements ScriptFileRepository {
     private static final Logger logger = LogManager.getLogger(ScriptController.class);
     private static final MediaType MULTIPART = MediaType.parse("multipart/form-data");

@@ -5,7 +5,7 @@
 
 <mapper namespace="kr.co.dpm.system.script.ScriptRepository">
     <select id="selectAll"
-            parameterType="script"
+            parameterType="hashMap"
             resultType="script">
         SELECT
             NO
@@ -21,6 +21,9 @@
             </if>
         </where>
         ORDER BY UPLOAD_POINT DESC
+        <if test="pageNo != null and pageNo != ''">
+            LIMIT ${pageNo}, 10
+        </if>
     </select>
 
     <select id="select"

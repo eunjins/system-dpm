@@ -55,13 +55,13 @@
                             <div class="col-sm-12 col-md-12" style="text-align: right">
                                 <div id="datatable_filter" class="dataTables_filter">
                                     <label>
-                                    <select id="select_condition"
-                                            name="datatable_type" aria-controls="datatable"
-                                            class="custom-select form-control form-select">
-                                        <option value="measureName">측정 결과 명</option>
-                                        <option value="scriptName">스크립트 명</option>
-                                        <option value="uploadPoint">업로드 일자</option>
-                                    </select>
+                                        <select id="select_condition"
+                                                name="datatable_type" aria-controls="datatable"
+                                                class="custom-select form-control form-select">
+                                            <option value="measureName">측정 결과 명</option>
+                                            <option value="scriptName">스크립트 명</option>
+                                            <option value="uploadPoint">업로드 일자</option>
+                                        </select>
                                     </label>
                                     <label id="search_bar">
                                         <input id="search_message" type="search"
@@ -114,6 +114,7 @@
                                         </tbody>
                                     </table>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12">
                                         <div class="dataTables_paginate paging_simple_numbers"
@@ -123,9 +124,9 @@
                                         </div>
 
                                     </div>
-<%--                                    <div class="col-sm-12 col-md-5">--%>
+                                    <%--                                    <div class="col-sm-12 col-md-5">--%>
 
-<%--                                    </div>--%>
+                                    <%--                                    </div>--%>
                                 </div>
                                 <div class="row">
                                     <div class="button-items">
@@ -159,28 +160,37 @@
 <!-- JAVASCRIPT -->
 <!-- JAVASCRIPT -->
 <script>
-    var allScriptNo;
     var pageNo = 0;
+    var allScriptNo;
 
     search();
 
+    document.getElementById("button_search").addEventListener("click", initPage, false);
     document.getElementById("button_search").addEventListener("click", search, false);
     document.getElementById("select_condition").addEventListener("change", condition, false);
 
+    function initPage() {
+        pageNo = 0;
+    }
+
     function changePage(pageButtonId) {
-        if (pageButtonId == "backPage") {
-            if ((parseInt(pageNo / 5) * 5) - 5 >= 0) {
-                pageNo = (parseInt(pageNo / 5) * 5) - 5;
-            }
+        if (pageButtonId == "firstPage") {
+            pageNo = 0;
+
+        } else if (pageButtonId == "backPage") {
+            pageNo = (parseInt(pageNo / 5) * 5) - 5;
+
 
         } else if (pageButtonId == "nextPage") {
-            if ((parseInt(pageNo / 5) * 5) + 5 <= (parseInt(allDeviceNo / 10))) {
-                pageNo = (parseInt(pageNo / 5) * 5) + 5;
-            }
+            pageNo = (parseInt(pageNo / 5) * 5) + 5;
+
+        } else if (pageButtonId == "lastPage") {
+            pageNo = parseInt((allScriptNo - 1) / 10);
 
         } else {
             pageNo = parseInt(pageButtonId);
         }
+
         search();
     }
 
@@ -190,9 +200,9 @@
             document.getElementById("search_bar").innerHTML = '<input id="search_message" class="form-control" type="date" value="">';
         } else {
             document.getElementById("search_bar").innerHTML = '<input id="search_message" type="search"' +
-                                                               'class="form-control"' +
-                                                               'placeholder="검색어를 입력하세요"' +
-                                                               'aria-controls="datatable" style="text-align: left">';
+                'class="form-control"' +
+                'placeholder="검색어를 입력하세요"' +
+                'aria-controls="datatable" style="text-align: left">';
         }
     }
 
@@ -200,11 +210,11 @@
         let searchKeyword = "";
         const selectCondition = document.getElementById("select_condition").value;
         if (selectCondition == "measureName") {
-            searchKeyword = {"measureName": document.getElementById("search_message").value};
+            searchKeyword = {"measureName": document.getElementById("search_message").value, "pageNo": pageNo};
         } else if (selectCondition == "scriptName") {
-            searchKeyword = {"scriptName": document.getElementById("search_message").value};
+            searchKeyword = {"scriptName": document.getElementById("search_message").value, "pageNo": pageNo};
         } else {
-            searchKeyword = {"uploadPoint": document.getElementById("search_message").value};
+            searchKeyword = {"uploadPoint": document.getElementById("search_message").value, "pageNo": pageNo};
         }
 
         $.ajax({
@@ -225,18 +235,11 @@
 
         allScriptNo = scripts.length;
 
-        let text = "";
+        let tableHtml = "";
 
-        let endScriptNo;
 
-        if (allScriptNo - (pageNo * 10) < 10) {
-            endScriptNo = allScriptNo;
-        } else {
-            endScriptNo = ((pageNo + 1) * 10);
-        }
-
-        for (let i = pageNo * 10; i < endScriptNo; i++) {
-            text +=
+        for (let i = pageNo * 10; i < allScriptNo; i++) {
+            tableHtml +=
                 '<tr class="odd">' +
                 '<td class="dtr-control sorting_1" tabindex="0">' + (i + 1) + '</td>' +
                 '<td style="text-align: left">' + scriptMeasure[i].name +
@@ -246,54 +249,20 @@
                 '<td>';
 
             if (scriptMeasure[i].status == 'N') {
-                text += '측정중';
+                tableHtml += '측정중';
             } else {
-                text += '<a href="${contextPath}/scripts/' + scripts[i].no + '">결과 보기</a>';
+                tableHtml += '<a href="${contextPath}/scripts/' + scripts[i].no + '">결과 보기</a>';
             }
-            text += '</td>' +
+            tableHtml += '</td>' +
                 '</tr>';
 
         }
         const table = document.getElementById("table");
-        table.innerHTML = text;
-
-        let endPageNo;
-        if ((parseInt(allScriptNo / 10)) < (parseInt(pageNo / 5) * 5) + 5) {
-            endPageNo = ((parseInt(allScriptNo / 10))) + 1;
-        } else {
-            endPageNo = (parseInt(pageNo / 5) * 5) + 5;
-        }
-
-        let pageNoHtml = "";
-
-        pageNoHtml += '<li class="paginate_button page-item previous"' +
-            'id="datatable_previous"><a id="backPage"' +
-            'href="#"' +
-            'aria-controls="datatable"' +
-            'data-dt-idx="0" tabindex="0"' +
-            'class="page-link" onclick="changePage(this.id)">&lt;</a></li>';
-
-        let count = 1;
-        for (let i = (parseInt(pageNo / 5) * 5); i < endPageNo; i++) {
-            if (pageNo == i) {
-                pageNoHtml += '<li class="paginate_button page-item active"><a id="' + (i) + '" href="#" onclick="changePage(i)"';
-            } else {
-                pageNoHtml += '<li class="paginate_button page-item "><a href="#" onclick="changePage(' + i + ')"';
-            }
-
-            pageNoHtml += 'aria-controls="datatable"' +
-                'data-dt-idx="' + (count++) + '"' +
-                'tabindex="0"' +
-                'class="page-link" onclick="changePage(this.id)" >' + (i + 1) + '</a>';
-        }
-        pageNoHtml += '<li class="paginate_button page-item next" id="datatable_next">' +
-            '<a id="nextPage" onclick="changePage(this.id)"' +
-            'href="#" aria-controls="datatable" data-dt-idx="' + (count) + '"' +
-            'tabindex="0" class="page-link" onclick="changePage(this.id)">&gt;</a></li>'
+        table.innerHTML = tableHtml;
 
         let pageTable = document.getElementById("pageNo");
 
-        pageTable.innerHTML = pageNoHtml;
+        pageTable.innerHTML = responseJSON.navigator;
 
         const targetButton = document.getElementById("add_button");
         if (addButton == 'Y') {
@@ -305,7 +274,6 @@
     }
 </script>
 
-
 <!-- Buttons examples -->
 <script src="/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 <script src="/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
@@ -316,11 +284,7 @@
 <script src="/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
 <script src="/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 
-
-
 <script src="/assets/js/app.js"></script>
-
-
 
 </body>
 

@@ -4,6 +4,7 @@ import kr.co.dpm.system.common.ResponseMessage;
 import kr.co.dpm.system.common.StatusCode;
 import kr.co.dpm.system.management.ManagementService;
 import kr.co.dpm.system.management.ManagementServiceImpl;
+import kr.co.dpm.system.util.Navigator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +34,15 @@ public class DeviceController {
     private ResponseMessage responseMessage;
 
     @Autowired
+    private Navigator navigator;
+
+    @Autowired
     private StatusCode statusCode;
 
     /* 디바이스 목록 폼 */
     @GetMapping
     public ModelAndView getDevices() {
         ModelAndView mav = new ModelAndView("device/list");
-        mav.addObject("devices", deviceService.getDevices(new Device()));
 
         return mav;
     }
@@ -47,8 +50,31 @@ public class DeviceController {
     /* 디바이스 목록 조회 */
     @PostMapping
     @ResponseBody
-    public List<Device> getDevices(@RequestBody Device device) {
-        return deviceService.getDevices(device);
+    public Map<String, Object> getDevices(@RequestBody Map<String, String> inputCondition) {
+        Map<String, Object> condition = new HashMap<String, Object>();
+
+        Device device = new Device();
+        device.setName(inputCondition.get("name"));
+        device.setInsertDate(inputCondition.get("insertDate"));
+        device.setStatus(inputCondition.get("status"));
+
+        condition.put("device", device);
+
+        Integer pageNo = Integer.valueOf(inputCondition.get("pageNo")) * 10;
+        condition.put("pageNo", (pageNo.toString()));
+
+        Map<String, Object> result = new HashMap<String, Object>();
+        List<Device> devices = deviceService.getDevices(condition);
+        result.put("devices", devices);
+
+        condition.remove("pageNo");
+
+        int deviceCount = deviceService.getDevices(condition).size();
+
+        String navigatorHtml = navigator.getNavigator(deviceCount, pageNo / 10);
+        result.put("navigator", navigatorHtml);
+
+        return result;
     }
 
     /* 디바이스 상세 조회 */
