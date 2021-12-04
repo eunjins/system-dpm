@@ -13,17 +13,13 @@ public class CryptogramImpl implements Cryptogram {
     private String iv;
     private Key secretKeySpec;
 
-    public CryptogramImpl(String key) {
+    public CryptogramImpl(String key) throws UnsupportedEncodingException {
         this.iv = key.substring(0, 16);
 
         byte[] keyBytes = new byte[16];
         byte[] utf8KeyBytes = null;
 
-        try {
-            utf8KeyBytes = key.getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        utf8KeyBytes = key.getBytes("UTF-8");
 
         int len = utf8KeyBytes.length;
 

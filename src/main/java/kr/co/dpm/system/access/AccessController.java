@@ -24,8 +24,13 @@ public class AccessController {
     @PostMapping("/login")
     public ModelAndView login(User user, HttpSession httpSession) {
         ModelAndView mav = null;
+        User userInfo = null;
 
-        User userInfo = userRepository.select();
+        try {
+            userInfo = userRepository.select();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (user.getId().equals(userInfo.getId())
                 && user.getPassword().equals(userInfo.getPassword())) {
             httpSession.setAttribute("log", user.getId());

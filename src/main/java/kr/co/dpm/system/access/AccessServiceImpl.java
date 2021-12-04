@@ -12,7 +12,7 @@ public class AccessServiceImpl implements AccessService {
 
     //관리자 정보 조회
     @Override
-    public User getManager() {
+    public User getManager() throws Exception {
         return userRepository.select();
     }
 }

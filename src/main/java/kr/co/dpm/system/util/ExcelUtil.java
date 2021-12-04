@@ -7,8 +7,6 @@ import kr.co.dpm.system.measure.Measure;
 import kr.co.dpm.system.measure.MeasureService;
 import kr.co.dpm.system.measure.MeasureServiceImpl;
 import kr.co.dpm.system.script.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,25 +136,25 @@ public class ExcelUtil {
         row.createCell(1).setCellStyle(bottomStyle);
         row.createCell(2).setCellStyle(bottomStyle);
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDate localDate = LocalDate.parse(script.getUploadPoint(), formatter);
+        String date = localDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        String fileName = measures.get(0).getName() + "_" + date + ".xlsx";
+
+        File directory = new File(excelPath);
+        if (!directory.isDirectory()) {
+            directory.mkdir();
+        }
+
         FileOutputStream fileOutputStream = null;
-        String fileName = null;
-
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            LocalDate localDate = LocalDate.parse(script.getUploadPoint(), formatter);
-            String date = localDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-            fileName = measures.get(0).getName() + "_" + date + ".xlsx";
-
             fileOutputStream = new FileOutputStream(excelPath + File.separator + fileName);
             workbook.write(fileOutputStream);
-
         } catch (Exception e) {
             e.printStackTrace();
-
         } finally {
             try {
                 fileOutputStream.close();
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
