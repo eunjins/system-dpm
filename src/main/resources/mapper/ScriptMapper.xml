@@ -13,13 +13,11 @@
         , UPLOAD_POINT
         FROM SCRIPT
         <where>
-            <if test="script != null and script !=''">
-                <if test="name != null and name != ''">
-                    AND NAME LIKE '%${name}%'
-                </if>
-                <if test="uploadPoint != null and uploadPoint != ''">
-                    AND DATE(UPLOAD_POINT)= #{uploadPoint}
-                </if>
+            <if test="name != null and name != ''">
+                AND NAME LIKE '%${name}%'
+            </if>
+            <if test="uploadPoint != null and uploadPoint != ''">
+                AND DATE(UPLOAD_POINT)= #{uploadPoint}
             </if>
             <if test="measureName != null and measureName != ''">
                 AND NO IN (SELECT SCRIPT_NO FROM MEASURE WHERE NAME LIKE '%${measureName}%')
