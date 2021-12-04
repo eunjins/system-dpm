@@ -23,7 +23,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -322,7 +321,6 @@ public class ScriptController {
 
     /* 측정 결과 수신 */
     @PostMapping(value = "/result")
-    @ResponseBody
     public Map<String, String> receiveScript(
             @RequestBody Measure measure, HttpServletResponse httpServletResponse) {
         logger.debug("-------> 측정 결과 수신 " + measure.toString());

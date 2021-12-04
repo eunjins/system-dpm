@@ -2,9 +2,7 @@ package kr.co.dpm.system.management;
 
 import kr.co.dpm.system.device.Device;
 import kr.co.dpm.system.device.DeviceService;
-import kr.co.dpm.system.device.DeviceServiceImpl;
 import kr.co.dpm.system.script.ScriptFileRepository;
-import kr.co.dpm.system.script.ScriptFileRepositoryImpl;
 import kr.co.dpm.system.util.CryptogramImpl;
 import kr.co.dpm.system.util.DistributeUtil;
 import org.apache.logging.log4j.LogManager;
@@ -16,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ManagementServiceImpl implements ManagementService {

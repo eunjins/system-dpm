@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 
-@Controller
+@RestController
 @RequestMapping("/devices")
 public class DeviceController {
     private static final Logger logger = LogManager.getLogger(DeviceController.class);
@@ -48,7 +48,6 @@ public class DeviceController {
     }
 
     /* 디바이스 목록 조회 */
-    @PostMapping
     @ResponseBody
     public Map<String, Object> getDevices(@RequestBody Map<String, String> inputCondition) {
         Map<String, Object> condition = new HashMap<String, Object>();
@@ -107,7 +106,6 @@ public class DeviceController {
 
     /* 디바이스 정보 수신 */
     @PostMapping("/data")
-    @ResponseBody
     public Map<String, String> receiveDevice(
             @RequestBody Device device, HttpServletResponse httpServletResponse) {
         logger.debug("-------> 디바이스 정보 수신" + device.toString());
