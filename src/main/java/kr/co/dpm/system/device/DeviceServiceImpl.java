@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class DeviceServiceImpl implements DeviceService {
@@ -12,8 +13,8 @@ public class DeviceServiceImpl implements DeviceService {
 
     /* 목록 조회 */
     @Override
-    public List<Device> getDevices(Device device) {
-        return deviceRepository.selectAll(device);
+    public List<Device> getDevices(Map<String, String> condition) {
+        return deviceRepository.selectAll(condition);
     }
 
     /* 한 건 조회 */

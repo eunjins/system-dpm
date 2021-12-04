@@ -5,13 +5,13 @@
 
 <mapper namespace="kr.co.dpm.system.script.ScriptRepository">
     <select id="selectAll"
-            parameterType="script"
+            parameterType="Map"
             resultType="script">
         SELECT
-            NO
-          , NAME
-          , UPLOAD_POINT
-            FROM SCRIPT
+        NO
+        , NAME
+        , UPLOAD_POINT
+        FROM SCRIPT
         <where>
             <if test="name != null and name != ''">
                 AND NAME LIKE '%${name}%'
@@ -21,15 +21,18 @@
             </if>
         </where>
         ORDER BY UPLOAD_POINT DESC
+        <if test="pageNo != null and pageNo != ''">
+            LIMIT ${pageNo}, 10
+        </if>
     </select>
 
     <select id="select"
             parameterType="script"
             resultType="script">
         SELECT
-            NO
-          , NAME
-          , UPLOAD_POINT
+        NO
+        , NAME
+        , UPLOAD_POINT
         FROM SCRIPT
         <where>
             <if test="no > 0">
@@ -42,9 +45,9 @@
     <insert id="insert"
             parameterType="script">
         INSERT INTO SCRIPT
-            (NAME, UPLOAD_POINT)
+        (NAME, UPLOAD_POINT)
         VALUES
-            (#{name}, #{uploadPoint})
+        (#{name}, #{uploadPoint})
         <selectKey keyProperty="no" resultType="int" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>

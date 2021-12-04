@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -42,7 +43,7 @@ public class ManagementServiceImpl implements ManagementService {
 
     @Override
     public boolean distributeScript(MultipartFile classFile) {
-        List<Device> devices = deviceService.getDevices(new Device());
+        List<Device> devices = deviceService.getDevices(new HashMap<String, String>());
 
         for (Device device : devices) {
             if (device.getStatus().equals("Y")) {

@@ -102,6 +102,34 @@
                                         </button>
                                     </div>
 
+                                    <div class="modal-contatiner" id="modal">       <!-- 모달 -->
+                                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                             data-bs-keyboard="false" tabindex="-1"
+                                             aria-labelledby="staticBackdropLabel" style="display: none;"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="staticBackdropLabel">스크립트 배포
+                                                        </h4>
+                                                        <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body"
+                                                         style="font-size: large; color: blue; text-align: center">
+                                                        <div class="spinner-border text-primary" role="status"></div>
+                                                        <div>스크립트를 배포 중 입니다. 잠시만 기다려주세요.</div>
+                                                    </div>
+                                                    <div class="modal-footer">
+
+                                                    </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                    </div>
+
                                 </form>
                             </div>
                         </div>
@@ -133,8 +161,10 @@
     document.getElementById("register").innerHTML = "${distributeFail}";
     //document.getElementById("register").innerHTML = "${extensionMiss}";
 
+    var registerInfo;
+
     function distribute() {
-        var registerInfo = {
+        registerInfo = {
             registerForm:document.registerForm,
             name: document.getElementById("measureName").value,
             sourcefile: document.getElementById("sourcefile").value,
@@ -147,6 +177,10 @@
                   registerInfo.classfile == null || registerInfo.classfile == "") {
             document.getElementById("register").innerHTML = "스크립트 파일을 선택하세요";
         } else {
+            jQuery(document).ready(function () {
+                $("#staticBackdrop").modal("show");
+            });
+
             registerInfo.registerForm.submit();
         }
     }

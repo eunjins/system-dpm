@@ -7,6 +7,7 @@ import kr.co.dpm.system.device.DeviceServiceImpl;
 import kr.co.dpm.system.management.ManagementServiceImpl;
 import kr.co.dpm.system.measure.Measure;
 import kr.co.dpm.system.util.ExcelUtil;
+import kr.co.dpm.system.util.Navigator;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
@@ -45,6 +46,9 @@ public class ScriptController {
     private MeasureServiceImpl measureService;
 
     @Autowired
+    private Navigator navigator;
+
+    @Autowired
     private DeviceServiceImpl deviceService;
 
     @Autowired
@@ -57,64 +61,34 @@ public class ScriptController {
     private ManagementServiceImpl managementService;
 
     @Autowired
-    private StatusCode statusCode;
-
-    @Autowired
-    private ResponseMessage responseMessage;
-
-    @Autowired
     private ExcelUtil excelUtil;
+
+    @Autowired
+    private StatusCode statusCode;
 
     /*  스크립트 측정 결과 목록 폼 */
     @GetMapping
     public ModelAndView getScripts() {
         ModelAndView mav = new ModelAndView("script/list");
-
-        List<Measure> scriptMeasure = new ArrayList<>();
-
-        List<Script> scripts = scriptService.getScripts(new Script());
-        mav.addObject("scripts", scripts);
-
-        for (Script object : scripts) {
-            Measure measure = new Measure();
-            measure.setScriptNo(object.getNo());
-
-            List<Measure> measures = measureService.getMeasures(measure);
-            if (measures.isEmpty()) {
-                measure.setStatus("N");
-                measure.setName(measureInfo.getName());
-
-                scriptMeasure.add(measure);
-
-                continue;
-            }
-
-            measure.setName(measures.get(0).getName());
-            if (measure.getName() == null) {
-                measure.setStatus("N");
-                measure.setName(measureInfo.getName());
-            } else {
-                measure.setStatus("Y");
-            }
-            scriptMeasure.add(measure);
-        }
-        mav.addObject("scriptMeasure", scriptMeasure);
-
         return mav;
     }
 
     /*  스크립트 측정 결과 목록 조회 */
     @PostMapping
-    public Map<String, Object> getScripts(@RequestBody Map<String, String> condition) {
-        Map<String, Object> result = new HashMap<String, Object>();
+    public Map<String, Object> getScripts(@RequestBody Map<String, String> inputCondition) {
+        Map<String, String> condition = new HashMap<String, String>();
 
-        Script conditionScript = new Script();
+        condition.put("name", inputCondition.get("scriptName"));
+        condition.put("uploadPoint", inputCondition.get("uploadPoint"));
 
-        conditionScript.setName(condition.get("scriptName"));
-        conditionScript.setUploadPoint(condition.get("uploadPoint"));
+        int scriptsCount = scriptService.getScripts(condition).size();
 
-        List<Script> scripts = scriptService.getScripts(conditionScript);
-        List<Measure> scriptMeasure = new ArrayList<>();
+        Integer pageNo = Integer.valueOf(inputCondition.get("pageNo")) * 10;
+        condition.put("pageNo", (pageNo.toString()));
+
+        List<Script> scripts = scriptService.getScripts(condition);
+
+        List<Measure> scriptMeasure = new ArrayList<Measure>();
 
         Script firstScript = scripts.get(0);
 
@@ -159,6 +133,8 @@ public class ScriptController {
             }
         }
 
+        Map<String, Object> result = new HashMap<String, Object>();
+
         result.put("scripts", scripts);
         result.put("scriptMeasure", scriptMeasure);
 
@@ -167,6 +143,9 @@ public class ScriptController {
         } else {
             result.put("addButton", "Y");
         }
+
+        String navigatorHtml = navigator.getNavigator(scriptsCount, pageNo / 10);
+        result.put("navigator", navigatorHtml);
 
         return result;
     }
@@ -213,7 +192,7 @@ public class ScriptController {
                 }
 
                 try {
-                    Thread.sleep(4000);     //TODO 스크립트 송신 체크 시간
+                    Thread.sleep(4000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -350,42 +329,36 @@ public class ScriptController {
 
         Map<String, String> responseData = new HashMap<>();
 
-        Map<Integer, String> statusRepository = new HashMap<>();
-        statusRepository.put(statusCode.NOT_MODIFIED, responseMessage.NOT_MODIFIED_MSG);
-        statusRepository.put(statusCode.BAD_REQUEST, responseMessage.BAD_REQUEST_MSG);
-        statusRepository.put(statusCode.NOT_FOUND, responseMessage.NOT_FOUND_MSG);
-        statusRepository.put(statusCode.INTERNAL_SERVER_ERROR, responseMessage.INTERNAL_SERVER_ERROR_MSG);
-
         int code = httpServletResponse.getStatus();
-        String message = statusRepository.get(code);
+        String message = statusCode.getStatusRepository().get(code);
+
+        responseData.put("code", String.valueOf(code));
 
         if (message != null) {
-            responseData.put("code", String.valueOf(code));
             responseData.put("message", message);
+
         } else {
-            responseData.put("code", String.valueOf(code));
             responseData.put("message", null);
         }
 
         if (measure.getDeviceId() != null) {
             measure.setName(measureInfo.getName());
 
-            while (true) {
-                if (measureInfo.getScriptNo() == 0) {
-                    try {
+            try {
+                while (true) {
+                    if (measureInfo.getScriptNo() == 0) {
                         Thread.sleep(1000);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+
+                    } else {
+                        break;
                     }
-                } else {
-                    break;
                 }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
             measure.setScriptNo(measureInfo.getScriptNo());
-
-            logger.debug("-------> 등록 측정 결과 정보 " + measure);
-
             measureService.registerMeasure(measure);
 
             logger.debug("-------> 배포중 디바이스 개수 : " + --distributeCount);

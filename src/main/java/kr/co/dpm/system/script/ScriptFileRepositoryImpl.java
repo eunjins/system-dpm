@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedInputStream;
@@ -18,7 +19,7 @@ import java.io.InputStream;
 import java.net.NoRouteToHostException;
 import java.net.SocketTimeoutException;
 
-@Component
+@Repository
 public class ScriptFileRepositoryImpl implements ScriptFileRepository {
     private static final Logger logger = LogManager.getLogger(ScriptController.class);
     private static final MediaType MULTIPART = MediaType.parse("multipart/form-data");
@@ -38,6 +39,7 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
     @Override
     public boolean distribute(MultipartFile classFile, String encryptResult, String ip) {
         File convertFile = null;
+
         try {
             convertFile = new File(path + File.separator + classFile.getOriginalFilename());
 
@@ -73,17 +75,22 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
 
                 return true;
             }
+
             logger.debug("-------> 에이전트 배포 오류 : " + jsonResponse.getString("message"));
 
         } catch(NoRouteToHostException e) {
             e.printStackTrace();
+
         } catch(SocketTimeoutException e) {
             logger.debug("-------> " + ip + " 에이전트 연결 시간 초과");
+
         } catch(Exception e) {
             e.printStackTrace();
+
         } finally {
            convertFile.delete();
         }
+
         logger.debug("------> 배포 실패 ");
 
         return false;
