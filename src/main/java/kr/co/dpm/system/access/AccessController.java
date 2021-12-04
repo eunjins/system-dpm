@@ -7,13 +7,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 
 @Controller
 public class AccessController {
     @Autowired
-    UserRepositoryImpl userRepositoryImpl;
+    UserRepository userRepository;
 
     // 로그인 폼
     @GetMapping("/login")
@@ -26,7 +25,7 @@ public class AccessController {
     public ModelAndView login(User user, HttpSession httpSession) {
         ModelAndView mav = null;
 
-        User userInfo = userRepositoryImpl.select();
+        User userInfo = userRepository.select();
         if (user.getId().equals(userInfo.getId())
                 && user.getPassword().equals(userInfo.getPassword())){
             httpSession.setAttribute("log", user.getId());

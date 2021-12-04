@@ -2,6 +2,7 @@ package kr.co.dpm.system.device;
 
 import kr.co.dpm.system.common.ResponseMessage;
 import kr.co.dpm.system.common.StatusCode;
+import kr.co.dpm.system.management.ManagementService;
 import kr.co.dpm.system.management.ManagementServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,10 +24,10 @@ public class DeviceController {
     private static final Logger logger = LogManager.getLogger(DeviceController.class);
 
     @Autowired
-    private DeviceServiceImpl deviceService;
+    private DeviceService deviceService;
 
     @Autowired
-    private ManagementServiceImpl managementService;
+    private ManagementService managementService;
 
     @Autowired
     private ResponseMessage responseMessage;

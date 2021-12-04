@@ -1,8 +1,10 @@
 package kr.co.dpm.system.util;
 
 import kr.co.dpm.system.device.Device;
+import kr.co.dpm.system.device.DeviceService;
 import kr.co.dpm.system.device.DeviceServiceImpl;
 import kr.co.dpm.system.measure.Measure;
+import kr.co.dpm.system.measure.MeasureService;
 import kr.co.dpm.system.measure.MeasureServiceImpl;
 import kr.co.dpm.system.script.*;
 import org.apache.logging.log4j.LogManager;
@@ -29,10 +31,10 @@ public class ExcelUtil {
     private String excelPath;
 
     @Autowired
-    private MeasureServiceImpl measureService;
+    private MeasureService measureService;
 
     @Autowired
-    private DeviceServiceImpl deviceService;
+    private DeviceService deviceService;
 
     /* 엑셀 생성 */
     public File createExcel(Script script) {

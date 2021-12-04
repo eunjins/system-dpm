@@ -35,6 +35,7 @@
     <bean id="mapperScannerConfigurer"
           class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="kr.co.dpm.system"/>
+        <property name="annotationClass" value="org.apache.ibatis.annotations.Mapper" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 </beans>
