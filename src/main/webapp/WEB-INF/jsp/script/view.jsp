@@ -109,19 +109,6 @@
                                         </c:when>
                                     </c:choose>
                                 </c:forEach>
-<%--                                <div class="row">--%>
-<%--                                    <div class="col-sm-6 col-md-6">--%>
-<%--                                        <label style="font-size: x-large; color: black; padding-left: 5px"></label>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="col-sm-6 col-md-6">--%>
-<%--                                        <a href="${contextPath}/scripts/excel/${script.no}">--%>
-<%--                                            <button type="button"--%>
-<%--                                                    class="btn btn-default btn-primary waves-effect waves-light"--%>
-<%--                                                    style="float: right"><span>엑셀 다운로드</span>--%>
-<%--                                            </button>--%>
-<%--                                        </a>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
                                 <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                     <div class="row">
                                         <div class="col-sm-12" style="padding-top: 10px;">
