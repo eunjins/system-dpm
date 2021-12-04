@@ -43,7 +43,7 @@ public class ManagementServiceImpl implements ManagementService {
 
     @Override
     public boolean distributeScript(MultipartFile classFile) {
-        List<Device> devices = deviceService.getDevices(new HashMap<String, Object>());
+        List<Device> devices = deviceService.getDevices(new HashMap<String, String>());
 
         for (Device device : devices) {
             if (device.getStatus().equals("Y")) {

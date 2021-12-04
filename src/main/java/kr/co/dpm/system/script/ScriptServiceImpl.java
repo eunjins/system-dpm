@@ -19,7 +19,7 @@ public class ScriptServiceImpl implements ScriptService {
 
     /* 스크립트 정보 목록 조회  */
     @Override
-    public List<Script> getScripts(Map<String, Object> condition) {
+    public List<Script> getScripts(Map<String, String> condition) {
         return scriptRepository.selectAll(condition);
     }
 

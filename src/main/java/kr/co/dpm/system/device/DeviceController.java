@@ -50,25 +50,21 @@ public class DeviceController {
     /* 디바이스 목록 조회 */
     @PostMapping
     public Map<String, Object> getDevices(@RequestBody Map<String, String> inputCondition) {
-        Map<String, Object> condition = new HashMap<String, Object>();
+        Map<String, String> condition = new HashMap<String, String>();
 
-        Device device = new Device();
-        device.setName(inputCondition.get("name"));
-        device.setInsertDate(inputCondition.get("insertDate"));
-        device.setStatus(inputCondition.get("status"));
+        condition.put("name", inputCondition.get("name"));
+        condition.put("insertDate", inputCondition.get("insertDate"));
+        condition.put("status", inputCondition.get("status"));
 
-        condition.put("device", device);
+        int deviceCount = deviceService.getDevices(condition).size();
 
         Integer pageNo = Integer.valueOf(inputCondition.get("pageNo")) * 10;
         condition.put("pageNo", (pageNo.toString()));
 
-        Map<String, Object> result = new HashMap<String, Object>();
         List<Device> devices = deviceService.getDevices(condition);
+
+        Map<String, Object> result = new HashMap<String, Object>();
         result.put("devices", devices);
-
-        condition.remove("pageNo");
-
-        int deviceCount = deviceService.getDevices(condition).size();
 
         String navigatorHtml = navigator.getNavigator(deviceCount, pageNo / 10);
         result.put("navigator", navigatorHtml);

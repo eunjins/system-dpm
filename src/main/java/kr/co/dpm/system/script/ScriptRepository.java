@@ -8,7 +8,7 @@ import java.util.Map;
 @Mapper
 public interface ScriptRepository {
 
-    public List<Script> selectAll(Map<String, Object> condition);
+    public List<Script> selectAll(Map<String, String> condition);
 
     public Script select(Script script);
 

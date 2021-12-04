@@ -79,14 +79,11 @@ public class ScriptController {
     /*  스크립트 측정 결과 목록 조회 */
     @PostMapping
     public Map<String, Object> getScripts(@RequestBody Map<String, String> inputCondition) {
-        Map<String, Object> condition = new HashMap<String, Object>();
+        Map<String, String> condition = new HashMap<String, String>();
 
-        Script conditionScript = new Script();
+        condition.put("name", inputCondition.get("scriptName"));
+        condition.put("uploadPoint", inputCondition.get("uploadPoint"));
 
-        conditionScript.setName(inputCondition.get("scriptName"));
-        conditionScript.setUploadPoint(inputCondition.get("uploadPoint"));
-
-        condition.put("script", conditionScript);
         int scriptsCount = scriptService.getScripts(condition).size();
 
         Integer pageNo = Integer.valueOf(inputCondition.get("pageNo")) * 10;

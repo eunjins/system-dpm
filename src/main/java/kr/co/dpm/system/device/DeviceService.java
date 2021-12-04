@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Service
 public interface DeviceService {
-    public List<Device> getDevices(Map<String, Object> condition);
+    public List<Device> getDevices(Map<String, String> condition);
 
     public Device getDevice(Device device);
 

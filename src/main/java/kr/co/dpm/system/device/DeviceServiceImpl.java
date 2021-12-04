@@ -13,7 +13,7 @@ public class DeviceServiceImpl implements DeviceService {
 
     /* 목록 조회 */
     @Override
-    public List<Device> getDevices(Map<String, Object> condition) {
+    public List<Device> getDevices(Map<String, String> condition) {
         return deviceRepository.selectAll(condition);
     }
 

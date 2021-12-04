@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Mapper
 public interface DeviceRepository {
-    public List<Device> selectAll(Map<String, Object> condition);
+    public List<Device> selectAll(Map<String, String> condition);
 
     public Device select(Device device);
 

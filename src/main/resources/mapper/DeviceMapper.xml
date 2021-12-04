@@ -5,7 +5,7 @@
 
 <mapper namespace="kr.co.dpm.system.device.DeviceRepository">
     <select id="selectAll"
-            parameterType="hashMap"
+            parameterType="Map"
             resultType="device">
         SELECT
         ID
@@ -17,16 +17,14 @@
         , STATUS
         FROM DEVICE
         <where>
-            <if test="device != null and device !=''">
-                <if test="device.name != null and device.name != ''">
-                    AND NAME LIKE '%${device.name}%'
-                </if>
-                <if test="device.insertDate != null and device.insertDate != ''">
-                    AND INSERT_DATE = DATE_FORMAT(#{device.insertDate}, '%Y-%m-%d')
-                </if>
-                <if test="device.status != null and device.status != ''">
-                    AND STATUS = #{device.status}
-                </if>
+            <if test="name != null and name != ''">
+                AND NAME LIKE '%${name}%'
+            </if>
+            <if test="insertDate != null and insertDate != ''">
+                AND INSERT_DATE = DATE_FORMAT(#{insertDate}, '%Y-%m-%d')
+            </if>
+            <if test="status != null and status != ''">
+                AND STATUS = #{status}
             </if>
         </where>
         ORDER BY NAME
