@@ -39,6 +39,7 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
     @Override
     public boolean distribute(MultipartFile classFile, String encryptResult, String ip) {
         File convertFile = null;
+
         try {
             convertFile = new File(path + File.separator + classFile.getOriginalFilename());
 
@@ -74,17 +75,22 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
 
                 return true;
             }
+
             logger.debug("-------> 에이전트 배포 오류 : " + jsonResponse.getString("message"));
 
         } catch(NoRouteToHostException e) {
             e.printStackTrace();
+
         } catch(SocketTimeoutException e) {
             logger.debug("-------> " + ip + " 에이전트 연결 시간 초과");
+
         } catch(Exception e) {
             e.printStackTrace();
+
         } finally {
            convertFile.delete();
         }
+
         logger.debug("------> 배포 실패 ");
 
         return false;

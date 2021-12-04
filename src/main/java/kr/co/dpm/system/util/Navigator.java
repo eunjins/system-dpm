@@ -14,9 +14,11 @@ public class Navigator {
 
         if (pageNo== 0) {
             navigator.append("<li class='pagenate_button page-item disabled' ><a id = 'firstPage' ");
+
         } else {
             navigator.append("<li class='pagenate_button page-item' ><a id = 'firstPage' ");
         }
+
         navigator.append("href='#' ");
         navigator.append("aria-controls='datatable' ");
         navigator.append("tabindex='0' ");
@@ -24,6 +26,7 @@ public class Navigator {
 
         if ((pageNo / 5) == 0) {
             navigator.append("<li class='paginate_button page-item previous disabled' ");
+
         } else {
             navigator.append("<li class='paginate_button page-item previous' ");
         }
@@ -78,11 +81,5 @@ public class Navigator {
         navigator.append("class='page-link'>&raquo;</a></li>");
 
         return navigator.toString();
-    }
-
-    public static void main(String[] args) {
-        Navigator navigator = new Navigator();
-
-        System.out.println("---------> " + navigator.getNavigator(100, 0));
     }
 }

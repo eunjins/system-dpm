@@ -22,8 +22,6 @@ import java.util.List;
 
 @Component
 public class ExcelUtil {
-    private static final Logger logger = LogManager.getLogger(ScriptController.class);
-
     @Value("${excelPath}")
     private String excelPath;
 
@@ -151,11 +149,14 @@ public class ExcelUtil {
 
             fileOutputStream = new FileOutputStream(excelPath + File.separator + fileName);
             workbook.write(fileOutputStream);
+
         } catch (Exception e) {
             e.printStackTrace();
+
         } finally {
             try {
                 fileOutputStream.close();
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

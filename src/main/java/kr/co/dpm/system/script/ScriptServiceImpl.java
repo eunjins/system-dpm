@@ -1,19 +1,14 @@
 package kr.co.dpm.system.script;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class ScriptServiceImpl implements ScriptService {
-    private static final Logger logger = LogManager.getLogger(ScriptController.class);
-
     @Autowired
     private ScriptRepository scriptRepository;
 

@@ -61,13 +61,10 @@ public class ScriptController {
     private ManagementServiceImpl managementService;
 
     @Autowired
-    private StatusCode statusCode;
-
-    @Autowired
-    private ResponseMessage responseMessage;
-
-    @Autowired
     private ExcelUtil excelUtil;
+
+    @Autowired
+    private StatusCode statusCode;
 
     /*  스크립트 측정 결과 목록 폼 */
     @GetMapping
@@ -196,7 +193,7 @@ public class ScriptController {
                 }
 
                 try {
-                    Thread.sleep(4000);     //TODO 스크립트 송신 체크 시간
+                    Thread.sleep(4000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -324,42 +321,36 @@ public class ScriptController {
 
         Map<String, String> responseData = new HashMap<>();
 
-        Map<Integer, String> statusRepository = new HashMap<>();
-        statusRepository.put(statusCode.NOT_MODIFIED, responseMessage.NOT_MODIFIED_MSG);
-        statusRepository.put(statusCode.BAD_REQUEST, responseMessage.BAD_REQUEST_MSG);
-        statusRepository.put(statusCode.NOT_FOUND, responseMessage.NOT_FOUND_MSG);
-        statusRepository.put(statusCode.INTERNAL_SERVER_ERROR, responseMessage.INTERNAL_SERVER_ERROR_MSG);
-
         int code = httpServletResponse.getStatus();
-        String message = statusRepository.get(code);
+        String message = statusCode.getStatusRepository().get(code);
+
+        responseData.put("code", String.valueOf(code));
 
         if (message != null) {
-            responseData.put("code", String.valueOf(code));
             responseData.put("message", message);
+
         } else {
-            responseData.put("code", String.valueOf(code));
             responseData.put("message", null);
         }
 
         if (measure.getDeviceId() != null) {
             measure.setName(measureInfo.getName());
 
-            while (true) {
-                if (measureInfo.getScriptNo() == 0) {
-                    try {
+            try {
+                while (true) {
+                    if (measureInfo.getScriptNo() == 0) {
                         Thread.sleep(1000);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+
+                    } else {
+                        break;
                     }
-                } else {
-                    break;
                 }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
             measure.setScriptNo(measureInfo.getScriptNo());
-
-            logger.debug("-------> 등록 측정 결과 정보 " + measure);
-
             measureService.registerMeasure(measure);
 
             logger.debug("-------> 배포중 디바이스 개수 : " + --distributeCount);

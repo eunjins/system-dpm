@@ -58,10 +58,7 @@ public class CryptogramImpl implements Cryptogram {
         cipher.init(Cipher.ENCRYPT_MODE, this.secretKeySpec, new IvParameterSpec(this.iv.getBytes()));
 
         byte[] encrypted = cipher.doFinal(word.getBytes("UTF-8"));
-        String encrypWord = new String(Base64.encodeBase64(encrypted));
 
-        return encrypWord;
-
+        return new String(Base64.encodeBase64(encrypted));
     }
-
 }

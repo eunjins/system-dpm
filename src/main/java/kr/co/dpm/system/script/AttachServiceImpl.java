@@ -16,7 +16,6 @@ import java.util.List;
 
 @Service
 public class AttachServiceImpl implements AttachService {
-    private static final Logger logger = LogManager.getLogger(AttachServiceImpl.class);
     @Autowired
     private AttachRepository attachRepository;
 
@@ -76,7 +75,8 @@ public class AttachServiceImpl implements AttachService {
                 if (!directory.isDirectory()) {
                     directory.mkdir();
                 }
-                sourceFile.transferTo(new File(path + File.separator + physicalName));
+
+                classFile.transferTo(new File(path + File.separator + physicalName));
             } catch (Exception e) {
                 e.printStackTrace();
             }
