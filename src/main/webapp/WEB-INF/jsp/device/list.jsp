@@ -7,7 +7,7 @@
 <!doctype html>
 <html lang="en">
 
-<head">
+<head>
     <meta charset="utf-8"/>
     <title>디바이스 성능 측정 통합 시스템</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
