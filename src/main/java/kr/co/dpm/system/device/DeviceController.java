@@ -3,10 +3,7 @@ package kr.co.dpm.system.device;
 import kr.co.dpm.system.common.ResponseMessage;
 import kr.co.dpm.system.common.StatusCode;
 import kr.co.dpm.system.management.ManagementService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -20,8 +17,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/devices")
 public class DeviceController {
-    private static final Logger logger = LogManager.getLogger(DeviceController.class);
-
     @Autowired
     private DeviceService deviceService;
 
@@ -53,7 +48,6 @@ public class DeviceController {
     @GetMapping({"/{id}"})
     public ModelAndView getDevice(Device device) {
         ModelAndView mav = new ModelAndView("device/view");
-
         mav.addObject("device", deviceService.getDevice(device));
 
         return mav;
@@ -63,7 +57,6 @@ public class DeviceController {
     @GetMapping("/{id}/form")
     public ModelAndView editDeviceForm(Device device) {
         ModelAndView mav = new ModelAndView("device/edit");
-
         mav.addObject("device", deviceService.getDevice(device));
 
         return mav;
@@ -72,16 +65,24 @@ public class DeviceController {
     /* 디바이스 수정 */
     @PutMapping("/{id}")
     public ModelAndView editDevice(Device device) {
-        deviceService.editDevice(device);
+        ModelAndView mav = null;
 
-        return new ModelAndView(new RedirectView("/devices/" + device.getId()));
+        if (deviceService.getDevice(device) == null) {
+            mav = new ModelAndView(new RedirectView("/devices"));
+
+            return mav;
+        }
+
+        deviceService.editDevice(device);
+        mav = new ModelAndView(new RedirectView("/devices/" + device.getId()));
+
+        return mav;
     }
 
     /* 디바이스 정보 수신 */
     @PostMapping("/data")
     public Map<String, String> receiveDevice(
             @RequestBody Device device, HttpServletResponse httpServletResponse) {
-        logger.debug("-------> 디바이스 정보 수신" + device.toString());
         Map<String, String> responseData = new HashMap<>();
 
         Map<Integer, String> statusRepository = new HashMap<>();

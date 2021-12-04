@@ -130,8 +130,8 @@
 
 
 <script>
-    var distributeFail = document.getElementById("register").innerHTML = "${distributeFail}";
-    //var extenstionMiss = document.getElementById("register").innerHTML = "${extensionMiss}";
+    document.getElementById("register").innerHTML = "${distributeFail}";
+    //document.getElementById("register").innerHTML = "${extensionMiss}";
 
     function distribute() {
         var registerInfo = {
@@ -142,7 +142,7 @@
         };
 
         if (registerInfo.name == null || registerInfo.name == "" ) {
-            document.getElementById("register").innerHTML = "측정 결과명을 입력하세요";
+            document.getElementById("register").innerHTML = "측정 결과 명을 입력하세요";
         } else if(registerInfo.sourcefile == null || registerInfo.sourcefile == "" ||
                   registerInfo.classfile == null || registerInfo.classfile == "") {
             document.getElementById("register").innerHTML = "스크립트 파일을 선택하세요";

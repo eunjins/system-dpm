@@ -195,7 +195,7 @@ public class ScriptController {
             String classFileExtension = FilenameUtils.getExtension(classFile.getOriginalFilename());
             if (!("java".equals(sourceFileExtension) || "class".equals(classFileExtension))) {
                 mav = new ModelAndView("script/register");
-                mav.addObject("extensionMiss", "스크립트 확장자를 확인하세요.");
+                mav.addObject("extensionMiss", "스크립트 확장자를 확인하세요");
 
                 return mav;
             }
@@ -210,7 +210,6 @@ public class ScriptController {
                     script.setName(scriptName);
 
                     mav = new ModelAndView(new RedirectView("/scripts"));
-
                 }
 
                 try {
@@ -241,6 +240,11 @@ public class ScriptController {
     @GetMapping("/{no}")
     public ModelAndView getScript(Script script) {
         ModelAndView mav = new ModelAndView("script/view");
+
+        if (script.getNo() < 1) {
+            mav = new ModelAndView(new RedirectView("/scripts"));
+        }
+
         mav.addObject("script", scriptService.getScript(script));
 
         Attach attach = new Attach();
@@ -299,9 +303,13 @@ public class ScriptController {
         }
     }
 
-    /* 스크립트 측정 결과 다운로드 */
+    /* 측정 결과 다운로드 */
     @GetMapping("/excel/{no}")
     public void downloadExcel(Script script, HttpServletResponse response) {
+        if (script.getNo() < 1) {
+            return;
+        }
+
         OutputStream outputStream = null;
         File excelFile = excelUtil.createExcel(scriptService.getScript(script));
         String fileName = excelFile.getName();

@@ -27,13 +27,11 @@
                             <form name="loginForm" class="form-horizontal" action="/login" method="POST">
 
                                 <div class="mb-3">
-<%--                                    <label class="form-label" for="id">아이디</label>--%>
                                     <input type="text" class="form-control" id="id" name="id"
                                            placeholder="아이디">
                                 </div>
 
                                 <div class="mb-3">
-<%--                                    <label class="form-label" for="password">비밀번호</label>--%>
                                     <input type="password" class="form-control" id="password" name="password"
                                            placeholder="비밀번호">
                                 </div><br/>
@@ -67,8 +65,8 @@
         };
         console.log(loginInfo);
 
-        if (loginInfo.id == null && loginInfo.password == null
-            || loginInfo.id == "" && loginInfo.password == "") {
+        if (loginInfo.id == null || loginInfo.password == null
+            || loginInfo.id == "" || loginInfo.password == "") {
             document.getElementById("checkLogIn").innerHTML = "로그인 정보를 입력하세요";
         } else {
             loginInfo.loginForm.submit();

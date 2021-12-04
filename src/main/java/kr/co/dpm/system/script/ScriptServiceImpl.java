@@ -31,7 +31,7 @@ public class ScriptServiceImpl implements ScriptService {
     /* 스크립트 정보 등록 */
     @Override
     public void registerScript(Script script) {
-        SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String dateTime = format.format(System.currentTimeMillis());
 
