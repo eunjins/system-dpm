@@ -2,6 +2,7 @@ package kr.co.dpm.system.common;
 
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Component
@@ -14,7 +15,7 @@ public class StatusCode {
     private static final String BAD_REQUEST_MSG = "잘못된 요청";
     private static final String NOT_FOUND_MSG = "요청 페이지 찾을 수 없음";
     private static final String INTERNAL_SERVER_ERROR_MSG = "내부 서버 오류";
-    private static Map<Integer, String> statusRepository;
+    private static Map<Integer, String> statusRepository = new HashMap<>();
 
     static {
         statusRepository.put(NOT_MODIFIED, NOT_MODIFIED_MSG);

@@ -2,9 +2,8 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
-
     <jsp:include page="/WEB-INF/jsp/common/top.jsp"/>
 
 </head>
@@ -54,6 +53,8 @@
 </div>
 
 <!-- JAVASCRIPT -->
+<jsp:include page="/WEB-INF/jsp/common/bottom.jsp"/>
+
 <script>
     var missMatch = document.getElementById("checkLogIn").innerHTML = "${missMatch}";
 

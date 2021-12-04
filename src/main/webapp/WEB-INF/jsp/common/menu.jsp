@@ -2,7 +2,6 @@
 <%@ page isELIgnored="false" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 
-
 <header id="page-topbar">
     <div class="navbar-header">
         <div class="d-flex">
@@ -10,7 +9,6 @@
                     data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
                 <i class="fa fa-fw fa-bars"></i>
             </button>
-
             <div class="topnav">
                 <div class="navbar navbar-light navbar-expand-lg topnav-menu">
                     <div class="collapse navbar-collapse" id="topnav-menu-content">
@@ -34,7 +32,6 @@
                 </div>
             </div>
         </div>
-
         <div class="d-flex">
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect">
