@@ -48,7 +48,7 @@ public class DeviceController {
     }
 
     /* 디바이스 목록 조회 */
-    @ResponseBody
+    @PostMapping
     public Map<String, Object> getDevices(@RequestBody Map<String, String> inputCondition) {
         Map<String, Object> condition = new HashMap<String, Object>();
 
