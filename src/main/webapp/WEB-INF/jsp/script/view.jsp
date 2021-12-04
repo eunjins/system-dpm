@@ -86,7 +86,7 @@
                                         <c:when test="${attach.division eq 'S'}">
                                             <div class="mb-3 row">
                                                 <div class="col-md-6">
-                                                    <label class="col-md-4 col-form-label" style="padding-left: 30px"">
+                                                    <label class="col-md-4 col-form-label" style="padding-left: 30px">
                                                         소스 파일
                                                     </label>
                                                     <label class="col-md-6 col-form-label">
@@ -236,7 +236,8 @@
         <c:forEach items="${measures}" var="measure" varStatus="object">
         {
             "label": "${measure.deviceName}",
-            "value": "${measure.execTime}"
+            "value": "${measure.execTime}",
+            "color": "#0080ff"
         },
         </c:forEach>
     ];
