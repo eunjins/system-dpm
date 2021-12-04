@@ -1,7 +1,5 @@
 package kr.co.dpm.system.access;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,31 +11,24 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class AccessController {
-    private static final Logger logger = LogManager.getLogger(AccessController.class);
-
     @Autowired
-    AccessService accessService;
+    UserRepository userRepository;
 
+    // 로그인 폼
     @GetMapping("/login")
     public ModelAndView login() {
         return new ModelAndView("access/login");
     }
 
+    // 로그인
     @PostMapping("/login")
     public ModelAndView login(User user, HttpSession httpSession) {
         ModelAndView mav = null;
-        User userInfo = null;
 
-        try {
-            userInfo = accessService.getManager();
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-        }
-
+        User userInfo = userRepository.select();
         if (user.getId().equals(userInfo.getId())
-                && user.getPassword().equals(userInfo.getPassword())) {
+                && user.getPassword().equals(userInfo.getPassword())){
             httpSession.setAttribute("log", user.getId());
-
             mav = new ModelAndView(new RedirectView("/devices"));
         } else {
             mav = new ModelAndView("access/login");
@@ -48,6 +39,7 @@ public class AccessController {
         return mav;
     }
 
+    // 로그아웃
     @GetMapping("/logout")
     public ModelAndView logout(HttpSession httpSession) {
         httpSession.invalidate();
