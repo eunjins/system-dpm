@@ -10,10 +10,7 @@ import kr.co.dpm.system.script.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -51,26 +48,31 @@ public class ExcelUtil {
 
         XSSFCellStyle centerStyle = workbook.createCellStyle();
         centerStyle.setAlignment(HorizontalAlignment.CENTER);
-        centerStyle.setBorderLeft(BorderStyle.THICK);
-        centerStyle.setBorderRight(BorderStyle.THICK);
+        centerStyle.setBorderLeft(BorderStyle.MEDIUM);
+        centerStyle.setBorderRight(BorderStyle.MEDIUM);
 
         XSSFCellStyle title = workbook.createCellStyle();
         title.setAlignment(HorizontalAlignment.CENTER);
 
         title.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
         title.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        title.setBorderTop(BorderStyle.THICK);
-        title.setBorderRight(BorderStyle.THICK);
-        title.setBorderLeft(BorderStyle.THICK);
-        title.setBorderBottom(BorderStyle.THICK);
+        title.setBorderTop(BorderStyle.MEDIUM);
+        title.setBorderLeft(BorderStyle.MEDIUM);
+        title.setBorderRight(BorderStyle.MEDIUM);
+        title.setBorderBottom(BorderStyle.MEDIUM);
 
         XSSFCellStyle rowStyle = workbook.createCellStyle();
-        rowStyle.setBorderLeft(BorderStyle.THICK);
-        rowStyle.setBorderRight(BorderStyle.THICK);
+        rowStyle.setBorderLeft(BorderStyle.MEDIUM);
+        rowStyle.setBorderRight(BorderStyle.MEDIUM);
+
+        XSSFCellStyle noStyle = workbook.createCellStyle();
+        noStyle.setBorderLeft(BorderStyle.MEDIUM);
+        noStyle.setBorderRight(BorderStyle.MEDIUM);
+        XSSFDataFormat dataFormat = (XSSFDataFormat) workbook.createDataFormat();
+        noStyle.setDataFormat(dataFormat.getFormat("#,###0"));
 
         XSSFCellStyle bottomStyle = workbook.createCellStyle();
-        bottomStyle.setBorderTop(BorderStyle.THICK);
-
+        bottomStyle.setBorderTop(BorderStyle.MEDIUM);
 
         XSSFRow row = sheet.createRow(1);
         Cell cell = row.createCell(1);
@@ -120,7 +122,6 @@ public class ExcelUtil {
                     new Device(measures.get(i).getDeviceId()));
             measures.get(i).setDeviceName(device.getName());
 
-            // Row에 Cell 생성
             Cell noCell = row.createCell(0);
             noCell.setCellValue(i + 1);  // 번호
             noCell.setCellStyle(centerStyle);
@@ -131,7 +132,7 @@ public class ExcelUtil {
 
             Cell execTimeCell = row.createCell(2); // 실행 시간
             execTimeCell.setCellValue(measures.get(i).getExecTime());
-            execTimeCell.setCellStyle(rowStyle);
+            execTimeCell.setCellStyle(noStyle);
         }
 
         row = sheet.createRow(i + 5);
@@ -143,11 +144,12 @@ public class ExcelUtil {
         String fileName = null;
 
         try {
-            fileName = measures.get(0).getName() + "_" +
-                    LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) + ".xlsx";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDate localDate = LocalDate.parse(script.getUploadPoint(), formatter);
+            String date = localDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+            fileName = measures.get(0).getName() + "_" + date + ".xlsx";
 
-            fileOutputStream = new FileOutputStream(
-                    excelPath + File.separator + fileName);
+            fileOutputStream = new FileOutputStream(excelPath + File.separator + fileName);
             workbook.write(fileOutputStream);
         } catch (Exception e) {
             e.printStackTrace();
