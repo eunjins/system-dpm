@@ -3,7 +3,6 @@ package kr.co.dpm.system.device;
 import kr.co.dpm.system.common.ResponseMessage;
 import kr.co.dpm.system.common.StatusCode;
 import kr.co.dpm.system.management.ManagementService;
-import kr.co.dpm.system.management.ManagementServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 
-@Controller
+@RestController
 @RequestMapping("/devices")
 public class DeviceController {
     private static final Logger logger = LogManager.getLogger(DeviceController.class);
@@ -46,7 +45,6 @@ public class DeviceController {
 
     /* 디바이스 목록 조회 */
     @PostMapping
-    @ResponseBody
     public List<Device> getDevices(@RequestBody Device device) {
         return deviceService.getDevices(device);
     }
@@ -81,7 +79,6 @@ public class DeviceController {
 
     /* 디바이스 정보 수신 */
     @PostMapping("/data")
-    @ResponseBody
     public Map<String, String> receiveDevice(
             @RequestBody Device device, HttpServletResponse httpServletResponse) {
         logger.debug("-------> 디바이스 정보 수신" + device.toString());

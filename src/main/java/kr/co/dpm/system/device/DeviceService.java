@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface DeviceService {
     public List<Device> getDevices(Device device);
 

@@ -1,8 +1,8 @@
 package kr.co.dpm.system.management;
 
 import kr.co.dpm.system.device.Device;
-import kr.co.dpm.system.device.DeviceServiceImpl;
-import kr.co.dpm.system.script.ScriptFileRepositoryImpl;
+import kr.co.dpm.system.device.DeviceService;
+import kr.co.dpm.system.script.ScriptFileRepository;
 import kr.co.dpm.system.util.CryptogramImpl;
 import kr.co.dpm.system.util.DistributeUtil;
 import org.apache.logging.log4j.LogManager;
@@ -19,10 +19,10 @@ public class ManagementServiceImpl implements ManagementService {
     private static final Logger logger = LogManager.getLogger(CryptogramImpl.class);
 
     @Autowired
-    private DeviceServiceImpl deviceService;
+    private DeviceService deviceService;
 
     @Autowired
-    private ScriptFileRepositoryImpl scriptFileRepository;
+    private ScriptFileRepository scriptFileRepository;
 
     @Override
     public void receiveDevice(Device device) {
