@@ -1,9 +1,7 @@
 package kr.co.dpm.system.device;
 
-import kr.co.dpm.system.common.ResponseMessage;
 import kr.co.dpm.system.common.StatusCode;
 import kr.co.dpm.system.management.ManagementService;
-import kr.co.dpm.system.management.ManagementServiceImpl;
 import kr.co.dpm.system.util.Navigator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

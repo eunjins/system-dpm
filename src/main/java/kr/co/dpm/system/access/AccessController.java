@@ -30,6 +30,7 @@ public class AccessController {
                 && user.getPassword().equals(userInfo.getPassword())) {
             httpSession.setAttribute("log", user.getId());
             mav = new ModelAndView(new RedirectView("/devices"));
+
         } else {
             mav = new ModelAndView("access/login");
             mav.addObject("missMatch",
