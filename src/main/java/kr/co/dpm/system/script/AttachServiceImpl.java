@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -37,7 +38,7 @@ public class AttachServiceImpl implements AttachService {
     /* 첨부 파일 등록 */
     @Override
     public void registerAttach(MultipartFile sourceFile,
-                               MultipartFile classFile, Attach attach) {
+                               MultipartFile classFile, Attach attach) throws IOException {
         LocalDate date = LocalDate.now();
 
         String sourceFileExtension = FilenameUtils.getExtension(sourceFile.getOriginalFilename());
@@ -51,15 +52,13 @@ public class AttachServiceImpl implements AttachService {
             attach.setName(FilenameUtils.getBaseName(sourceFile.getOriginalFilename()));
 
             attachRepository.insert(attach);
-            try {
-                File directory = new File(path);
-                if (!directory.isDirectory()) {
-                    directory.mkdir();
-                }
-                sourceFile.transferTo(new File(path + File.separator + physicalName));
-            } catch (Exception e) {
-                e.printStackTrace();
+
+            File directory = new File(path);
+            if (!directory.isDirectory()) {
+                directory.mkdir();
             }
+
+            sourceFile.transferTo(new File(path + File.separator + physicalName));
         }
 
         if ("class".equals(classFileExtension)) {
@@ -70,16 +69,13 @@ public class AttachServiceImpl implements AttachService {
             attach.setName(FilenameUtils.getBaseName(classFile.getOriginalFilename()));
 
             attachRepository.insert(attach);
-            try {
-                File directory = new File(path);
-                if (!directory.isDirectory()) {
-                    directory.mkdir();
-                }
 
-                classFile.transferTo(new File(path + File.separator + physicalName));
-            } catch (Exception e) {
-                e.printStackTrace();
+            File directory = new File(path);
+            if (!directory.isDirectory()) {
+                directory.mkdir();
             }
-        }
+
+            classFile.transferTo(new File(path + File.separator + physicalName));
+    }
     }
 }
