@@ -1,8 +1,6 @@
 package kr.co.dpm.system.script;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,7 +18,6 @@ public class AttachServiceImpl implements AttachService {
     @Autowired
     private AttachRepository attachRepository;
 
-    /* 스크립트별 첨부 파일 조회 */
     @Override
     public List<Attach> getAttaches(Attach attach) {
         return attachRepository.selectAll(attach);
@@ -29,13 +26,11 @@ public class AttachServiceImpl implements AttachService {
     @Value("${path}")
     private String path;
 
-    /* 첨부 파일 조회 */
     @Override
     public Attach getAttach(Attach attach) {
         return attachRepository.select(attach);
     }
     
-    /* 첨부 파일 등록 */
     @Override
     public void registerAttach(MultipartFile sourceFile,
                                MultipartFile classFile, Attach attach) throws IOException {
@@ -76,6 +71,6 @@ public class AttachServiceImpl implements AttachService {
             }
 
             classFile.transferTo(new File(path + File.separator + physicalName));
-    }
+        }
     }
 }
