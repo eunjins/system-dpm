@@ -91,34 +91,49 @@ public class ScriptController {
 
         Measure measure = new Measure();
 
-        if (distributeCount > 0) {
-            measure.setStatus("N");
-            measure.setName(measureInfo.getName());
+        String conditionMeasureName = inputCondition.get("measureName") != null ?
+                inputCondition.get("measureName").trim()
+                : "";
 
-            scriptMeasure.add(measure);
+        int scriptStartNo = 0;
+        if (distributeCount > 0) {
+            if ((measureInfo.getName()).indexOf(conditionMeasureName) != -1
+                    || "".equals(conditionMeasureName)) {
+                measure.setStatus("N");
+                measure.setName(measureInfo.getName());
+                scriptMeasure.add(measure);
+                scriptStartNo = 1;
+            }
+
         } else {
             measure.setScriptNo(firstScript.getNo());
+
             List<Measure> measures = measureService.getMeasures(measure);
 
-            measure.setName(measures.get(0).getName());
-            if (measure.getName() != null) {
-                measure.setStatus("Y");
+            if ((measures.get(0).getName()).indexOf(conditionMeasureName) != -1
+                    || "".equals(conditionMeasureName)) {
+                measure.setName(measures.get(0).getName());
+                if (measure.getName() != null) {
+                    measure.setStatus("Y");
 
-                scriptMeasure.add(measure);
+                    scriptMeasure.add(measure);
+                    scriptStartNo = 1;
+                }
             }
         }
 
-        for (int i = 1; i < scripts.size(); i++) {
+        for (int i = scriptStartNo; i < scripts.size(); i++) {
             Script object = scripts.get(i);
 
             measure = new Measure();
             measure.setScriptNo(object.getNo());
+            measure.setName(conditionMeasureName);
 
             List<Measure> measures = measureService.getMeasures(measure);
 
             if (measures.isEmpty()) {
-                scripts.remove(object);
-                i --;
+                scripts.remove(i--);
+
             } else {
                 measure.setName(measures.get(0).getName());
                 measure.setStatus("Y");
@@ -191,6 +206,7 @@ public class ScriptController {
                 if (distributeCount == 0) {
                     mav = new ModelAndView("script/register");
                     mav.addObject("distributeFail", "배포된 디바이스가 없습니다");
+
                 } else {
                     scriptService.registerScript(script);
 
@@ -330,6 +346,7 @@ public class ScriptController {
 
         if (message != null) {
             responseData.put("message", message);
+
         } else {
             responseData.put("message", null);
         }
@@ -341,10 +358,12 @@ public class ScriptController {
                 while (true) {
                     if (measureInfo.getScriptNo() == 0) {
                         Thread.sleep(1000);
+
                     } else {
                         break;
                     }
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
