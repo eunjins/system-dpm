@@ -45,6 +45,9 @@
             <if test="deviceId != null and deviceId != ''">
                 AND DEVICE_ID = #{deviceId}
             </if>
+            <if test="scriptNo != null and scriptNo != ''">
+                AND SCRIPT_NO = #{scriptNo}
+            </if>
         </where>
     </select>
 
