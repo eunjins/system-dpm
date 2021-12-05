@@ -4,7 +4,6 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-
     <jsp:include page="/WEB-INF/jsp/common/top.jsp"/>
 
 </head>
