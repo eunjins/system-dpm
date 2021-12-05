@@ -8,16 +8,16 @@
 
 </head>
 
-<body style="font-family: 'NanumSqaure'">
+<body style="background-color: ghostwhite; font-family: 'NanumSqaure'">
 <div class="account-pages my-5 pt-sm-5">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6 col-xl-5">
-                <div class="card overflow-hidden">
+                <div class="card overflow-hidden" style="border: 2px ridge whitesmoke">
                     <div class="bg-login text-center">
                         <div class="bg-login-overlay"></div>
                         <div class="position-relative">
-                            <h5 class="text-white font-size-20">Welcome Back !</h5>
+                            <h5 class="text-white" style="font-size: x-large">Welcom DPM-SYSTEM !</h5>
                             <p class="text-white-50 mb-0">Sign in to continue to DPM-SYSTEM.</p>
                         </div>
                     </div>
@@ -27,19 +27,19 @@
 
                                 <div class="mb-3">
                                     <input type="text" class="form-control" id="id" name="id"
-                                           placeholder="아이디">
+                                           style="font-size: large" placeholder="아이디">
                                 </div>
 
                                 <div class="mb-3">
                                     <input type="password" class="form-control" id="password" name="password"
-                                           placeholder="비밀번호">
+                                           style="font-size: large" placeholder="비밀번호">
                                 </div><br/>
 
                                 <div id="checkLogIn" style="color: blue"></div>
 
                                 <div class="mt-3">
                                     <button class="btn btn-default btn-primary w-100 waves-effect waves-light"
-                                            type="button" onclick="login()">
+                                            style="font-size: large" type="button" onclick="login()">
                                         로그인</button>
                                 </div>
                             </form>

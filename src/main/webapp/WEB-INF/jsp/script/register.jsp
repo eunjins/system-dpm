@@ -96,13 +96,13 @@
                                                     <div class="modal-header">
                                                         <h4 class="modal-title" id="staticBackdropLabel">스크립트 배포
                                                         </h4>
-                                                        <button type="button" class="btn-close"
+                                                        <button type="button" style="display:none"
                                                                 data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body"
                                                          style="font-size: large; color: blue; text-align: center">
                                                         <div class="spinner-border text-primary" role="status"></div>
-                                                        <div>스크립트를 배포 중 입니다. 잠시만 기다려주세요.</div>
+                                                        <div style="padding-top: 10px">스크립트를 배포 중 입니다. 잠시만 기다려주세요.</div>
                                                     </div>
                                                     <div class="modal-footer">
                                                     </div>
