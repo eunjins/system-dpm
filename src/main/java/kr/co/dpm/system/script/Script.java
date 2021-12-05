@@ -33,13 +33,4 @@ public class Script implements Serializable {
     public void setUploadPoint(String uploadPoint) {
         this.uploadPoint = uploadPoint;
     }
-
-    @Override
-    public String toString() {
-        return "Script{" +
-                "no=" + no +
-                ", name='" + name + '\'' +
-                ", uploadPoint='" + uploadPoint + '\'' +
-                '}';
-    }
 }
