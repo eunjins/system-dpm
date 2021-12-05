@@ -149,22 +149,7 @@
     }
 
     function changePage(pageButtonId) {
-        if (pageButtonId == "firstPage") {
-            pageNo = 0;
-
-        } else if (pageButtonId == "backPage") {
-            pageNo = (parseInt(pageNo / 5) * 5) - 5;
-
-
-        } else if (pageButtonId == "nextPage") {
-            pageNo = (parseInt(pageNo / 5) * 5) + 5;
-
-        } else if (pageButtonId == "lastPage") {
-            pageNo = parseInt((allScriptNo - 1) / 10);
-
-        } else {
-            pageNo = parseInt(pageButtonId);
-        }
+        pageNo = parseInt(pageButtonId);
 
         search();
     }

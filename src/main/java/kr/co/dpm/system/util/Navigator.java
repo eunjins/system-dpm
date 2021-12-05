@@ -22,7 +22,7 @@ public class Navigator {
         navigator.append("href='#' ");
         navigator.append("aria-controls='datatable' ");
         navigator.append("tabindex='0' ");
-        navigator.append("class='page-link' onclick='changePage(this.id)'>&laquo;</a></li> ");
+        navigator.append("class='page-link' onclick='changePage(" + 0 + ")'>&laquo;</a></li> ");
 
         if ((pageNo / 5) == 0) {
             navigator.append("<li class='paginate_button page-item previous disabled' ");
@@ -35,7 +35,7 @@ public class Navigator {
         navigator.append("<a href='#' id='backPage' ");
         navigator.append("aria-controls='datatable'");
         navigator.append("        data-dt-idx='0' tabindex='0'");
-        navigator.append("        class='page-link' onclick='changePage(this.id)'>&lt;</a></li>");
+        navigator.append("        class='page-link' onclick='changePage(" + (((pageNo / 5) * 5) - 5) + ")'>&lt;</a></li>");
 
         int endPageNo = 0;
 
@@ -64,7 +64,7 @@ public class Navigator {
         } else {
             navigator.append("<li class='paginate_button page-item next disabled' id='datatable_next'>");
         }
-        navigator.append("        <a id='nextPage' onclick='changePage(this.id)'");
+        navigator.append("        <a id='nextPage' onclick='changePage(" + (((pageNo / 5) * 5) + 5) + ")'");
         navigator.append("        href='#' aria-controls='datatable' data-dt-idx='" + (count) + "'");
         navigator.append("        tabindex='0' class='page-link' >&gt;</a></li>");
 
@@ -74,7 +74,7 @@ public class Navigator {
             navigator.append("<li class='pagenate_button page-item disabled' >");
         }
 
-        navigator.append("<a id='lastPage' ");
+        navigator.append("<a id='lastPage' onclick='changePage(" + ((allNo - 1) / 10) + ")' ");
         navigator.append("href='#' ");
         navigator.append(" aria-controls='datatable' ");
         navigator.append("tabindex='0' ");
