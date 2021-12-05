@@ -20,7 +20,7 @@
                                     디바이스
                                 </a>
                             </li>
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown" style="padding-left: 7%">
                                 <a class="nav-link dropdown-toggle arrow-none" style="font-size: larger"
                                    href="${pageContext.request.contextPath}/scripts" id="topnav-script"
                                    role="button">
