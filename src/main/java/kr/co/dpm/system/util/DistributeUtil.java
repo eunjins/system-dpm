@@ -1,12 +1,8 @@
 package kr.co.dpm.system.util;
 
 import kr.co.dpm.system.device.Device;
-import kr.co.dpm.system.management.ManagementServiceImpl;
 import kr.co.dpm.system.script.ScriptController;
 import kr.co.dpm.system.script.ScriptFileRepository;
-import kr.co.dpm.system.script.ScriptFileRepositoryImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 public class DistributeUtil implements Runnable{
@@ -41,9 +37,8 @@ public class DistributeUtil implements Runnable{
             String encryptResult = cryptogram.encryption(device.getId());
 
             if (scriptFileRepository.distribute(classFile, encryptResult, device.getIpAddress())) {
-                ScriptController.distributeCount++;
+                ScriptController.distributeCount ++;
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -3,16 +3,10 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8"/>
-    <title>디바이스 성능 측정 통합 시스템</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description"/>
-    <meta content="Themesbrand" name="author"/>
     <!-- App favicon -->
     <link rel="shortcut icon" href="/assets/images/favicon.ico">
 
@@ -21,11 +15,10 @@
           type="text/css"/>
 
     <jsp:include page="/WEB-INF/jsp/common/top.jsp"/>
-</head>
 
+</head>
 <body data-layout="horizontal" data-layout-size="boxed"
       style="font-family: 'NanumSquare'; font-size: medium; font-weigth: bold">
-
 <div class="container-fluid">
     <!-- Begin page -->
     <div id="layout-wrapper">
@@ -34,9 +27,7 @@
         <!-- Start right Content here -->
         <!-- ============================================================== -->
         <div class="main-content">
-
             <div class="page-content">
-
                 <!-- start page title -->
                 <div class="row">
                     <div class="col-12">
@@ -46,11 +37,9 @@
                     </div>
                 </div>
                 <!-- end page title -->
-
                 <!-- start row -->
                 <div class="row">
                     <div class="col-xl-12">
-
                         <div class="row">
                             <div class="col-sm-12 col-md-12" style="text-align: right">
                                 <div id="datatable_filter" class="dataTables_filter">
@@ -75,10 +64,8 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="card">
                             <div class="card-body">
-
                                 <div class="col-sm-12">
                                     <table id="datatable"
                                            class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
@@ -108,13 +95,10 @@
                                             </th>
                                         </tr>
                                         </thead>
-
                                         <tbody id="table">
-
                                         </tbody>
                                     </table>
                                 </div>
-
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12">
                                         <div class="dataTables_paginate paging_simple_numbers"
@@ -122,11 +106,7 @@
                                             <ul class="pagination justify-content-center" id="pageNo">
                                             </ul>
                                         </div>
-
                                     </div>
-                                    <%--                                    <div class="col-sm-12 col-md-5">--%>
-
-                                    <%--                                    </div>--%>
                                 </div>
                                 <div class="row">
                                     <div class="button-items">
@@ -141,23 +121,18 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
                 <!-- end row -->
             </div>
             <!-- End Page-content -->
-
         </div>
         <!-- end main content-->
-
     </div>
     <!-- END layout-wrapper -->
-
 </div>
 <!-- end container-fluid -->
-
 <!-- JAVASCRIPT -->
+<jsp:include page="/WEB-INF/jsp/common/bottom.jsp"/>
 <!-- JAVASCRIPT -->
 <script>
     var pageNo = 0;

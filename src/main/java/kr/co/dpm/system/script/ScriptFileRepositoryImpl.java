@@ -78,13 +78,13 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
 
             logger.debug("-------> 에이전트 배포 오류 : " + jsonResponse.getString("message"));
 
-        } catch(NoRouteToHostException e) {
+        } catch (NoRouteToHostException e) {
             e.printStackTrace();
 
-        } catch(SocketTimeoutException e) {
+        } catch (SocketTimeoutException e) {
             logger.debug("-------> " + ip + " 에이전트 연결 시간 초과");
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
 
         } finally {

@@ -209,15 +209,20 @@ public class ScriptController {
 
                 if (distributeCount == 0) {
                     mav = new ModelAndView("script/register");
-                    mav.addObject("distributeFail", "배포된 디바이스가 없습니다.");
+                    mav.addObject("distributeFail", "배포된 디바이스가 없습니다");
+
                 } else {
                     scriptService.registerScript(script);
 
                     int scriptNo = script.getNo();
                     attach.setScriptNo(scriptNo);
 
-                    measureInfo.setScriptNo(scriptNo);
-                    attachService.registerAttach(sourceFile, classFile, attach);
+                    try {
+                        measureInfo.setScriptNo(scriptNo);
+                        attachService.registerAttach(sourceFile, classFile, attach);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

@@ -3,6 +3,7 @@ package kr.co.dpm.system.script;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -12,5 +13,5 @@ public interface AttachService {
     public Attach getAttach(Attach attach);
 
     public void registerAttach(MultipartFile sourceFile,
-                               MultipartFile classFile, Attach attach);
+                               MultipartFile classFile, Attach attach) throws IOException;
 }

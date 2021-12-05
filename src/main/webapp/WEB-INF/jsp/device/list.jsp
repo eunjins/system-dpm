@@ -3,21 +3,13 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8"/>
-    <title>디바이스 성능 측정 통합 시스템</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description"/>
-    <meta content="Themesbrand" name="author"/>
-
     <!-- jquery.vectormap css -->
     <link href="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
           type="text/css"/>
-
     <link href="/assets/css/style.css" type="text/css"/>
 
     <jsp:include page="/WEB-INF/jsp/common/top.jsp"/>
@@ -35,9 +27,7 @@
         <!-- Start right Content here -->
         <!-- ============================================================== -->
         <div class="main-content">
-
             <div class="page-content">
-
                 <!-- start page title -->
                 <div class="row">
                     <div class="col-12">
@@ -46,13 +36,9 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-sm-12 col-md-5">
-                        <div class="dataTables_length" id="datatable_length"><label><select id="select_status"
-                                                                                            name="datatable_length"
-                                                                                            aria-controls="datatable"
-                                                                                            class="custom-select form-control form-select">
+                        <div class="dataTables_length" id="datatable_length"><label><select id="select_status" name="datatable_length" aria-controls="datatable" class="custom-select form-control form-select">
                             <option value="">전체</option>
                             <option value="Y">활성화</option>
                             <option value="N">비활성화</option>
@@ -66,8 +52,6 @@
                                 <option value="insertDate">등록 일자</option>
                             </select>
                         </label>
-
-                        <%--                        <div id="datatable_filter" class="dataTables_filter">--%>
                         <label id="search_bar">
                             <input id="search_message" type="search" class="form-control" placeholder="검색어를 입력하세요"
                                    aria-controls="datatable" style="text-align: left">
@@ -75,7 +59,6 @@
                         <button id="button_search" type="button"
                                 class="btn btn-default btn-primary waves-effect waves-light">검색
                         </button>
-                        <%--                        </div>--%>
                     </div>
                 </div>
                 <!-- end page title -->
@@ -83,9 +66,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-
                                 <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <table id="datatable"
@@ -127,15 +108,11 @@
                                                     </th>
                                                 </tr>
                                                 </thead>
-
                                                 <tbody id="table">
-
                                                 </tbody>
-
                                             </table>
                                         </div>
                                     </div>
-
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12">
                                             <div class="dataTables_paginate paging_simple_numbers"
@@ -155,17 +132,14 @@
                 <!-- end row -->
             </div>
             <!-- End Page-content -->
-
         </div>
         <!-- end main content-->
-
     </div>
     <!-- END layout-wrapper -->
-
 </div>
 <!-- end container-fluid -->
-
 <!-- JAVASCRIPT -->
+<jsp:include page="/WEB-INF/jsp/common/bottom.jsp"/>
 <!-- JAVASCRIPT -->
 <script>
     var pageNo = 0;
