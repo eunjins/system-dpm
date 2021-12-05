@@ -100,12 +100,9 @@
                                             </div>
                                         </c:when>
                                     </c:choose>
-                                    <div class="mb-12 row">
+                                    <div class="mb-3 row">
+                                        <label class="col-md-12 col-form-label" id="notify" style="padding-left: 30px; color: blue"></label>
                                     </div>
-                                    <label class="col-md-1 col-form-label"></label>
-                                    <label class="col-md-6 col-form-label">
-                                        <div class=col-form-label" id="notify" style="color: blue"></div>
-                                    </label>
 
                                     <div class="row">
                                         <div class="button-items">
