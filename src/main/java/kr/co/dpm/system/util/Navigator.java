@@ -62,6 +62,7 @@ public class Navigator {
         } else {
             navigator.append("<li class='paginate_button page-item next disabled' id='datatable_next'>");
         }
+
         navigator.append("        <a id='nextPage' onclick='changePage(" + (((pageNo / 5) * 5) + 5) + ")'");
         navigator.append("        href='#' aria-controls='datatable' data-dt-idx='" + (count) + "'");
         navigator.append("        tabindex='0' class='page-link' >&gt;</a></li>");

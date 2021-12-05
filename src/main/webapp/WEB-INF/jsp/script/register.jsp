@@ -146,7 +146,8 @@
             classfile: document.getElementById("classfile").value
         };
 
-        if (registerInfo.name == null || registerInfo.name == "" ) {
+        if (registerInfo.name == null
+            || registerInfo.name.trim() == "" ) {
             document.getElementById("register").innerHTML = "측정 결과 명을 입력하세요";
         } else if(registerInfo.sourcefile == null || registerInfo.sourcefile == "" ||
                   registerInfo.classfile == null || registerInfo.classfile == "") {
