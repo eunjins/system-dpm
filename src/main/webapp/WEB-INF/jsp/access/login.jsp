@@ -8,7 +8,7 @@
 
 </head>
 
-<body style="background-color: ghostwhite; font-family: 'NanumSqaure'">
+<body style="font-family: 'NanumSqaure'">
 <div class="account-pages my-5 pt-sm-5">
     <div class="container">
         <div class="row justify-content-center">
@@ -17,17 +17,17 @@
                     <div class="bg-login text-center">
                         <div class="bg-login-overlay"></div>
                         <div class="position-relative">
-                            <h5 class="text-white" style="font-size: x-large">Welcom DPM-SYSTEM !</h5>
+                            <h5 class="text-white" style="font-size: x-large;">Welcome DPM-SYSTEM !</h5>
                             <p class="text-white-50 mb-0">Sign in to continue to DPM-SYSTEM.</p>
                         </div>
                     </div>
                     <div class="card-body pt-5">
-                        <div class="p-2">
+                        <div class="p-2"
+                             style="margin-top: 7%;">
                             <form name="loginForm" class="form-horizontal" action="/login" method="POST">
-
                                 <div class="mb-3">
                                     <input type="text" class="form-control" id="id" name="id"
-                                           style="font-size: large" placeholder="아이디">
+                                           style="font-size: large;" placeholder="아이디">
                                 </div>
 
                                 <div class="mb-3">
@@ -35,7 +35,7 @@
                                            style="font-size: large" placeholder="비밀번호">
                                 </div><br/>
 
-                                <div id="checkLogIn" style="color: blue"></div>
+                                <div class="mb-3" id="checkLogIn" style="color: blue"></div>
 
                                 <div class="mt-3">
                                     <button class="btn btn-default btn-primary w-100 waves-effect waves-light"
