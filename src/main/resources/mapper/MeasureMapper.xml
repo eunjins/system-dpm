@@ -42,6 +42,9 @@
             <if test="no > 0">
                 AND NO = #{no}
             </if>
+            <if test="deviceId != null and deviceId != ''">
+                AND DEVICE_ID = #{deviceId}
+            </if>
         </where>
     </select>
 

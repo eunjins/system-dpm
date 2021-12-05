@@ -343,26 +343,26 @@ public class ScriptController {
         }
 
         if (measure.getDeviceId() != null) {
-            measure.setName(measureInfo.getName());
+            if (measureService.getMeasure(measure) != null) {
+                measure.setName(measureInfo.getName());
 
-            try {
-                while (true) {
-                    if (measureInfo.getScriptNo() == 0) {
-                        Thread.sleep(1000);
+                try {
+                    while (true) {
+                        if (measureInfo.getScriptNo() == 0) {
+                            Thread.sleep(1000);
 
-                    } else {
-                        break;
+                        } else {
+                            break;
+                        }
                     }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
-            } catch (Exception e) {
-                e.printStackTrace();
+                measure.setScriptNo(measureInfo.getScriptNo());
+                measureService.registerMeasure(measure);
             }
-
-            measure.setScriptNo(measureInfo.getScriptNo());
-            measureService.registerMeasure(measure);
-
-            logger.debug("-------> 배포중 디바이스 개수 : " + --distributeCount);
 
         } else {
             responseData.put("message", "수신 데이터가 존재하지 않습니다.");
