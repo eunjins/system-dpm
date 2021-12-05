@@ -133,9 +133,7 @@
 <script src="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
 <script src="/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js"></script>
 <script>
-    <c:if test="${distributeFail != ''}">
-        document.getElementById("register").innerHTML = "${distributeFail}";
-    </c:if>
+    document.getElementById("register").innerHTML = "${distributeFail}";
 
     var registerInfo;
 
@@ -147,7 +145,8 @@
             classfile: document.getElementById("classfile").value
         };
 
-        if (registerInfo.name == null || registerInfo.name.trim() == "" ) {
+        if (registerInfo.name == null
+            || registerInfo.name.trim() == "" ) {
             document.getElementById("register").innerHTML = "측정 결과 명을 입력하세요";
         } else if(registerInfo.sourcefile == null || registerInfo.sourcefile == "" ||
                   registerInfo.classfile == null || registerInfo.classfile == "") {
