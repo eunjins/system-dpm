@@ -16,13 +16,11 @@ public class AccessController {
     @Autowired
     UserRepository userRepository;
 
-    // 로그인 폼
     @GetMapping("/login")
     public ModelAndView login() {
         return new ModelAndView("access/login");
     }
 
-    // 로그인
     @PostMapping("/login")
     public ModelAndView login(@Valid User user, Errors errors, HttpSession httpSession) {
         ModelAndView mav = null;
@@ -48,7 +46,6 @@ public class AccessController {
         return mav;
     }
 
-    // 로그아웃
     @GetMapping("/logout")
     public ModelAndView logout(HttpSession httpSession) {
         httpSession.invalidate();
