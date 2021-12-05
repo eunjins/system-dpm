@@ -65,11 +65,6 @@ public class ScriptController {
     @Autowired
     private StatusCode statusCode;
 
-    @GetMapping("/test")
-    public ModelAndView test() {
-        return new ModelAndView("test");
-    }
-
     @GetMapping
     public ModelAndView getScripts() {
         ModelAndView mav = new ModelAndView("script/list");
