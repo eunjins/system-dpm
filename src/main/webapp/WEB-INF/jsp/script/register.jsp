@@ -133,8 +133,9 @@
 <script src="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
 <script src="/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js"></script>
 <script>
-    document.getElementById("register").innerHTML = "${distributeFail}";
-    //document.getElementById("register").innerHTML = "${extensionMiss}";
+    <c:if test="${distributeFail != ''}">
+        document.getElementById("register").innerHTML = "${distributeFail}";
+    </c:if>
 
     var registerInfo;
 
@@ -146,11 +147,14 @@
             classfile: document.getElementById("classfile").value
         };
 
-        if (registerInfo.name == null || registerInfo.name == "" ) {
+        if (registerInfo.name == null || registerInfo.name.trim() == "" ) {
             document.getElementById("register").innerHTML = "측정 결과 명을 입력하세요";
         } else if(registerInfo.sourcefile == null || registerInfo.sourcefile == "" ||
                   registerInfo.classfile == null || registerInfo.classfile == "") {
             document.getElementById("register").innerHTML = "스크립트 파일을 선택하세요";
+        } else if (registerInfo.sourcefile.split(".").pop() != "java" ||
+                   registerInfo.classfile.split(".").pop() != "class") {
+            document.getElementById("register").innerHTML = "스크립트 확장자를 확인하세요"
         } else {
             jQuery(document).ready(function () {
                 $("#staticBackdrop").modal("show");
