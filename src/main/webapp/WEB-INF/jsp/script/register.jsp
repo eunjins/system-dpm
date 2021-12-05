@@ -86,7 +86,8 @@
                                                 onclick="distribute()" style="float: right">배포
                                         </button>
                                     </div>
-                                    <div class="modal-contatiner" id="modal">       <!-- 모달 -->
+
+                                    <div class="modal-contatiner" id="modal">
                                         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
                                              data-bs-keyboard="false" tabindex="-1"
                                              aria-labelledby="staticBackdropLabel" style="display: none;"
