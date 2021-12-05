@@ -135,7 +135,6 @@
 <script src="/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js"></script>
 <script>
     document.getElementById("register").innerHTML = "${distributeFail}";
-    //document.getElementById("register").innerHTML = "${extensionMiss}";
 
     var registerInfo;
 
@@ -153,6 +152,9 @@
         } else if(registerInfo.sourcefile == null || registerInfo.sourcefile == "" ||
                   registerInfo.classfile == null || registerInfo.classfile == "") {
             document.getElementById("register").innerHTML = "스크립트 파일을 선택하세요";
+        } else if (registerInfo.sourcefile.split(".").pop() != "java" ||
+                   registerInfo.classfile.split(".").pop() != "class") {
+            document.getElementById("register").innerHTML = "스크립트 확장자를 확인하세요"
         } else {
             jQuery(document).ready(function () {
                 $("#staticBackdrop").modal("show");
