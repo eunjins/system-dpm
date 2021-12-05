@@ -33,7 +33,6 @@ public class DeviceController {
     @Autowired
     private Navigator navigator;
 
-    /* 디바이스 목록 폼 */
     @GetMapping
     public ModelAndView getDevices() {
         ModelAndView mav = new ModelAndView("device/list");
@@ -41,7 +40,6 @@ public class DeviceController {
         return mav;
     }
 
-    /* 디바이스 목록 조회 */
     @PostMapping
     public Map<String, Object> getDevices(@RequestBody Map<String, String> inputCondition) {
         Map<String, String> condition = new HashMap<String, String>();
@@ -65,7 +63,6 @@ public class DeviceController {
         return result;
     }
 
-    /* 디바이스 상세 조회 */
     @GetMapping({"/{id}"})
     public ModelAndView getDevice(Device device) {
         ModelAndView mav = new ModelAndView("device/view");
@@ -74,7 +71,6 @@ public class DeviceController {
         return mav;
     }
 
-    /* 디바이스 수정 폼 */
     @GetMapping("/{id}/form")
     public ModelAndView editDeviceForm(Device device) {
         ModelAndView mav = new ModelAndView("device/edit");
@@ -83,7 +79,6 @@ public class DeviceController {
         return mav;
     }
 
-    /* 디바이스 수정 */
     @PutMapping("/{id}")
     public ModelAndView editDevice(Device device) {
         ModelAndView mav = null;
@@ -100,7 +95,6 @@ public class DeviceController {
         return mav;
     }
 
-    /* 디바이스 정보 수신 */
     @PostMapping("/data")
     public Map<String, String> receiveDevice(
             @RequestBody Device device, HttpServletResponse httpServletResponse) {
@@ -114,7 +108,6 @@ public class DeviceController {
 
         if (message != null) {
             responseData.put("message", message);
-            
         } else {
             responseData.put("message", null);
         }
@@ -122,7 +115,6 @@ public class DeviceController {
         if (device.getId() != null && device.getHostName() != null
                 && device.getIpAddress() != null && device.getJdkVersion() != null) {
             managementService.receiveDevice(device);
-
         } else {
             responseData.put("message", "수신 데이터가 존재하지 않습니다.");
         }

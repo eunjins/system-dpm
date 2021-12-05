@@ -44,33 +44,36 @@
                                     <input type="hidden" name="_method" value="put"/>
                                     <input type="hidden" name="id" value="${device.id}"/>
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label" style="padding-left: 30px">디바이스 ID</label>
+                                        <label class="col-md-2 col-form-label" style="padding-left: 30px">디바이스
+                                            ID</label>
                                         <label class="col-md-6 col-form-label">${device.id}</label>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-search-input" class="col-md-2 col-form-label"style="padding-left: 30px">디바이스 명</label>
+                                        <label for="example-search-input" class="col-md-2 col-form-label"
+                                               style="padding-left: 30px">디바이스 명</label>
                                         <div class="col-md-6">
-                                            <input class="form-control" type="text" name=name value="${device.name}"
+                                            <input class="form-control" type="text" name="name" value="${device.name}"
                                                    id="example-search-input">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label"style="padding-left: 30px">호스트 명</label>
+                                        <label class="col-md-2 col-form-label" style="padding-left: 30px">호스트 명</label>
                                         <label class="col-md-6 col-form-label">${device.hostName}</label>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label"style="padding-left: 30px">IP 주소</label>
+                                        <label class="col-md-2 col-form-label" style="padding-left: 30px">IP 주소</label>
                                         <label class="col-md-6 col-form-label">${device.ipAddress}</label>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label"style="padding-left: 30px">JDK 버전</label>
+                                        <label class="col-md-2 col-form-label" style="padding-left: 30px">JDK 버전</label>
                                         <label class="col-md-6 col-form-label">${device.jdkVersion}</label>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label"style="padding-left: 30px">등록 일자</label>
+                                        <label class="col-md-2 col-form-label" style="padding-left: 30px">등록 일자</label>
                                         <label class="col-md-6 col-form-label">${device.insertDate}</label>
                                     </div>
-                                    <label for="example-search-input" class="col-md-2 col-form-label" style="padding-left: 18px">상태</label>
+                                    <label for="example-search-input" class="col-md-2 col-form-label"
+                                           style="padding-left: 18px">상태</label>
                                     <c:choose>
                                         <c:when test="${device.status eq 'Y'}">
                                             <div class="form-check form-check-inline mb-2" style="padding-bottom: 15px">
@@ -97,6 +100,10 @@
                                             </div>
                                         </c:when>
                                     </c:choose>
+                                    <div class="mb-3 row">
+                                        <label class="col-md-12 col-form-label" id="notify" style="padding-left: 30px; color: blue"></label>
+                                    </div>
+
                                     <div class="row">
                                         <div class="button-items">
                                             <a href="${contextPath}/devices/${device.id}">
@@ -106,8 +113,7 @@
                                                 </button>
                                             </a>
                                             <button type="button" class="btn btn-default btn-primary"
-                                                    style="float: right"
-                                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                    style="float: right" onclick="editCheck()">
                                                 수정
                                             </button>
                                         </div>
@@ -133,12 +139,12 @@
                                                                     class="btn btn-default btn-primary waves-effect waves-light"
                                                                     style="float: right">예
                                                             </button>
-                                                            <a href="${contextPath}/devices/${device.id}/form">
-                                                                <button type="button"
-                                                                        class="btn btn-default btn-primary waves-effect waves-light"
-                                                                        style="float: right">아니오
-                                                                </button>
-                                                            </a>
+                                                            <button type="button"
+                                                                    class="btn btn-default btn-primary waves-effect waves-light"
+                                                                    data-bs-dismiss="modal"
+                                                                    style="float: right">아니오
+                                                            </button>
+
                                                         </div>
                                                     </div>
                                                     <!-- /.modal-content -->
@@ -167,7 +173,21 @@
 
 <!-- JAVASCRIPT -->
 <jsp:include page="/WEB-INF/jsp/common/bottom.jsp"/>
+<script>
+    function editCheck() {
+        let deviceName = document.getElementById("example-search-input").value;
+        console.log(deviceName);
 
+        if (deviceName == null
+            || deviceName.trim() == "") {
+            document.getElementById("notify").innerHTML = "디바이스 명을 입력하세요";
+        } else {
+            jQuery(document).ready(function () {
+                $("#staticBackdrop").modal("show");
+            });
+        }
+    }
+</script>
 <!-- Buttons examples -->
 <script src="/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 <script src="/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
