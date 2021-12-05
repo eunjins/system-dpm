@@ -44,8 +44,7 @@
                                     <input type="hidden" name="_method" value="put"/>
                                     <input type="hidden" name="id" value="${device.id}"/>
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label" style="padding-left: 30px">디바이스
-                                            ID</label>
+                                        <label class="col-md-2 col-form-label" style="padding-left: 30px">디바이스 ID</label>
                                         <label class="col-md-6 col-form-label">${device.id}</label>
                                     </div>
                                     <div class="mb-3 row">

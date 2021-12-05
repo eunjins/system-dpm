@@ -89,7 +89,14 @@ public class DeviceController {
             return mav;
         }
 
-        deviceService.editDevice(device);
+        device.setName((device.getName()).trim());
+
+        try {
+            deviceService.editDevice(device);
+        } catch(Exception e) {
+            logger.error("중복 된 이름으로 수정");
+        }
+
         mav = new ModelAndView(new RedirectView("/devices/" + device.getId()));
 
         return mav;
