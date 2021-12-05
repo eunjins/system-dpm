@@ -73,17 +73,4 @@ public class Measure implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    @Override
-    public String toString() {
-        return "Measure{" +
-                "no=" + no +
-                ", name='" + name + '\'' +
-                ", deviceId='" + deviceId + '\'' +
-                ", deviceName='" + deviceName + '\'' +
-                ", scriptNo=" + scriptNo +
-                ", execTime=" + execTime +
-                ", status='" + status + '\'' +
-                '}';
-    }
 }

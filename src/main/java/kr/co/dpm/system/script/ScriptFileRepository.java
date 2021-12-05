@@ -1,6 +1,5 @@
 package kr.co.dpm.system.script;
 
-import kr.co.dpm.system.device.Device;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 

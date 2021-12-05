@@ -2,9 +2,10 @@ package kr.co.dpm.system.script;
 
 import kr.co.dpm.system.common.StatusCode;
 import kr.co.dpm.system.device.Device;
-import kr.co.dpm.system.device.DeviceServiceImpl;
-import kr.co.dpm.system.management.ManagementServiceImpl;
+import kr.co.dpm.system.device.DeviceService;
+import kr.co.dpm.system.management.ManagementService;
 import kr.co.dpm.system.measure.Measure;
+import kr.co.dpm.system.measure.MeasureService;
 import kr.co.dpm.system.util.ExcelUtil;
 import kr.co.dpm.system.util.Navigator;
 import org.apache.commons.io.FileUtils;
@@ -12,7 +13,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import kr.co.dpm.system.measure.MeasureServiceImpl;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -42,22 +42,22 @@ public class ScriptController {
     private Measure measureInfo = new Measure();
 
     @Autowired
-    private MeasureServiceImpl measureService;
+    private MeasureService measureService;
+
+    @Autowired
+    private DeviceService deviceService;
+
+    @Autowired
+    private ScriptService scriptService;
+
+    @Autowired
+    private AttachService attachService;
+
+    @Autowired
+    private ManagementService managementService;
 
     @Autowired
     private Navigator navigator;
-
-    @Autowired
-    private DeviceServiceImpl deviceService;
-
-    @Autowired
-    private ScriptServiceImpl scriptService;
-
-    @Autowired
-    private AttachServiceImpl attachService;
-
-    @Autowired
-    private ManagementServiceImpl managementService;
 
     @Autowired
     private ExcelUtil excelUtil;
@@ -65,14 +65,12 @@ public class ScriptController {
     @Autowired
     private StatusCode statusCode;
 
-    /*  스크립트 측정 결과 목록 폼 */
     @GetMapping
     public ModelAndView getScripts() {
         ModelAndView mav = new ModelAndView("script/list");
         return mav;
     }
 
-    /*  스크립트 측정 결과 목록 조회 */
     @PostMapping
     public Map<String, Object> getScripts(@RequestBody Map<String, String> inputCondition) {
         Map<String, String> condition = new HashMap<>();
@@ -98,12 +96,9 @@ public class ScriptController {
             measure.setName(measureInfo.getName());
 
             scriptMeasure.add(measure);
-
         } else {
             measure.setScriptNo(firstScript.getNo());
-
             List<Measure> measures = measureService.getMeasures(measure);
-
 
             measure.setName(measures.get(0).getName());
             if (measure.getName() != null) {
@@ -123,8 +118,7 @@ public class ScriptController {
 
             if (measures.isEmpty()) {
                 scripts.remove(object);
-                i--;
-
+                i --;
             } else {
                 measure.setName(measures.get(0).getName());
                 measure.setStatus("Y");
@@ -149,13 +143,11 @@ public class ScriptController {
         return result;
     }
 
-    /* 스크립트 등록 폼 */
     @GetMapping("/form")
     public ModelAndView registerScript() {
         return new ModelAndView("script/register");
     }
 
-    /* 스크립트 배포 */
     @PostMapping("/distribute")
     public ModelAndView distributeScript(
             @RequestParam("sourceFile") MultipartFile sourceFile,
@@ -199,7 +191,6 @@ public class ScriptController {
                 if (distributeCount == 0) {
                     mav = new ModelAndView("script/register");
                     mav.addObject("distributeFail", "배포된 디바이스가 없습니다");
-
                 } else {
                     scriptService.registerScript(script);
 
@@ -219,7 +210,6 @@ public class ScriptController {
         return mav;
     }
 
-    /* 스크립트 측정 결과 조회 */
     @GetMapping("/{no}")
     public ModelAndView getScript(Script script) {
         ModelAndView mav = new ModelAndView("script/view");
@@ -248,7 +238,6 @@ public class ScriptController {
         return mav;
     }
 
-    /* 스크립트 다운로드 */
     @GetMapping("/file/{no}")
     public void downloadScript(Attach attach, HttpServletResponse response) {
         OutputStream outputStream = null;
@@ -286,18 +275,20 @@ public class ScriptController {
         }
     }
 
-    /* 측정 결과 다운로드 */
     @GetMapping("/excel/{no}")
     public void downloadExcel(Script script, HttpServletResponse response) {
         if (script.getNo() < 1) {
             return;
         }
 
+        File excelFile = null;
+        String fileName = null;
         OutputStream outputStream = null;
-        File excelFile = excelUtil.createExcel(scriptService.getScript(script));
-        String fileName = excelFile.getName();
 
         try {
+            excelFile = excelUtil.createExcel(scriptService.getScript(script));
+            fileName = excelFile.getName();
+
             byte[] file = FileUtils.readFileToByteArray(excelFile);
 
             String encodingName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
@@ -325,7 +316,6 @@ public class ScriptController {
         }
     }
 
-    /* 측정 결과 수신 */
     @PostMapping(value = "/result")
     public Map<String, String> receiveScript(
             @RequestBody Measure measure, HttpServletResponse httpServletResponse) {
@@ -340,7 +330,6 @@ public class ScriptController {
 
         if (message != null) {
             responseData.put("message", message);
-
         } else {
             responseData.put("message", null);
         }
@@ -352,12 +341,10 @@ public class ScriptController {
                 while (true) {
                     if (measureInfo.getScriptNo() == 0) {
                         Thread.sleep(1000);
-
                     } else {
                         break;
                     }
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -2,10 +2,8 @@ package kr.co.dpm.system.util;
 
 import kr.co.dpm.system.device.Device;
 import kr.co.dpm.system.device.DeviceService;
-import kr.co.dpm.system.device.DeviceServiceImpl;
 import kr.co.dpm.system.measure.Measure;
 import kr.co.dpm.system.measure.MeasureService;
-import kr.co.dpm.system.measure.MeasureServiceImpl;
 import kr.co.dpm.system.script.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
@@ -14,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -29,8 +28,7 @@ public class ExcelUtil {
     @Autowired
     private DeviceService deviceService;
 
-    /* 엑셀 생성 */
-    public File createExcel(Script script) {
+    public File createExcel(Script script) throws IOException {
         List<Measure> measures =
                 measureService.getMeasures(new Measure(script.getNo()));
 
@@ -119,14 +117,14 @@ public class ExcelUtil {
             measures.get(i).setDeviceName(device.getName());
 
             Cell noCell = row.createCell(0);
-            noCell.setCellValue(i + 1);  // 번호
+            noCell.setCellValue(i + 1);
             noCell.setCellStyle(centerStyle);
 
-            Cell deviceCell = row.createCell(1);    // 디바이스 명
+            Cell deviceCell = row.createCell(1);
             deviceCell.setCellValue(measures.get(i).getDeviceName());
             deviceCell.setCellStyle(rowStyle);
 
-            Cell execTimeCell = row.createCell(2); // 실행 시간
+            Cell execTimeCell = row.createCell(2);
             execTimeCell.setCellValue(measures.get(i).getExecTime());
             execTimeCell.setCellStyle(noStyle);
         }
@@ -155,8 +153,9 @@ public class ExcelUtil {
         } finally {
             try {
                 fileOutputStream.close();
-            } catch (Exception e) {
+            } catch (IOException e) {
                 e.printStackTrace();
+                throw e;
             }
         }
 
@@ -164,7 +163,7 @@ public class ExcelUtil {
     }
 
     /* 엑셀 삭제 */
-    public void deleteExcel(String fileName) {
+    public void deleteExcel(String fileName) throws IOException {
         File file = new File(excelPath + File.separator + fileName);
         file.delete();
     }

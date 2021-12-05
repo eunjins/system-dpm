@@ -33,7 +33,7 @@ public class DistributeUtil implements Runnable{
     @Override
     public void run() {
         try {
-            CryptogramImpl cryptogram = new CryptogramImpl(device.getId());
+            Cryptogram cryptogram = new Cryptogram(device.getId());
             String encryptResult = cryptogram.encryption(device.getId());
 
             if (scriptFileRepository.distribute(classFile, encryptResult, device.getIpAddress())) {

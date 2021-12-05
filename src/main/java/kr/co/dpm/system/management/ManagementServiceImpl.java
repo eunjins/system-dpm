@@ -3,7 +3,7 @@ package kr.co.dpm.system.management;
 import kr.co.dpm.system.device.Device;
 import kr.co.dpm.system.device.DeviceService;
 import kr.co.dpm.system.script.ScriptFileRepository;
-import kr.co.dpm.system.util.CryptogramImpl;
+import kr.co.dpm.system.util.Cryptogram;
 import kr.co.dpm.system.util.DistributeUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @Service
 public class ManagementServiceImpl implements ManagementService {
-    private static final Logger logger = LogManager.getLogger(CryptogramImpl.class);
+    private static final Logger logger = LogManager.getLogger(Cryptogram.class);
 
     @Autowired
     private DeviceService deviceService;
