@@ -78,15 +78,15 @@
                                                 aria-label="Name: activate to sort column descending">번호
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                colspan="1" style="width: 25%;"
+                                                colspan="1" style="width: 30%;"
                                                 aria-label="Position: activate to sort column ascending">측정 결과 명
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                colspan="1" style="width: 25%;"
+                                                colspan="1" style="width: 30%;"
                                                 aria-label="Office: activate to sort column ascending">스크립트 명
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                colspan="1" style="width: 30%;"
+                                                colspan="1" style="width: 22%;"
                                                 aria-label="Office: activate to sort column ascending">업로드 일시
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
@@ -205,7 +205,7 @@
                 '<td style="text-align: left">' + scriptMeasure[i].name +
                 '</td>' +
                 '<td style="text-align: left">' + scripts[i].name + '</td>' +
-                '<td style="text-align: left">' + scripts[i].uploadPoint + '</td>' +
+                '<td>' + scripts[i].uploadPoint + '</td>' +
                 '<td>';
 
             if (scriptMeasure[i].status == 'N') {
