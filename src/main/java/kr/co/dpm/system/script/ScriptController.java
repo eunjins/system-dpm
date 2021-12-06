@@ -181,7 +181,7 @@ public class ScriptController {
             if (sourceFileName.equals(classFileName)) {
                 distributeCount = 0;
 
-                if (managementService.distributeScript(classFile, measureInfo.getScriptNo())) {
+                if (managementService.distributeScript(classFile, measureInfo)) {
                     String scriptName = FilenameUtils.getBaseName(sourceFile.getOriginalFilename());
                     script.setName(scriptName);
 

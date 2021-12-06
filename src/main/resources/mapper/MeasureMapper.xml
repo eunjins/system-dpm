@@ -14,6 +14,7 @@
             , SCRIPT_NO
             , EXEC_TIME
             , MEASURE.STATUS
+            , MEASURE.DISTRIBUTE_STATUS
             FROM MEASURE INNER JOIN DEVICE
             ON MEASURE.DEVICE_ID = DEVICE.ID
         <where>
@@ -37,6 +38,7 @@
         , SCRIPT_NO
         , EXEC_TIME
         , STATUS
+        , DISTRIBUTE_STATUS
         FROM MEASURE
         <where>
             <if test="no > 0">
@@ -54,8 +56,8 @@
     <insert id="insert"
             parameterType="measure">
         INSERT INTO MEASURE
-            (NAME, DEVICE_ID, SCRIPT_NO, EXEC_TIME, STATUS)
+            (NAME, DEVICE_ID, SCRIPT_NO, EXEC_TIME, STATUS, DISTRIBUTE_STATUS)
         VALUES
-            (#{name}, #{deviceId}, #{scriptNo}, #{execTime}, #{status})
+            (#{name}, #{deviceId}, #{scriptNo}, #{execTime}, #{status}, #{distributeStatus})
     </insert>
 </mapper>

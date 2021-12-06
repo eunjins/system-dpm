@@ -47,7 +47,7 @@ public class ManagementServiceImpl implements ManagementService {
     }
 
     @Override
-    public boolean distributeScript(MultipartFile classFile, int scriptNo) {
+    public boolean distributeScript(MultipartFile classFile, Measure measure) {
         List<Device> devices = deviceService.getDevices(new HashMap<String, String>());
 
         for (Device device : devices) {
@@ -58,8 +58,6 @@ public class ManagementServiceImpl implements ManagementService {
                 distributeUtil.setScriptFileRepository(scriptFileRepository);
                 distributeUtil.setMeasureService(measureService);
 
-                Measure measure = new Measure();
-                measure.setScriptNo(scriptNo);
                 distributeUtil.setMeasure(measure);
 
                 Thread thread = new Thread(distributeUtil);

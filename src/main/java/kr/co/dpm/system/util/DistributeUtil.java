@@ -52,6 +52,10 @@ public class DistributeUtil implements Runnable{
                 ScriptController.distributeCount++;
 
             } else {
+                Measure measure = new Measure();
+
+                measure.setScriptNo(this.measure.getScriptNo());
+                measure.setName(this.measure.getName());
                 measure.setDistributeStatus("N");
                 measure.setStatus("N");
                 measure.setExecTime(0);
