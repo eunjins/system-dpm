@@ -34,7 +34,7 @@ public class ManagementServiceImpl implements ManagementService {
         } else {
             String nowDate = String.valueOf(LocalDate.now());
 
-            device.setName(device.getHostName());
+            device.setName(device.getId());
             device.setInsertDate(nowDate);
 
             deviceService.registerDevice(device);
