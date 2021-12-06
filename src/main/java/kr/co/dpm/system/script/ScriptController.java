@@ -181,7 +181,7 @@ public class ScriptController {
             if (sourceFileName.equals(classFileName)) {
                 distributeCount = 0;
 
-                if (managementService.distributeScript(classFile)) {
+                if (managementService.distributeScript(classFile, measureInfo.getScriptNo())) {
                     String scriptName = FilenameUtils.getBaseName(sourceFile.getOriginalFilename());
                     script.setName(scriptName);
 
@@ -366,6 +366,7 @@ public class ScriptController {
             checkMeasure.setDeviceId(measure.getDeviceId());
 
             if (measureService.getMeasure(checkMeasure) == null) {
+                measure.setDistributeStatus("Y");
                 measureService.registerMeasure(measure);
                 logger.debug("-------> 배포중 디바이스 개수 : " + --distributeCount);
 

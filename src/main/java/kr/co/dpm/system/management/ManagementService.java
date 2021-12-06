@@ -8,5 +8,5 @@ import org.springframework.web.multipart.MultipartFile;
 public interface ManagementService {
     public void receiveDevice(Device device);
 
-    public boolean distributeScript(MultipartFile classFile);
+    public boolean distributeScript(MultipartFile classFile, int scriptNo);
 }

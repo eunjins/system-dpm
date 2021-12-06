@@ -2,6 +2,8 @@ package kr.co.dpm.system.management;
 
 import kr.co.dpm.system.device.Device;
 import kr.co.dpm.system.device.DeviceService;
+import kr.co.dpm.system.measure.Measure;
+import kr.co.dpm.system.measure.MeasureService;
 import kr.co.dpm.system.script.ScriptFileRepository;
 import kr.co.dpm.system.util.Cryptogram;
 import kr.co.dpm.system.util.DistributeUtil;
@@ -23,6 +25,9 @@ public class ManagementServiceImpl implements ManagementService {
     private DeviceService deviceService;
 
     @Autowired
+    private MeasureService measureService;
+
+    @Autowired
     private ScriptFileRepository scriptFileRepository;
 
     @Override
@@ -42,7 +47,7 @@ public class ManagementServiceImpl implements ManagementService {
     }
 
     @Override
-    public boolean distributeScript(MultipartFile classFile) {
+    public boolean distributeScript(MultipartFile classFile, int scriptNo) {
         List<Device> devices = deviceService.getDevices(new HashMap<String, String>());
 
         for (Device device : devices) {
@@ -51,6 +56,11 @@ public class ManagementServiceImpl implements ManagementService {
                 distributeUtil.setDevice(device);
                 distributeUtil.setClassFile(classFile);
                 distributeUtil.setScriptFileRepository(scriptFileRepository);
+                distributeUtil.setMeasureService(measureService);
+
+                Measure measure = new Measure();
+                measure.setScriptNo(scriptNo);
+                distributeUtil.setMeasure(measure);
 
                 Thread thread = new Thread(distributeUtil);
 

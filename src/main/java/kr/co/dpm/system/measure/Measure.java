@@ -10,6 +10,7 @@ public class Measure implements Serializable {
     private int scriptNo;
     private int execTime;
     private String status;
+    private String distributeStatus;
 
     public Measure() {
     }
@@ -72,6 +73,14 @@ public class Measure implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDistributeStatus() {
+        return distributeStatus;
+    }
+
+    public void setDistributeStatus(String distributeStatus) {
+        this.distributeStatus = distributeStatus;
     }
 
     @Override
