@@ -343,25 +343,34 @@ public class ScriptController {
         }
 
         if (measure.getDeviceId() != null) {
-            if (measureService.getMeasure(measure) != null) {
-                measure.setName(measureInfo.getName());
+            measure.setName(measureInfo.getName());
 
-                try {
-                    while (true) {
-                        if (measureInfo.getScriptNo() == 0) {
-                            Thread.sleep(1000);
+            try {
+                while (true) {
+                    if (measureInfo.getScriptNo() == 0) {
+                        Thread.sleep(1000);
 
-                        } else {
-                            break;
-                        }
+                    } else {
+                        break;
                     }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
 
-                measure.setScriptNo(measureInfo.getScriptNo());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            measure.setScriptNo(measureInfo.getScriptNo());
+            Measure checkMeasure = new Measure();
+
+            checkMeasure.setScriptNo(measure.getScriptNo());
+            checkMeasure.setDeviceId(measure.getDeviceId());
+
+            if (measureService.getMeasure(checkMeasure) == null) {
                 measureService.registerMeasure(measure);
+                logger.debug("-------> 배포중 디바이스 개수 : " + --distributeCount);
+
+            } else {
+                logger.debug("-------> 중복 디바이스");
             }
 
         } else {
