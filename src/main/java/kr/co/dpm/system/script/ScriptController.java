@@ -180,17 +180,19 @@ public class ScriptController {
             String classFileName = FilenameUtils.getBaseName((classFile.getOriginalFilename()));
             if (sourceFileName.equals(classFileName)) {
                 distributeCount = 0;
-
-                if (managementService.distributeScript(classFile, measureInfo)) {
-                    String scriptName = FilenameUtils.getBaseName(sourceFile.getOriginalFilename());
-                    script.setName(scriptName);
-
-                    mav = new ModelAndView(new RedirectView("/scripts"));
-                }
-
                 try {
+                    if (managementService.distributeScript(classFile, measureInfo)) {
+                        String scriptName = FilenameUtils.getBaseName(sourceFile.getOriginalFilename());
+                        script.setName(scriptName);
+
+                        mav = new ModelAndView(new RedirectView("/scripts"));
+                    }
+
                     Thread.sleep(4000);
-                } catch (InterruptedException e) {
+
+                    new File(path + File.separator + classFile.getOriginalFilename()).delete();
+
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 

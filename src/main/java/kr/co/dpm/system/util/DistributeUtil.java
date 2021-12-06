@@ -7,9 +7,11 @@ import kr.co.dpm.system.script.ScriptController;
 import kr.co.dpm.system.script.ScriptFileRepository;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+
 public class DistributeUtil implements Runnable{
     private Device device;
-    private MultipartFile classFile;
+    private File classFile;
     private ScriptFileRepository scriptFileRepository;
     private MeasureService measureService;
     private Measure measure;
@@ -22,11 +24,11 @@ public class DistributeUtil implements Runnable{
         this.device = device;
     }
 
-    public MultipartFile getClassFile() {
+    public File getClassFile() {
         return classFile;
     }
 
-    public void setClassFile(MultipartFile classFile) {
+    public void setClassFile(File classFile) {
         this.classFile = classFile;
     }
 
