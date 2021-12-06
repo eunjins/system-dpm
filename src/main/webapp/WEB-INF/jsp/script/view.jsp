@@ -200,24 +200,13 @@
 <script type="text/javascript">
     var deviceNames = [];
     var execTimes = [];
-    const color = [
-        "#FF6666", "#0080FF", "#336633", "#663399", "#993366",
-        "#0066CC", "#CC3333", "#996666", "#00CC99", "#333366",
-        "#CC00CC", "#9966FF", "#6600CC", "#CC3333", "#FFCC33",
-        "#FF6666", "#0080FF", "#336633", "#663399", "#993366",
-        "#0066CC", "#CC3333", "#996666", "#00CC99", "#333366",
-        "#CC00CC", "#9966FF", "#6600CC", "#CC3333", "#FFCC33",
-        "#FF6666", "#0080FF", "#336633", "#663399", "#993366",
-        "#0066CC", "#CC3333", "#996666", "#00CC99", "#333366",
-        "#CC00CC", "#9966FF", "#6600CC", "#CC3333", "#FFCC33"
-    ];
 
     const chartData = [
         <c:forEach items="${measures}" var="measure" varStatus="object">
         {
             "label": "${measure.deviceName}",
             "value": "${measure.execTime}",
-            "color": color[${object.count}]
+            "color": "#" + Math.floor(Math.random() * 16777215).toString(16)
         },
         </c:forEach>
     ];
