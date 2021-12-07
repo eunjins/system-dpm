@@ -160,6 +160,9 @@
         } else if (registerInfo.sourcefile.split(".").pop() != "java" ||
             registerInfo.classfile.split(".").pop() != "class") {
             document.getElementById("register").innerHTML = "스크립트 확장자를 확인하세요"
+        } else if (registerInfo.sourcefile.split("\\").pop().split(".")[0] !=
+                   registerInfo.classfile.split("\\").pop().split(".")[0]) {
+            document.getElementById("register").innerHTML = "스크립트 파일을 확인하세요"
         } else {
             jQuery(document).ready(function () {
                 $("#staticBackdrop").modal("show");
