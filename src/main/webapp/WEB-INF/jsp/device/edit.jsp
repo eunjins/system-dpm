@@ -136,7 +136,8 @@
                                                         <div class="modal-footer">
                                                             <button type="submit"
                                                                     class="btn btn-default btn-primary waves-effect waves-light"
-                                                                    style="float: right">예
+                                                                    style="float: right; margin-right: 5%;
+                                                                    padding-left: 4%; padding-right: 4%">예
                                                             </button>
                                                             <button type="button"
                                                                     class="btn btn-default btn-primary waves-effect waves-light"
