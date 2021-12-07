@@ -10,12 +10,23 @@
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
+    <!-- Local -->
+    <!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">-->
+    <!--        <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>-->
+    <!--        <property name="url" value="jdbc:mysql://localhost:3306/DPM?useSSL=false&amp;serverTimezone=UTC"/>-->
+    <!--        <property name="username" value="mybatis"/>-->
+    <!--        <property name="password" value="mybatis$"/>-->
+    <!--    </bean>-->
+    <!-- /Local -->
+
+    <!-- Hosting -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-        <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/DPM?useSSL=false&amp;serverTimezone=UTC"/>
-        <property name="username" value="mybatis"/>
-        <property name="password" value="mybatis$"/>
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/dpmsystem?serverTimezone=UTC"/>
+        <property name="username" value="dpmsystem"/>
+        <property name="password" value="mybatis!!"/>
     </bean>
+    <!-- /Hosting -->
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
