@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.net.ConnectException;
 import java.net.NoRouteToHostException;
 import java.net.SocketTimeoutException;
 
@@ -29,51 +30,43 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
     private String url;
 
     @Override
-    public boolean distribute(File classFile, String encryptResult, String ip) {
+    public boolean distribute(File classFile, String encryptResult, String ip) throws Exception {
+        String requestUrl = http + ip + port + url;
+
+        OkHttpClient client = new OkHttpClient();
+
+        RequestBody requestBody = new MultipartBody.Builder().
+                setType(MultipartBody.FORM).
+                addFormDataPart("encryptId", encryptResult).
+                addFormDataPart("scriptFile",
+                        classFile.getName(),
+                        RequestBody.create(MULTIPART,
+                                classFile)).build();
+
+        Request request = new Request.Builder().
+                url(requestUrl).
+                post(requestBody).
+                build();
+
+        Response response = null;
         try {
-            String requestUrl = http + ip + port + url;
-
-            OkHttpClient client = new OkHttpClient();
-
-            RequestBody requestBody = new MultipartBody.Builder().
-                                      setType(MultipartBody.FORM).
-                                      addFormDataPart("encryptId", encryptResult).
-                                      addFormDataPart("scriptFile",
-                                              classFile.getName(),
-                                                      RequestBody.create(MULTIPART,
-                                                              classFile)).build();
-
-            Request request = new Request.Builder().
-                                          url(requestUrl).
-                                          post(requestBody).
-                                          build();
-
-            Response response = client.newCall(request).execute();
-
-            ResponseBody responseBody = response.body();
-            JSONObject jsonResponse = new JSONObject(responseBody.string());
-
-            if ("200".equals(jsonResponse.getString("code"))) {
-                //convertFile.delete();
-                logger.debug("-------> 에이전트 배포 성공");
-
-                return true;
-            }
-
-            logger.debug("-------> 에이전트 배포 오류 : " + jsonResponse.getString("message"));
-        } catch (NoRouteToHostException e) {
-            e.printStackTrace();
-
-        } catch (SocketTimeoutException e) {
-            logger.debug("-------> " + ip + " 에이전트 연결 시간 초과");
-
+            response = client.newCall(request).execute();
+        } catch (ConnectException e) {
+            throw new Exception(e);
         } catch (Exception e) {
-            e.printStackTrace();
-
-        } finally {
-           //convertFile.delete();
+            throw e;
         }
 
+
+        ResponseBody responseBody = response.body();
+        JSONObject jsonResponse = new JSONObject(responseBody.string());
+
+        if ("200".equals(jsonResponse.getString("code"))) {
+            logger.debug("-------> 에이전트 배포 성공");
+
+            return true;
+        }
+        logger.debug("-------> 에이전트 배포 오류 : " + jsonResponse.getString("message"));
         logger.debug("------> 배포 실패 ");
 
         return false;

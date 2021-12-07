@@ -5,11 +5,14 @@ import kr.co.dpm.system.measure.Measure;
 import kr.co.dpm.system.measure.MeasureService;
 import kr.co.dpm.system.script.ScriptController;
 import kr.co.dpm.system.script.ScriptFileRepository;
-import org.springframework.web.multipart.MultipartFile;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 
 public class DistributeUtil implements Runnable{
+    private static final Logger logger = LogManager.getLogger(DistributeUtil.class);
+    
     private Device device;
     private File classFile;
     private ScriptFileRepository scriptFileRepository;
@@ -58,6 +61,8 @@ public class DistributeUtil implements Runnable{
             } else {
                 Measure measure = new Measure();
 
+                Thread.sleep(4000);
+
                 measure.setScriptNo(this.measure.getScriptNo());
                 measure.setName(this.measure.getName());
                 measure.setDistributeStatus("N");
@@ -70,13 +75,26 @@ public class DistributeUtil implements Runnable{
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("연결 되지 않은 디바이스");
 
+            Measure measure = new Measure();
+
+            if (this.measure.getScriptNo() == -1) {
+                try {
+                    Thread.sleep(4000);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            measure.setScriptNo(this.measure.getScriptNo());
+            measure.setName(this.measure.getName());
             measure.setDistributeStatus("N");
             measure.setStatus("N");
             measure.setExecTime(0);
             measure.setDeviceId(device.getId());
             measure.setDeviceName(device.getName());
+
+            logger.debug("연결 되지 않은 디바이스의 측정 결과 : " + measure);
 
             measureService.registerMeasure(measure);
         }

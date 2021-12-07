@@ -168,7 +168,7 @@ public class ScriptController {
             @RequestParam("sourceFile") MultipartFile sourceFile,
             @RequestParam("classFile") MultipartFile classFile,
             @RequestParam("name") String measureName) {
-        measureInfo.setScriptNo(0);
+        measureInfo.setScriptNo(-1);
         measureInfo.setName(measureName);
 
         ModelAndView mav = new ModelAndView(new RedirectView("/scripts/form"));
@@ -349,7 +349,7 @@ public class ScriptController {
 
             try {
                 while (true) {
-                    if (measureInfo.getScriptNo() == 0) {
+                    if (measureInfo.getScriptNo() == -1) {
                         Thread.sleep(1000);
 
                     } else {
