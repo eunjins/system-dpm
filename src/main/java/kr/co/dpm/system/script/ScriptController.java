@@ -81,6 +81,7 @@ public class ScriptController {
         int scriptsCount = scriptService.getScripts(condition).size();
 
         Integer pageNo = Integer.valueOf(inputCondition.get("pageNo")) * 10;
+
         condition.put("pageNo", (pageNo.toString()));
 
         List<Script> scripts = scriptService.getScripts(condition);
@@ -96,28 +97,30 @@ public class ScriptController {
                 : "";
 
         int scriptStartNo = 0;
-        if (distributeCount > 0) {
-            if ((measureInfo.getName()).indexOf(conditionMeasureName) != -1
-                    || "".equals(conditionMeasureName)) {
-                measure.setStatus("N");
-                measure.setName(measureInfo.getName());
-                scriptMeasure.add(measure);
-                scriptStartNo = 1;
-            }
-
-        } else {
-            measure.setScriptNo(firstScript.getNo());
-
-            List<Measure> measures = measureService.getMeasures(measure);
-
-            if ((measures.get(0).getName()).indexOf(conditionMeasureName) != -1
-                    || "".equals(conditionMeasureName)) {
-                measure.setName(measures.get(0).getName());
-                if (measure.getName() != null) {
-                    measure.setStatus("Y");
-
+        if ("0".equals((pageNo.toString()))) {
+            if (distributeCount > 0) {
+                if ((measureInfo.getName()).indexOf(conditionMeasureName) != -1
+                        || "".equals(conditionMeasureName)) {
+                    measure.setStatus("N");
+                    measure.setName(measureInfo.getName());
                     scriptMeasure.add(measure);
                     scriptStartNo = 1;
+                }
+
+            } else {
+                measure.setScriptNo(firstScript.getNo());
+
+                List<Measure> measures = measureService.getMeasures(measure);
+
+                if ((measures.get(0).getName()).indexOf(conditionMeasureName) != -1
+                        || "".equals(conditionMeasureName)) {
+                    measure.setName(measures.get(0).getName());
+                    if (measure.getName() != null) {
+                        measure.setStatus("Y");
+
+                        scriptMeasure.add(measure);
+                        scriptStartNo = 1;
+                    }
                 }
             }
         }
@@ -130,6 +133,8 @@ public class ScriptController {
             measure.setName(conditionMeasureName);
 
             List<Measure> measures = measureService.getMeasures(measure);
+
+            logger.debug("결과 : " + scripts.get(i) + measures);
 
             if (measures.isEmpty()) {
                 scripts.remove(i--);
@@ -171,48 +176,43 @@ public class ScriptController {
         measureInfo.setScriptNo(-1);
         measureInfo.setName(measureName);
 
-        ModelAndView mav = new ModelAndView(new RedirectView("/scripts/form"));
+        ModelAndView mav = null;
         Attach attach = new Attach();
         Script script = new Script();
 
         if (!sourceFile.isEmpty() && !classFile.isEmpty()) {
             String sourceFileName = FilenameUtils.getBaseName((sourceFile.getOriginalFilename()));
             String classFileName = FilenameUtils.getBaseName((classFile.getOriginalFilename()));
+
             if (sourceFileName.equals(classFileName)) {
                 distributeCount = 0;
+
                 try {
-                    if (managementService.distributeScript(classFile, measureInfo)) {
+                    List<Device> devices = deviceService.getDevices(new HashMap<>());
+
+                    if (managementService.distributeScript(devices, classFile, measureInfo)) {
+                        mav = new ModelAndView(new RedirectView("/scripts"));
+
                         String scriptName = FilenameUtils.getBaseName(sourceFile.getOriginalFilename());
                         script.setName(scriptName);
 
-                        mav = new ModelAndView(new RedirectView("/scripts"));
+                        scriptService.registerScript(script);
+
+                        measureInfo.setScriptNo(script.getNo());
+                        attach.setScriptNo(script.getNo());
+                        attachService.registerAttach(sourceFile, classFile, attach);
+
+                    } else {
+                        mav = new ModelAndView("script/register");
+                        mav.addObject("distributeFail", "배포된 디바이스가 없습니다");
                     }
-
-                    Thread.sleep(4000);
-
-                    new File(path + File.separator + classFile.getOriginalFilename()).delete();
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-                if (distributeCount == 0) {
-                    mav = new ModelAndView("script/register");
-                    mav.addObject("distributeFail", "배포된 디바이스가 없습니다");
-
-                } else {
-                    scriptService.registerScript(script);
-
-                    int scriptNo = script.getNo();
-                    attach.setScriptNo(scriptNo);
-
-                    try {
-                        measureInfo.setScriptNo(scriptNo);
-                        attachService.registerAttach(sourceFile, classFile, attach);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+            } else {
+                mav = new ModelAndView("script/register");
+                mav.addObject("distributeFail", "스크립트와 클래스 파일이 일치하지 않습니다.");
             }
         }
 
@@ -330,7 +330,7 @@ public class ScriptController {
             @RequestBody Measure measure, HttpServletResponse httpServletResponse) {
         logger.debug("-------> 측정 결과 수신 " + measure.toString());
 
-        Map<String, String> responseData = new HashMap<>();
+        Map<String, String> responseData = new HashMap<String, String>();
 
         int code = httpServletResponse.getStatus();
         String message = statusCode.getStatusRepository().get(code);

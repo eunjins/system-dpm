@@ -2,6 +2,7 @@ package kr.co.dpm.system.util;
 
 import kr.co.dpm.system.device.Device;
 import kr.co.dpm.system.measure.Measure;
+import kr.co.dpm.system.measure.MeasureRepository;
 import kr.co.dpm.system.measure.MeasureService;
 import kr.co.dpm.system.script.ScriptController;
 import kr.co.dpm.system.script.ScriptFileRepository;
@@ -9,14 +10,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 
-public class DistributeUtil implements Runnable{
+public class DistributeUtil implements Runnable {
     private static final Logger logger = LogManager.getLogger(DistributeUtil.class);
-    
+
     private Device device;
     private File classFile;
     private ScriptFileRepository scriptFileRepository;
-    private MeasureService measureService;
+    private MeasureRepository measureRepository;
     private Measure measure;
 
     public Device getDevice() {
@@ -39,8 +41,8 @@ public class DistributeUtil implements Runnable{
         this.scriptFileRepository = scriptFileRepository;
     }
 
-    public void setMeasureService(MeasureService measureService) {
-        this.measureService = measureService;
+    public void setMeasureRepository(MeasureRepository measureRepository) {
+        this.measureRepository = measureRepository;
     }
 
     public void setMeasure(Measure measure) {
@@ -50,7 +52,9 @@ public class DistributeUtil implements Runnable{
     @Override
     public void run() {
         try {
-            Cryptogram cryptogram = new Cryptogram(device.getId());
+            Cryptogram cryptogram = null;
+
+            cryptogram = new Cryptogram(device.getId());
             String encryptResult = cryptogram.encryption(device.getId());
 
             if (scriptFileRepository.distribute(classFile, encryptResult, device.getIpAddress())) {
@@ -61,7 +65,9 @@ public class DistributeUtil implements Runnable{
             } else {
                 Measure measure = new Measure();
 
-                Thread.sleep(4000);
+                if (this.measure.getScriptNo() == -1) {
+                    Thread.sleep(4000);
+                }
 
                 measure.setScriptNo(this.measure.getScriptNo());
                 measure.setName(this.measure.getName());
@@ -71,32 +77,13 @@ public class DistributeUtil implements Runnable{
                 measure.setDeviceId(device.getId());
                 measure.setDeviceName(device.getName());
 
-                measureService.registerMeasure(measure);
-            }
+                logger.debug("연결 되지 않은 디바이스의 측정 결과 : " + measure);
 
+                measureRepository.insert(measure);
+            }
         } catch (Exception e) {
-            logger.debug("연결 되지 않은 디바이스");
-
-            Measure measure = new Measure();
-
-            if (this.measure.getScriptNo() == -1) {
-                try {
-                    Thread.sleep(4000);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-            }
-            measure.setScriptNo(this.measure.getScriptNo());
-            measure.setName(this.measure.getName());
-            measure.setDistributeStatus("N");
-            measure.setStatus("N");
-            measure.setExecTime(0);
-            measure.setDeviceId(device.getId());
-            measure.setDeviceName(device.getName());
-
-            logger.debug("연결 되지 않은 디바이스의 측정 결과 : " + measure);
-
-            measureService.registerMeasure(measure);
+            e.printStackTrace();
         }
     }
+
 }

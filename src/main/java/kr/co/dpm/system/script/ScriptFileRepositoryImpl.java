@@ -30,44 +30,45 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
     private String url;
 
     @Override
-    public boolean distribute(File classFile, String encryptResult, String ip) throws Exception {
-        String requestUrl = http + ip + port + url;
-
-        OkHttpClient client = new OkHttpClient();
-
-        RequestBody requestBody = new MultipartBody.Builder().
-                setType(MultipartBody.FORM).
-                addFormDataPart("encryptId", encryptResult).
-                addFormDataPart("scriptFile",
-                        classFile.getName(),
-                        RequestBody.create(MULTIPART,
-                                classFile)).build();
-
-        Request request = new Request.Builder().
-                url(requestUrl).
-                post(requestBody).
-                build();
-
-        Response response = null;
+    public boolean distribute(File classFile, String encryptResult, String ip) {
         try {
+            String requestUrl = http + ip + port + url;
+
+            OkHttpClient client = new OkHttpClient();
+
+            RequestBody requestBody = new MultipartBody.Builder().
+                    setType(MultipartBody.FORM).
+                    addFormDataPart("encryptId", encryptResult).
+                    addFormDataPart("scriptFile",
+                            classFile.getName(),
+                            RequestBody.create(MULTIPART,
+                                    classFile)).build();
+
+            Request request = new Request.Builder().
+                    url(requestUrl).
+                    post(requestBody).
+                    build();
+
+            Response response = null;
+
             response = client.newCall(request).execute();
+
+            ResponseBody responseBody = response.body();
+            JSONObject jsonResponse = new JSONObject(responseBody.string());
+
+            if ("200".equals(jsonResponse.getString("code"))) {
+                logger.debug("-------> 에이전트 배포 성공");
+                return true;
+            }
+
+            logger.debug("-------> 에이전트 배포 오류 : " + jsonResponse.getString("message"));
+            logger.debug("------> 배포 실패 ");
+
         } catch (ConnectException e) {
-            throw new Exception(e);
+            logger.debug("------> 연결 되지 않은 디바이스");
         } catch (Exception e) {
-            throw e;
+            logger.debug("------> 연결 되지 않은 디바이스");
         }
-
-
-        ResponseBody responseBody = response.body();
-        JSONObject jsonResponse = new JSONObject(responseBody.string());
-
-        if ("200".equals(jsonResponse.getString("code"))) {
-            logger.debug("-------> 에이전트 배포 성공");
-
-            return true;
-        }
-        logger.debug("-------> 에이전트 배포 오류 : " + jsonResponse.getString("message"));
-        logger.debug("------> 배포 실패 ");
 
         return false;
     }

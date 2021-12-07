@@ -121,6 +121,8 @@ public class DeviceController {
 
         if (device.getId() != null && device.getHostName() != null
                 && device.getIpAddress() != null && device.getJdkVersion() != null) {
+
+
             managementService.receiveDevice(device);
         } else {
             responseData.put("message", "수신 데이터가 존재하지 않습니다.");
