@@ -83,7 +83,7 @@
                                         <a href="${contextPath}/devices/${device.id}/form">
                                             <button type="button"
                                                     class="btn btn-default btn-primary waves-effect waves-light"
-                                                    style="float: right">수정
+                                                    style="float: right; margin-right: 2%">수정
                                             </button>
                                         </a>
                                     </div>

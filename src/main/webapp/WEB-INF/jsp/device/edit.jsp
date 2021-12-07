@@ -100,7 +100,7 @@
                                         </c:when>
                                     </c:choose>
                                     <div class="mb-3 row">
-                                        <label class="col-md-12 col-form-label" id="notify" style="padding-left: 30px; color: blue"></label>
+                                        <div class="col-md-12 col-form-label" id="notify" style="padding-left: 30px; color: blue"></div>
                                     </div>
 
                                     <div class="row">
@@ -112,7 +112,7 @@
                                                 </button>
                                             </a>
                                             <button type="button" class="btn btn-default btn-primary"
-                                                    style="float: right" onclick="editCheck()">
+                                                    style="float: right; margin-right: 2%" onclick="editCheck()">
                                                 수정
                                             </button>
                                         </div>
@@ -173,6 +173,11 @@
 <!-- JAVASCRIPT -->
 <jsp:include page="/WEB-INF/jsp/common/bottom.jsp"/>
 <script>
+    var existName = "${existName}";
+    if ("${existName}".equals("Y")) {
+        document.getElementById("notify").innerHTML = "이미 존재하는 디바이스명 입니다";
+    }
+
     function editCheck() {
         let deviceName = document.getElementById("example-search-input").value;
         console.log(deviceName);

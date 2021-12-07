@@ -13,14 +13,14 @@
                 <div class="navbar navbar-light navbar-expand-lg topnav-menu">
                     <div class="collapse navbar-collapse" id="topnav-menu-content">
                         <ul class="navbar-nav">
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown" style="padding-right: 7%">
                                 <a class="nav-link dropdown-toggle arrow-none" style="font-size: larger"
                                    href="${pageContext.request.contextPath}/devices" id="topnav-device"
                                    role="button">
                                     디바이스
                                 </a>
                             </li>
-                            <li class="nav-item dropdown" style="padding-left: 7%">
+                            <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" style="font-size: larger"
                                    href="${pageContext.request.contextPath}/scripts" id="topnav-script"
                                    role="button">
