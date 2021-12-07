@@ -113,10 +113,10 @@
                                     <div class="row">
                                         <div class="col-sm-12" style="padding-top: 10px;">
                                             <table
-                                                   class="table table-striped table-bordered dt-responsive nowrap no-footer dtr-inline"
-                                                   style="border-collapse: collapse; border-spacing: 0px; width: 100%; text-align: center; outline-style: solid;
-                                                    outline-width: thin";
-                                                   role="grid" aria-describedby="datatable_info">
+                                                    class="table table-striped table-bordered dt-responsive nowrap no-footer dtr-inline"
+                                                    style="border-collapse: collapse; border-spacing: 0px; width: 100%; text-align: center; outline-style: solid;
+                                                    outline-width: thin" ;
+                                                    role="grid" aria-describedby="datatable_info">
                                                 <thead>
                                                 <tr role="row" bgcolor="#4169e1" style="color: #FFFFFF">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="datatable"
@@ -234,13 +234,24 @@
 </script>
 <script type="text/javascript">
     let measureList = document.getElementById("measureList");
-    measureList.innerHTML = '<c:forEach items="${measures}" var="measure" varStatus="object">' +
-        '<tr class="odd">' +
+    let listHtml = "";
+    <c:forEach items="${measures}" var="measure" varStatus="object">
+    listHtml += '<tr class="odd">' +
         '<td class="dtr-control sorting_1" tabindex="0" style="text-align: center">${object.count}</td>' +
-        '<td style="text-align: left">${measure.deviceName}</td>' +
-        '<td id=execTime style="text-align:right">' + Number(${measure.execTime}).toLocaleString('en') + '</td>' +
-        ' </tr>' +
-        '</c:forEach>'
+        '<td style="text-align: left">${measure.deviceName}</td>';
+        <c:if test="${measure.distributeStatus eq 'N'}">
+            listHtml += '<td id=execTime style="text-align:right">' + '배포 실패' + '</td>' + '</tr>';
+        </c:if>
+        <c:if test="${measure.distributeStatus eq 'Y' && measure.status eq 'N'}">
+            listHtml += '<td id=execTime style="text-align:right">' + '측정 실패' + '</td>' + '</tr>';
+        </c:if>
+        <c:if test="${measure.status eq 'Y' && measure.distributeStatus eq 'Y'}">
+            listHtml += '<td id=execTime style="text-align:right">' + Number(${measure.execTime}).toLocaleString('en') + '</td>' + '</tr>';
+        </c:if>
+    </c:forEach>
+
+    measureList.innerHTML = listHtml;
+
 </script>
 
 </body>
