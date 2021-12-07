@@ -63,7 +63,7 @@ public class DeviceController {
         return result;
     }
 
-    @GetMapping({"/{id}"})
+    @GetMapping("/{id}")
     public ModelAndView getDevice(Device device) {
         ModelAndView mav = new ModelAndView("device/view");
         mav.addObject("device", deviceService.getDevice(device));
