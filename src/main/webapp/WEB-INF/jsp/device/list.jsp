@@ -188,7 +188,7 @@
         const selectCondition = document.getElementById("select_condition").value;
         if (selectCondition == "measureName") {
             searchKeyword = {
-                "name": document.getElementById("search_message").value,
+                "name": document.getElementById("search_message").value.trim(),
                 "status": status,
                 "pageNo": pageNo
             };
