@@ -1,4 +1,4 @@
-package kr.co.dpm.system.common;
+package kr.co.dpm.system.util;
 
 import org.springframework.stereotype.Component;
 

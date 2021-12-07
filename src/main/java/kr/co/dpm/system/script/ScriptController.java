@@ -1,6 +1,6 @@
 package kr.co.dpm.system.script;
 
-import kr.co.dpm.system.common.StatusCode;
+import kr.co.dpm.system.util.StatusCode;
 import kr.co.dpm.system.device.Device;
 import kr.co.dpm.system.device.DeviceService;
 import kr.co.dpm.system.management.ManagementService;
