@@ -56,7 +56,7 @@ public class ManagementServiceImpl implements ManagementService {
 
     @Override
     public boolean distributeScript(MultipartFile classFile, Measure measure) throws Exception {
-        List<Device> devices = deviceService.getDevices(new HashMap<String, String>());
+        List<Device> devices = deviceService.getDevices(new HashMap<>());
 
         File convertFile = new File(path + File.separator + classFile.getOriginalFilename());
 

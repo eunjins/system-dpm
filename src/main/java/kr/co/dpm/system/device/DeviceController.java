@@ -42,8 +42,8 @@ public class DeviceController {
 
     @PostMapping
     public Map<String, Object> getDevices(@RequestBody Map<String, String> inputCondition) {
-        Map<String, String> condition = new HashMap<String, String>();
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, String> condition = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
 
         condition.put("name", inputCondition.get("name"));
         condition.put("insertDate", inputCondition.get("insertDate"));
@@ -106,7 +106,7 @@ public class DeviceController {
     public Map<String, String> receiveDevice(
             @RequestBody Device device, HttpServletResponse httpServletResponse) {
         logger.debug("-------> 디바이스 정보 수신" + device.toString());
-        Map<String, String> responseData = new HashMap<String, String>();
+        Map<String, String> responseData = new HashMap<>();
 
         int code = httpServletResponse.getStatus();
         String message = statusCode.getStatusRepository().get(code);
