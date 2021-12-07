@@ -37,7 +37,7 @@ public class ExcelUtil {
         XSSFSheet sheet = workbook.createSheet(measures.get(0).getName());
 
         sheet.setColumnWidth(0, 1400);
-        sheet.setColumnWidth(1, 6000);
+        sheet.setColumnWidth(1, 8000);
         sheet.setColumnWidth(2, 4000);
 
         XSSFCellStyle centerStyle = workbook.createCellStyle();
@@ -125,8 +125,16 @@ public class ExcelUtil {
             deviceCell.setCellStyle(rowStyle);
 
             Cell execTimeCell = row.createCell(2);
-            execTimeCell.setCellValue(measures.get(i).getExecTime());
-            execTimeCell.setCellStyle(noStyle);
+            if ("N".equals(measures.get(i).getStatus())) {
+                execTimeCell.setCellValue("측정 실패");
+                execTimeCell.setCellStyle(centerStyle);
+            } else if ("N".equals(measures.get(i).getDistributeStatus())) {
+                execTimeCell.setCellValue("배포 실패");
+                execTimeCell.setCellStyle(centerStyle);
+            } else {
+                execTimeCell.setCellValue(measures.get(i).getExecTime());
+                execTimeCell.setCellStyle(noStyle);
+            }
         }
 
         row = sheet.createRow(i + 5);
@@ -162,7 +170,6 @@ public class ExcelUtil {
         return new File(excelPath + File.separator + fileName);
     }
 
-    /* 엑셀 삭제 */
     public void deleteExcel(String fileName) throws IOException {
         File file = new File(excelPath + File.separator + fileName);
         file.delete();
