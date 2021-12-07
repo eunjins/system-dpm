@@ -1,9 +1,12 @@
 package kr.co.dpm.system.management;
 
 import kr.co.dpm.system.device.Device;
+import kr.co.dpm.system.device.DeviceRepository;
 import kr.co.dpm.system.device.DeviceService;
 import kr.co.dpm.system.measure.Measure;
+import kr.co.dpm.system.measure.MeasureRepository;
 import kr.co.dpm.system.measure.MeasureService;
+import kr.co.dpm.system.script.ScriptController;
 import kr.co.dpm.system.script.ScriptFileRepository;
 import kr.co.dpm.system.util.Cryptogram;
 import kr.co.dpm.system.util.DistributeUtil;
@@ -17,23 +20,20 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Service
 public class ManagementServiceImpl implements ManagementService {
-    private static final Logger logger = LogManager.getLogger(Cryptogram.class);
-
     @Value("${path}")
     private String path;
 
     @Autowired
-    private DeviceService deviceService;
+    private DeviceRepository deviceRepository;
 
     @Autowired
-    private MeasureService measureService;
+    private MeasureRepository measureRepository;
 
     @Autowired
     private ScriptFileRepository scriptFileRepository;
@@ -42,22 +42,20 @@ public class ManagementServiceImpl implements ManagementService {
     public void receiveDevice(Device device) {
         device.setId(device.getId());
 
-        if (deviceService.getDevice(device) != null) {
-            deviceService.editDevice(device);
+        if (deviceRepository.select(device) != null) {
+            deviceRepository.update(device);
         } else {
             String nowDate = String.valueOf(LocalDate.now());
 
             device.setName(device.getId());
             device.setInsertDate(nowDate);
 
-            deviceService.registerDevice(device);
+            deviceRepository.insert(device);
         }
     }
 
     @Override
-    public boolean distributeScript(MultipartFile classFile, Measure measure) throws Exception {
-        List<Device> devices = deviceService.getDevices(new HashMap<>());
-
+    public boolean distributeScript(List<Device> devices, MultipartFile classFile, Measure measure) throws Exception {
         File convertFile = new File(path + File.separator + classFile.getOriginalFilename());
 
         FileOutputStream fileOutputStream = new FileOutputStream(convertFile);
@@ -72,7 +70,7 @@ public class ManagementServiceImpl implements ManagementService {
                 distributeUtil.setDevice(device);
                 distributeUtil.setClassFile(convertFile);
                 distributeUtil.setScriptFileRepository(scriptFileRepository);
-                distributeUtil.setMeasureService(measureService);
+                distributeUtil.setMeasureRepository(measureRepository);
 
                 distributeUtil.setMeasure(measure);
 
@@ -80,6 +78,14 @@ public class ManagementServiceImpl implements ManagementService {
             }
         }
 
-        return true;
+        Thread.sleep(4000);
+
+        convertFile.delete();
+
+        if (ScriptController.distributeCount == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

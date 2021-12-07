@@ -93,6 +93,7 @@ public class Measure implements Serializable {
                 ", scriptNo=" + scriptNo +
                 ", execTime=" + execTime +
                 ", status='" + status + '\'' +
+                ", distributeStatus='" + distributeStatus + '\'' +
                 '}';
     }
 }
