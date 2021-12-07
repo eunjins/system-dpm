@@ -198,10 +198,10 @@
         let tableHtml = "";
 
 
-        for (let i = pageNo * 10; i < allScriptNo; i++) {
+        for (let i = 0; i < allScriptNo; i++) {
             tableHtml +=
                 '<tr class="odd">' +
-                '<td class="dtr-control sorting_1" tabindex="0">' + (i + 1) + '</td>' +
+                '<td class="dtr-control sorting_1" tabindex="0">' + (i + (pageNo * 10) + 1) + '</td>' +
                 '<td style="text-align: left">' + scriptMeasure[i].name +
                 '</td>' +
                 '<td style="text-align: left">' + scripts[i].name + '</td>' +
