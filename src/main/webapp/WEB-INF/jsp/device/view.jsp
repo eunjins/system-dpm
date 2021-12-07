@@ -72,6 +72,9 @@
                                         </c:when>
                                     </c:choose>
                                 </div>
+                                <div class="mb-3 row">
+                                    <div class="col-md-12 col-form-label"></div>
+                                </div>
                                 <div class="row">
                                     <div class="button-items">
                                         <a href="${contextPath}/devices">

@@ -101,7 +101,7 @@
                                                     <a href="${contextPath}/scripts/excel/${script.no}">
                                                         <button type="button"
                                                                 class="btn btn-default btn-primary waves-effect waves-light"
-                                                                style="float: right"><span>엑셀 다운로드</span>
+                                                                style="float: right; margin-right: 10px"><span>엑셀 다운로드</span>
                                                         </button>
                                                     </a>
                                                 </div>

@@ -42,12 +42,14 @@
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="/scripts/distribute" method="POST" enctype="multipart/form-data" name="registerForm">
+                                <form action="/scripts/distribute" method="POST" enctype="multipart/form-data"
+                                      name="registerForm">
                                     <div class="mb-3 row">
                                         <label class="col-md-1 col-form-label"></label>
                                         <label class="col-md-2 col-form-label">측정 결과 명</label>
                                         <div class="col-md-7">
-                                            <input class="form-control" type="text" value="" name="name" id="measureName">
+                                            <input class="form-control" type="text" value="" name="name"
+                                                   id="measureName">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -56,7 +58,7 @@
                                         <div class="col-md-7">
                                             <div class="input-group">
                                                 <input type="file" class="form-control hidden" name="sourceFile"
-                                                        accept=".java" id="sourcefile">
+                                                       accept=".java" id="sourcefile">
                                             </div>
                                         </div>
                                     </div>
@@ -66,7 +68,7 @@
                                         <div class="col-md-7">
                                             <div class="input-group">
                                                 <input type="file" class="form-control" name="classFile"
-                                                        accept=".class" id="classfile">
+                                                       accept=".class" id="classfile">
                                             </div>
                                         </div>
                                     </div>
@@ -74,16 +76,19 @@
                                     </div>
                                     <label class="col-md-1 col-form-label"></label>
                                     <label class="col-md-6 col-form-label">
-                                    <div class=col-form-label" id="register"  style="color: blue"></div>
+                                        <div class=col-form-label" id="register" style="color: blue"></div>
                                     </label>
                                     <div class="button-items">
                                         <a href="${contextPath}/scripts">
-                                            <button type="button" class="btn btn-default btn-primary waves-effect waves-light" style="float: right">목록
+                                            <button type="button"
+                                                    class="btn btn-default btn-primary waves-effect waves-light"
+                                                    style="float: right">목록
                                             </button>
                                         </a>
                                         <label style="float: right"> </label>
-                                        <button type="button" class="btn btn-default btn-primary waves-effect waves-light"
-                                                onclick="distribute()" style="float: right">배포
+                                        <button type="button"
+                                                class="btn btn-default btn-primary waves-effect waves-light"
+                                                onclick="distribute()" style="float: right; margin-right: 2%">배포
                                         </button>
                                     </div>
 
@@ -140,20 +145,20 @@
 
     function distribute() {
         registerInfo = {
-            registerForm:document.registerForm,
+            registerForm: document.registerForm,
             name: document.getElementById("measureName").value,
             sourcefile: document.getElementById("sourcefile").value,
             classfile: document.getElementById("classfile").value
         };
 
         if (registerInfo.name == null
-            || registerInfo.name.trim() == "" ) {
+            || registerInfo.name.trim() == "") {
             document.getElementById("register").innerHTML = "측정 결과 명을 입력하세요";
-        } else if(registerInfo.sourcefile == null || registerInfo.sourcefile == "" ||
-                  registerInfo.classfile == null || registerInfo.classfile == "") {
+        } else if (registerInfo.sourcefile == null || registerInfo.sourcefile == "" ||
+            registerInfo.classfile == null || registerInfo.classfile == "") {
             document.getElementById("register").innerHTML = "스크립트 파일을 선택하세요";
         } else if (registerInfo.sourcefile.split(".").pop() != "java" ||
-                   registerInfo.classfile.split(".").pop() != "class") {
+            registerInfo.classfile.split(".").pop() != "class") {
             document.getElementById("register").innerHTML = "스크립트 확장자를 확인하세요"
         } else {
             jQuery(document).ready(function () {

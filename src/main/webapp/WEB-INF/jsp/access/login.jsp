@@ -17,8 +17,7 @@
                     <div class="bg-login text-center">
                         <div class="bg-login-overlay"></div>
                         <div class="position-relative">
-                            <h5 class="text-white" style="font-size: x-large;">Welcome DPM-SYSTEM !</h5>
-                            <p class="text-white-50 mb-0">Sign in to continue to DPM-SYSTEM.</p>
+                            <h5 class="text-white" style="font-size: x-large;">디바이스 성능 측정 통합 시스템</h5>
                         </div>
                     </div>
                     <div class="card-body pt-5">
