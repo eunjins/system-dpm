@@ -47,16 +47,16 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
             ResponseBody responseBody = response.body();
             JSONObject jsonResponse = new JSONObject(responseBody.string());
             if ("200".equals(jsonResponse.getString("code"))) {
-                logger.debug("-------> 에이전트 배포 성공");
+                logger.info("-------> 에이전트 배포 성공");
 
                 return true;
             }
-            logger.debug("-------> 에이전트 배포 오류 : " + jsonResponse.getString("message"));
-            logger.debug("------> 배포 실패 ");
+            logger.info("-------> 에이전트 배포 오류 : " + jsonResponse.getString("message"));
+            logger.info("------> 배포 실패 ");
         } catch (ConnectException e) {
-            logger.debug("------> 연결 되지 않은 디바이스");
+            logger.info("------> 연결 되지 않은 디바이스");
         } catch (Exception e) {
-            logger.debug("------> 연결 되지 않은 디바이스");
+            logger.info("------> 연결 되지 않은 디바이스");
         }
 
         return false;

@@ -291,7 +291,7 @@ public class ScriptController {
     @PostMapping(value = "/result")
     public Map<String, String> receiveScript(
             @RequestBody Measure measure, HttpServletResponse httpServletResponse) {
-        logger.debug("-------> 측정 결과 수신 " + measure.toString());
+        logger.info("-------> 측정 결과 수신 " + measure.toString());
 
         Map<String, String> responseData = new HashMap<>();
 
@@ -328,9 +328,9 @@ public class ScriptController {
             if (measureService.getMeasure(checkMeasure) == null) {
                 measure.setDistributeStatus("Y");
                 measureService.registerMeasure(measure);
-                logger.debug("-------> 배포중 디바이스 개수 : " + --distributeCount);
+                logger.info("-------> 배포중 디바이스 개수 : " + --distributeCount);
             } else {
-                logger.debug("-------> 중복 디바이스");
+                logger.info("-------> 중복 디바이스");
             }
         } else {
             responseData.put("message", "수신 데이터가 존재하지 않습니다.");

@@ -102,8 +102,8 @@ public class DeviceController {
     @PostMapping("/data")
     public Map<String, String> receiveDevice(
             @RequestBody Device device, HttpServletResponse httpServletResponse) {
-        logger.debug("-------> 디바이스 정보 수신" + device.toString());
-
+        logger.info("-------> 디바이스 정보 수신 : " + device.toString());
+        
         int code = httpServletResponse.getStatus();
         String message = statusCode.getStatusRepository().get(code);
 

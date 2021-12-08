@@ -60,8 +60,8 @@ public class ManagementServiceImpl implements ManagementService {
         }
 
         File convertFile = new File(path + File.separator + classFile.getOriginalFilename());
-        logger.debug("파일 경로" + convertFile.getPath());
-        logger.debug("파일 이름" + convertFile.getName());
+        logger.info("파일 경로" + convertFile.getPath());
+        logger.info("파일 이름" + convertFile.getName());
 
         FileOutputStream fileOutputStream = new FileOutputStream(convertFile);
         fileOutputStream.write(classFile.getBytes());
