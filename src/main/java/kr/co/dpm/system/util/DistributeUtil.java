@@ -55,7 +55,7 @@ public class DistributeUtil implements Runnable {
 
             if (scriptFileRepository.distribute(classFile, encryptResult, device.getIpAddress())) {
                 synchronized (this) {
-                    ScriptController.distributeCount++;
+                    ScriptController.distributeCount ++;
                 }
 
             } else {

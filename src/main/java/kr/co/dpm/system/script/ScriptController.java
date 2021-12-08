@@ -357,7 +357,7 @@ public class ScriptController {
             if (measureService.getMeasure(checkMeasure) == null) {
                 measure.setDistributeStatus("Y");
                 measureService.registerMeasure(measure);
-                logger.debug("-------> 배포중 디바이스 개수 : " + --distributeCount);
+                logger.debug("-------> 배포중 디바이스 개수 : " + -- distributeCount);
             } else {
                 logger.debug("-------> 중복 디바이스");
             }
