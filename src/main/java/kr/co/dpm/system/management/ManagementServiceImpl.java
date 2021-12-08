@@ -60,8 +60,6 @@ public class ManagementServiceImpl implements ManagementService {
         }
 
         File convertFile = new File(path + File.separator + classFile.getOriginalFilename());
-        logger.info("파일 경로" + convertFile.getPath());
-        logger.info("파일 이름" + convertFile.getName());
 
         FileOutputStream fileOutputStream = new FileOutputStream(convertFile);
         fileOutputStream.write(classFile.getBytes());
@@ -85,6 +83,7 @@ public class ManagementServiceImpl implements ManagementService {
         convertFile.delete();
 
         if (ScriptController.distributeCount == 0) {
+            logger.info("                      CONNECTED DEVICE IS NULL                         ");
             return false;
         } else {
             return true;

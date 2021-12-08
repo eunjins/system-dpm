@@ -36,9 +36,6 @@ public class ScriptController {
     @Value("${scriptPath}")
     private String path;
 
-    @Value("${excelPath}")
-    private String excelPath;
-
     private Measure measureInfo = new Measure();
 
     @Autowired
@@ -291,8 +288,6 @@ public class ScriptController {
     @PostMapping(value = "/result")
     public Map<String, String> receiveScript(
             @RequestBody Measure measure, HttpServletResponse httpServletResponse) {
-        logger.info("-------> 측정 결과 수신 " + measure.toString());
-
         Map<String, String> responseData = new HashMap<>();
 
         int code = httpServletResponse.getStatus();
@@ -328,9 +323,12 @@ public class ScriptController {
             if (measureService.getMeasure(checkMeasure) == null) {
                 measure.setDistributeStatus("Y");
                 measureService.registerMeasure(measure);
-                logger.info("-------> 배포중 디바이스 개수 : " + --distributeCount);
+                int leftDevice =  --distributeCount;
+                logger.info("                    SUCCESSFUL RECEIVE MEASURE !                       ");
+                logger.info("                    RUNNING DEVICES ARE " + leftDevice                  );
+                logger.info("                                                                       ");
             } else {
-                logger.info("-------> 중복 디바이스");
+                logger.error("                   OVERLAP DEVICE INFORMATION ERROR                    ");
             }
         } else {
             responseData.put("message", "수신 데이터가 존재하지 않습니다.");

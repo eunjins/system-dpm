@@ -73,12 +73,10 @@ public class DistributeUtil implements Runnable {
                 measure.setDeviceId(device.getId());
                 measure.setDeviceName(device.getName());
 
-                logger.info("연결 되지 않은 디바이스의 측정 결과 : " + measure);
-
                 measureRepository.insert(measure);
             }
         } catch (Exception e) {
-            logger.info("배포 실패");
+            logger.debug("                        DISTRIBUTE FAIL                                ");
         }
     }
 

@@ -91,7 +91,7 @@ public class DeviceController {
         try {
             deviceService.editDevice(device);
         } catch (Exception e) {
-            logger.error("중복된 이름으로 수정");
+            logger.error("                   OVERLAP NAME ERROR                    ");
         }
 
         mav = new ModelAndView(new RedirectView("/devices/" + device.getId()));
@@ -102,8 +102,13 @@ public class DeviceController {
     @PostMapping("/data")
     public Map<String, String> receiveDevice(
             @RequestBody Device device, HttpServletResponse httpServletResponse) {
-        logger.info("-------> 디바이스 정보 수신 : " + device.toString());
-        
+        logger.info("                   SUCCESSFUL RECEIVE DEVICE INFORMATION                ");
+        logger.info("      Device ID   :   " + device.getId()                                );
+        logger.info("      Host Name   :   " + device.getHostName()                          );
+        logger.info("      IP Address  :   " + device.getIpAddress()                         );
+        logger.info("      JDK Version :   " + device.getJdkVersion()                        );
+        logger.info("                                                                       ");
+
         int code = httpServletResponse.getStatus();
         String message = statusCode.getStatusRepository().get(code);
 
