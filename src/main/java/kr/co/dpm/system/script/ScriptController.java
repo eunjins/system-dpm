@@ -95,20 +95,18 @@ public class ScriptController {
             scripts = new ArrayList<>();
         } else {
             Script firstScript = scripts.get(0);
-            measure.setScriptNo(firstScript.getNo());
 
             if ("0".equals((pageNo.toString()))) {
                 if (distributeCount > 0) {
-                    if ((measureInfo.getName()).indexOf(conditionMeasureName) != -1
-                            || "".equals(conditionMeasureName)) {
-                        measure.setStatus("N");
-                        measure.setName(measureInfo.getName());
-                        if (measureService.getMeasures(measure).isEmpty()) {
+                    if (measureInfo.getScriptNo() == firstScript.getNo()) {
+                        if ((measureInfo.getName()).indexOf(conditionMeasureName) != -1
+                                || "".equals(conditionMeasureName)) {
+                            measure.setStatus("N");
+                            measure.setName(measureInfo.getName());
                             scriptMeasure.add(measure);
                             scriptStartNo = 1;
                         }
                     }
-
                 } else {
                     measure.setScriptNo(firstScript.getNo());
 
@@ -117,6 +115,7 @@ public class ScriptController {
                     if ((measures.get(0).getName()).indexOf(conditionMeasureName) != -1
                             || "".equals(conditionMeasureName)) {
                         measure.setName(measures.get(0).getName());
+
                         if (measure.getName() != null) {
                             measure.setStatus("Y");
 
@@ -127,6 +126,7 @@ public class ScriptController {
                 }
             }
         }
+
         for (int i = scriptStartNo; i < scripts.size(); i++) {
             Script object = scripts.get(i);
 
@@ -137,7 +137,7 @@ public class ScriptController {
             List<Measure> measures = measureService.getMeasures(measure);
 
             if (measures.isEmpty()) {
-                scripts.remove(i--);
+                scripts.remove(i --);
 
             } else {
                 measure.setName(measures.get(0).getName());
