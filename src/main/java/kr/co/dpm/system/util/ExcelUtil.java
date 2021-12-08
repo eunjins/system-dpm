@@ -126,13 +126,13 @@ public class ExcelUtil {
             deviceCell.setCellStyle(rowStyle);
 
             Cell execTimeCell = row.createCell(2);
-            if ("N".equals(measures.get(i).getStatus())) {
-                execTimeCell.setCellValue("측정 실패");
-                execTimeCell.setCellStyle(centerStyle);
-            } else if ("N".equals(measures.get(i).getDistributeStatus())) {
+            if ("N".equals(measures.get(i).getDistributeStatus())) {
                 execTimeCell.setCellValue("배포 실패");
                 execTimeCell.setCellStyle(centerStyle);
-            } else {
+            } else if ("N".equals(measures.get(i).getStatus())) {
+                execTimeCell.setCellValue("측정 실패");
+                execTimeCell.setCellStyle(centerStyle);
+            } else  {
                 execTimeCell.setCellValue(measures.get(i).getExecTime());
                 execTimeCell.setCellStyle(noStyle);
             }
