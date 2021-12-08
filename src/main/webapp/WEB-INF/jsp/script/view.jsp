@@ -203,11 +203,13 @@
 
     const chartData = [
         <c:forEach items="${measures}" var="measure" varStatus="object">
-        {
-            "label": "${measure.deviceName}",
-            "value": "${measure.execTime}",
-            "color": "#" + Math.floor(Math.random() * 16777215).toString(16)
-        },
+            <c:if test="${measure.distributeStatus eq 'Y'}">
+            {
+                "label": "${measure.deviceName}",
+                "value": "${measure.execTime}",
+                "color": "#" + Math.floor(Math.random() * 16777215).toString(16)
+            },
+            </c:if>
         </c:forEach>
     ];
 
