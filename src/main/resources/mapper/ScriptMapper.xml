@@ -19,6 +19,9 @@
             <if test="uploadPoint != null and uploadPoint != ''">
                 AND DATE(UPLOAD_POINT)= #{uploadPoint}
             </if>
+            <if test="measureName != null and measureName != ''">
+                AND NO IN (SELECT SCRIPT_NO FROM MEASURE WHERE NAME LIKE '%${measureName}%')
+            </if>
         </where>
         ORDER BY UPLOAD_POINT DESC
         <if test="pageNo != null and pageNo != ''">

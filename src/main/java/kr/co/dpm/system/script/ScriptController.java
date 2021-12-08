@@ -76,68 +76,39 @@ public class ScriptController {
         Map<String, String> condition = new HashMap<>();
         Map<String, Object> result = new HashMap<>();
 
-        condition.put("name", inputCondition.get("scriptName"));
         condition.put("uploadPoint", inputCondition.get("uploadPoint"));
 
+        String name = inputCondition.get("scriptName") != null
+                ? inputCondition.get("scriptName").trim()
+                : "";
+        condition.put("name", name);
+
+        String conditionMeasureName = inputCondition.get("measureName") != null
+                ? inputCondition.get("measureName").trim()
+                : "";
+        condition.put("measureName", conditionMeasureName);
+
+        int scriptsCount = scriptService.getScripts(condition).size();
+
         Integer pageNo = Integer.valueOf(inputCondition.get("pageNo")) * 10;
+
         condition.put("pageNo", (pageNo.toString()));
 
         List<Script> scripts = scriptService.getScripts(condition);
         List<Measure> scriptMeasure = new ArrayList<>();
 
-        int scriptStartNo = 0;
-        Measure measure = new Measure();
-        String conditionMeasureName = inputCondition.get("measureName") != null
-                ? inputCondition.get("measureName").trim()
-                : "";
-
-        if (scripts.isEmpty()) {
-            scripts = new ArrayList<>();
-        } else {
-            Script firstScript = scripts.get(0);
-
-            if ("0".equals((pageNo.toString()))) {
-                if (distributeCount > 0) {
-                    if (measureInfo.getScriptNo() == firstScript.getNo()) {
-                        if ((measureInfo.getName()).indexOf(conditionMeasureName) != -1
-                                || "".equals(conditionMeasureName)) {
-                            measure.setStatus("N");
-                            measure.setName(measureInfo.getName());
-                            scriptMeasure.add(measure);
-                            scriptStartNo = 1;
-                        }
-                    }
-                } else {
-                    measure.setScriptNo(firstScript.getNo());
-
-                    List<Measure> measures = measureService.getMeasures(measure);
-
-                    if ((measures.get(0).getName()).indexOf(conditionMeasureName) != -1
-                            || "".equals(conditionMeasureName)) {
-                        measure.setName(measures.get(0).getName());
-
-                        if (measure.getName() != null) {
-                            measure.setStatus("Y");
-
-                            scriptMeasure.add(measure);
-                            scriptStartNo = 1;
-                        }
-                    }
-                }
-            }
-        }
-
-        for (int i = scriptStartNo; i < scripts.size(); i++) {
+        for (int i = 0; i < scripts.size(); i++) {
             Script object = scripts.get(i);
 
-            measure = new Measure();
+            Measure measure = new Measure();
             measure.setScriptNo(object.getNo());
-            measure.setName(conditionMeasureName);
 
             List<Measure> measures = measureService.getMeasures(measure);
 
-            if (measures.isEmpty()) {
-                scripts.remove(i --);
+            if (object.getNo() == measureInfo.getScriptNo() && distributeCount > 0) {
+                measure.setStatus("N");
+                measure.setName(measureInfo.getName());
+                scriptMeasure.add(measure);
 
             } else {
                 measure.setName(measures.get(0).getName());
@@ -155,7 +126,7 @@ public class ScriptController {
             result.put("addButton", "Y");
         }
 
-        String navigatorHtml = navigator.getNavigator(scripts.size(), pageNo / 10);
+        String navigatorHtml = navigator.getNavigator(scriptsCount, pageNo / 10);
         result.put("navigator", navigatorHtml);
 
         return result;
@@ -357,7 +328,7 @@ public class ScriptController {
             if (measureService.getMeasure(checkMeasure) == null) {
                 measure.setDistributeStatus("Y");
                 measureService.registerMeasure(measure);
-                logger.debug("-------> 배포중 디바이스 개수 : " + -- distributeCount);
+                logger.debug("-------> 배포중 디바이스 개수 : " + --distributeCount);
             } else {
                 logger.debug("-------> 중복 디바이스");
             }

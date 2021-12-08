@@ -1,18 +1,13 @@
 package kr.co.dpm.system.util;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
-
 
 @Component
 public class Navigator {
-    private static final Logger logger = LogManager.getLogger(Navigator.class);
-
     public String getNavigator(int allNo, int pageNo) {
         StringBuffer navigator = new StringBuffer("");
 
-        if (pageNo== 0) {
+        if (pageNo == 0) {
             navigator.append("<li class='pagenate_button page-item disabled' ><a id = 'firstPage' ");
         } else {
             navigator.append("<li class='pagenate_button page-item' ><a id = 'firstPage' ");
