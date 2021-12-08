@@ -17,6 +17,7 @@ public class AccessInterceptor extends HandlerInterceptorAdapter {
                 return true;
             }
         }
+
         response.sendRedirect(request.getContextPath() + "/login");
 
         return false;

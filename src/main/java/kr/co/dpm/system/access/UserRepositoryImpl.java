@@ -15,12 +15,11 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User select() throws IOException {
-        User user = new User();
-
         Properties properties = new Properties();
         InputStream inputStream = Resources.getResourceAsStream(filePath);
         properties.load(inputStream);
 
+        User user = new User();
         user.setId(properties.getProperty("id"));
         user.setPassword(properties.getProperty("password"));
 

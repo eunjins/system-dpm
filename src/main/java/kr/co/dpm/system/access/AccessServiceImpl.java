@@ -8,7 +8,6 @@ public class AccessServiceImpl implements AccessService {
     @Autowired
     UserRepository userRepository;
 
-    //관리자 정보 조회
     @Override
     public User getManager() throws Exception {
         return userRepository.select();

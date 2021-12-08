@@ -80,11 +80,11 @@ public class ScriptController {
         condition.put("uploadPoint", inputCondition.get("uploadPoint"));
 
         Integer pageNo = Integer.valueOf(inputCondition.get("pageNo")) * 10;
-
         condition.put("pageNo", (pageNo.toString()));
 
         List<Script> scripts = scriptService.getScripts(condition);
-        List<Measure> scriptMeasure = new ArrayList<Measure>();
+        List<Measure> scriptMeasure = new ArrayList<>();
+
         int scriptStartNo = 0;
         Measure measure = new Measure();
         String conditionMeasureName = inputCondition.get("measureName") != null
@@ -92,9 +92,10 @@ public class ScriptController {
                 : "";
 
         if (scripts.isEmpty()) {
-            scripts =  new ArrayList<Script>();
+            scripts = new ArrayList<>();
         } else {
             Script firstScript = scripts.get(0);
+            measure.setScriptNo(firstScript.getNo());
 
             if ("0".equals((pageNo.toString()))) {
                 if (distributeCount > 0) {
@@ -102,8 +103,10 @@ public class ScriptController {
                             || "".equals(conditionMeasureName)) {
                         measure.setStatus("N");
                         measure.setName(measureInfo.getName());
-                        scriptMeasure.add(measure);
-                        scriptStartNo = 1;
+                        if (measureService.getMeasures(measure).isEmpty()) {
+                            scriptMeasure.add(measure);
+                            scriptStartNo = 1;
+                        }
                     }
 
                 } else {
@@ -171,17 +174,15 @@ public class ScriptController {
         measureInfo.setScriptNo(-1);
         measureInfo.setName(measureName);
 
-        ModelAndView mav = null;
+        ModelAndView mav = new ModelAndView(new RedirectView("/scripts/form"));
         Attach attach = new Attach();
         Script script = new Script();
 
         if (!sourceFile.isEmpty() && !classFile.isEmpty()) {
             String sourceFileName = FilenameUtils.getBaseName((sourceFile.getOriginalFilename()));
             String classFileName = FilenameUtils.getBaseName((classFile.getOriginalFilename()));
-
             if (sourceFileName.equals(classFileName)) {
                 distributeCount = 0;
-
                 try {
                     List<Device> devices = deviceService.getDevices(new HashMap<>());
 
@@ -190,18 +191,15 @@ public class ScriptController {
 
                         String scriptName = FilenameUtils.getBaseName(sourceFile.getOriginalFilename());
                         script.setName(scriptName);
-
                         scriptService.registerScript(script);
 
                         measureInfo.setScriptNo(script.getNo());
                         attach.setScriptNo(script.getNo());
                         attachService.registerAttach(sourceFile, classFile, attach);
-
                     } else {
                         mav = new ModelAndView("script/register");
                         mav.addObject("distributeFail", "배포된 디바이스가 없습니다");
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -255,8 +253,8 @@ public class ScriptController {
                 attach.setName(attach.getName() + ".class");
             }
 
-            byte[] file = FileUtils.readFileToByteArray(new File(path + File.separator + attach.getPhysicName()));
             String encodingName = new String(attach.getName().getBytes("UTF-8"), "ISO-8859-1");
+            byte[] file = FileUtils.readFileToByteArray(new File(path + File.separator + attach.getPhysicName()));
 
             response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingName + "\"");
             response.setHeader("Content-Transfer-Encoding", "binary");
@@ -294,7 +292,6 @@ public class ScriptController {
             fileName = excelFile.getName();
 
             byte[] file = FileUtils.readFileToByteArray(excelFile);
-
             String encodingName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
 
             response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingName + "\"");
@@ -325,23 +322,20 @@ public class ScriptController {
             @RequestBody Measure measure, HttpServletResponse httpServletResponse) {
         logger.debug("-------> 측정 결과 수신 " + measure.toString());
 
-        Map<String, String> responseData = new HashMap<String, String>();
+        Map<String, String> responseData = new HashMap<>();
 
         int code = httpServletResponse.getStatus();
         String message = statusCode.getStatusRepository().get(code);
 
         responseData.put("code", String.valueOf(code));
-
         if (message != null) {
             responseData.put("message", message);
-
         } else {
             responseData.put("message", null);
         }
 
         if (measure.getDeviceId() != null) {
             measure.setName(measureInfo.getName());
-
             try {
                 while (true) {
                     if (measureInfo.getScriptNo() == -1) {
@@ -355,8 +349,8 @@ public class ScriptController {
             }
 
             measure.setScriptNo(measureInfo.getScriptNo());
-            Measure checkMeasure = new Measure();
 
+            Measure checkMeasure = new Measure();
             checkMeasure.setScriptNo(measure.getScriptNo());
             checkMeasure.setDeviceId(measure.getDeviceId());
 
@@ -364,11 +358,9 @@ public class ScriptController {
                 measure.setDistributeStatus("Y");
                 measureService.registerMeasure(measure);
                 logger.debug("-------> 배포중 디바이스 개수 : " + --distributeCount);
-
             } else {
                 logger.debug("-------> 중복 디바이스");
             }
-
         } else {
             responseData.put("message", "수신 데이터가 존재하지 않습니다.");
         }

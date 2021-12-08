@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @RestController
 @RequestMapping("/devices")
 public class DeviceController {
@@ -82,7 +81,6 @@ public class DeviceController {
     @PutMapping("/{id}")
     public ModelAndView editDevice(Device device) {
         ModelAndView mav = null;
-
         if (deviceService.getDevice(device) == null) {
             mav = new ModelAndView(new RedirectView("/devices"));
 
@@ -90,10 +88,9 @@ public class DeviceController {
         }
 
         device.setName((device.getName()).trim());
-
         try {
             deviceService.editDevice(device);
-        } catch(Exception e) {
+        } catch (Exception e) {
             logger.error("중복된 이름으로 수정");
         }
 
@@ -106,21 +103,22 @@ public class DeviceController {
     public Map<String, String> receiveDevice(
             @RequestBody Device device, HttpServletResponse httpServletResponse) {
         logger.debug("-------> 디바이스 정보 수신" + device.toString());
-        Map<String, String> responseData = new HashMap<>();
 
         int code = httpServletResponse.getStatus();
         String message = statusCode.getStatusRepository().get(code);
 
+        Map<String, String> responseData = new HashMap<>();
         responseData.put("code", String.valueOf(code));
-
         if (message != null) {
             responseData.put("message", message);
         } else {
             responseData.put("message", null);
         }
 
-        if (device.getId() != null && device.getHostName() != null
-                && device.getIpAddress() != null && device.getJdkVersion() != null) {
+        if (device.getId() != null
+                && device.getHostName() != null
+                && device.getIpAddress() != null
+                && device.getJdkVersion() != null) {
             managementService.receiveDevice(device);
         } else {
             responseData.put("message", "수신 데이터가 존재하지 않습니다.");

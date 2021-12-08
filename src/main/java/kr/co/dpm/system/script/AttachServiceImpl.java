@@ -34,11 +34,10 @@ public class AttachServiceImpl implements AttachService {
     @Override
     public void registerAttach(MultipartFile sourceFile,
                                MultipartFile classFile, Attach attach) throws IOException {
-        LocalDate date = LocalDate.now();
-
         String sourceFileExtension = FilenameUtils.getExtension(sourceFile.getOriginalFilename());
         String classFileExtension = FilenameUtils.getExtension(classFile.getOriginalFilename());
 
+        LocalDate date = LocalDate.now();
         if ("java".equals(sourceFileExtension)) {
             String physicalName = String.valueOf(date) + UUID.randomUUID();
 

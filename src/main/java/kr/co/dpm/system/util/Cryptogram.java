@@ -27,14 +27,13 @@ public class Cryptogram {
             len = keyBytes.length;
         }
 
-        System.arraycopy(utf8KeyBytes, 0, keyBytes, 0 , len);
+        System.arraycopy(utf8KeyBytes, 0, keyBytes, 0, len);
 
         SecretKeySpec secretKeySpec = new SecretKeySpec(keyBytes, "AES");
 
         this.secretKeySpec = secretKeySpec;
     }
 
-    // 암호화
     public String encryption(Object word) throws Exception {
         if (word == null) {
             return null;

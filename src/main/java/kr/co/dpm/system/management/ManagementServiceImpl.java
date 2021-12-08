@@ -2,13 +2,10 @@ package kr.co.dpm.system.management;
 
 import kr.co.dpm.system.device.Device;
 import kr.co.dpm.system.device.DeviceRepository;
-import kr.co.dpm.system.device.DeviceService;
 import kr.co.dpm.system.measure.Measure;
 import kr.co.dpm.system.measure.MeasureRepository;
-import kr.co.dpm.system.measure.MeasureService;
 import kr.co.dpm.system.script.ScriptController;
 import kr.co.dpm.system.script.ScriptFileRepository;
-import kr.co.dpm.system.util.Cryptogram;
 import kr.co.dpm.system.util.DistributeUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -48,7 +45,6 @@ public class ManagementServiceImpl implements ManagementService {
             deviceRepository.update(device);
         } else {
             String nowDate = String.valueOf(LocalDate.now());
-
             device.setName(device.getId());
             device.setInsertDate(nowDate);
 
@@ -64,7 +60,6 @@ public class ManagementServiceImpl implements ManagementService {
         }
 
         File convertFile = new File(path + File.separator + classFile.getOriginalFilename());
-
         logger.debug("파일 경로" + convertFile.getPath());
         logger.debug("파일 이름" + convertFile.getName());
 
@@ -73,7 +68,6 @@ public class ManagementServiceImpl implements ManagementService {
         fileOutputStream.close();
 
         ExecutorService executorService = Executors.newCachedThreadPool();
-
         for (Device device : devices) {
             if (device.getStatus().equals("Y")) {
                 DistributeUtil distributeUtil = new DistributeUtil();
@@ -81,7 +75,6 @@ public class ManagementServiceImpl implements ManagementService {
                 distributeUtil.setClassFile(convertFile);
                 distributeUtil.setScriptFileRepository(scriptFileRepository);
                 distributeUtil.setMeasureRepository(measureRepository);
-
                 distributeUtil.setMeasure(measure);
 
                 executorService.submit(distributeUtil);
@@ -89,7 +82,6 @@ public class ManagementServiceImpl implements ManagementService {
         }
 
         Thread.sleep(4000);
-
         convertFile.delete();
 
         if (ScriptController.distributeCount == 0) {

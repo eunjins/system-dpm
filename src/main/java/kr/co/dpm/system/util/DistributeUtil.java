@@ -3,14 +3,12 @@ package kr.co.dpm.system.util;
 import kr.co.dpm.system.device.Device;
 import kr.co.dpm.system.measure.Measure;
 import kr.co.dpm.system.measure.MeasureRepository;
-import kr.co.dpm.system.measure.MeasureService;
 import kr.co.dpm.system.script.ScriptController;
 import kr.co.dpm.system.script.ScriptFileRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 
 public class DistributeUtil implements Runnable {
     private static final Logger logger = LogManager.getLogger(DistributeUtil.class);
@@ -52,9 +50,7 @@ public class DistributeUtil implements Runnable {
     @Override
     public void run() {
         try {
-            Cryptogram cryptogram = null;
-
-            cryptogram = new Cryptogram(device.getId());
+            Cryptogram cryptogram = new Cryptogram(device.getId());
             String encryptResult = cryptogram.encryption(device.getId());
 
             if (scriptFileRepository.distribute(classFile, encryptResult, device.getIpAddress())) {

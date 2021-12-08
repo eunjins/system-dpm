@@ -10,6 +10,7 @@ import org.apache.poi.xssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -157,11 +158,11 @@ public class ExcelUtil {
             fileOutputStream = new FileOutputStream(excelPath + File.separator + fileName);
             workbook.write(fileOutputStream);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         } finally {
             try {
                 fileOutputStream.close();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 throw e;
             }

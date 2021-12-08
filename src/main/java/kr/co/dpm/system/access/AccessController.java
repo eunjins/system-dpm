@@ -29,9 +29,11 @@ public class AccessController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         if (user.getId().equals(userInfo.getId())
                 && user.getPassword().equals(userInfo.getPassword())) {
             httpSession.setAttribute("log", user.getId());
+
             mav = new ModelAndView(new RedirectView("/devices"));
         } else {
             mav = new ModelAndView("access/login");
