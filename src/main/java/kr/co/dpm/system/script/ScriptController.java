@@ -98,12 +98,14 @@ public class ScriptController {
 
             if ("0".equals((pageNo.toString()))) {
                 if (distributeCount > 0) {
-                    if ((measureInfo.getName()).indexOf(conditionMeasureName) != -1
-                            || "".equals(conditionMeasureName)) {
-                        measure.setStatus("N");
-                        measure.setName(measureInfo.getName());
-                        scriptMeasure.add(measure);
-                        scriptStartNo = 1;
+                    if (measureInfo.getScriptNo() == firstScript.getNo()) {
+                        if ((measureInfo.getName()).indexOf(conditionMeasureName) != -1
+                                || "".equals(conditionMeasureName)) {
+                            measure.setStatus("N");
+                            measure.setName(measureInfo.getName());
+                            scriptMeasure.add(measure);
+                            scriptStartNo = 1;
+                        }
                     }
 
                 } else {

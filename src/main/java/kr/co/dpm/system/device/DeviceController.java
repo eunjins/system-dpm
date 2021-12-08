@@ -93,7 +93,7 @@ public class DeviceController {
 
         try {
             deviceService.editDevice(device);
-        } catch(Exception e) {
+        } catch (Exception e) {
             logger.error("중복된 이름으로 수정");
         }
 
