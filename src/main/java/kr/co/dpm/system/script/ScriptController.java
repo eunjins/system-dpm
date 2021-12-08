@@ -33,7 +33,7 @@ public class ScriptController {
     private static final Logger logger = LogManager.getLogger(ScriptController.class);
     public static int distributeCount;
 
-    @Value("${path}")
+    @Value("${scriptPath}")
     private String path;
 
     @Value("${excelPath}")
@@ -74,57 +74,56 @@ public class ScriptController {
     @PostMapping
     public Map<String, Object> getScripts(@RequestBody Map<String, String> inputCondition) {
         Map<String, String> condition = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
 
         condition.put("name", inputCondition.get("scriptName"));
         condition.put("uploadPoint", inputCondition.get("uploadPoint"));
-
-        int scriptsCount = scriptService.getScripts(condition).size();
 
         Integer pageNo = Integer.valueOf(inputCondition.get("pageNo")) * 10;
 
         condition.put("pageNo", (pageNo.toString()));
 
         List<Script> scripts = scriptService.getScripts(condition);
-
         List<Measure> scriptMeasure = new ArrayList<Measure>();
-
-        Script firstScript = scripts.get(0);
-
+        int scriptStartNo = 0;
         Measure measure = new Measure();
-
-        String conditionMeasureName = inputCondition.get("measureName") != null ?
-                inputCondition.get("measureName").trim()
+        String conditionMeasureName = inputCondition.get("measureName") != null
+                ? inputCondition.get("measureName").trim()
                 : "";
 
-        int scriptStartNo = 0;
-        if ("0".equals((pageNo.toString()))) {
-            if (distributeCount > 0) {
-                if ((measureInfo.getName()).indexOf(conditionMeasureName) != -1
-                        || "".equals(conditionMeasureName)) {
-                    measure.setStatus("N");
-                    measure.setName(measureInfo.getName());
-                    scriptMeasure.add(measure);
-                    scriptStartNo = 1;
-                }
+        if (scripts.isEmpty()) {
+            scripts =  new ArrayList<Script>();
+        } else {
+            Script firstScript = scripts.get(0);
 
-            } else {
-                measure.setScriptNo(firstScript.getNo());
-
-                List<Measure> measures = measureService.getMeasures(measure);
-
-                if ((measures.get(0).getName()).indexOf(conditionMeasureName) != -1
-                        || "".equals(conditionMeasureName)) {
-                    measure.setName(measures.get(0).getName());
-                    if (measure.getName() != null) {
-                        measure.setStatus("Y");
-
+            if ("0".equals((pageNo.toString()))) {
+                if (distributeCount > 0) {
+                    if ((measureInfo.getName()).indexOf(conditionMeasureName) != -1
+                            || "".equals(conditionMeasureName)) {
+                        measure.setStatus("N");
+                        measure.setName(measureInfo.getName());
                         scriptMeasure.add(measure);
                         scriptStartNo = 1;
+                    }
+
+                } else {
+                    measure.setScriptNo(firstScript.getNo());
+
+                    List<Measure> measures = measureService.getMeasures(measure);
+
+                    if ((measures.get(0).getName()).indexOf(conditionMeasureName) != -1
+                            || "".equals(conditionMeasureName)) {
+                        measure.setName(measures.get(0).getName());
+                        if (measure.getName() != null) {
+                            measure.setStatus("Y");
+
+                            scriptMeasure.add(measure);
+                            scriptStartNo = 1;
+                        }
                     }
                 }
             }
         }
-
         for (int i = scriptStartNo; i < scripts.size(); i++) {
             Script object = scripts.get(i);
 
@@ -133,8 +132,6 @@ public class ScriptController {
             measure.setName(conditionMeasureName);
 
             List<Measure> measures = measureService.getMeasures(measure);
-
-            logger.debug("결과 : " + scripts.get(i) + measures);
 
             if (measures.isEmpty()) {
                 scripts.remove(i--);
@@ -146,8 +143,6 @@ public class ScriptController {
             }
         }
 
-        Map<String, Object> result = new HashMap<>();
-
         result.put("scripts", scripts);
         result.put("scriptMeasure", scriptMeasure);
 
@@ -157,7 +152,7 @@ public class ScriptController {
             result.put("addButton", "Y");
         }
 
-        String navigatorHtml = navigator.getNavigator(scriptsCount, pageNo / 10);
+        String navigatorHtml = navigator.getNavigator(scripts.size(), pageNo / 10);
         result.put("navigator", navigatorHtml);
 
         return result;
@@ -351,12 +346,10 @@ public class ScriptController {
                 while (true) {
                     if (measureInfo.getScriptNo() == -1) {
                         Thread.sleep(1000);
-
                     } else {
                         break;
                     }
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
             }

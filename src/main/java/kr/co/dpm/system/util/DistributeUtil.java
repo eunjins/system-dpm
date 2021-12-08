@@ -82,7 +82,7 @@ public class DistributeUtil implements Runnable {
                 measureRepository.insert(measure);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.debug("배포 실패");
         }
     }
 

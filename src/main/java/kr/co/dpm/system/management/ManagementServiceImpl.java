@@ -26,7 +26,9 @@ import java.util.concurrent.Executors;
 
 @Service
 public class ManagementServiceImpl implements ManagementService {
-    @Value("${path}")
+    private static final Logger logger = LogManager.getLogger(ManagementServiceImpl.class);
+
+    @Value("${scriptPath}")
     private String path;
 
     @Autowired
@@ -56,7 +58,15 @@ public class ManagementServiceImpl implements ManagementService {
 
     @Override
     public boolean distributeScript(List<Device> devices, MultipartFile classFile, Measure measure) throws Exception {
+        File directory = new File(path);
+        if (!directory.isDirectory()) {
+            directory.mkdir();
+        }
+
         File convertFile = new File(path + File.separator + classFile.getOriginalFilename());
+
+        logger.debug("파일 경로" + convertFile.getPath());
+        logger.debug("파일 이름" + convertFile.getName());
 
         FileOutputStream fileOutputStream = new FileOutputStream(convertFile);
         fileOutputStream.write(classFile.getBytes());
