@@ -33,7 +33,7 @@ public class ScriptController {
     private static final Logger logger = LogManager.getLogger(ScriptController.class);
     public static int distributeCount;
 
-    @Value("${path}")
+    @Value("${scriptPath}")
     private String path;
 
     @Value("${excelPath}")

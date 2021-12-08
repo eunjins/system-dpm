@@ -23,7 +23,7 @@ public class AttachServiceImpl implements AttachService {
         return attachRepository.selectAll(attach);
     }
 
-    @Value("${path}")
+    @Value("${scriptPath}")
     private String path;
 
     @Override
