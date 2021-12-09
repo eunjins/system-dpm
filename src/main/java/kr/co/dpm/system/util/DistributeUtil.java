@@ -57,24 +57,28 @@ public class DistributeUtil implements Runnable {
                 synchronized (this) {
                     ScriptController.distributeCount ++;
                 }
-            } else {
-                Measure measure = new Measure();
-                if (this.measure.getScriptNo() == -1) {
-                    Thread.sleep(4000);
-                }
-
-                measure.setScriptNo(this.measure.getScriptNo());
-                measure.setName(this.measure.getName());
-                measure.setDistributeStatus("N");
-                measure.setStatus("N");
-                measure.setExecTime(0);
-                measure.setDeviceId(device.getId());
-                measure.setDeviceName(device.getName());
-
-                measureRepository.insert(measure);
             }
         } catch (Exception e) {
-            logger.error("                        DISTRIBUTE FAIL");
+            logger.error("                        DISTRIBUTE FAIL : " + e.getMessage());
+
+            Measure measure = new Measure();
+            if (this.measure.getScriptNo() == -1) {
+                try {
+                    Thread.sleep(4000);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            }
+
+            measure.setScriptNo(this.measure.getScriptNo());
+            measure.setName(this.measure.getName());
+            measure.setDistributeStatus("N");
+            measure.setStatus("N");
+            measure.setExecTime(0);
+            measure.setDeviceId(device.getId());
+            measure.setDeviceName(device.getName());
+
+            measureRepository.insert(measure);
         }
     }
 

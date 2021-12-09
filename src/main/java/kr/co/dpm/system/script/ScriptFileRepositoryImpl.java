@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
+import java.io.IOException;
 
 @Repository
 public class ScriptFileRepositoryImpl implements ScriptFileRepository {
@@ -25,35 +26,29 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
 
     @Override
     public boolean distribute(File classFile, String encryptResult, String ip) throws Exception {
-        try {
-            String requestUrl = http + ip + port + url;
+        String requestUrl = http + ip + port + url;
 
-            OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient();
 
-            RequestBody requestBody = new MultipartBody.Builder()
-                    .setType(MultipartBody.FORM)
-                    .addFormDataPart("encryptId", encryptResult)
-                    .addFormDataPart("scriptFile", classFile.getName()
-                            , RequestBody.create(MULTIPART, classFile)).build();
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("encryptId", encryptResult)
+                .addFormDataPart("scriptFile", classFile.getName()
+                        , RequestBody.create(MULTIPART, classFile)).build();
 
-            Request request = new Request.Builder()
-                    .url(requestUrl)
-                    .post(requestBody)
-                    .build();
+        Request request = new Request.Builder()
+                .url(requestUrl)
+                .post(requestBody)
+                .build();
 
-            Response response = client.newCall(request).execute();
+        Response response = client.newCall(request).execute();
 
-            ResponseBody responseBody = response.body();
-            JSONObject jsonResponse = new JSONObject(responseBody.string());
-            if ("200".equals(jsonResponse.getString("code"))) {
-                return true;
-            }
-
-            logger.error("                           DISTRIBUTE ERROR   :   " + jsonResponse.getString("message")                );
-        } catch (Exception e) {
-            logger.error("                           DISCONNECT                                 ");
+        ResponseBody responseBody = response.body();
+        JSONObject jsonResponse = new JSONObject(responseBody.string());
+        if ("200".equals(jsonResponse.getString("code"))) {
+            throw new IOException(jsonResponse.getString("message"));
         }
 
-        return false;
+        return true;
     }
 }
