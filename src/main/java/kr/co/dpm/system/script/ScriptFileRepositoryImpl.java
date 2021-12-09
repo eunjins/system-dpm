@@ -25,7 +25,7 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
     private String url;
 
     @Override
-    public boolean distribute(File classFile, String encryptResult, String ip) {
+    public boolean distribute(File classFile, String encryptResult, String ip) throws Exception {
         try {
             String requestUrl = http + ip + port + url;
 
@@ -51,10 +51,9 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
             }
 
             logger.error("      DISTRIBUTE ERROR   :   " + jsonResponse.getString("message")                );
-        } catch (ConnectException e) {
-            logger.debug("                           DISCONNECT                                 ");
         } catch (Exception e) {
             logger.debug("                           DISCONNECT                                 ");
+            throw e;
         }
 
         return false;

@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @RestController
 @RequestMapping("/devices")
 public class DeviceController {
@@ -81,6 +82,7 @@ public class DeviceController {
     @PutMapping("/{id}")
     public ModelAndView editDevice(Device device) {
         ModelAndView mav = null;
+
         if (deviceService.getDevice(device) == null) {
             mav = new ModelAndView(new RedirectView("/devices"));
 
@@ -91,7 +93,7 @@ public class DeviceController {
         try {
             deviceService.editDevice(device);
         } catch (Exception e) {
-            logger.error("                   OVERLAP NAME ERROR                    ");
+            logger.error("                   OVERLAP NAME ERROR : " + e.getMessage());
         }
 
         mav = new ModelAndView(new RedirectView("/devices/" + device.getId()));

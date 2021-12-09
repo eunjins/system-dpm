@@ -57,10 +57,8 @@ public class DistributeUtil implements Runnable {
                 synchronized (this) {
                     ScriptController.distributeCount ++;
                 }
-
             } else {
                 Measure measure = new Measure();
-
                 if (this.measure.getScriptNo() == -1) {
                     Thread.sleep(4000);
                 }
@@ -76,7 +74,7 @@ public class DistributeUtil implements Runnable {
                 measureRepository.insert(measure);
             }
         } catch (Exception e) {
-            logger.debug("                        DISTRIBUTE FAIL                                ");
+            logger.debug("                        DISTRIBUTE FAIL : " + e.getMessage() + "             ");
         }
     }
 
