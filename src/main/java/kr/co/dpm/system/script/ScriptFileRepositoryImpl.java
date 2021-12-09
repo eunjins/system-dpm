@@ -45,7 +45,7 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
 
         ResponseBody responseBody = response.body();
         JSONObject jsonResponse = new JSONObject(responseBody.string());
-        if ("200".equals(jsonResponse.getString("code"))) {
+        if (!"200".equals(jsonResponse.getString("code"))) {
             throw new IOException(jsonResponse.getString("message"));
         }
 
