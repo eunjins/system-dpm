@@ -74,7 +74,7 @@ public class DistributeUtil implements Runnable {
                 measureRepository.insert(measure);
             }
         } catch (Exception e) {
-            logger.debug("                        DISTRIBUTE FAIL : " + e.getMessage() + "             ");
+            logger.error("                        DISTRIBUTE FAIL");
         }
     }
 

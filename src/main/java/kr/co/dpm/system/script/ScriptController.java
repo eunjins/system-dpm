@@ -169,7 +169,7 @@ public class ScriptController {
                         mav.addObject("distributeFail", "배포된 디바이스가 없습니다");
                     }
                 } catch (Exception e) {
-                    logger.error(e.getMessage());
+                    e.printStackTrace();
                 }
             } else {
                 mav = new ModelAndView("script/register");

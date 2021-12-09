@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
-import java.net.ConnectException;
 
 @Repository
 public class ScriptFileRepositoryImpl implements ScriptFileRepository {
@@ -50,10 +49,9 @@ public class ScriptFileRepositoryImpl implements ScriptFileRepository {
                 return true;
             }
 
-            logger.error("      DISTRIBUTE ERROR   :   " + jsonResponse.getString("message")                );
+            logger.error("                           DISTRIBUTE ERROR   :   " + jsonResponse.getString("message")                );
         } catch (Exception e) {
-            logger.debug("                           DISCONNECT                                 ");
-            throw e;
+            logger.error("                           DISCONNECT                                 ");
         }
 
         return false;

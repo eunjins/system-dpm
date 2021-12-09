@@ -1,6 +1,5 @@
 package kr.co.dpm.system.access;
 
-import kr.co.dpm.system.device.DeviceController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class AccessController {
     private static final Logger logger = LogManager.getLogger(AccessController.class);
+
     @Autowired
     AccessService accessService;
 
