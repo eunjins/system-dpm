@@ -104,7 +104,7 @@ public class DeviceController {
     @PostMapping("/data")
     public Map<String, String> receiveDevice(
             @RequestBody Device device, HttpServletResponse httpServletResponse) {
-        logger.info("                   SUCCESSFUL RECEIVE DEVICE INFORMATION                ");
+        logger.info("                   SUCCESSFUL RECEIVE DEVICE INFORMATION               ");
         logger.info("      Device ID   :   " + device.getId()                                );
         logger.info("      Host Name   :   " + device.getHostName()                          );
         logger.info("      IP Address  :   " + device.getIpAddress()                         );

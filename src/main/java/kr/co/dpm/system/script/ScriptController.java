@@ -95,23 +95,21 @@ public class ScriptController {
         List<Measure> scriptMeasure = new ArrayList<>();
 
         for (int i = 0; i < scripts.size(); i++) {
-            Script object = scripts.get(i);
+            Script script = scripts.get(i);
 
             Measure measure = new Measure();
-            measure.setScriptNo(object.getNo());
+            measure.setScriptNo(script.getNo());
 
             List<Measure> measures = measureService.getMeasures(measure);
 
-            if (object.getNo() == measureInfo.getScriptNo() && distributeCount > 0) {
+            if (script.getNo() == measureInfo.getScriptNo() && distributeCount > 0) {
                 measure.setStatus("N");
                 measure.setName(measureInfo.getName());
-                scriptMeasure.add(measure);
-
             } else {
                 measure.setName(measures.get(0).getName());
                 measure.setStatus("Y");
-                scriptMeasure.add(measure);
             }
+            scriptMeasure.add(measure);
         }
 
         result.put("scripts", scripts);
@@ -186,6 +184,8 @@ public class ScriptController {
 
         if (script.getNo() < 1) {
             mav = new ModelAndView(new RedirectView("/scripts"));
+
+            logger.error("           THERE IS NOT SCRIPT OF NO            ");
         }
 
         mav.addObject("script", scriptService.getScript(script));
@@ -286,7 +286,7 @@ public class ScriptController {
     }
 
     @PostMapping(value = "/result")
-    public Map<String, String> receiveScript(
+    public Map<String, String> receiveMeasure(
             @RequestBody Measure measure, HttpServletResponse httpServletResponse) {
         Map<String, String> responseData = new HashMap<>();
 
@@ -294,11 +294,7 @@ public class ScriptController {
         String message = statusCode.getStatusRepository().get(code);
 
         responseData.put("code", String.valueOf(code));
-        if (message != null) {
-            responseData.put("message", message);
-        } else {
-            responseData.put("message", null);
-        }
+        responseData.put("message", message);
 
         if (measure.getDeviceId() != null) {
             measure.setName(measureInfo.getName());
@@ -325,10 +321,10 @@ public class ScriptController {
                 measureService.registerMeasure(measure);
                 int leftDevice =  --distributeCount;
                 logger.info("                    SUCCESSFUL RECEIVE MEASURE !                       ");
-                logger.info("                    RUNNING DEVICES ARE " + leftDevice                  );
+                logger.info("                    RUNNING DEVICES :  " + leftDevice                   );
                 logger.info("                                                                       ");
             } else {
-                logger.error("                   OVERLAP DEVICE INFORMATION ERROR                    ");
+                logger.error("                   OVERLAP DEVICE INFORMATION ERROR                   ");
             }
         } else {
             responseData.put("message", "수신 데이터가 존재하지 않습니다.");
