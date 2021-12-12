@@ -13,5 +13,4 @@
         <typeAlias alias="script" type="kr.co.dpm.system.script.Script"/>
         <typeAlias alias="measure" type="kr.co.dpm.system.measure.Measure"/>
     </typeAliases>
-
 </configuration>
