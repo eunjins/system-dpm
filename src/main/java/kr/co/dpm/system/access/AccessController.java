@@ -1,20 +1,22 @@
 package kr.co.dpm.system.access;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 @Controller
 public class AccessController {
+    private static final Logger logger = LogManager.getLogger(AccessController.class);
+
     @Autowired
-    UserRepository userRepository;
+    AccessService accessService;
 
     @GetMapping("/login")
     public ModelAndView login() {
@@ -22,20 +24,20 @@ public class AccessController {
     }
 
     @PostMapping("/login")
-    public ModelAndView login(@Valid User user, Errors errors, HttpSession httpSession) {
+    public ModelAndView login(User user, HttpSession httpSession) {
         ModelAndView mav = null;
+        User userInfo = null;
 
-        if (errors.hasErrors()) {
-            mav = new ModelAndView("access/login");
-
-            errors.reject("user", "로그인 정보를 입력하세요.");
-            return mav;
+        try {
+            userInfo = accessService.getManager();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
         }
 
-        User userInfo = userRepository.select();
         if (user.getId().equals(userInfo.getId())
                 && user.getPassword().equals(userInfo.getPassword())) {
             httpSession.setAttribute("log", user.getId());
+
             mav = new ModelAndView(new RedirectView("/devices"));
         } else {
             mav = new ModelAndView("access/login");
