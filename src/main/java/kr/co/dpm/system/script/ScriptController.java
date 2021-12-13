@@ -1,5 +1,6 @@
 package kr.co.dpm.system.script;
 
+import kr.co.dpm.system.util.StatusCode;
 import kr.co.dpm.system.device.Device;
 import kr.co.dpm.system.device.DeviceService;
 import kr.co.dpm.system.management.ManagementService;
@@ -7,12 +8,12 @@ import kr.co.dpm.system.measure.Measure;
 import kr.co.dpm.system.measure.MeasureService;
 import kr.co.dpm.system.util.ExcelUtil;
 import kr.co.dpm.system.util.Navigator;
-import kr.co.dpm.system.util.StatusCode;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,12 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.OutputStream;
-import java.util.ArrayList;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/scripts")
@@ -61,11 +61,6 @@ public class ScriptController {
 
     @Autowired
     private StatusCode statusCode;
-
-    @GetMapping("/test")
-    public ModelAndView test() {
-        return new ModelAndView("test");
-    }
 
     @GetMapping
     public ModelAndView getScripts() {
