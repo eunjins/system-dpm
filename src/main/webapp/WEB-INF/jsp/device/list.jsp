@@ -3,21 +3,13 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <!doctype html>
 <html lang="en">
 
-<head">
-    <meta charset="utf-8"/>
-    <title>디바이스 성능 측정 통합 시스템</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description"/>
-    <meta content="Themesbrand" name="author"/>
-
+<head>
     <!-- jquery.vectormap css -->
     <link href="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
           type="text/css"/>
-
     <link href="/assets/css/style.css" type="text/css"/>
 
     <jsp:include page="/WEB-INF/jsp/common/top.jsp"/>
@@ -35,9 +27,7 @@
         <!-- Start right Content here -->
         <!-- ============================================================== -->
         <div class="main-content">
-
             <div class="page-content">
-
                 <!-- start page title -->
                 <div class="row">
                     <div class="col-12">
@@ -46,12 +36,9 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-sm-12 col-md-5">
-                        <div class="dataTables_length" id="datatable_length"><label><select id="select_status"
-                                name="datatable_length" aria-controls="datatable"
-                                class="custom-select form-control form-select">
+                        <div class="dataTables_length" id="datatable_length"><label><select id="select_status" name="datatable_length" aria-controls="datatable" class="custom-select form-control form-select">
                             <option value="">전체</option>
                             <option value="Y">활성화</option>
                             <option value="N">비활성화</option>
@@ -59,21 +46,19 @@
                     </div>
                     <div class="col-sm-12 col-md-7" style="text-align: right">
                         <label>
-                        <select id="select_condition" name="datatable_type" aria-controls="datatable"
-                                class="custom-select form-control form-select">
-                            <option value="measureName">디바이스 명</option>
-                            <option value="insertDate">등록 일자</option>
-                        </select>
+                            <select id="select_condition" name="datatable_type" aria-controls="datatable"
+                                    class="custom-select form-control form-select">
+                                <option value="measureName">디바이스 명</option>
+                                <option value="insertDate">등록 일자</option>
+                            </select>
                         </label>
-
-                        <%--                        <div id="datatable_filter" class="dataTables_filter">--%>
                         <label id="search_bar">
                             <input id="search_message" type="search" class="form-control" placeholder="검색어를 입력하세요"
                                    aria-controls="datatable" style="text-align: left">
                         </label>
-                        <button id="button_search" type="button" class="btn btn-default btn-primary waves-effect waves-light">검색
+                        <button id="button_search" type="button"
+                                class="btn btn-default btn-primary waves-effect waves-light">검색
                         </button>
-                        <%--                        </div>--%>
                     </div>
                 </div>
                 <!-- end page title -->
@@ -81,9 +66,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-
                                 <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <table id="datatable"
@@ -125,66 +108,20 @@
                                                     </th>
                                                 </tr>
                                                 </thead>
-
                                                 <tbody id="table">
-
                                                 </tbody>
-
                                             </table>
                                         </div>
                                     </div>
-
                                     <div class="row">
-                                    <div class="col-sm-12 col-md-12">
-                                        <div class="dataTables_paginate paging_simple_numbers"
-                                             id="datatable_paginate">
-                                            <ul class="pagination justify-content-center" id="pageNo">
-                                                <li class="paginate_button page-item previous disabled"
-                                                    id="datatable_previous"><a id="backPage"
-                                                                               href="#"
-                                                                               aria-controls="datatable"
-                                                                               data-dt-idx="0" tabindex="0"
-                                                                               class="page-link"
-                                                                               onclick="changePage(this.id)">&lt;</a>
-                                                </li>
-                                                <li class="paginate_button page-item active"><a href="#"
-                                                                                                aria-controls="datatable"
-                                                                                                data-dt-idx="1"
-                                                                                                tabindex="0"
-                                                                                                class="page-link">1</a>
-                                                </li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                                                          aria-controls="datatable"
-                                                                                          data-dt-idx="2"
-                                                                                          tabindex="0"
-                                                                                          class="page-link">2</a>
-                                                </li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                                                          aria-controls="datatable"
-                                                                                          data-dt-idx="3"
-                                                                                          tabindex="0"
-                                                                                          class="page-link">3</a>
-                                                </li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                                                          aria-controls="datatable"
-                                                                                          data-dt-idx="4"
-                                                                                          tabindex="0"
-                                                                                          class="page-link">4</a>
-                                                </li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                                                          aria-controls="datatable"
-                                                                                          data-dt-idx="5"
-                                                                                          tabindex="0"
-                                                                                          class="page-link">5</a>
-                                                </li>
-                                                <li class="paginate_button page-item next" id="datatable_next">
-                                                    <a id="nextPage" onclick="changePage(this.id)"
-                                                       href="#" aria-controls="datatable" data-dt-idx="6"
-                                                       tabindex="0" class="page-link">&gt;</a></li>
-                                            </ul>
+                                        <div class="col-sm-12 col-md-12">
+                                            <div class="dataTables_paginate paging_simple_numbers"
+                                                 id="datatable_paginate">
+                                                <ul class="pagination justify-content-center" id="pageNo">
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 </div>
 
                             </div>
@@ -195,42 +132,34 @@
                 <!-- end row -->
             </div>
             <!-- End Page-content -->
-
         </div>
         <!-- end main content-->
-
     </div>
     <!-- END layout-wrapper -->
-
 </div>
 <!-- end container-fluid -->
-
 <!-- JAVASCRIPT -->
+<jsp:include page="/WEB-INF/jsp/common/bottom.jsp"/>
 <!-- JAVASCRIPT -->
 <script>
-    var allDeviceNo;
     var pageNo = 0;
+    var allDeviceNo;
 
     search();
 
+    document.getElementById("button_search").addEventListener("click", initPage, false);
+    document.getElementById("select_status").addEventListener("change", initPage, false);
     document.getElementById("button_search").addEventListener("click", search, false);
     document.getElementById("select_status").addEventListener("change", search, false);
     document.getElementById("select_condition").addEventListener("change", condition, false);
 
+    function initPage() {
+        pageNo = 0;
+    }
+
     function changePage(pageButtonId) {
-        if (pageButtonId == "backPage") {
-            if ((parseInt(pageNo / 5) * 5) - 5 >= 0) {
-                pageNo = (parseInt(pageNo / 5) * 5) - 5;
-            }
+        pageNo = parseInt(pageButtonId);
 
-        } else if (pageButtonId == "nextPage") {
-            if ((parseInt(pageNo / 5) * 5) + 5 <= (parseInt(allDeviceNo / 10))) {
-                pageNo = (parseInt(pageNo / 5) * 5) + 5;
-            }
-
-        } else {
-            pageNo = parseInt(pageButtonId);
-        }
         search();
     }
 
@@ -254,12 +183,21 @@
         } else if (selectStatus == "N") {
             status = "N";
         }
+
         let searchKeyword = "";
         const selectCondition = document.getElementById("select_condition").value;
         if (selectCondition == "measureName") {
-            searchKeyword = {"name": document.getElementById("search_message").value, "status": status};
+            searchKeyword = {
+                "name": document.getElementById("search_message").value.trim(),
+                "status": status,
+                "pageNo": pageNo
+            };
         } else {
-            searchKeyword = {"insertDate": document.getElementById("search_message").value, "status": status};
+            searchKeyword = {
+                "insertDate": document.getElementById("search_message").value,
+                "status": status,
+                "pageNo": pageNo
+            };
         }
 
         $.ajax({
@@ -274,76 +212,34 @@
     }
 
     function drawTable(responseJSON) {
-        allDeviceNo = responseJSON.length;
+        let devices = responseJSON.devices;
+        allDeviceNo = responseJSON.devices.length;
 
-        let text = "";
-
-        let endDeviceNo;
-
-        if (allDeviceNo - (pageNo * 10) < 10) {
-            endDeviceNo = allDeviceNo;
-        } else {
-            endDeviceNo = ((pageNo + 1) * 10);
-        }
-
-        for (let i = pageNo * 10; i < endDeviceNo; i++) {
-            text +=
+        let tableHtml = "";
+        for (let i = 0; i < allDeviceNo; i++) {
+            tableHtml +=
                 '<tr class="odd">' +
-                '<td style="">' + (i + 1) + '</td>' +
-                '<td style="text-align: left"><a href="${contextPath}/devices/' + responseJSON[i].id + '">' + responseJSON[i].name +'</a>' +
+                '<td style="">' + (i + (pageNo * 10) + 1) + '</td>' +
+                '<td style="text-align: left"><a href="${contextPath}/devices/' + devices[i].id + '">' + devices[i].name + '</a>' +
                 '</td>' +
-                '<td style="text-align: left">' + responseJSON[i].hostName + '</td>' +
-                '<td style="">' + responseJSON[i].insertDate + '</td>' +
-                '<td style="text-align: left">' + responseJSON[i].jdkVersion + '</td>' +
+                '<td style="text-align: left">' + devices[i].hostName + '</td>' +
+                '<td style="">' + devices[i].insertDate + '</td>' +
+                '<td style="text-align: left">' + devices[i].jdkVersion + '</td>' +
                 '<td style="">';
-                if ("Y" == responseJSON[i].status) {
-                    text += '활성화';
-                } else {
-                    text += '비활성화';
-                }
-                text += '</td>' +
+            if ("Y" == devices[i].status) {
+                tableHtml += '활성화';
+            } else {
+                tableHtml += '비활성화';
+            }
+            tableHtml += '</td>' +
                 '</tr>';
         }
         const table = document.getElementById("table");
-        table.innerHTML = text;
-
-        let endPageNo;
-        if ((parseInt(allDeviceNo / 10)) < (parseInt(pageNo / 5) * 5) + 5) {
-            endPageNo = ((parseInt(allDeviceNo / 10))) + 1;
-        } else {
-            endPageNo = (parseInt(pageNo / 5) * 5) + 5;
-        }
-
-        let pageNoHtml = "";
-
-        pageNoHtml += '<li class="paginate_button page-item previous"' +
-            'id="datatable_previous"><a id="backPage"' +
-            'href="#" ' +
-            'aria-controls="datatable"' +
-            'data-dt-idx="0" tabindex="0"' +
-            'class="page-link" onclick="changePage(this.id)">&lt;</a></li>';
-
-        let count = 1;
-        for (let i = (parseInt(pageNo / 5) * 5); i < endPageNo; i++) {
-            if (pageNo == i) {
-                pageNoHtml += '<li class="paginate_button page-item active"><a id="' + (i) + '" href="#" onclick="changePage(i)"';
-            } else {
-                pageNoHtml += '<li class="paginate_button page-item "><a href="#" onclick="changePage(' + i + ')"';
-            }
-
-            pageNoHtml += 'aria-controls="datatable"' +
-                'data-dt-idx="' + (count++) + '"' +
-                'tabindex="0"' +
-                'class="page-link" onclick="changePage(this.id)" >' + (i + 1) + '</a>';
-        }
-        pageNoHtml += '<li class="paginate_button page-item next" id="datatable_next">' +
-            '<a id="nextPage" onclick="changePage(this.id)"' +
-            'href="#" aria-controls="datatable" data-dt-idx="' + (count) + '"' +
-            'tabindex="0" class="page-link" >&gt;</a></li>'
+        table.innerHTML = tableHtml;
 
         let pageTable = document.getElementById("pageNo");
 
-        pageTable.innerHTML = pageNoHtml;
+        pageTable.innerHTML = responseJSON.navigator;
     }
 </script>
 

@@ -1,12 +1,11 @@
 package kr.co.dpm.system.device;
 
-import kr.co.dpm.system.common.ResponseMessage;
-import kr.co.dpm.system.common.StatusCode;
-import kr.co.dpm.system.management.ManagementServiceImpl;
+import kr.co.dpm.system.util.StatusCode;
+import kr.co.dpm.system.management.ManagementService;
+import kr.co.dpm.system.util.Navigator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -17,94 +16,116 @@ import java.util.List;
 import java.util.Map;
 
 
-@Controller
+@RestController
 @RequestMapping("/devices")
 public class DeviceController {
     private static final Logger logger = LogManager.getLogger(DeviceController.class);
 
     @Autowired
-    private DeviceServiceImpl deviceService;
-
-    @Autowired
-    private ManagementServiceImpl managementService;
-
-    @Autowired
-    private ResponseMessage responseMessage;
-
-    @Autowired
     private StatusCode statusCode;
 
-    /* 디바이스 목록 폼 */
+    @Autowired
+    private DeviceService deviceService;
+
+    @Autowired
+    private ManagementService managementService;
+
+    @Autowired
+    private Navigator navigator;
+
     @GetMapping
     public ModelAndView getDevices() {
         ModelAndView mav = new ModelAndView("device/list");
-        mav.addObject("devices", deviceService.getDevices(new Device()));
 
         return mav;
     }
 
-    /* 디바이스 목록 조회 */
     @PostMapping
-    @ResponseBody
-    public List<Device> getDevices(@RequestBody Device device) {
-        return deviceService.getDevices(device);
+    public Map<String, Object> getDevices(@RequestBody Map<String, String> inputCondition) {
+        Map<String, String> condition = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+
+        condition.put("name", inputCondition.get("name"));
+        condition.put("insertDate", inputCondition.get("insertDate"));
+        condition.put("status", inputCondition.get("status"));
+
+        int deviceCount = deviceService.getDevices(condition).size();
+
+        Integer pageNo = Integer.valueOf(inputCondition.get("pageNo"));
+        condition.put("pageNo", String.valueOf(pageNo * 10));
+
+        List<Device> devices = deviceService.getDevices(condition);
+        result.put("devices", devices);
+
+        String navigatorHtml = navigator.getNavigator(deviceCount, pageNo);
+        result.put("navigator", navigatorHtml);
+
+        return result;
     }
 
-    /* 디바이스 상세 조회 */
-    @GetMapping({"/{id}"})
+    @GetMapping("/{id}")
     public ModelAndView getDevice(Device device) {
         ModelAndView mav = new ModelAndView("device/view");
-
         mav.addObject("device", deviceService.getDevice(device));
 
         return mav;
     }
 
-    /* 디바이스 수정 폼 */
     @GetMapping("/{id}/form")
     public ModelAndView editDeviceForm(Device device) {
         ModelAndView mav = new ModelAndView("device/edit");
-
         mav.addObject("device", deviceService.getDevice(device));
 
         return mav;
     }
 
-    /* 디바이스 수정 */
     @PutMapping("/{id}")
     public ModelAndView editDevice(Device device) {
-        deviceService.editDevice(device);
+        ModelAndView mav = null;
 
-        return new ModelAndView(new RedirectView("/devices/" + device.getId()));
+        if (deviceService.getDevice(device) == null) {
+            mav = new ModelAndView(new RedirectView("/devices"));
+
+            return mav;
+        }
+
+        device.setName((device.getName()).trim());
+        try {
+            deviceService.editDevice(device);
+        } catch (Exception e) {
+            logger.error("                   OVERLAP NAME ERROR : " + e.getMessage());
+        }
+
+        mav = new ModelAndView(new RedirectView("/devices/" + device.getId()));
+
+        return mav;
     }
 
-    /* 디바이스 정보 수신 */
     @PostMapping("/data")
-    @ResponseBody
     public Map<String, String> receiveDevice(
             @RequestBody Device device, HttpServletResponse httpServletResponse) {
-        logger.debug("-------> 디바이스 정보 수신" + device.toString());
-        Map<String, String> responseData = new HashMap<>();
-
-        Map<Integer, String> statusRepository = new HashMap<>();
-        statusRepository.put(statusCode.NOT_MODIFIED, responseMessage.NOT_MODIFIED_MSG);
-        statusRepository.put(statusCode.BAD_REQUEST, responseMessage.BAD_REQUEST_MSG);
-        statusRepository.put(statusCode.NOT_FOUND, responseMessage.NOT_FOUND_MSG);
-        statusRepository.put(statusCode.INTERNAL_SERVER_ERROR, responseMessage.INTERNAL_SERVER_ERROR_MSG);
+        logger.info("                   SUCCESSFUL RECEIVE DEVICE INFORMATION               ");
+        logger.info("      Device ID   :   " + device.getId()                                );
+        logger.info("      Host Name   :   " + device.getHostName()                          );
+        logger.info("      IP Address  :   " + device.getIpAddress()                         );
+        logger.info("      JDK Version :   " + device.getJdkVersion()                        );
+        logger.info("                                                                       ");
 
         int code = httpServletResponse.getStatus();
-        String message = statusRepository.get(code);
+        String message = statusCode.getStatusRepository().get(code);
 
+        Map<String, String> responseData = new HashMap<>();
+        responseData.put("code", String.valueOf(code));
         if (message != null) {
-            responseData.put("code", String.valueOf(code));
             responseData.put("message", message);
         } else {
-            responseData.put("code", String.valueOf(code));
             responseData.put("message", null);
         }
 
-        if (device.getId() != null && device.getHostName() != null
-                && device.getIpAddress() != null && device.getJdkVersion() != null) {
+        if (device.getId() != null
+                && device.getHostName() != null
+                && device.getIpAddress() != null
+                && device.getJdkVersion() != null) {
             managementService.receiveDevice(device);
         } else {
             responseData.put("message", "수신 데이터가 존재하지 않습니다.");

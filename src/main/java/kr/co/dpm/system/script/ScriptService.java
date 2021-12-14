@@ -3,10 +3,11 @@ package kr.co.dpm.system.script;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface ScriptService {
-    public List<Script> getScripts(Script script);
+    public List<Script> getScripts(Map<String, String> condition);
 
     public Script getScript(Script script);
 

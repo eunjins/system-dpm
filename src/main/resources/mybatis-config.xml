@@ -2,20 +2,26 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!-- Local -->
+        <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+            <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="url" value="jdbc:mysql://localhost:3306/DPM?useSSL=false&amp;serverTimezone=UTC"/>
+            <property name="username" value="mybatis"/>
+            <property name="password" value="mybatis$"/>
+        </bean>
+    <!-- /Local -->
 
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-        <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/DPM?useSSL=false&amp;serverTimezone=UTC"/>
-        <property name="username" value="mybatis"/>
-        <property name="password" value="mybatis$"/>
-    </bean>
+    <!-- Hosting -->
+<!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">-->
+<!--        <property name="driverClass" value="com.mysql.jdbc.Driver"/>-->
+<!--        <property name="url" value="jdbc:mysql://localhost:3306/dpmsystem?serverTimezone=UTC"/>-->
+<!--        <property name="username" value="dpmsystem"/>-->
+<!--        <property name="password" value="mybatis!!"/>-->
+<!--    </bean>-->
+    <!-- /Hosting -->
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
@@ -35,6 +41,7 @@
     <bean id="mapperScannerConfigurer"
           class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="kr.co.dpm.system"/>
+        <property name="annotationClass" value="org.apache.ibatis.annotations.Mapper" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 </beans>

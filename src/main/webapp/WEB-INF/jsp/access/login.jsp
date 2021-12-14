@@ -2,9 +2,8 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
-
     <jsp:include page="/WEB-INF/jsp/common/top.jsp"/>
 
 </head>
@@ -14,35 +13,32 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6 col-xl-5">
-                <div class="card overflow-hidden">
+                <div class="card overflow-hidden" style="border: 2px ridge whitesmoke">
                     <div class="bg-login text-center">
                         <div class="bg-login-overlay"></div>
                         <div class="position-relative">
-                            <h5 class="text-white font-size-20">Welcome Back !</h5>
-                            <p class="text-white-50 mb-0">Sign in to continue to DPM-SYSTEM.</p>
+                            <h5 class="text-white" style="font-size: x-large;">디바이스 성능 측정 통합 시스템</h5>
                         </div>
                     </div>
                     <div class="card-body pt-5">
-                        <div class="p-2">
+                        <div class="p-2"
+                             style="margin-top: 7%;">
                             <form name="loginForm" class="form-horizontal" action="/login" method="POST">
-
                                 <div class="mb-3">
-<%--                                    <label class="form-label" for="id">아이디</label>--%>
                                     <input type="text" class="form-control" id="id" name="id"
-                                           placeholder="아이디">
+                                           style="font-size: large;" placeholder="아이디">
                                 </div>
 
                                 <div class="mb-3">
-<%--                                    <label class="form-label" for="password">비밀번호</label>--%>
                                     <input type="password" class="form-control" id="password" name="password"
-                                           placeholder="비밀번호">
+                                           style="font-size: large" placeholder="비밀번호">
                                 </div><br/>
 
-                                <div id="checkLogIn" style="color: blue"></div>
+                                <div class="mb-3" id="checkLogIn" style="color: blue"></div>
 
                                 <div class="mt-3">
                                     <button class="btn btn-default btn-primary w-100 waves-effect waves-light"
-                                            type="button" onclick="login()">
+                                            style="font-size: large" type="button" onclick="login()">
                                         로그인</button>
                                 </div>
                             </form>
@@ -56,6 +52,8 @@
 </div>
 
 <!-- JAVASCRIPT -->
+<jsp:include page="/WEB-INF/jsp/common/bottom.jsp"/>
+
 <script>
     var missMatch = document.getElementById("checkLogIn").innerHTML = "${missMatch}";
 
@@ -67,8 +65,8 @@
         };
         console.log(loginInfo);
 
-        if (loginInfo.id == null && loginInfo.password == null
-            || loginInfo.id == "" && loginInfo.password == "") {
+        if (loginInfo.id == null || loginInfo.password == null
+            || loginInfo.id == "" || loginInfo.password == "") {
             document.getElementById("checkLogIn").innerHTML = "로그인 정보를 입력하세요";
         } else {
             loginInfo.loginForm.submit();

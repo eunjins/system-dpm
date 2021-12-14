@@ -1,9 +1,13 @@
 package kr.co.dpm.system.device;
 
-import java.util.List;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
+@Service
 public interface DeviceService {
-    public List<Device> getDevices(Device device);
+    public List<Device> getDevices(Map<String, String> condition);
 
     public Device getDevice(Device device);
 

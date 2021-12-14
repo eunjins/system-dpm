@@ -3,30 +3,24 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <!doctype html>
 <html lang="en">
 
 <head>
     <jsp:include page="/WEB-INF/jsp/common/top.jsp"/>
-
     <!-- DataTables -->
     <link href="/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
     <link href="/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
           type="text/css">
-
     <!-- Responsive datatable examples -->
     <link href="/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet"
           type="text/css">
-
     <!-- NanumSquare -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
-
 </head>
 
 <body data-layout="horizontal" data-layout-size="boxed"
       style="font-family: 'NanumSquare'; font-size: medium; font-weigth: bold">
-
 <div class="container-fluid">
     <!-- Begin page -->
     <div id="layout-wrapper">
@@ -35,9 +29,7 @@
         <!-- Start right Content here -->
         <!-- ============================================================== -->
         <div class="main-content">
-
             <div class="page-content">
-
                 <!-- start page title -->
                 <div class="row">
                     <div class="col-12">
@@ -47,7 +39,6 @@
                     </div>
                 </div>
                 <!-- end page title -->
-
                 <!-- start row -->
                 <div class="row">
                     <div class="col-xl-12">
@@ -86,7 +77,7 @@
                                         <c:when test="${attach.division eq 'S'}">
                                             <div class="mb-3 row">
                                                 <div class="col-md-6">
-                                                    <label class="col-md-4 col-form-label" style="padding-left: 30px"">
+                                                    <label class="col-md-4 col-form-label" style="padding-left: 30px">
                                                         소스 파일
                                                     </label>
                                                     <label class="col-md-6 col-form-label">
@@ -110,7 +101,7 @@
                                                     <a href="${contextPath}/scripts/excel/${script.no}">
                                                         <button type="button"
                                                                 class="btn btn-default btn-primary waves-effect waves-light"
-                                                                style="float: right"><span>엑셀 다운로드</span>
+                                                                style="float: right; margin-right: 10px"><span>엑셀 다운로드</span>
                                                         </button>
                                                     </a>
                                                 </div>
@@ -118,27 +109,14 @@
                                         </c:when>
                                     </c:choose>
                                 </c:forEach>
-<%--                                <div class="row">--%>
-<%--                                    <div class="col-sm-6 col-md-6">--%>
-<%--                                        <label style="font-size: x-large; color: black; padding-left: 5px"></label>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="col-sm-6 col-md-6">--%>
-<%--                                        <a href="${contextPath}/scripts/excel/${script.no}">--%>
-<%--                                            <button type="button"--%>
-<%--                                                    class="btn btn-default btn-primary waves-effect waves-light"--%>
-<%--                                                    style="float: right"><span>엑셀 다운로드</span>--%>
-<%--                                            </button>--%>
-<%--                                        </a>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
                                 <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                     <div class="row">
                                         <div class="col-sm-12" style="padding-top: 10px;">
                                             <table
-                                                   class="table table-striped table-bordered dt-responsive nowrap no-footer dtr-inline"
-                                                   style="border-collapse: collapse; border-spacing: 0px; width: 100%; text-align: center; outline-style: solid;
-                                                    outline-width: thin";
-                                                   role="grid" aria-describedby="datatable_info">
+                                                    class="table table-striped table-bordered dt-responsive nowrap no-footer dtr-inline"
+                                                    style="border-collapse: collapse; border-spacing: 0px; width: 100%; text-align: center; outline-style: solid;
+                                                    outline-width: thin" ;
+                                                    role="grid" aria-describedby="datatable_info">
                                                 <thead>
                                                 <tr role="row" bgcolor="#4169e1" style="color: #FFFFFF">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="datatable"
@@ -161,9 +139,7 @@
                                                     </th>
                                                 </tr>
                                                 </thead>
-
                                                 <tbody id="measureList">
-
                                                 </tbody>
                                             </table>
                                         </div>
@@ -195,17 +171,15 @@
                     <!-- end row -->
                 </div>
                 <!-- End Page-content -->
-
             </div>
             <!-- end main content-->
         </div>
     </div>
     <!-- END layout-wrapper -->
-
 </div>
 <!-- end container-fluid -->
-
-
+<!-- JAVASCRIPT -->
+<jsp:include page="/WEB-INF/jsp/common/bottom.jsp"/>
 <!-- Buttons examples -->
 <script src="/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 <script src="/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
@@ -218,26 +192,24 @@
 <!-- Responsive examples -->
 <script src="/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 <script src="/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
-
 <!-- Datatable init js -->
 <script src="/assets/js/pages/datatables.init.js"></script>
-
-
 <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
 <script type="text/javascript"
         src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
-<script type="text/javascript"
-        src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.gammel.js"></script>
 <script type="text/javascript">
     var deviceNames = [];
     var execTimes = [];
 
     const chartData = [
         <c:forEach items="${measures}" var="measure" varStatus="object">
-        {
-            "label": "${measure.deviceName}",
-            "value": "${measure.execTime}"
-        },
+            <c:if test="${measure.distributeStatus eq 'Y'}">
+            {
+                "label": "${measure.deviceName}",
+                "value": "${measure.execTime}",
+                "color": "#" + Math.floor(Math.random() * 16777215).toString(16)
+            },
+            </c:if>
         </c:forEach>
     ];
 
@@ -264,13 +236,24 @@
 </script>
 <script type="text/javascript">
     let measureList = document.getElementById("measureList");
-    measureList.innerHTML = '<c:forEach items="${measures}" var="measure" varStatus="object">' +
-        '<tr class="odd">' +
+    let listHtml = "";
+    <c:forEach items="${measures}" var="measure" varStatus="object">
+    listHtml += '<tr class="odd">' +
         '<td class="dtr-control sorting_1" tabindex="0" style="text-align: center">${object.count}</td>' +
-        '<td style="text-align: left">${measure.deviceName}</td>' +
-        '<td id=execTime style="text-align:right">' + Number(${measure.execTime}).toLocaleString('en') + '</td>' +
-        ' </tr>' +
-        '</c:forEach>'
+        '<td style="text-align: left">${measure.deviceName}</td>';
+        <c:if test="${measure.distributeStatus eq 'N'}">
+            listHtml += '<td id=execTime style="text-align:right">' + '배포 실패' + '</td>' + '</tr>';
+        </c:if>
+        <c:if test="${measure.distributeStatus eq 'Y' && measure.status eq 'N'}">
+            listHtml += '<td id=execTime style="text-align:right">' + '측정 실패' + '</td>' + '</tr>';
+        </c:if>
+        <c:if test="${measure.status eq 'Y' && measure.distributeStatus eq 'Y'}">
+            listHtml += '<td id=execTime style="text-align:right">' + Number(${measure.execTime}).toLocaleString('en') + '</td>' + '</tr>';
+        </c:if>
+    </c:forEach>
+
+    measureList.innerHTML = listHtml;
+
 </script>
 
 </body>

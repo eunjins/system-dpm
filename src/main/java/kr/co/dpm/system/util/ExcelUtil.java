@@ -1,41 +1,35 @@
 package kr.co.dpm.system.util;
 
 import kr.co.dpm.system.device.Device;
-import kr.co.dpm.system.device.DeviceServiceImpl;
+import kr.co.dpm.system.device.DeviceService;
 import kr.co.dpm.system.measure.Measure;
-import kr.co.dpm.system.measure.MeasureServiceImpl;
+import kr.co.dpm.system.measure.MeasureService;
 import kr.co.dpm.system.script.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
 public class ExcelUtil {
-    private static final Logger logger = LogManager.getLogger(ScriptController.class);
-
     @Value("${excelPath}")
     private String excelPath;
 
     @Autowired
-    private MeasureServiceImpl measureService;
+    private MeasureService measureService;
 
     @Autowired
-    private DeviceServiceImpl deviceService;
+    private DeviceService deviceService;
 
-    /* 엑셀 생성 */
-    public File createExcel(Script script) {
+    public File createExcel(Script script) throws IOException {
         List<Measure> measures =
                 measureService.getMeasures(new Measure(script.getNo()));
 
@@ -44,31 +38,36 @@ public class ExcelUtil {
         XSSFSheet sheet = workbook.createSheet(measures.get(0).getName());
 
         sheet.setColumnWidth(0, 1400);
-        sheet.setColumnWidth(1, 6000);
+        sheet.setColumnWidth(1, 8000);
         sheet.setColumnWidth(2, 4000);
 
         XSSFCellStyle centerStyle = workbook.createCellStyle();
         centerStyle.setAlignment(HorizontalAlignment.CENTER);
-        centerStyle.setBorderLeft(BorderStyle.THICK);
-        centerStyle.setBorderRight(BorderStyle.THICK);
+        centerStyle.setBorderLeft(BorderStyle.MEDIUM);
+        centerStyle.setBorderRight(BorderStyle.MEDIUM);
 
         XSSFCellStyle title = workbook.createCellStyle();
         title.setAlignment(HorizontalAlignment.CENTER);
 
         title.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
         title.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        title.setBorderTop(BorderStyle.THICK);
-        title.setBorderRight(BorderStyle.THICK);
-        title.setBorderLeft(BorderStyle.THICK);
-        title.setBorderBottom(BorderStyle.THICK);
+        title.setBorderTop(BorderStyle.MEDIUM);
+        title.setBorderLeft(BorderStyle.MEDIUM);
+        title.setBorderRight(BorderStyle.MEDIUM);
+        title.setBorderBottom(BorderStyle.MEDIUM);
 
         XSSFCellStyle rowStyle = workbook.createCellStyle();
-        rowStyle.setBorderLeft(BorderStyle.THICK);
-        rowStyle.setBorderRight(BorderStyle.THICK);
+        rowStyle.setBorderLeft(BorderStyle.MEDIUM);
+        rowStyle.setBorderRight(BorderStyle.MEDIUM);
+
+        XSSFCellStyle noStyle = workbook.createCellStyle();
+        noStyle.setBorderLeft(BorderStyle.MEDIUM);
+        noStyle.setBorderRight(BorderStyle.MEDIUM);
+        XSSFDataFormat dataFormat = (XSSFDataFormat) workbook.createDataFormat();
+        noStyle.setDataFormat(dataFormat.getFormat("#,###0"));
 
         XSSFCellStyle bottomStyle = workbook.createCellStyle();
-        bottomStyle.setBorderTop(BorderStyle.THICK);
-
+        bottomStyle.setBorderTop(BorderStyle.MEDIUM);
 
         XSSFRow row = sheet.createRow(1);
         Cell cell = row.createCell(1);
@@ -118,18 +117,25 @@ public class ExcelUtil {
                     new Device(measures.get(i).getDeviceId()));
             measures.get(i).setDeviceName(device.getName());
 
-            // Row에 Cell 생성
             Cell noCell = row.createCell(0);
-            noCell.setCellValue(i + 1);  // 번호
+            noCell.setCellValue(i + 1);
             noCell.setCellStyle(centerStyle);
 
-            Cell deviceCell = row.createCell(1);    // 디바이스 명
+            Cell deviceCell = row.createCell(1);
             deviceCell.setCellValue(measures.get(i).getDeviceName());
             deviceCell.setCellStyle(rowStyle);
 
-            Cell execTimeCell = row.createCell(2); // 실행 시간
-            execTimeCell.setCellValue(measures.get(i).getExecTime());
-            execTimeCell.setCellStyle(rowStyle);
+            Cell execTimeCell = row.createCell(2);
+            if ("N".equals(measures.get(i).getDistributeStatus())) {
+                execTimeCell.setCellValue("배포 실패");
+                execTimeCell.setCellStyle(centerStyle);
+            } else if ("N".equals(measures.get(i).getStatus())) {
+                execTimeCell.setCellValue("측정 실패");
+                execTimeCell.setCellStyle(centerStyle);
+            } else  {
+                execTimeCell.setCellValue(measures.get(i).getExecTime());
+                execTimeCell.setCellStyle(noStyle);
+            }
         }
 
         row = sheet.createRow(i + 5);
@@ -137,31 +143,35 @@ public class ExcelUtil {
         row.createCell(1).setCellStyle(bottomStyle);
         row.createCell(2).setCellStyle(bottomStyle);
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDate localDate = LocalDate.parse(script.getUploadPoint(), formatter);
+        String date = localDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        String fileName = measures.get(0).getName() + "_" + date + ".xlsx";
+
+        File directory = new File(excelPath);
+        if (!directory.isDirectory()) {
+            directory.mkdir();
+        }
+
         FileOutputStream fileOutputStream = null;
-        String fileName = null;
-
         try {
-            fileName = measures.get(0).getName() + "_" +
-                    LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) + ".xlsx";
-
-            fileOutputStream = new FileOutputStream(
-                    excelPath + File.separator + fileName);
+            fileOutputStream = new FileOutputStream(excelPath + File.separator + fileName);
             workbook.write(fileOutputStream);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         } finally {
             try {
                 fileOutputStream.close();
             } catch (Exception e) {
                 e.printStackTrace();
+                throw e;
             }
         }
 
         return new File(excelPath + File.separator + fileName);
     }
 
-    /* 엑셀 삭제 */
-    public void deleteExcel(String fileName) {
+    public void deleteExcel(String fileName) throws IOException {
         File file = new File(excelPath + File.separator + fileName);
         file.delete();
     }

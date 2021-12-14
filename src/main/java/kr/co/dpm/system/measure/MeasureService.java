@@ -1,6 +1,5 @@
 package kr.co.dpm.system.measure;
 
-import kr.co.dpm.system.measure.Measure;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
