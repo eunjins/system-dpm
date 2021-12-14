@@ -104,12 +104,11 @@ public class DeviceController {
     @PostMapping("/data")
     public Map<String, String> receiveDevice(
             @RequestBody Device device, HttpServletResponse httpServletResponse) {
-        logger.info("                   SUCCESSFUL RECEIVE DEVICE INFORMATION               ");
-        logger.info("      Device ID   :   " + device.getId()                                );
-        logger.info("      Host Name   :   " + device.getHostName()                          );
-        logger.info("      IP Address  :   " + device.getIpAddress()                         );
-        logger.info("      JDK Version :   " + device.getJdkVersion()                        );
-        logger.info("                                                                       ");
+        logger.info("                   SUCCESSFUL RECEIVE DEVICE INFORMATION");
+        logger.info("      Device ID   :   " + device.getId());
+        logger.info("      Host Name   :   " + device.getHostName());
+        logger.info("      IP Address  :   " + device.getIpAddress());
+        logger.info("      JDK Version :   " + device.getJdkVersion());
 
         int code = httpServletResponse.getStatus();
         String message = statusCode.getStatusRepository().get(code);
@@ -126,7 +125,11 @@ public class DeviceController {
                 && device.getHostName() != null
                 && device.getIpAddress() != null
                 && device.getJdkVersion() != null) {
-            managementService.receiveDevice(device);
+            if (deviceService.getDevice(device) != null) {
+                deviceService.editDevice(device);
+            } else {
+                deviceService.registerDevice(device);
+            }
         } else {
             responseData.put("message", "수신 데이터가 존재하지 않습니다.");
         }

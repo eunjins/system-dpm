@@ -71,17 +71,4 @@ public class Device implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    @Override
-    public String toString() {
-        return "Device{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", hostName='" + hostName + '\'' +
-                ", ipAddress='" + ipAddress + '\'' +
-                ", insertDate='" + insertDate + '\'' +
-                ", jdkVersion='" + jdkVersion + '\'' +
-                ", status='" + status + '\'' +
-                '}';
-    }
 }

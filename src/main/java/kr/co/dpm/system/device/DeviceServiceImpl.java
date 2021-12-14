@@ -3,6 +3,7 @@ package kr.co.dpm.system.device;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,10 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public void registerDevice(Device device) {
+        String nowDate = String.valueOf(LocalDate.now());
+        device.setName(device.getId());
+        device.setInsertDate(nowDate);
+
         deviceRepository.insert(device);
     }
 

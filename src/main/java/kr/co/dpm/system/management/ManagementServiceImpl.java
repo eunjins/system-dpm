@@ -38,21 +38,6 @@ public class  ManagementServiceImpl implements ManagementService {
     private ScriptFileRepository scriptFileRepository;
 
     @Override
-    public void receiveDevice(Device device) {
-        device.setId(device.getId());
-
-        if (deviceRepository.select(device) != null) {
-            deviceRepository.update(device);
-        } else {
-            String nowDate = String.valueOf(LocalDate.now());
-            device.setName(device.getId());
-            device.setInsertDate(nowDate);
-
-            deviceRepository.insert(device);
-        }
-    }
-
-    @Override
     public boolean distributeScript(List<Device> devices, MultipartFile classFile, Measure measure) throws Exception {
         File directory = new File(path);
         if (!directory.isDirectory()) {

@@ -9,7 +9,5 @@ import java.util.List;
 
 @Service
 public interface ManagementService {
-    public void receiveDevice(Device device);
-
     public boolean distributeScript(List<Device> devices, MultipartFile classFile, Measure measure) throws Exception;
 }
