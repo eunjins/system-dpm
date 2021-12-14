@@ -1,7 +1,6 @@
 package kr.co.dpm.system.management;
 
 import kr.co.dpm.system.device.Device;
-import kr.co.dpm.system.device.DeviceRepository;
 import kr.co.dpm.system.measure.Measure;
 import kr.co.dpm.system.measure.MeasureRepository;
 import kr.co.dpm.system.script.ScriptController;
@@ -16,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -27,9 +25,6 @@ public class  ManagementServiceImpl implements ManagementService {
 
     @Value("${scriptPath}")
     private String path;
-
-    @Autowired
-    private DeviceRepository deviceRepository;
 
     @Autowired
     private MeasureRepository measureRepository;
