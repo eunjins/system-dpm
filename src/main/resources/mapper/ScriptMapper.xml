@@ -7,10 +7,9 @@
     <select id="selectAll"
             parameterType="Map"
             resultType="script">
-        SELECT
-        NO
-        , NAME
-        , UPLOAD_POINT
+        SELECT NO
+             , NAME
+             , UPLOAD_POINT
         FROM SCRIPT
         <where>
             <if test="name != null and name != ''">
@@ -32,10 +31,9 @@
     <select id="select"
             parameterType="script"
             resultType="script">
-        SELECT
-        NO
-        , NAME
-        , UPLOAD_POINT
+        SELECT NO
+             , NAME
+             , UPLOAD_POINT
         FROM SCRIPT
         <where>
             <if test="no > 0">
@@ -48,9 +46,9 @@
     <insert id="insert"
             parameterType="script">
         INSERT INTO SCRIPT
-        (NAME, UPLOAD_POINT)
+            (NAME, UPLOAD_POINT)
         VALUES
-        (#{name}, #{uploadPoint})
+            (#{name}, #{uploadPoint})
         <selectKey keyProperty="no" resultType="int" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>

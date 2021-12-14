@@ -7,16 +7,15 @@
     <select id="selectAll"
             parameterType="measure"
             resultType="measure">
-        SELECT
-            NO
-            , MEASURE.NAME
-            , DEVICE_ID
-            , SCRIPT_NO
-            , EXEC_TIME
-            , MEASURE.STATUS
-            , DISTRIBUTE_STATUS
-            FROM MEASURE INNER JOIN DEVICE
-            ON MEASURE.DEVICE_ID = DEVICE.ID
+        SELECT NO
+             , MEASURE.NAME
+             , DEVICE_ID
+             , SCRIPT_NO
+             , EXEC_TIME
+             , MEASURE.STATUS
+             , DISTRIBUTE_STATUS
+        FROM MEASURE INNER JOIN DEVICE
+        ON MEASURE.DEVICE_ID = DEVICE.ID
         <where>
             <if test="scriptNo > 0">
                 AND SCRIPT_NO = #{scriptNo}
@@ -31,14 +30,13 @@
     <select id="select"
             parameterType="measure"
             resultType="measure">
-        SELECT
-        NO
-        , NAME
-        , DEVICE_ID
-        , SCRIPT_NO
-        , EXEC_TIME
-        , STATUS
-        , DISTRIBUTE_STATUS
+        SELECT NO
+             , NAME
+             , DEVICE_ID
+             , SCRIPT_NO
+             , EXEC_TIME
+             , STATUS
+             , DISTRIBUTE_STATUS
         FROM MEASURE
         <where>
             <if test="no > 0">
